@@ -44,4 +44,4 @@
 	git push origin :<branch-name>
 ###7. Merge branch
 	git checkout master
-	git merger -no-ff <branch-name>
+	git merge --ff <branch-name>
