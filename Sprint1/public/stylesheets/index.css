@@ -1,0 +1,81 @@
+@charset "UTF-8";
+/* CSS Document for global_stream.html */
+body {
+	padding-top:10px;
+	background-image: url("../images/background.jpg");
+}
+#medium {
+	margin-top:2px;
+}
+#post-board {
+	position: relative;
+	color: #004986;
+	margin-top: 10px;
+	text-align: left;
+	background-image: url("../images/backpost.jpg");
+	padding: 20px 20px 20px;
+	height:150px;
+	border-radius:5px;
+	box-shadow:2px 2px 4px #BEBCBC;
+}
+#prompt {
+	color:black;
+	margin-top:-15px;
+}
+p {
+	color:red;
+}
+#post-btn {
+	margin-top:5px;
+	height:28px;
+}
+#focusedInput {
+	height:70px;
+	resize:none;
+}
+/* Main Content (dashboard) */
+/* Left */
+#leftcontent {
+	height:420px;
+	padding-top:10px;
+}
+#stream-list {
+	position:relative;
+    background-image: url("../images/bg.jpg");
+	border-radius:10px;
+	box-shadow:2px 2px 4px #BEBCBC;
+	height:400px;
+    overflow: scroll;
+}
+.grumblr-box {
+	position:relative;
+	left:15px;
+	width:95%;
+	margin-top:10px;
+}
+
+#rightcontent {
+    height:420px;
+    padding-top:10px;
+}
+#sidebar {
+    position:relative;
+    background-image: url("../images/bg.jpg");
+    border-radius:10px;
+    box-shadow:2px 2px 4px #BEBCBC;
+    height:400px;
+    overflow: scroll;
+}
+.line {
+    width:100%;
+    height:1px;
+    background-color:#D5D5D5;
+    overflow:hidden;
+    margin-top:30px;
+}
+#history {
+    position:relative;
+    margin-top:10px;
+    margin-left:10px;
+    margin-right:10px;
+}

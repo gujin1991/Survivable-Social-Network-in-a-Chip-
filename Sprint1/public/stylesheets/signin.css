@@ -1,0 +1,17 @@
+@charset "UTF-8";
+/* CSS Document for login.html */
+body {
+	background-image: url("../images/background.jpg");
+}
+#wrapper {
+	padding-top: 100px;
+}
+
+#login-form {
+	position: relative;
+	color: #004986;
+	margin-top:60px;
+	text-align: left;
+	padding: 20px 20px 20px;
+    margin-left:10%;
+}

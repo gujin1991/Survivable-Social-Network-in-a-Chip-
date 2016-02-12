@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>index</title>
+    <script src="http://192.168.1.1:3001/socket.io/socket.io.js"></script>
+    <!-- CSS from Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS from designer -->
+    <link rel="stylesheet" href="stylesheets/index.css">
+</head>
+
+<body>
+
+	<div id="content" class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <img src="images/welcome.png" alt="logo">
+        </div>
+        <div id="leftcontent" class="col-md-7 col-md-offset-1">
+            <div id="stream-list">
+                <div class="msg grumblr-box">
+                </div>
+            </div>
+        </div>
+        
+        <div id="rightcontent" class="col-md-3">
+            <div id="sidebar">
+                <div id="history">
+                    <strong>Current User:  <span id = "myname"><%=username%></span></strong>
+                    <div style="float: right;">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="logout()">Log out</button>
+                    </div>
+                    <div class="line"></div>
+                    
+                    <strong>System Message</strong>
+                    <div class="msg-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="medium" class="row">
+        <div id="left" class="col-md-8 col-md-offset-2">
+            <div id="post-board">
+                <p id="prompt"><strong>Send a new Message</strong></p>
+                <form>
+                    <textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>
+                    <button id="post-btn" type="button" class="btn btn-danger pull-right">Send</button>
+                </form>
+             </div>
+        </div>
+	</div>    
+    <!-- Bootstrap core JavaScript (used for button dropdown)-->
+    <script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/chat.js"></script>
+</body>
+</html>
