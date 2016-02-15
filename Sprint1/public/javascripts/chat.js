@@ -5,7 +5,7 @@ var content = $('.msg');
 // Post New message
 $('#post-btn').on('click', function(e) {
 	var text = $('#focusedInput').val();
-    username = $('#myname').text();
+    username = $('#myname').val();
 	var obj = {'username': '', 'text':'', 'time':''};
 	if(text ==="") {
 		console.log("Empty!");
@@ -35,7 +35,7 @@ $.get('/getHistory', function(data){
 
 // Display user login information
 socket.on('connect', function () {
-    socket.emit('login',$("#myname").text());
+    socket.emit('login',$("#myname").val());
 });
 
 // Display system message

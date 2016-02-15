@@ -2,17 +2,20 @@
 /* CSS Document for global_stream.html */
 body {
 	padding-top:10px;
-	background-image: url("../images/background.jpg");
+	/*background-image: url("../images/background.jpg");*/
 }
 #medium {
 	margin-top:2px;
 }
 #post-board {
 	position: relative;
+	top:51px;
 	color: #004986;
 	margin-top: 10px;
 	text-align: left;
-	background-image: url("../images/backpost.jpg");
+	/*background-image: url("../images/backpost.jpg");*/
+	background-color: #f5f5f5;
+	border-left: 1px solid #eee;
 	padding: 20px 20px 20px;
 	height:150px;
 	border-radius:5px;
@@ -41,7 +44,11 @@ p {
 }
 #stream-list {
 	position:relative;
-    background-image: url("../images/bg.jpg");
+	top: 51px;
+	/*bottom: 0;*/
+    /*background-image: url("../images/bg.jpg");*/
+	background-color: #f5f5f5;
+	border-left: 1px solid #eee;
 	border-radius:10px;
 	box-shadow:2px 2px 4px #BEBCBC;
 	height:400px;
@@ -60,7 +67,11 @@ p {
 }
 #sidebar {
     position:relative;
-    background-image: url("../images/bg.jpg");
+	top: 51px;
+	bottom: 0;
+    /*background-image: url("../images/bg.jpg");*/
+	background-color: #f5f5f5;
+	border-left: 1px solid #eee;
     border-radius:10px;
     box-shadow:2px 2px 4px #BEBCBC;
     height:400px;
@@ -71,7 +82,8 @@ p {
     height:1px;
     background-color:#D5D5D5;
     overflow:hidden;
-    margin-top:30px;
+    margin-top:10px;
+	margin-bottom:15px;
 }
 #history {
     position:relative;
