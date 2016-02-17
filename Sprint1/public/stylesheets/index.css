@@ -1,58 +1,57 @@
 @charset "UTF-8";
-/* CSS Document for global_stream.html */
 body {
-	padding-top:10px;
-	/*background-image: url("../images/background.jpg");*/
+	background: url("../images/HomeBG-sm.jpg") no-repeat center top scroll;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	font-family: "Lato", sans-serif;
+	/*padding-bottom: 50%;*/
 }
-#medium {
-	margin-top:2px;
+
+#content {
+	margin-top: 51px;
+	padding-bottom: 10px;
+	/*background-color: rgba(191, 191, 191, 0.4);*/
+	/*height: 100%;*/
 }
-#post-board {
-	position: relative;
-	top:51px;
-	color: #004986;
-	margin-top: 10px;
-	text-align: left;
-	/*background-image: url("../images/backpost.jpg");*/
-	background-color: #f5f5f5;
-	border-left: 1px solid #eee;
-	padding: 20px 20px 20px;
-	height:150px;
-	border-radius:5px;
-	box-shadow:2px 2px 4px #BEBCBC;
+
+.container-custom {
+	background: rgba(191, 191, 191, 0.2);
+	/*height: 100%;*/
 }
-#prompt {
-	color:black;
-	margin-top:-15px;
-}
-p {
-	color:red;
-}
-#post-btn {
-	margin-top:5px;
-	height:28px;
-}
-#focusedInput {
-	height:70px;
-	resize:none;
-}
-/* Main Content (dashboard) */
+
 /* Left */
 #leftcontent {
-	height:570px;
+	/*height:570px;*/
+	height: 100%;
 	padding-top:10px;
+	/*padding: 20px;*/
 }
+
+.main {
+	position: relative;
+	bottom: 0;
+	/*left: 0;*/
+	z-index: 1000;
+	display: block;
+	padding: 20px;
+	/*overflow-x: hidden;*/
+	/*overflow-y: auto; !* Scrollable contents if viewport is shorter than content. *!*/
+	/*background-color: #f5f5f5;*/
+	/*border-right: 1px solid #eee;*/
+	/*border-radius:5px;*/
+	/*box-shadow:2px 2px 4px #BEBCBC;*/
+}
+
+
 #stream-list {
-	position:relative;
-	top: 51px;
-	/*bottom: 0;*/
-    /*background-image: url("../images/bg.jpg");*/
 	background-color: #f5f5f5;
 	border-left: 1px solid #eee;
 	border-radius:5px;
 	box-shadow:2px 2px 4px #BEBCBC;
-	height:400px;
-    overflow: scroll;
+	max-height:400px;
+	overflow: scroll;
 }
 .grumblr-box {
 	position:relative;
@@ -60,23 +59,45 @@ p {
 	width:95%;
 	margin-top:10px;
 }
-
-#rightcontent {
-    height:570px;
-    padding-top:10px;
+#post-board {
+	margin-top: 10px;
+	text-align: left;
+	background-color: #f5f5f5;
+	border-left: 1px solid #eee;
+	padding: 20px 20px 20px;
+	height:150px;
+	/*height: 40%;*/
+	border-radius:5px;
+	box-shadow:2px 2px 4px #BEBCBC;
 }
-/*#sidebar {*/
-    /*position:relative;*/
-	/*top: 51px;*/
-	/*bottom: 10px;*/
-    /*!*background-image: url("../images/bg.jpg");*!*/
-	/*background-color: #f5f5f5;*/
-	/*border-left: 1px solid #eee;*/
-    /*border-radius:5px;*/
-    /*box-shadow:2px 2px 4px #BEBCBC;*/
-    /*height:560px;*/
-    /*overflow: scroll;*/
-/*}*/
+
+#prompt {
+	color:black;
+	margin-top:-15px;
+}
+
+p {
+	color:red;
+}
+
+#post-btn {
+	margin-top:5px;
+	height:28px;
+}
+
+#focusedInput {
+	height:70px;
+	resize:none;
+}
+/* End of Left Content */
+
+/* Main Content (dashboard) */
+#rightcontent {
+    height:560px;
+    padding-top:10px;
+	margin-top: 10px;
+    /*padding: 20px;*/
+}
 
 .sidebar {
 	display: none;
@@ -84,7 +105,6 @@ p {
 @media (min-width: 768px) {
 	.sidebar {
 		position: relative;
-		top: 51px;
 		bottom: 0;
 		/*left: 0;*/
 		z-index: 1000;
@@ -99,7 +119,6 @@ p {
 	}
 }
 
-
 .line {
     width:100%;
     height:1px;
@@ -108,9 +127,15 @@ p {
     margin-top:10px;
 	margin-bottom:15px;
 }
-#history {
+
+#userList {
     position:relative;
     margin-top:10px;
     margin-left:10px;
     margin-right:10px;
+}
+
+#announcement {
+	margin-top:50px;
+	margin-bottom:5px;
 }
