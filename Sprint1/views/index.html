@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>index</title>
     <script src="http://localhost:3001/socket.io/socket.io.js"></script>
-    <!-- CSS from Bootstrap -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-    <!-- CSS from designer -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/sweetalert.css">
     <link rel="stylesheet" href="stylesheets/index.css">
+    <link rel="stylesheet" href="stylesheets/navbar.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -26,18 +26,17 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Share Status</a></li>
+                    <li><a href="#">Chat Privately</a></li>
                     <li><a href="#">Help</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Change Profile</a></li>
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="#">Change Status</a></li>
                             <li class="divider"></li>
-                            <li><a href="#" onclick="logout()"><strong>Sign out</strong></a></li>
+                            <li><a href="/logout"><strong>Sign out</strong></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -49,71 +48,63 @@
         </div>
     </nav>
 
-	<div id="content" class="container-fluid">
-        <div class="row-fluid">
-            <!--<div class="row">-->
-                <!--<div class="col-md-offset-2 col-md-8">-->
-                    <!--<img src="images/welcome.png" alt="logo">-->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="row">
-                <div id="leftcontent" class="col-md-7 col-md-offset-1 col-sm-9 main">
-                    <div>
-                        <div id="stream-list">
-                            <div class="msg grumblr-box">
-                            </div>
-                        </div>
-                        <div id="medium" >
-                            <div id="left" >
-                                <div id="post-board">
-                                    <p id="prompt"><strong>Send a new Message</strong></p>
-                                    <form>
-                                        <textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>
-                                        <button id="post-btn" type="button" class="btn btn-danger pull-right">Send</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="rightcontent" class="col-md-3 col-sm-3 sidebar">
-                    <div id="sidebar">
-                        <div id="history">
-                            <!--<strong>Current User:  <span id = "myname"><%=username%></span></strong>-->
-                            <!--<div style="float: right;">-->
-                                <!--<button type="button" class="btn btn-primary btn-sm" onclick="logout()">Log out</button>-->
-                            <!--</div>-->
-                            <input type="hidden" id="myname" value="<%=username%>">
-                            <h3>System Message</h3>
-                            <!--<span id = "myname" style="visibility: hidden"><%=username%></span>-->
-                            <div class="line"></div>
-                            <!--<strong>System Message</strong>-->
-
-                            <div class="msg-list"></div>
-                        </div>
+    <div id="announcement">
+        <div class="row">
+            <div class="col-md-12 alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <div class="text-center">
+                    <div class="row"><h4>Welcome</h4></div>
+                    <div class="row">
+                        <b>Welcome to our Surviable Social Network!</b>
+                        <br>Importance you need to know about MEANINGS of status:
+                        <br><b>OK</b>: I am OK, I do not need help.
+                        <br><b>Help</b>: I need help, but this is not a life threatening emergency.
+                        <br><b>Emergency</b>: I need help now, as this is a life threatening emergency!
+                        <br>if you have any suggestions/bug report please send it to us: <a href="mailto:jiyus@andrew.cmu.edu"><b>jiyus@andrew.cmu.edu</b></a>.
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
-    
-    <!--<div id="medium" class="row">-->
-        <!--<div id="left" class="col-md-8 col-md-offset-2">-->
-            <!--<div id="post-board">-->
-                <!--<p id="prompt"><strong>Send a new Message</strong></p>-->
-                <!--<form>-->
-                    <!--<textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>-->
-                    <!--<button id="post-btn" type="button" class="btn btn-danger pull-right">Send</button>-->
-                <!--</form>-->
-             <!--</div>-->
-        <!--</div>-->
-	<!--</div>-->
+
+	<div id="content" class="container-fluid">
+        <div class="row-fluid">
+            <!--<div class="row">-->
+            <!-- left column -- main column -->
+                <div id="leftcontent" class="col-md-7 col-md-offset-1 col-sm-9 main">
+                    <div id="stream-list">
+                        <div class="msg grumblr-box"></div>
+                    </div>
+                    <div id="post-board">
+                        <p id="prompt"><strong>Send a new Message</strong></p>
+                        <form>
+                            <textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>
+                            <button id="post-btn" type="button" class="btn btn-danger pull-right">Send</button>
+                        </form>
+                        <div id="error"></div>
+                    </div>
+                </div>
+                <!-- right column -- sidebar -->
+                <div id="rightcontent" class="col-md-3 col-sm-3 sidebar">
+                    <div id="sidebar">
+                        <div id="userList">
+                            <input type="hidden" id="myname" value="<%=username%>">
+                            <h4>Online Users List</h4>
+                            <div class="line"></div>
+                            <div class="online-list"></div>
+                            <h4>Offline Users List</h4>
+                            <div class="line"></div>
+                            <div class="offline-list"></div>
+                        </div>
+                    </div>
+                </div>
+            <!--</div>-->
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript (used for button dropdown)-->
     <script src="javascripts/jquery.min.js"></script>
 	<script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/sweetalert.min.js"></script>
     <script src="javascripts/chat.js"></script>
 </body>
 </html>
