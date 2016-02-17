@@ -2,17 +2,43 @@ var socket = io.connect();
 var username;
 var content = $('.msg');
 
+// Check if it is a new user
+//jQuery( document ).ready(function( $ ) {
+//
+//});
+
+
+
 // Post New message
 $('#post-btn').on('click', function(e) {
 	var text = $('#focusedInput').val();
     username = $('#myname').val();
-	var obj = {'username': '', 'text':'', 'time':''};
+	var obj = {'userName': '', 'content':'', 'time':''};
 	if(text ==="") {
-		console.log("Empty!");
-		return false;
+		swal({
+			title: "Empty input!",
+			text: "You need to write something!",
+			type: "input",
+			showCancelButton: true,
+			closeOnConfirm: false,
+			animation: "slide-from-top",
+			inputPlaceholder: "Write something"
+		}, function(inputValue){
+			if (inputValue === false) return false;
+			if (inputValue === "") {
+				swal.showInputError("You need to write something!");
+				return false
+			}
+			obj['username'] = username;
+			obj['text'] = inputValue;
+			console.log("client : "+ username +  text);
+			swal.close()
+			socket.emit('send message',obj);
+		});
 	} else {
 		obj['username']=username;
 		obj['text']=text;
+		console.log("client : "+ username +  text);
 		socket.emit('send message',obj);
 		$('#focusedInput').val('');
 		$('#focusedInput').focus();
@@ -21,9 +47,10 @@ $('#post-btn').on('click', function(e) {
 });
 // Display previous messages stored in database
 $.get('/getHistory', function(data){
+
 	for(var i=0; i<data.length; i++) {
 		var message = data[i];
-		var label = '<div style="color:gray"><span><span style="font-style: italic;">' + message.username + '</span> said: <strong>'+ message.text +' </strong> <small class="pull-right">' + message.time + '</small></span></div><br/>';
+		var label = '<div style="color:gray"><span><span style="font-style: italic;">' + message.userName + '</span> said: <strong>'+ message.content +' </strong> <small class="pull-right">' + message.time + '</small></span></div><br/>';
 		var one = $(label);
 		content.append(one);
 	};
@@ -38,19 +65,33 @@ socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 
-// Display system message
-socket.on('system_message', function (time, content) {
-    var msg_list = $(".msg-list");
-    msg_list.append(
-        '<div class="pull-left">' + content + '</div><div class="pull-right"><small>(At ' + time + ')</small></div>');
-	var chat_body = $('.msg-list');
-    var height = chat_body[0].scrollHeight;
-    chat_body.scrollTop(height);
-});
+
+
+
+// Display online user
+//$.get('/getUsers', function(message){
+//	console.log("-----------------online : "+ message.online);
+//	console.log("-----------------offline : "+ message.offline);
+//	var online_list = $(".online-list");
+//	online_list.val('');
+//	var online_users = message.online;
+//	for(var i=0; i<online_users.length; i++) {
+//		var label = '<div style="color:black"><span>' +  online_users[i] + '</span></div><br/>';
+//		var one = $(label);
+//		online_list.append(one);
+//	}
+//	var offline_list = $(".offline-list");
+//	offline_list.val('');
+//	var offline_users = message.offline;
+//	for(var i=0; i<offline_users.length; i++) {
+//		var label = '<div style="color:gray"><span>' +  offline_users[i] + '</span></div><br/>';
+//		var one = $(label);
+//		offline_list.append(one);
+//	}
+//});
 
 // Display the new post message
 socket.on('send message', function(message){
-	console.log(message);
 	var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
     var one = $(label);
 	content.append(one);
@@ -59,10 +100,30 @@ socket.on('send message', function(message){
     var height = chat_body[0].scrollHeight;
     chat_body.scrollTop(height);
 });
-// Log out
-function logout(){
-    window.location.replace(window.location);
-}
+
+//updating the list of online and offline users
+socket.on('updatelist',function(message){
+	console.log("-----------------online : "+ message.online);
+	console.log("-----------------offline : "+ message.offline);
+	var online_list = $(".online-list");
+	online_list.html("");
+	var online_users = message.online;
+	for(var i=0; i<online_users.length; i++) {
+		var label = '<div style="color:black"><span>' +  online_users[i] + '</span></div><br/>';
+		var one = $(label);
+		online_list.append(one);
+	}
+	var offline_list = $(".offline-list");
+	offline_list.html("");
+	var offline_users = message.offline;
+	for(var i=0; i<offline_users.length; i++) {
+		var label = '<div style="color:gray"><span>' +  offline_users[i] + '</span></div><br/>';
+		var one = $(label);
+		offline_list.append(one);
+	}
+});
+
+
 
 //get current time
 function now() {
