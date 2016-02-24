@@ -60,7 +60,15 @@ $signin.on('click', function(e) {
                         confirmButtonText: "OK"
                     });
                     $password.val('');
-                } else if (response.statusCode === 401) {
+               } else if (response.statusCode === 405) {
+                    swal({
+                         title: "Invalid Username and/or Password!",
+                         text: "Password and User not valid! Please re-enter the username or password!",
+                         type: "error",
+                         confirmButtonText: "OK"
+                    });
+                    $password.val('');
+               } else if (response.statusCode === 401) {
                     swal({
                             title: "No user found!",
                             text: "Would you want to create new account?",
