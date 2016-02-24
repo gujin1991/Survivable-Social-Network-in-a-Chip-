@@ -1,0 +1,67 @@
+@charset "UTF-8";
+/* CSS Document for login.html */
+body {
+	background: url("../images/background.jpg") no-repeat center top scroll;
+	background-size: cover;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	font-family: "Lato", sans-serif;
+	/*padding-bottom: 50%;*/
+}
+#wrapper {
+	padding-top: 150px;
+}
+
+.form-signin {
+	max-width: 400px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	color: rgba(0, 0, 0, 0.6);/*#65c6c3;*/
+	background-color: rgba(191, 191, 191, 0.2);
+	border-color: transparent;
+	/*border: 1px solid #e5e5e5;*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.form-signin-heading {
+	margin-bottom: 5px;
+}
+
+.control-group {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.btn-transparent {
+	text-align: center;
+	color: rgba(0, 0, 0, 0.6);
+	background: 0 0;
+	border: 1px solid rgba(0, 0, 0, 0.6);
+	padding: 12px 23px 10px;
+}
+
+.btn-transparent:focus {
+	color: #ffffff;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-transparent:hover {
+	color: #ffffff;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-transparent:active {
+	color: #ffffff;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-rounded {
+	border-radius: 30px;
+}

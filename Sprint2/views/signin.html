@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS from Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/sweetalert.css">
+    <!-- CSS from designer -->
+    <link rel="stylesheet" href="stylesheets/signin.css">
+    <link rel="stylesheet" href="stylesheets/navbar.css">
+    <title>Chatroom Sign-in</title>
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">SSNoC</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">LOGIN</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="#">HELP</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div id="wrapper" class="col-md-6 col-md-offset-3 text-center">
+            <form method="post" class="form-horizontal form-signin">
+                <h3 class="form-signin-heading">Welcome to SSNoC</h3>
+                <hr class="featurette-divider">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Username:  </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Password:  </label>
+                    <div class="col-sm-7">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button type="button" id="signin" class="btn btn-large btn-transparent btn-rounded">Sign In</button>
+                    </div>
+                </div>
+            </form>
+            <div class="error"></div>
+        </div>
+    </div>
+</div>
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/sweetalert.min.js"></script>
+<script src="javascripts/signin.js"></script>
+</body>
+</html>
