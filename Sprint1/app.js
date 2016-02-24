@@ -4,6 +4,10 @@ var http = require('http');
 var ejs = require('ejs');
 var url = require('url');
 
+// TODO: Add all controllers here
+var signInCtl = require('./Controllers/joinCommunity.js');
+var chatPublicly = require('./Controllers/chatPublicly');
+
 //get database
 var userDB = require('./module/userDB.js');
 var userDb = new userDB();
@@ -36,113 +40,54 @@ app.use(function(request, response, next) {
 })
 
 app.get('/', function(req, res){
-    if (!req.session.loggedIn) {
-        res.render('signin');
-    } else {
-        res.render('index', {'username': req.session.username});
-    }
+    signInCtl.directHome(req,res);
 });
 
 app.get('/index', function(req, res){
-    res.redirect('/');
+    signInCtl.direct(req,res);
+
 });
 
 //direct to login page
 app.get('/signin', function(req, res){
-    if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
-    } else {
-        res.render('signin');
-    }
+    signInCtl.directSignin(req,res);
 });
 
 //direct to login page
 app.get('/signup', function(req, res){
-    if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
-    } else {
-        res.render('signup');
-    }
+    signInCtl.directSignup(req,res);
+
 });
 
-app.get('/logout', function(req, res) {
-    var myname = req.session.username;
-    console.log('User ' + myname + " left the room.");
 
-    var index = loggedInUsers.indexOf(myname);
-    if (index > -1) {
-        loggedInUsers.splice(index, 1);
-    }
-
-    console.log(loggedInUsers);
-    req.session.destroy();
-    res.redirect('/');
+app.get('/logout',function(req, res) {
+    signInCtl.logout(req,res,loggedInUsers);
 });
-
 
 // direct to chat page
 app.post('/signin', function(req, res){
-    var username = req.body.username;
-    var password = req.body.password;
-
-    userDb.userAuth(username,password,function(result){
-        console.log(result);
-        if (result == 200){
-            //return success.
-            req.session.username = req.body.username;
-            req.session.loggedIn = true;
-            res.json({"statusCode":200, "message": "success"});
-
-        }else if (result == 401){
-            res.json({"statusCode":401, "message": "No user found"});
-        } else {
-            res.json({"statusCode":403, "message": "Password and User not match"});
-        }
-    });
-
+    signInCtl.checkSignIn(req, res);
 });
 
 app.post('/signup', function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var status = req.body.userstatus;
-    userDb.userAdd(username, password,status,function(result) {
-        if (result == 400) {
-            res.json({"statusCode":400, "message": "User existed"});
-        } else {
-            req.session.username = req.body.username;
-            req.session.loggedIn = true;
-            res.json({"statusCode":200, "message": "Success"});
-        }
-    });
+    signInCtl.register(req, res);
 });
 
-// load the chat history
 app.get('/getHistory', function(req, res) {
-    userDb.getHistory(function(data){
-        //console.log(data);
-        res.json(data);
-    });
+    chatPublicly.getPublicMessages(req,res);
 });
 
-
-app.get('/getUsers', function(req,res){
-    userDb.getOfflineUsers(loggedInUsers,function(offUsers){
-        var offU = [];
-        for (var i = 0 ; i < offUsers.length;i++){
-            offU.push(offUsers[i].userName);
-        }
-        console.log("inside  get user api : loged in  -----" + loggedInUsers + "    logged out ----"+  offU);
-        res.json({"online":loggedInUsers,"offline":offU});
-    });
-
-});
+app.get('/getUsers', chatPublicly.getOfflineUsers);
 
 var server = app.listen(3001,function(){
 	console.log('Listening on port %d',server.address().port);
 });
 
 var io = require('socket.io')(server);
+
+app.post('/sendPublicMessage',function(req,res){
+    chatPublicly.sendPublicMessage(req,res,io);
+});
 
 
 io.on('connection', function(socket) {
@@ -158,33 +103,6 @@ io.on('connection', function(socket) {
         updateList();
     });
 
-
-    //socket.on('get users',function(message){
-    //    message.online(loggedInUsers);
-    //
-    //    userDb.getOfflineUsers(loggedInUsers,function(offUsers){
-    //        var offU = [];
-    //        for (var i = 0 ; i < offUsers.length;i++){
-    //            offU.push(offUsers[i].userName);
-    //        }
-    //        message.offline(offU);
-    //    });
-    //
-    //    io.emit('get users',message);
-    //});
-
-
-    socket.on('send message', function(message) {
-        console.log('message: ' + message);
-        message.time = now();
-
-        userDb.messageAdd(message.username,message.text,message.time,function(callback){
-            if (callback == 200) console.log(message.username,message.text,message.time);
-        });
-        io.emit('send message', message);
-    });
-
-
     socket.on('disconnect',function(data){
         console.log('disconnect : ' + socket.username);
         var index = loggedInUsers.indexOf(socket.username);
@@ -193,6 +111,7 @@ io.on('connection', function(socket) {
         }
         updateList();
     });
+
 
     function updateList(){
         var message  = {};
@@ -212,8 +131,4 @@ io.on('connection', function(socket) {
 });
 
 //get current time
-function now() {
-    var date = new Date();
-    var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
-    return time;
-}
+
