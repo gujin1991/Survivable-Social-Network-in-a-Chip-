@@ -33,13 +33,22 @@ $('#post-btn').on('click', function(e) {
 			obj['text'] = inputValue;
 			console.log("client : "+ username +  text);
 			swal.close()
-			socket.emit('send message',obj);
+			//socket.emit('send message',obj);
+			$.post("/sendPublicMessage",obj,function(){
+
+			});
 		});
 	} else {
 		obj['username']=username;
 		obj['text']=text;
 		console.log("client : "+ username +  text);
-		socket.emit('send message',obj);
+
+		//socket.emit('send message',obj);
+		//call api
+		$.post("/sendPublicMessage",obj,function(){
+
+		});
+
 		$('#focusedInput').val('');
 		$('#focusedInput').focus();
 	}
@@ -47,7 +56,6 @@ $('#post-btn').on('click', function(e) {
 });
 // Display previous messages stored in database
 $.get('/getHistory', function(data){
-
 	for(var i=0; i<data.length; i++) {
 		var message = data[i];
 		var label = '<div style="color:gray"><span><span style="font-style: italic;">' + message.userName + '</span> said: <strong>'+ message.content +' </strong> <small class="pull-right">' + message.time + '</small></span></div><br/>';
@@ -59,6 +67,7 @@ $.get('/getHistory', function(data){
     var height = chat_body[0].scrollHeight;
     chat_body.scrollTop(height);
 });
+
 
 // Display user login information
 socket.on('connect', function () {
@@ -95,10 +104,10 @@ socket.on('send message', function(message){
 	var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
     var one = $(label);
 	content.append(one);
-	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
-	var chat_body = $('#stream-list');
-    var height = chat_body[0].scrollHeight;
-    chat_body.scrollTop(height);
+	//$("html, body").animate({ scrollTop: $(document).height() }, 1000);
+	//var chat_body = $('#stream-list');
+    //var height = chat_body[0].scrollHeight;
+    //chat_body.scrollTop(height);
 });
 
 //updating the list of online and offline users
@@ -123,14 +132,18 @@ socket.on('updatelist',function(message){
 	}
 });
 
-
-
 //get current time
 function now() {
     var date = new Date();
     var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
     return time;
 }
+
+function sendMessage(){
+
+}
+
+
 $('#focusedInput').on("keydown", function(e){
 	if(e.which === 13){
 		$('#post-btn').click();
