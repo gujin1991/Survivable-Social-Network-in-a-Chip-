@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* CSS Document for login.html */
 body {
-	background: url("../images/homeBG-sm.jpg") no-repeat center top scroll;
+	background: url("../images/background.jpg") no-repeat center top scroll;
 	background-size: cover;
 	background-size: cover;
 	-webkit-background-size: cover;
