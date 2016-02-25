@@ -10,8 +10,8 @@ body {
 }
 
 #content {
-	margin-top: 51px;
-	padding-bottom: 10px;
+	/*margin-top: 51px;*/
+	/*padding-bottom: 10px;*/
 	/*background-color: rgba(191, 191, 191, 0.4);*/
 	/*height: 100%;*/
 }
@@ -50,7 +50,8 @@ body {
 	border-left: 1px solid #eee;
 	border-radius:5px;
 	box-shadow:2px 2px 4px #BEBCBC;
-	max-height:400px;
+	/*max-height:3500px;*/
+	height:300px;
 	overflow: scroll;
 }
 .grumblr-box {
