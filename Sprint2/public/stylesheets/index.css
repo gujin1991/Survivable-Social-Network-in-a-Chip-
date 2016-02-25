@@ -21,6 +21,12 @@ body {
 	/*height: 100%;*/
 }
 
+.page-header {
+	padding-bottom: 9px;
+	margin: 40px 0 20px;
+	border-bottom: none;
+}
+
 /* Left */
 #leftcontent {
 	/*height:570px;*/

@@ -36,7 +36,7 @@ function updateStatus(newstatus) {
     console.log(statusContent);
     console.log(logoName);
     $("#status-toggle").empty().append(
-        'Status:<span><img src="../images/icons/' + logoName + '">' + statusContent + '</span><span class="caret"></span>');
+        'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
     //Todo:updateUser List
     //Todo: send to server
 }
