@@ -37,7 +37,7 @@ function updateStatus(newstatus) {
     console.log(logoName);
     username = $('#myname').val();
     var obj = {'username':username,'status':statusContent};
-    $.post("/updateStatus",obj,function(){
+    $.post("/updateStatus",obj,function(response){
         if (response.statusCode === 200) {
             $("#status-toggle").empty().append(
                 'Status:<span><img src="../images/icons/' + logoName + '">' + statusContent + '</span><span class="caret"></span>');
