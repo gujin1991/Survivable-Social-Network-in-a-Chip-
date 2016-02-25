@@ -3,6 +3,7 @@ var UserDb = require('./UserDB.js');
 var directory = new function Directory(){
     this._loggedInUsers = [];
     this.userDb = new UserDb();
+
     this.addLoggedInUsers = function (user) {
         this._loggedInUsers.push(user);
     };
@@ -28,14 +29,6 @@ var directory = new function Directory(){
         var user = this._loggedInUsers[username];
         user.updateStatus(status,callback);
     }
-
-    this.getAllStatus = function(){
-
-    }
 };
-
-
-
-
 
 module.exports = directory;

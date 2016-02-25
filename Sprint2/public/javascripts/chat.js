@@ -13,7 +13,7 @@ var content = $('.msg');
 $('#post-btn').on('click', function(e) {
 	var text = $('#focusedInput').val();
     username = $('#myname').val();
-	var obj = {'userName': '', 'content':'', 'time':''};
+	var obj = {};
 	if(text ==="") {
 		swal({
 			title: "Empty input!",

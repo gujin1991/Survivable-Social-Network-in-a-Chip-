@@ -11,9 +11,10 @@ function User() {
     this.userDb = new UserDb();
 }
 
-User.prototype.initialize = function (userName, password) {
+User.prototype.initialize = function (userName, password,status) {
     this.userName = userName;
     this.password = password;
+    this.status = status;
     return this;
 };
 

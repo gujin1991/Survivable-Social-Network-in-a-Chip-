@@ -104,7 +104,6 @@ io.on('connection', function(socket) {
         signInCtl.getOfflineUserIo(io);
     });
 
-
     //this part need to be modified.. we can add io to the log out api..
     //tomorrow.
     socket.on('disconnect',function(){
