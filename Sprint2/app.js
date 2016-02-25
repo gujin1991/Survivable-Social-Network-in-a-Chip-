@@ -90,15 +90,21 @@ app.post('/sendPublicMessage',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
 
+//share status
+app.post('/updateStatus', function(req, res){
+    shareStatus.updateStatus(req, res,io);
+});
+
 
 io.on('connection', function(socket) {
     var myname;
-
+    var user;
     socket.on('login', function(username) {
         myname = username;
-        socket.username = username;
+        user = signInCtl.newUser(myname);
+        signInCtl.addLoggedInUsers(user);
+        //signInCtl.addLoggedInUsers(myname);
 
-        signInCtl.addLoggedInUsers(socket.username);
         //console.log("log in USER NAME:" + loggedInUsers);
         //chatPublicly.getOfflineUserIo(loggedInUsers,io);
         signInCtl.getOfflineUserIo(io);
@@ -108,19 +114,12 @@ io.on('connection', function(socket) {
     //tomorrow.
     socket.on('disconnect',function(){
         console.log('disconnect : ' + socket.username);
-
-        signInCtl.deleteLoggedInUsers(socket.username);
+        signInCtl.deleteLoggedInUsers(user);
+        //signInCtl.deleteLoggedInUsers(socket.username);
        //chatPublicly.getOfflineUserIo(loggedInUsers,io);
         signInCtl.getOfflineUserIo(io);
     });
 
 });
 
-//share status
-app.post('/updateStatus', function(req, res){
-    shareStatus.updateStatus(req, res,io);
-});
 
-app.get('/electStatus', function(req, res){
-    shareStatus.electStatus(req,res);
-});
