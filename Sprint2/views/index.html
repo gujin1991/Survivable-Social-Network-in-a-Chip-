@@ -28,7 +28,14 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Share Status</a></li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="status-ok" data-toggle="tab">OK</a></li>
+                            <li><a href="#" id="status-help" data-toggle="tab">Help</a></li>
+                            <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#">Chat Privately</a></li>
                     <li><a href="#">Help</a></li>
                     <li class="dropdown">
@@ -111,5 +118,6 @@
 	<script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/sweetalert.min.js"></script>
     <script src="javascripts/chat.js"></script>
+    <script src="javascripts/sharestatus.js"></script>
 </body>
 </html>

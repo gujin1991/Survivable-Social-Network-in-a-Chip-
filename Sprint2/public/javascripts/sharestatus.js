@@ -15,27 +15,28 @@ $("#status-help").click(function(event) {
     updateStatus('Help');
 });
 
-$("status-emergency").click(function(event) {
+$("#status-emergency").click(function(event) {
     event.preventDefault();
     updateStatus('Emergency');
 });
 
 function updateStatus(newstatus) {
     var statusContent;
-    var labelName;
+    var logoName;
     if (newstatus == 'OK') {
         statusContent = "OK";
-        labelName = "label-ok";
+        logoName = "ok.png";
     } else if (newstatus == 'Help') {
         statusContent = "Help";
-        labelName = "label-Help";
-    } else if (newstatus == 'Help') {
+        logoName = "help.png";
+    } else if (newstatus == 'Emergency') {
         statusContent = "Emergency";
-        labelName = "label-Emergency";
+        logoName = "emergency.png";
     }
-
+    console.log(statusContent);
+    console.log(logoName);
     $("#status-toggle").empty().append(
-        'Status:<span class="label ' + labelName + '">' + statusContent + '</span><span class="caret"></span>');
+        'Status:<span><img src="../images/icons/' + logoName + '">' + statusContent + '</span><span class="caret"></span>');
     //Todo:updateUser List
     //Todo: send to server
 }
