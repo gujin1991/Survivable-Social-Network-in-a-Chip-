@@ -70,11 +70,26 @@ UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function() {
         dbTemp.all(q, function(err, rows) {
-            console.log("rows123" + rows[0].userName);
+            //console.log("rows123" + rows[0].userName);
             callback(rows);
         })
     });
 };
+
+UserDb.prototype.updateStatus = function(userName,status,callback){
+    var q = 'UPDATE users SET status = \'' + status +'\' WHERE userName = \'' + userName +'\'';
+    console.log(q);
+    var dbTemp = this.db;
+    dbTemp.run(q,function () {
+        dbTemp.all('select status from users where userName = \'' + userName +'\'',function(err,row){
+            console.log(row.status);
+            console.log(row);
+            if(row == status) callback(200);
+            else callback(400);
+        });
+    });
+
+}
 
 
 module.exports = UserDb;

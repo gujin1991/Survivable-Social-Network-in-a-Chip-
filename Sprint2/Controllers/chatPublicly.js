@@ -17,38 +17,6 @@ exports.getPublicMessages = function(req, res) {
 
 }
 
-//
-//exports.getOfflineUsers = function(req,res,loggedInUsers){
-//    user.getOfflineUsers(loggedInUsers,function(offUsers){
-//        var offU = [];
-//        for (var i = 0 ; i < offUsers.length;i++){
-//            offU.push(offUsers[i].userName);
-//        }
-//        console.log("inside  get user api : loged in  -----" + loggedInUsers + "    logged out ----"+  offU);
-//        res.json({"online":loggedInUsers,"offline":offU});
-//    });
-//}
-
-
-//exports.getOfflineUserIo = function(loggedInUsers,io){
-//exports.getOfflineUserIo = function(io){
-//    var message  = {};
-//    directory.getOfflineUsers(function(offUsers){
-//    //user.getOfflineUsers(loggedInUsers,function(offUsers){
-//        var offU = [];
-//        for (var i = 0 ; i < offUsers.length;i++){
-//            offU.push(offUsers[i].userName);
-//        }
-//        //console.log("inside dynamic update : loged in  -----" + loggedInUsers + "    logged out ----"+  offU);
-//        message.offline = offU;
-//    });
-//    directory.getOnlineUsers(function(onlineUsers){
-//        message.online = onlineUsers;
-//    });
-//    console.log("inside dynamic update : loged in  -----" + message.online + "    logged out ----"+ message.offline );
-//
-//    io.emit('updatelist',message);
-//}
 
 
 exports.sendPublicMessage = function(req,res,io){
@@ -59,16 +27,6 @@ exports.sendPublicMessage = function(req,res,io){
     });
     io.emit('send message', message);
 }
-
-
-
-//exports.addLoggedInUsers = function(user){
-//    directory.addLoggedInUsers(user);
-//}
-//
-//exports.deleteLoggedInUsers = function(user){
-//    directory.deleteLoggedInUsers(user);
-//}
 
 
 
