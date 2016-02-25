@@ -1,7 +1,7 @@
 var User = require('../module/User.js');
 
-var directoryy = require('../module/Directory.js')
-var directory = new directoryy();
+var directory = require('../module/Directory.js')
+
 
 var nameReserved = ['about','access','account','accounts','add','address','adm','admin','administration',
     'adult','advertising','affiliate','affiliates','ajax','analytics','android','anon','anonymous',

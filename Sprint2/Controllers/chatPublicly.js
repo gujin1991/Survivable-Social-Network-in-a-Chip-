@@ -1,7 +1,8 @@
 //this js file contains all the method  to get history message
 //and search function.
-var userr = require('../module/User.js');
-var user = new userr();
+
+//var userr = require('../module/User.js');
+//var user = new userr();
 
 var messagee = require('../module/Message.js')
 var messageM = new messagee();
