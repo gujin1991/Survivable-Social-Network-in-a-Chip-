@@ -13,7 +13,7 @@ var content = $('.msg');
 $('#post-btn').on('click', function(e) {
 	var text = $('#focusedInput').val();
     username = $('#myname').val();
-	var obj = {'userName': '', 'content':'', 'time':''};
+	var obj = {};
 	if(text ==="") {
 		swal({
 			title: "Empty input!",
@@ -74,30 +74,6 @@ socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 
-
-
-
-// Display online user
-//$.get('/getUsers', function(message){
-//	console.log("-----------------online : "+ message.online);
-//	console.log("-----------------offline : "+ message.offline);
-//	var online_list = $(".online-list");
-//	online_list.val('');
-//	var online_users = message.online;
-//	for(var i=0; i<online_users.length; i++) {
-//		var label = '<div style="color:black"><span>' +  online_users[i] + '</span></div><br/>';
-//		var one = $(label);
-//		online_list.append(one);
-//	}
-//	var offline_list = $(".offline-list");
-//	offline_list.val('');
-//	var offline_users = message.offline;
-//	for(var i=0; i<offline_users.length; i++) {
-//		var label = '<div style="color:gray"><span>' +  offline_users[i] + '</span></div><br/>';
-//		var one = $(label);
-//		offline_list.append(one);
-//	}
-//});
 
 // Display the new post message
 socket.on('send message', function(message){

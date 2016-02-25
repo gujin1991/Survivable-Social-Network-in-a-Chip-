@@ -17,6 +17,11 @@ var session = require('express-session');
 
 var app = express();
 
+var server = app.listen(3001,function(){
+    console.log('Listening on port %d',server.address().port);
+});
+
+var io = require('socket.io')(server);
 //used to keep the status of online or offline users~
 //var loggedInUsers = []
 //var loggedOutUsers = []
@@ -79,15 +84,12 @@ app.get('/getHistory', function(req, res) {
 
 //app.get('/getUsers', checkSignIn.getOfflineUsers);
 
-var server = app.listen(3001,function(){
-	console.log('Listening on port %d',server.address().port);
-});
 
-var io = require('socket.io')(server);
 
 app.post('/sendPublicMessage',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
+
 
 io.on('connection', function(socket) {
     var myname;
@@ -102,7 +104,6 @@ io.on('connection', function(socket) {
         signInCtl.getOfflineUserIo(io);
     });
 
-
     //this part need to be modified.. we can add io to the log out api..
     //tomorrow.
     socket.on('disconnect',function(){
@@ -114,4 +115,12 @@ io.on('connection', function(socket) {
     });
 
 });
-//get current time
+
+//share status
+app.post('/updateStatus', function(req, res){
+    shareStatus.updateStatus(req, res,io);
+});
+
+app.get('/electStatus', function(req, res){
+    shareStatus.electStatus(req,res);
+});
