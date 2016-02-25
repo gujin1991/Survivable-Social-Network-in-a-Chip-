@@ -94,7 +94,7 @@ socket.on('updatelist',function(message){
 	online_list.html("");
 	var online_users = message.online;
 	for(var i=0; i<online_users.length; i++) {
-		var label = '<div style="color:black"><span>' +  online_users[i] + '</span></div><br/>';
+		var label = '<div style="color:black"><span>' +  online_users[i].userName + '</span></div><br/>';
 		var one = $(label);
 		online_list.append(one);
 	}
@@ -102,7 +102,7 @@ socket.on('updatelist',function(message){
 	offline_list.html("");
 	var offline_users = message.offline;
 	for(var i=0; i<offline_users.length; i++) {
-		var label = '<div style="color:gray"><span>' +  offline_users[i] + '</span></div><br/>';
+		var label = '<div style="color:gray"><span>' +  offline_users[i].userName + '</span></div><br/>';
 		var one = $(label);
 		offline_list.append(one);
 	}

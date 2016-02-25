@@ -130,26 +130,23 @@ exports.deleteLoggedInUsers = function(user){
 
 exports.getOfflineUserIo = function(io){
     var message  = {};
+
     directory.getOfflineUsers(function(offUsers){
-        //user.getOfflineUsers(loggedInUsers,function(offUsers){
-        var offU = [];
-        for (var i = 0 ; i < offUsers.length;i++){
-            //console.log("offusers[i] =  -------------" + offUsers[i].userName);
-            offU.push(offUsers[i].userName);
-        }
-        message.offline = offU;
+
+        message.offline = offUsers;
+
         directory.getOnlineUsers(function(onlineUsers){
             message.online = onlineUsers;
         });
+
+        //console.log("loged in  -----" + message.online[0].userName + "    logged out ----"+ message.offline[0].userName);
         io.emit('updatelist',message);
     });
-
-
-
-   // console.log("loged in  -----" + message.online + "    logged out ----"+ message.offline );
-    // a bug found here .. if you put this out side ... offlien will not receive...why..?,.
 }
 
+exports.newUser = function(userName){
+    return new User().initialize(userName);
+}
 
 function qualifiedUsernamePassword(username,password) {
     if (username.length < 3 || password.length < 4 || nameReserved.indexOf(username) >= 0) {
