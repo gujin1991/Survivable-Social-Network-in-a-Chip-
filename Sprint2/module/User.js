@@ -33,8 +33,8 @@ User.prototype.userAuth = function (callback) {
 //    this.userDb.getHistory(callback);
 //};
 
-User.prototype.getOfflineUsers = function (onlineUsers, callback) {
-    this.userDb.getOfflineUsers(onlineUsers, callback);
-};
+//User.prototype.getOfflineUsers = function (onlineUsers, callback) {
+//    this.userDb.getOfflineUsers(onlineUsers, callback);
+//};
 
 module.exports = User;

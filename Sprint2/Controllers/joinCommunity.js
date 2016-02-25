@@ -134,7 +134,7 @@ exports.getOfflineUserIo = function(io){
         //user.getOfflineUsers(loggedInUsers,function(offUsers){
         var offU = [];
         for (var i = 0 ; i < offUsers.length;i++){
-            console.log("offusers[i] =  -------------" + offUsers[i].userName);
+            //console.log("offusers[i] =  -------------" + offUsers[i].userName);
             offU.push(offUsers[i].userName);
         }
         message.offline = offU;

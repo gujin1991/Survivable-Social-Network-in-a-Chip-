@@ -16,16 +16,17 @@ exports.getPublicMessages = function(req, res) {
 
 }
 
-exports.getOfflineUsers = function(req,res,loggedInUsers){
-    user.getOfflineUsers(loggedInUsers,function(offUsers){
-        var offU = [];
-        for (var i = 0 ; i < offUsers.length;i++){
-            offU.push(offUsers[i].userName);
-        }
-        console.log("inside  get user api : loged in  -----" + loggedInUsers + "    logged out ----"+  offU);
-        res.json({"online":loggedInUsers,"offline":offU});
-    });
-}
+//
+//exports.getOfflineUsers = function(req,res,loggedInUsers){
+//    user.getOfflineUsers(loggedInUsers,function(offUsers){
+//        var offU = [];
+//        for (var i = 0 ; i < offUsers.length;i++){
+//            offU.push(offUsers[i].userName);
+//        }
+//        console.log("inside  get user api : loged in  -----" + loggedInUsers + "    logged out ----"+  offU);
+//        res.json({"online":loggedInUsers,"offline":offU});
+//    });
+//}
 
 
 //exports.getOfflineUserIo = function(loggedInUsers,io){

@@ -5,8 +5,10 @@ var ejs = require('ejs');
 var url = require('url');
 
 // TODO: Add all controllers here
-var signInCtl = require('./Controllers/joinCommunity.js');
-var chatPublicly = require('./Controllers/chatPublicly');
+var signInCtl = require('./Controllers/JoinCommunity.js');
+var chatPublicly = require('./Controllers/ChatPublicly.js');
+var shareStatus = require('./Controllers/ShareStatus.js');
+
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -16,7 +18,7 @@ var session = require('express-session');
 var app = express();
 
 //used to keep the status of online or offline users~
-var loggedInUsers = []
+//var loggedInUsers = []
 //var loggedOutUsers = []
 
 // view engine setup
