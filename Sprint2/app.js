@@ -8,10 +8,6 @@ var url = require('url');
 var signInCtl = require('./Controllers/joinCommunity.js');
 var chatPublicly = require('./Controllers/chatPublicly');
 
-//get database
-var userDB = require('./module/userDB.js');
-var userDb = new userDB();
-
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); //pull information from HTML POST(express 4)
@@ -61,8 +57,10 @@ app.get('/signup', function(req, res){
 
 
 app.get('/logout',function(req, res) {
-    signInCtl.logout(req,res,loggedInUsers);
+    signInCtl.logout(req,res);
 });
+
+
 
 // direct to chat page
 app.post('/signin', function(req, res){
@@ -77,7 +75,7 @@ app.get('/getHistory', function(req, res) {
     chatPublicly.getPublicMessages(req,res);
 });
 
-app.get('/getUsers', chatPublicly.getOfflineUsers);
+//app.get('/getUsers', checkSignIn.getOfflineUsers);
 
 var server = app.listen(3001,function(){
 	console.log('Listening on port %d',server.address().port);
@@ -89,46 +87,29 @@ app.post('/sendPublicMessage',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
 
-
 io.on('connection', function(socket) {
     var myname;
 
     socket.on('login', function(username) {
         myname = username;
         socket.username = username;
-        if(loggedInUsers.indexOf(myname)== -1){
-            loggedInUsers.push(myname);
-        }
-        console.log("log in USER NAME:" + loggedInUsers);
-        updateList();
+
+        signInCtl.addLoggedInUsers(socket.username);
+        //console.log("log in USER NAME:" + loggedInUsers);
+        //chatPublicly.getOfflineUserIo(loggedInUsers,io);
+        signInCtl.getOfflineUserIo(io);
     });
 
-    socket.on('disconnect',function(data){
+
+    //this part need to be modified.. we can add io to the log out api..
+    //tomorrow.
+    socket.on('disconnect',function(){
         console.log('disconnect : ' + socket.username);
-        var index = loggedInUsers.indexOf(socket.username);
-        if (index > -1) {
-            loggedInUsers.splice(index, 1);
-        }
-        updateList();
+
+        signInCtl.deleteLoggedInUsers(socket.username);
+       //chatPublicly.getOfflineUserIo(loggedInUsers,io);
+        signInCtl.getOfflineUserIo(io);
     });
-
-
-    function updateList(){
-        var message  = {};
-        userDb.getOfflineUsers(loggedInUsers,function(offUsers){
-            var offU = [];
-            for (var i = 0 ; i < offUsers.length;i++){
-                offU.push(offUsers[i].userName);
-            }
-
-            console.log("inside dynamic update : loged in  -----" + loggedInUsers + "    logged out ----"+  offU);
-            message.online = loggedInUsers;
-            message.offline = offU;
-            io.emit('updatelist',message);
-        });
-    }
 
 });
-
 //get current time
-

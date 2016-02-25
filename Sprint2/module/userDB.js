@@ -61,24 +61,16 @@ UserDb.prototype.userAuth = function (username, password, callback) {
     });
 };
 
-//UserDb.prototype.getHistory = function (callback) {
-//    var dbTemp = this.db;
-//    dbTemp.serialize(function() {
-//        dbTemp.all("SELECT * FROM messages", function(err, rows) {
-//
-//            console.log("rows : " + rows);
-//
-//            callback(rows);
-//        })
-//    });
-//};
+
 
 UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
     var q = 'SELECT userName FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')';
     //var q = 'SELECT userName FROM users ';
+    console.log(q);
     var dbTemp = this.db;
     dbTemp.serialize(function() {
         dbTemp.all(q, function(err, rows) {
+            console.log("rows123" + rows[0].userName);
             callback(rows);
         })
     });

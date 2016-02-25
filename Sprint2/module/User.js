@@ -6,6 +6,7 @@ var UserDb = require('./UserDB.js');
 function User() {
     this.userName = null;
     this.password = null;
+    this.logged = false;
     this.userDb = new UserDb();
 }
 
@@ -26,6 +27,7 @@ User.prototype.exist = function (callback) {
 User.prototype.userAuth = function (callback) {
     this.userDb.userAuth(this.userName, this.password, callback);
 };
+
 //
 //User.prototype.getHistory = function (callback) {
 //    this.userDb.getHistory(callback);

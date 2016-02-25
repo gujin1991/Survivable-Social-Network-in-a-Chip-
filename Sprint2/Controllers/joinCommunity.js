@@ -1,5 +1,7 @@
 var User = require('../module/User.js');
 
+var directoryy = require('../module/Directory.js')
+var directory = new directoryy();
 
 var nameReserved = ['about','access','account','accounts','add','address','adm','admin','administration',
     'adult','advertising','affiliate','affiliates','ajax','analytics','android','anon','anonymous',
@@ -75,18 +77,17 @@ exports.register = function(req, res) {
     }
 }
 
-exports.logout = function(req,res,loggedInUsers){
+exports.logout = function(req,res){
     var myname = req.session.username;
     console.log('User ' + myname + " left the room.");
-
-    var index = loggedInUsers.indexOf(myname);
-    if (index > -1) {
-        loggedInUsers.splice(index, 1);
-    }
-
-    console.log(loggedInUsers);
-    req.session.destroy();
-    res.redirect('/');
+    directory.getOnlineUsers(function(onlineUsers){
+        var index = onlineUsers.indexOf(myname);
+        if (index > -1) {
+            onlineUsers.splice(index, 1);
+        }
+        req.session.destroy();
+        res.redirect('/');
+    });
 }
 
 exports.directSignin = function(req,res){
@@ -117,6 +118,39 @@ exports.directHome = function (req,res) {
 exports.direct = function (req,res) {
     res.redirect('/');
 };
+
+
+exports.addLoggedInUsers = function(user){
+    directory.addLoggedInUsers(user);
+}
+
+exports.deleteLoggedInUsers = function(user){
+    directory.deleteLoggedInUsers(user);
+}
+
+exports.getOfflineUserIo = function(io){
+    var message  = {};
+    directory.getOfflineUsers(function(offUsers){
+        //user.getOfflineUsers(loggedInUsers,function(offUsers){
+        var offU = [];
+        for (var i = 0 ; i < offUsers.length;i++){
+            console.log("offusers[i] =  -------------" + offUsers[i].userName);
+            offU.push(offUsers[i].userName);
+        }
+        message.offline = offU;
+        directory.getOnlineUsers(function(onlineUsers){
+            message.online = onlineUsers;
+        });
+        io.emit('updatelist',message);
+    });
+
+
+
+   // console.log("loged in  -----" + message.online + "    logged out ----"+ message.offline );
+    // a bug found here .. if you put this out side ... offlien will not receive...why..?,.
+}
+
+
 function qualifiedUsernamePassword(username,password) {
     if (username.length < 3 || password.length < 4 || nameReserved.indexOf(username) >= 0) {
         return false;
