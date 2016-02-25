@@ -83,9 +83,9 @@ UserDb.prototype.updateStatus = function(userName,status,callback){
     var dbTemp = this.db;
     dbTemp.run(q,function () {
         dbTemp.all('select status from users where userName = \'' + userName +'\'',function(err,row){
-            console.log(row.status);
-            console.log(row);
-            if(row == status) callback(200);
+            console.log("ttt1---------------" + row[0].status);
+            console.log("ttt2---------------" + row);
+            if(row[0].status == status) callback(200);
             else callback(400);
         });
     });
