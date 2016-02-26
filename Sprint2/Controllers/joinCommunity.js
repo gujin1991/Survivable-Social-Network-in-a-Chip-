@@ -139,13 +139,21 @@ exports.getOfflineUserIo = function(io){
             message.online = onlineUsers;
         });
 
-        //console.log("loged in  -----" + message.online[0].userName + "    logged out ----"+ message.offline[0].userName);
+        console.log("loged in  -----" + message.online + "    logged out ----"+ message.offline[0].userName);
         io.emit('updatelist',message);
     });
 }
 
-exports.getUserInfo = function(userName){
-    return new User().getUserInfo(userName);
+exports.getUserInfo = function(userName,callback){
+
+    new User().getUserInfo(userName,function(err,user){
+        if (err){
+            console.log("error");
+        }else{
+            callback(user);
+        }
+    });
+
 }
 
 
