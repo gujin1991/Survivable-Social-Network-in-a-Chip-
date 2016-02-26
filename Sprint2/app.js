@@ -8,6 +8,7 @@ var url = require('url');
 var signInCtl = require('./Controllers/JoinCommunity.js');
 var chatPublicly = require('./Controllers/ChatPublicly.js');
 var shareStatus = require('./Controllers/ShareStatus.js');
+var userListCtl = require('./Controllers/userList.js');
 var chatPrivately = require('./Controllers/chatPrivately.js');
 
 var morgan = require('morgan');
@@ -80,6 +81,10 @@ app.post('/signup', function(req, res) {
 
 app.get('/getHistory', function(req, res) {
     chatPublicly.getPublicMessages(req,res);
+});
+
+app.get('/users', function(req, res) {
+    userListCtl.directUserList(req, res);
 });
 
 //app.get('/getUsers', checkSignIn.getOfflineUsers);

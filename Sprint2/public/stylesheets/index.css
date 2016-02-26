@@ -77,6 +77,24 @@ body {
 	border-radius:5px;
 	box-shadow:2px 2px 4px #BEBCBC;
 }
+.message {
+	/*border: 1px;*/
+	/*border-top: dotted;*/
+	border-bottom: 1px solid #BEBCBC;
+}
+
+.messageHeader {
+	margin-top: 5px;
+}
+
+.messageBody {
+	margin: 15px;
+	/*margin-bottom: 5px;*/
+}
+
+.timestamp {
+	margin: 5px;
+}
 
 #prompt {
 	color:black;

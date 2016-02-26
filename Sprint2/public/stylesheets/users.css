@@ -1,0 +1,23 @@
+@charset "UTF-8";
+body {
+    background: url("../images/background.jpg") no-repeat center top scroll;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    font-family: "Lato", sans-serif;
+    /*padding-bottom: 50%;*/
+}
+.page-header {
+    padding-bottom: 9px;
+    margin: 71px 0 20px;
+    border-bottom: none;
+}
+.jumbotron {
+    height: 450px;
+    overflow: scroll;
+}
+thead {
+    font-size: large;
+    font-weight: bold;
+}
