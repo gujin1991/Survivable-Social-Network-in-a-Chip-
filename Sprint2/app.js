@@ -138,15 +138,14 @@ app.get('/userList', function(req, res){
 
 //chat privately
 app.post('/chatPrivately',function(req,res){
-    chatPrivately.sendPrivateMessage(req,res,io);
+    if(req.receiver in sockets)chatPrivately.sendPrivateMessage(req,res,sockets[req.receiver]);
+    else res.json({"statusCode":400, "message": "Fail"});
 });
 
 //get previous privately chat message
 app.post('/getPrivateMessage',function(req,res){
     chatPrivately.getPrivateMessages(req,res,io);
 });
-
-
 
 
 
@@ -164,7 +163,6 @@ io.on('connection', function(socket) {
             signInCtl.addLoggedInUsers(socket.user);
             signInCtl.getOfflineUserIo(socket.user,io);
         });
-
     });
 
     //this part need to be modified.. we can add io to the log out api..
