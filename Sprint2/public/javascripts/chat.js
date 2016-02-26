@@ -6,7 +6,12 @@ var content = $('.msg');
 //jQuery( document ).ready(function( $ ) {
 //
 //});
-
+$('#check-btn').on('click', function(e) {
+	$.get('/announcement', function() {
+		console.log("Click check-btn");
+		window.location.href = "/announcement";
+	});
+});
 
 
 // Post New message

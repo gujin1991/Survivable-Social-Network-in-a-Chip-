@@ -10,6 +10,8 @@ var chatPublicly = require('./Controllers/ChatPublicly.js');
 var shareStatus = require('./Controllers/ShareStatus.js');
 var userListCtl = require('./Controllers/userList.js');
 var chatPrivately = require('./Controllers/chatPrivately.js');
+var postAnnouce = require('./Controllers/postAnnouncement.js');
+
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -79,6 +81,12 @@ app.post('/signup', function(req, res) {
     signInCtl.register(req, res);
 });
 
+//direct to annoucement page
+app.get('/announcement', function(req, res){
+    console.log("good1");
+    postAnnouce.directAnnoucement(req, res);
+});
+
 app.get('/getHistory', function(req, res) {
     chatPublicly.getPublicMessages(req,res);
 });
@@ -102,6 +110,17 @@ app.post('/updateStatus', function(req, res){
 app.post('/chatPrivately',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
+
+//get announcement
+app.get('/getAnnouncements', function(req, res){
+    postAnnouce.getAnnoucements(req,res);
+});
+
+//post announcement
+app.post('/sendAnnouncements',function(req,res){
+    postAnnouce.sendAnnoucements(req,res,io);
+});
+
 
 
 io.on('connection', function(socket) {
