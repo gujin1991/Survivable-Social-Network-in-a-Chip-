@@ -95,11 +95,12 @@ UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
     //var q = 'SELECT userName FROM users ';
     console.log(q);
     var dbTemp = this.db;
-    dbTemp.serialize(function() {
+
         dbTemp.all(q, function(err, rows) {
+            console.log(rows);
             callback(rows);
         })
-    });
+
 };
 
 UserDb.prototype.updateStatus = function(userName,status,callback){
