@@ -139,14 +139,23 @@ exports.getOfflineUserIo = function(io){
             message.online = onlineUsers;
         });
 
-        //console.log("loged in  -----" + message.online[0].userName + "    logged out ----"+ message.offline[0].userName);
+        console.log("loged in  -----" + message.online + "    logged out ----"+ message.offline[0].userName);
         io.emit('updatelist',message);
     });
 }
 
-exports.newUser = function(userName){
-    return new User().initialize(userName);
+exports.getUserInfo = function(userName,callback){
+
+    new User().getUserInfo(userName,function(err,user){
+        if (err){
+            console.log("error");
+        }else{
+            callback(user);
+        }
+    });
+
 }
+
 
 function qualifiedUsernamePassword(username,password) {
     if (username.length < 3 || password.length < 4 || nameReserved.indexOf(username) >= 0) {
