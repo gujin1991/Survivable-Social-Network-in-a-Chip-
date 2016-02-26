@@ -153,9 +153,11 @@ exports.getUserInfo = function(userName,callback){
             callback(user);
         }
     });
-
 }
 
+exports.newUser = function(input){
+    return new User().initialize(input.userName, input.status);
+}
 
 function qualifiedUsernamePassword(username,password) {
     if (username.length < 3 || password.length < 4 || nameReserved.indexOf(username) >= 0) {
