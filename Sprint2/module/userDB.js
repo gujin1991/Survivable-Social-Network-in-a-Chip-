@@ -4,6 +4,7 @@
 //
 var sqlite3 = require('sqlite3').verbose();
 var Status = require('./Status');
+var User = require('./User.js');
 
 function UserDb() {
     this.db = new sqlite3.Database('./fse.db');
@@ -15,14 +16,26 @@ UserDb.prototype.userAdd = function (username, password, callback) {
     dbTemp.run("CREATE TABLE IF NOT EXISTS users (userName TEXT PRIMARY KEY, password TEXT, joinTime TEXT , status TEXT)", function () {
         dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
             if (row.length != 0) {
-                callback(400);
+                callback(400, null);
                 return;
             }
             var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?)");
             var time = new Date().toLocaleString();
             insertUser.run(username, password, time, new Status().undefine);
-            callback(200); // TODO bug
-            return;
+
+            dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
+                if (err || row == null || row.length == 0) {
+                    callback(305, null);
+                } else {
+                    console.log(row[0].status);
+                    var u ={};
+                    u.userName = row[0].userName;
+                    u.status = row[0].status;
+                    callback(null,u);
+
+                }
+            });
+
         });
     });
 
@@ -48,14 +61,27 @@ UserDb.prototype.userAuth = function (username, password, callback) {
     dbTemp.serialize(function () {
         dbTemp.all("select password from users where userName=\"" + username + "\"", function (err, row) {
             if (row == null || row.length == 0) {
-                callback(401);
+                callback(401, null);
                 return;
             } else if (row[0].password != password) {
-                callback(403);
+                callback(403, null);
                 return;
             } else {
-                callback(200);
-                return;
+                dbTemp.serialize(function () {
+                    dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
+                        if (err || row == null || row.length == 0) {
+                            callback(305, null);
+                            return;
+                        } else {
+                            console.log(row[0].status);
+                            var u ={};
+                            u.userName = row[0].userName;
+                            u.status = row[0].status;
+                            callback(null,u);
+                            return;
+                        }
+                    });
+                });
             }
         });
     });
@@ -71,7 +97,6 @@ UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function() {
         dbTemp.all(q, function(err, rows) {
-            //console.log("rows123" + rows[0].userName);
             callback(rows);
         })
     });
@@ -89,8 +114,26 @@ UserDb.prototype.updateStatus = function(userName,status,callback){
             else callback(400);
         });
     });
+};
 
-}
+UserDb.prototype.getUserInfo = function(userName, callback) {
+    var dbTemp = this.db;
+    dbTemp.serialize(function () {
+        dbTemp.all("select * from users where userName=\"" + userName + "\"", function (err, row) {
+            if (err || row == null || row.length == 0) {
+                callback(305, null);
+                return;
+            } else {
+                console.log(row[0].status);
+                var u ={};
+                u.userName = row[0].userName;
+                u.status = row[0].status;
+                callback(null,u);
+                return;
+            }
+        });
+    });
+};
 
 
 module.exports = UserDb;
