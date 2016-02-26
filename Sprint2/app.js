@@ -8,7 +8,10 @@ var url = require('url');
 var signInCtl = require('./Controllers/JoinCommunity.js');
 var chatPublicly = require('./Controllers/ChatPublicly.js');
 var shareStatus = require('./Controllers/ShareStatus.js');
+var userListCtl = require('./Controllers/userList.js');
 var chatPrivately = require('./Controllers/chatPrivately.js');
+var postAnnouce = require('./Controllers/postAnnouncement.js');
+
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -78,13 +81,21 @@ app.post('/signup', function(req, res) {
     signInCtl.register(req, res);
 });
 
+//direct to annoucement page
+app.get('/announcement', function(req, res){
+    console.log("good1");
+    postAnnouce.directAnnoucement(req, res);
+});
+
 app.get('/getHistory', function(req, res) {
     chatPublicly.getPublicMessages(req,res);
 });
 
+app.get('/users', function(req, res) {
+    userListCtl.directUserList(req, res);
+});
+
 //app.get('/getUsers', checkSignIn.getOfflineUsers);
-
-
 
 app.post('/sendPublicMessage',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
@@ -99,6 +110,17 @@ app.post('/updateStatus', function(req, res){
 app.post('/chatPrivately',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
+
+//get announcement
+app.get('/getAnnouncements', function(req, res){
+    postAnnouce.getAnnoucements(req,res);
+});
+
+//post announcement
+app.post('/sendAnnouncements',function(req,res){
+    postAnnouce.sendAnnoucements(req,res,io);
+});
+
 
 
 app.get('/chatPrivately', function(req, res){
@@ -120,15 +142,12 @@ io.on('connection', function(socket) {
         myname = username;
         signInCtl.getUserInfo(myname,function(callback){
             console.log("asdklasndjlasdlkas   -------------"+callback.userName);
-            socket.user = callback;
+            //socket.user = callback;
+            socket.user = signInCtl.newUser(callback);
             signInCtl.addLoggedInUsers(socket.user);
-            //signInCtl.addLoggedInUsers(myname);
 
-            //console.log("log in USER NAME:" + loggedInUsers);
-            //chatPublicly.getOfflineUserIo(loggedInUsers,io);
-            signInCtl.getOfflineUserIo(io);
+            signInCtl.getOfflineUserIo(socket.user,io);
         });
-
 
     });
 
@@ -139,7 +158,7 @@ io.on('connection', function(socket) {
         signInCtl.deleteLoggedInUsers(socket.user);
         //signInCtl.deleteLoggedInUsers(socket.username);
        //chatPublicly.getOfflineUserIo(loggedInUsers,io);
-        signInCtl.getOfflineUserIo(io);
+        signInCtl.getOfflineUserIo(socket.user,io);
     });
 
 });

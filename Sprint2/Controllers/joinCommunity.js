@@ -128,18 +128,18 @@ exports.deleteLoggedInUsers = function(user){
     directory.deleteLoggedInUsers(user);
 }
 
-exports.getOfflineUserIo = function(io){
+exports.getOfflineUserIo = function(user,io){
     var message  = {};
-
     directory.getOfflineUsers(function(offUsers){
-
+        //user.getOfflineUsers(loggedInUsers,function(offUsers){
+        var cur = {};
+        cur.userName = user.userName;
+        cur.status = user.status;
+        message.currentUser = cur;
         message.offline = offUsers;
-
         directory.getOnlineUsers(function(onlineUsers){
             message.online = onlineUsers;
         });
-
-        console.log("loged in  -----" + message.online + "    logged out ----"+ message.offline[0].userName);
         io.emit('updatelist',message);
     });
 }
@@ -153,9 +153,11 @@ exports.getUserInfo = function(userName,callback){
             callback(user);
         }
     });
-
 }
 
+exports.newUser = function(input){
+    return new User().initialize(input.userName, input.status);
+}
 
 function qualifiedUsernamePassword(username,password) {
     if (username.length < 3 || password.length < 4 || nameReserved.indexOf(username) >= 0) {
