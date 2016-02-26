@@ -34,4 +34,33 @@ MessageDb.prototype.getHistory = function (callback) {
     });
 };
 
+MessageDb.prototype.privateMessageAdd = function (fromUser, toUser, message, time, callback) {
+    //TODO add user exist auth
+    var dbtemp = this.db;
+    dbtemp.serialize(function () {
+        dbtemp.run("CREATE TABLE IF NOT EXISTS privateMessages (messageId INTEGER PRIMARY KEY AUTOINCREMENT, fromUser TEXT, toUser TEXT, time TEXT, content TEXT)");
+        var insertMessage = dbtemp.prepare("insert into privateMessages Values(?, ?, ?, ?, ?)");
+        insertMessage.run(null, fromUser, toUser, time, message);
+        callback(200);
+        return;
+    });
+};
+
+MessageDb.prototype.getPrivateHistory = function (fromUser, toUser, callback) {
+    var dbTemp = this.db;
+    dbTemp.serialize(function() {
+        console.log('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\';');
+        dbTemp.all('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\';', function(err, rows) {
+
+            if (err) {
+                console.log(err)
+                callback(400)
+            } else {
+                console.log("rows : " + rows);
+                callback(rows);
+            }
+        })
+    });
+};
+
 module.exports = MessageDb;
