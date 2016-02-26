@@ -22,9 +22,10 @@ exports.sendPublicMessage = function(req,res,io){
     var message = req.body;
     message.time = now();
     messageM.addMessage(message.username,message.text,message.time, function(callback){
-        if (callback == 200) console.log("200 OK",message.username,message.text,message.time);
+        if (callback == 200) io.emit('send message', message);
+        else res.json({"statusCode":400, "message": "Fail"});
     });
-    io.emit('send message', message);
+
 }
 
 
