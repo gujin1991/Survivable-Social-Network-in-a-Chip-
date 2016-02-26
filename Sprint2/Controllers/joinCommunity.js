@@ -144,9 +144,10 @@ exports.getOfflineUserIo = function(io){
     });
 }
 
-exports.newUser = function(userName){
-    return new User().initialize(userName);
+exports.getUserInfo = function(userName){
+    return new User().getUserInfo(userName);
 }
+
 
 function qualifiedUsernamePassword(username,password) {
     if (username.length < 3 || password.length < 4 || nameReserved.indexOf(username) >= 0) {

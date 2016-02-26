@@ -18,7 +18,6 @@ exports.getPublicMessages = function(req, res) {
 }
 
 
-
 exports.sendPublicMessage = function(req,res,io){
     var message = req.body;
     message.time = now();
