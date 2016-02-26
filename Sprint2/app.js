@@ -130,16 +130,12 @@ io.on('connection', function(socket) {
         myname = username;
         signInCtl.getUserInfo(myname,function(callback){
             console.log("asdklasndjlasdlkas   -------------"+callback.userName);
-            socket.user = callback;
-
+            //socket.user = callback;
+            socket.user = signInCtl.newUser(callback);
             signInCtl.addLoggedInUsers(socket.user);
-            //signInCtl.addLoggedInUsers(myname);
 
-            //console.log("log in USER NAME:" + loggedInUsers);
-            //chatPublicly.getOfflineUserIo(loggedInUsers,io);
             signInCtl.getOfflineUserIo(socket.user,io);
         });
-
 
     });
 
