@@ -84,8 +84,6 @@ app.get('/getHistory', function(req, res) {
 
 //app.get('/getUsers', checkSignIn.getOfflineUsers);
 
-
-
 app.post('/sendPublicMessage',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
@@ -109,12 +107,13 @@ io.on('connection', function(socket) {
         signInCtl.getUserInfo(myname,function(callback){
             console.log("asdklasndjlasdlkas   -------------"+callback.userName);
             socket.user = callback;
+
             signInCtl.addLoggedInUsers(socket.user);
             //signInCtl.addLoggedInUsers(myname);
 
             //console.log("log in USER NAME:" + loggedInUsers);
             //chatPublicly.getOfflineUserIo(loggedInUsers,io);
-            signInCtl.getOfflineUserIo(io);
+            signInCtl.getOfflineUserIo(socket.user,io);
         });
 
 
@@ -127,7 +126,7 @@ io.on('connection', function(socket) {
         signInCtl.deleteLoggedInUsers(socket.user);
         //signInCtl.deleteLoggedInUsers(socket.username);
        //chatPublicly.getOfflineUserIo(loggedInUsers,io);
-        signInCtl.getOfflineUserIo(io);
+        signInCtl.getOfflineUserIo(socket.user,io);
     });
 
 });
