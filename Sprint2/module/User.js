@@ -43,7 +43,7 @@ User.prototype.getUserInfo = function(userName, callback) {
         } else {
             this.userName = dbData.userName;
             this.status = dbData.status;
-            callback(null, this);
+            callback(null, dbData);
         }
         return this;
     });
