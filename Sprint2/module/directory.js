@@ -20,20 +20,15 @@ var directory = new function Directory(){
         if (index > -1) {
             this._loggedInUsers.splice(index, 1);
         }
-        var index = this._dataUsers.indexOf(user);
+        var index = this._dataUsers.indexOf(user.userName);
         if (index > -1) {
             this._dataUsers.splice(index, 1);
         }
-
         delete this._newUsers[user];
     };
 
     this.getOnlineUsers = function(callback){
-        //var output = [];
-        //for(var i=0; i<this._newUsers.length; i++) {
-        //    output.push(this._newUsers[i].)
-        //}
-        //
+
         callback(this._loggedInUsers);
     }
 

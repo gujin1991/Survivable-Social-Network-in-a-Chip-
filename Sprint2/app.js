@@ -98,23 +98,28 @@ app.post('/updateStatus', function(req, res){
 
 io.on('connection', function(socket) {
     var myname;
-    var user;
+    //var user;
     socket.on('login', function(username) {
         myname = username;
-        user = signInCtl.newUser(myname);
-        signInCtl.addLoggedInUsers(user);
-        //signInCtl.addLoggedInUsers(myname);
+        signInCtl.getUserInfo(myname,function(callback){
+            console.log("asdklasndjlasdlkas   -------------"+callback.userName);
+            socket.user = callback;
+            signInCtl.addLoggedInUsers(socket.user);
+            //signInCtl.addLoggedInUsers(myname);
 
-        //console.log("log in USER NAME:" + loggedInUsers);
-        //chatPublicly.getOfflineUserIo(loggedInUsers,io);
-        signInCtl.getOfflineUserIo(io);
+            //console.log("log in USER NAME:" + loggedInUsers);
+            //chatPublicly.getOfflineUserIo(loggedInUsers,io);
+            signInCtl.getOfflineUserIo(io);
+        });
+
+
     });
 
     //this part need to be modified.. we can add io to the log out api..
     //tomorrow.
     socket.on('disconnect',function(){
-        console.log('disconnect : ' + socket.username);
-        signInCtl.deleteLoggedInUsers(user);
+        //console.log('disconnect : ' + socket.username);
+        signInCtl.deleteLoggedInUsers(socket.user);
         //signInCtl.deleteLoggedInUsers(socket.username);
        //chatPublicly.getOfflineUserIo(loggedInUsers,io);
         signInCtl.getOfflineUserIo(io);
