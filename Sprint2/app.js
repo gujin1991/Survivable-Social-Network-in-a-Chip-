@@ -12,6 +12,8 @@ var userListCtl = require('./Controllers/userList.js');
 var chatPrivately = require('./Controllers/chatPrivately.js');
 var postAnnouce = require('./Controllers/postAnnouncement.js');
 
+//save all the socket with the name of it's name.
+var sockets = {}
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -106,10 +108,7 @@ app.post('/updateStatus', function(req, res){
     shareStatus.updateStatus(req, res,io);
 });
 
-//chat privately
-app.post('/chatPrivately',function(req,res){
-    chatPublicly.sendPublicMessage(req,res,io);
-});
+
 
 //get announcement
 app.get('/getAnnouncements', function(req, res){
@@ -122,7 +121,7 @@ app.post('/sendAnnouncements',function(req,res){
 });
 
 
-
+//direct to private char page
 app.get('/chatPrivately', function(req, res){
     if (req.session.loggedIn) {
         res.render('chatPrivately', {'username': req.session.username});
@@ -135,6 +134,23 @@ app.get('/userList', function(req, res){
     signInCtl.getOfflineUserIo(io);
 });
 
+
+
+//chat privately
+app.post('/chatPrivately',function(req,res){
+    chatPrivately.sendPrivateMessage(req,res,io);
+});
+
+//get previous privately chat message
+app.post('/getPrivateMessage',function(req,res){
+    chatPrivately.getPrivateMessages(req,res,io);
+});
+
+
+
+
+
+
 io.on('connection', function(socket) {
     var myname;
     //var user;
@@ -144,8 +160,8 @@ io.on('connection', function(socket) {
             console.log("asdklasndjlasdlkas   -------------"+callback.userName);
             //socket.user = callback;
             socket.user = signInCtl.newUser(callback);
+            sockets[myname] = socket;
             signInCtl.addLoggedInUsers(socket.user);
-
             signInCtl.getOfflineUserIo(socket.user,io);
         });
 
@@ -159,6 +175,7 @@ io.on('connection', function(socket) {
         //signInCtl.deleteLoggedInUsers(socket.username);
        //chatPublicly.getOfflineUserIo(loggedInUsers,io);
         signInCtl.getOfflineUserIo(socket.user,io);
+        delete sockets[myname];
     });
 
 });
