@@ -8,7 +8,7 @@ var url = require('url');
 var signInCtl = require('./Controllers/JoinCommunity.js');
 var chatPublicly = require('./Controllers/ChatPublicly.js');
 var shareStatus = require('./Controllers/ShareStatus.js');
-
+var chatPrivately = require('./Controllers/chatPrivately.js');
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -93,6 +93,11 @@ app.post('/sendPublicMessage',function(req,res){
 //share status
 app.post('/updateStatus', function(req, res){
     shareStatus.updateStatus(req, res,io);
+});
+
+//chat privately
+app.post('/chatPrivately',function(req,res){
+    chatPublicly.sendPublicMessage(req,res,io);
 });
 
 
