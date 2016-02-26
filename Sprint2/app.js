@@ -101,6 +101,18 @@ app.post('/chatPrivately',function(req,res){
 });
 
 
+app.get('/chatPrivately', function(req, res){
+    if (req.session.loggedIn) {
+        res.render('chatPrivately', {'username': req.session.username});
+    } else {
+        res.render('signin');
+    }
+});
+
+app.get('/userList', function(req, res){
+    signInCtl.getOfflineUserIo(io);
+});
+
 io.on('connection', function(socket) {
     var myname;
     //var user;
@@ -132,12 +144,4 @@ io.on('connection', function(socket) {
 
 });
 
-
-app.get('/chatPrivately', function(req, res){
-    if (req.session.loggedIn) {
-        res.render('chatPrivately', {'username': req.session.username});
-    } else {
-        res.render('signin');
-    }
-});
 
