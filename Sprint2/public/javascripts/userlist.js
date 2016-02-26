@@ -45,3 +45,6 @@ socket.on('updatelist',function(message){
     var one = $(offline_table);
     online_list.append(one);
 });
+socket.on('connect', function () {
+    socket.emit('login',$("#myname").val());
+});
