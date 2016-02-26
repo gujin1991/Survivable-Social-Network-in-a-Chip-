@@ -11,7 +11,7 @@ function User() {
     this.userDb = new UserDb();
 }
 
-User.prototype.initialize = function (userName, password,status) {
+User.prototype.initialize = function (userName, password, status) {
     this.userName = userName;
     this.password = password;
     this.status = status;
@@ -31,9 +31,22 @@ User.prototype.userAuth = function (callback) {
 };
 
 //new method add for update status
-User.prototype.updateStatus = function(status,callback){
+User.prototype.updateStatus = function(status, callback) {
     this.status = status;
     this.userDb.updateStatus(this.userName,status,callback);
-}
+};
+
+User.prototype.getUserInfo = function(userName, callback) {
+    this.userDb.getUserInfo(userName, function(err, dbData){
+        if (err) {
+            callback(400, null);
+        } else {
+            this.userName = dbData.userName;
+            this.status = dbData.status;
+            callback(null, dbData);
+        }
+        return this;
+    });
+};
 
 module.exports = User;

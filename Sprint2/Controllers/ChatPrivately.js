@@ -1,8 +1,6 @@
-//this js file contains all the method  to get history message
-//and search function.
-
-//var userr = require('../module/User.js');
-//var user = new userr();
+/**
+ * Created by jiyushi1 on 2/25/16.
+ */
 
 var messagee = require('../module/Message.js')
 var messageM = new messagee();
@@ -17,7 +15,6 @@ exports.getPublicMessages = function(req, res) {
 
 }
 
-
 exports.sendPublicMessage = function(req,res,io){
     var message = req.body;
     message.time = now();
@@ -25,12 +22,4 @@ exports.sendPublicMessage = function(req,res,io){
         if (callback == 200) console.log("200 OK",message.username,message.text,message.time);
     });
     io.emit('send message', message);
-}
-
-
-
-function now() {
-    var date = new Date();
-    var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
-    return time;
 }
