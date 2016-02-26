@@ -123,3 +123,11 @@ io.on('connection', function(socket) {
 });
 
 
+app.get('/chatPrivately', function(req, res){
+    if (req.session.loggedIn) {
+        res.render('chatPrivately', {'username': req.session.username});
+    } else {
+        res.render('signin');
+    }
+});
+
