@@ -60,6 +60,16 @@ body {
 	height:300px;
 	overflow: scroll;
 }
+
+#private-stream-list {
+	background-color: #f5f5f5;
+	border-left: 1px solid #eee;
+	border-radius:5px;
+	box-shadow:2px 2px 4px #BEBCBC;
+	/*max-height:3500px;*/
+	height:300px;
+	overflow: scroll;
+}
 .grumblr-box {
 	position:relative;
 	left:15px;
