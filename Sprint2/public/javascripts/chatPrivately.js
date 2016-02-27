@@ -158,7 +158,7 @@ function sortByName(dict, callback) {
     sorted.sort(loweCaseSort);
 
     var tempDict = {};
-    for(var i = 0; i < 3; i++) {
+    for(var i = 0; i < dict.length; i++) {
         tempDict[i] = sorted[i];
 
     }

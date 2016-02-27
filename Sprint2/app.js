@@ -79,13 +79,14 @@ app.post('/signin', function(req, res){
     signInCtl.checkSignIn(req, res);
 });
 
+
 app.post('/signup', function(req, res) {
     signInCtl.register(req, res);
 });
 
 //direct to annoucement page
 app.get('/announcement', function(req, res){
-    console.log("good1");
+
     postAnnouce.directAnnoucement(req, res);
 });
 
@@ -107,7 +108,6 @@ app.post('/sendPublicMessage',function(req,res){
 app.post('/updateStatus', function(req, res){
     shareStatus.updateStatus(req, res,io);
 });
-
 
 
 //get announcement
@@ -156,7 +156,6 @@ io.on('connection', function(socket) {
     socket.on('login', function(username) {
         myname = username;
         signInCtl.getUserInfo(myname,function(callback){
-            console.log("asdklasndjlasdlkas   -------------"+callback.userName);
             //socket.user = callback;
             socket.user = signInCtl.newUser(callback);
             sockets[myname] = socket;
@@ -164,6 +163,7 @@ io.on('connection', function(socket) {
             signInCtl.getOfflineUserIo(socket.user,io);
         });
     });
+
 
     //this part need to be modified.. we can add io to the log out api..
     //tomorrow.
@@ -177,7 +177,3 @@ io.on('connection', function(socket) {
     });
 
 });
-
-
-
-
