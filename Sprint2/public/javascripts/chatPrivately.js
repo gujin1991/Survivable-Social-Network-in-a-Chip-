@@ -60,16 +60,29 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
         $('#private-head').empty().append('   ' + chatTarget);
         content.empty();
 
+        //get history
         getPrivateMessage(currentUser, chatTarget);
 
-        $('#post-btn').click(function() {
-            //event.preventDefault();
-            var text = $('#focusedInput').val();
-            console.log("11111" + text);
-            sendMessage(currentUser,chatTarget);
-        });
+        //$('#post-btn').click(function() {
+        //    //event.preventDefault();
+        //    var text = $('#focusedInput').val();
+        //    console.log("ttttttttttttttttttttttttttt?????------------" + text);
+        //    sendMessage(currentUser,chatTarget);
+        //});
     });
 }
+
+$('#post-btn').click(function() {
+    //event.preventDefault();
+
+    if ($('#private-head').text() == "") {
+        swal({title: "Error!",text: "No user!", type: "error", confirmButtonText: "OK" });
+        $('#focusedInput').val('');
+    }
+
+    else sendMessage(username,chatTarget);
+});
+
 function getPrivateMessage(senderName, receiverName) {
     var users = {"sender": senderName, "receiver":receiverName};
     $.post('/getPrivateMessage', users, function(messages){
