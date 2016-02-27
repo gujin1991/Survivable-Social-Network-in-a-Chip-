@@ -2,7 +2,13 @@
  * Created by congshan on 2/25/16.
  */
 var socket = io.connect();
+var mystatus = $("#mystatus").val();
 
+jQuery( document ).ready(function( $ ) {
+    if (mystatus == undefined) {
+
+    }
+});
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
@@ -30,6 +36,9 @@ socket.on('updatelist', function(response){
     });
 });
 
+/**
+ * Add all online users to online table
+ * */
 function setOnlineTable(online_users, size) {
     var online_list = $(".online-list");
     online_list.html("");
@@ -54,9 +63,9 @@ function setOnlineTable(online_users, size) {
         }
 
         var new_line = '<tr>' +
-            '<td class="col-md-2">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
+            '<td width="30%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
             '<span>' + online_users[i].userName + '</span>' + '</td>' +
-            '<td class="col-md-2 text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<td width="70%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
         online_table += new_line;
@@ -66,6 +75,9 @@ function setOnlineTable(online_users, size) {
     online_list.append(one);
 }
 
+/**
+ * Add all offline users to offline table
+ * */
 function setOfflineTable(offline_users, size) {
     var offline_list = $(".offline-list");
     offline_list.html("");
@@ -75,10 +87,6 @@ function setOfflineTable(offline_users, size) {
     for(var i=0; i<size; i++) {
         var imgName;
         var status;
-
-        console.log( "i = " + i +
-                    "username: " + offline_users[i].userName +
-                    ", user status: " + offline_users[i].status);
 
         if (offline_users[i].status == 'OK') {
             imgName = "ok.png";
@@ -95,9 +103,9 @@ function setOfflineTable(offline_users, size) {
         }
 
         var new_line = '<tr>' +
-            '<td class="col-md-2">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
+            '<td width="30%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
             '<span>' + offline_users[i].userName + '</span>' + '</td>' +
-            '<td class="col-md-2 text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<td  width="70%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
         offline_table += new_line;
@@ -117,7 +125,7 @@ function sortByName(dict, callback) {
     sorted.sort(loweCaseSort);
 
     var tempDict = {};
-    for(var i = 0; i < 3; i++) {
+    for(var i = 0; i < dict.length; i++) {
         tempDict[i] = sorted[i];
     }
     callback(tempDict);

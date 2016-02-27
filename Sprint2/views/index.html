@@ -85,6 +85,8 @@
                 <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
                     <div class="page-header">
                         <h2> Welcome, <%=username%> </h2>
+                        <input type="hidden" id="myname" value="<%=username%>">
+                        <input type="hidden" id="mystatus" value="<%=status%>">
                     </div>
                     <div id="stream-list">
                         <div class="msg grumblr-box"></div>
@@ -99,21 +101,6 @@
                         <div id="error"></div>
                     </div>
                 </div>
-                <!-- right column -- sidebar -->
-                <!--<div id="rightcontent" class="col-md-3 col-sm-3 sidebar">-->
-                    <!--<div id="sidebar">-->
-                        <!--<div id="userList">-->
-                            <input type="hidden" id="myname" value="<%=username%>">
-                            <!--<h4>Online Users List</h4>-->
-                            <!--<div class="line"></div>-->
-                            <!--<div class="online-list"></div>-->
-                            <!--<h4>Offline Users List</h4>-->
-                            <!--<div class="line"></div>-->
-                            <!--<div class="offline-list"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
     </div>
     <!-- Bootstrap core JavaScript (used for button dropdown)-->

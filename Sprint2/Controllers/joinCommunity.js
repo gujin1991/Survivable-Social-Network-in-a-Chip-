@@ -92,7 +92,7 @@ exports.logout = function(req,res){
 
 exports.directSignin = function(req,res){
     if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
+        res.render('index', {'username': req.session.username,'status': req.session.status});
     } else {
         res.render('signin');
     }
@@ -100,7 +100,7 @@ exports.directSignin = function(req,res){
 
 exports.directSignup = function(req,res){
     if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
+        res.render('index', {'username': req.session.username,'status': req.session.status});
     } else {
         res.render('signup');
     }
@@ -110,7 +110,7 @@ exports.directHome = function (req,res) {
     if (!req.session.loggedIn) {
         res.render('signin');
     } else {
-        res.render('index', {'username': req.session.username});
+        res.render('index', {'username': req.session.username,'status': req.session.status});
     }
 };
 
