@@ -28,7 +28,6 @@ MessageDb.prototype.getHistory = function (callback) {
         dbTemp.all("SELECT * FROM messages", function(err, rows) {
 
             console.log("rows : " + rows);
-
             callback(rows);
         })
     });

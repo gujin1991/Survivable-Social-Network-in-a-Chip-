@@ -2,7 +2,7 @@
  * Created by jiyushi1 on 2/25/16.
  */
 
-var messagee = require('../module/Message.js')
+var messagee = require('../module/PrivateMessage.js')
 var messageM = new messagee();
 
 //var directoryy = require('../module/Directory.js')
