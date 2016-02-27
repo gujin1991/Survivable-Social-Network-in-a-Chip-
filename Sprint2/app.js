@@ -158,6 +158,9 @@ io.on('connection', function(socket) {
         signInCtl.getUserInfo(myname,function(callback){
             //socket.user = callback;
             socket.user = signInCtl.newUser(callback);
+
+            console.log("----------~~~~~~~~~~~~~~~"+ socket.user.status);
+
             sockets[myname] = socket;
             signInCtl.addLoggedInUsers(socket.user);
             signInCtl.getOfflineUserIo(socket.user,io);
