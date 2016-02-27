@@ -50,7 +50,6 @@ MessageDb.prototype.getPrivateHistory = function (fromUser, toUser, callback) {
     dbTemp.serialize(function() {
         console.log('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\';');
         dbTemp.all('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\';', function(err, rows) {
-
             if (err) {
                 console.log(err)
                 callback(400)

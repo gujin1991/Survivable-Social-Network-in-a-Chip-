@@ -24,12 +24,15 @@ var directory = new function Directory(){
         if (index > -1) {
             this._dataUsers.splice(index, 1);
         }
-        delete this._newUsers[user];
+        delete this._newUsers[user.userName];
     };
 
     this.getOnlineUsers = function(callback){
-
-        callback(this._loggedInUsers);
+        log = [];
+        for (var key in this._newUsers){
+            log.push(this._newUsers[key]);
+        }
+        callback(log);
     }
 
     this.getOfflineUsers = function(callback){
@@ -40,6 +43,7 @@ var directory = new function Directory(){
     this.updateStatus = function(username,status,callback){
         var user = this._newUsers[username];
         user.updateStatus(status,callback);
+        this._newUsers[username] = user;
     }
 };
 
