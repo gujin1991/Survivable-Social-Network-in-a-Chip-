@@ -2,10 +2,6 @@ var socket = io.connect();
 var username;
 var content = $('.msg');
 
-// Check if it is a new user
-//jQuery( document ).ready(function( $ ) {
-//
-//});
 $('#check-btn').on('click', function(e) {
 	$.get('/announcement', function() {
 		console.log("Click check-btn");
@@ -136,4 +132,8 @@ $('#focusedInput').on("keydown", function(e){
 		$('#post-btn').click();
 		return false;
 	}
+});
+
+socket.on('send private message', function(message){
+	swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });

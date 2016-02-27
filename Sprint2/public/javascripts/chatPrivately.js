@@ -83,9 +83,9 @@ function getPrivateMessage(senderName, receiverName) {
         for(var i=0; i<messages.length; i++) {
             var message = messages[i];
             if (message.fromUser === username) {
-                addMessage(message, "gray", message.content, "Me");
+                addMessage(message, message.content, "Me");
             } else if (message.toUser === username) {
-                addMessage(message, "gray", message.content, message.fromUser);
+                addMessage(message, message.content, message.fromUser);
             }
         }
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
@@ -116,23 +116,22 @@ function sendMessage(senderName, receiverName) {
             obj['sender'] = senderName;
             obj['receiver'] = receiverName;
             obj['text'] = inputValue;
-            console.log("sender : "+ senderName +  text);
             swal.close();
-            //socket.emit('send message',obj);
             $.post("/chatPrivately",obj,function(response){
-                console.log(response);
+                if (response.statusCode === 400) {
+                    swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+                }
             });
         });
     } else {
         obj['sender'] = senderName;
         obj['receiver'] = receiverName;
         obj['text']= text;
-        console.log("sender : "+ senderName +  text);
 
-        //socket.emit('send message',obj);
-        //call api
         $.post("/chatPrivately",obj,function(response){
-            console.log(response);
+            if (response.statusCode === 400) {
+                swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            }
         });
         $('#focusedInput').val('');
         $('#focusedInput').focus();
@@ -161,9 +160,9 @@ function sortByName(dict, callback) {
 // Display the new post message
 socket.on('send private message', function(message){
     if (message.sender === username) {
-        addMessage(message, "black", message.text, "Me");
+        addMessage(message, message.text, "Me");
     } else {
-        addMessage(message, "black", message.text, message.sender);
+        addMessage(message, message.text, message.sender);
     }
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     var chat_body = $('#private-stream-list');
@@ -171,8 +170,8 @@ socket.on('send private message', function(message){
     chat_body.scrollTop(height);
 });
 
-function addMessage(message, color, text, username) {
-    var label = '<div style="color:' + color +'" class="message">' +
+function addMessage(message, text, username) {
+    var label = '<div class="message">' +
         '<div class="messageHeader">' +
         '<span><span>' + username + '</span>' +
         '<div class="timestamp pull-right">' +

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f609122d-ef56-45c2-8ece-e25254f39e38" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fse.db" afterPath="$PROJECT_DIR$/fse.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Controllers/ChatPrivately.js" afterPath="$PROJECT_DIR$/Controllers/ChatPrivately.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/icons/message.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/announce.js" afterPath="$PROJECT_DIR$/public/javascripts/announce.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/chat.js" afterPath="$PROJECT_DIR$/public/javascripts/chat.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/chatPrivately.js" afterPath="$PROJECT_DIR$/public/javascripts/chatPrivately.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/userlist.js" afterPath="$PROJECT_DIR$/public/javascripts/userlist.js" />
     </list>
     <ignored path="Sprint1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,25 +41,24 @@
       <file leaf-file-name="chatPrivately.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/chatPrivately.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.259259">
-              <caret line="182" column="18" selection-start-line="182" selection-start-column="18" selection-end-line="182" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="117" column="37" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
               <folding>
                 <element signature="e#0#37#0" expanded="false" />
-                <marker date="1456613387000" expanded="true" signature="1605:1623" placeholder="..." />
-                <marker date="1456613387000" expanded="true" signature="1856:1874" placeholder="..." />
-                <marker date="1456613387000" expanded="true" signature="2064:2082" placeholder="..." />
-                <marker date="1456613387000" expanded="true" signature="6022:6028" placeholder="..." />
-                <marker date="1456613387000" expanded="true" signature="6267:6284" placeholder="..." />
+                <marker date="1456615743000" expanded="true" signature="1605:1623" placeholder="..." />
+                <marker date="1456615743000" expanded="true" signature="1856:1874" placeholder="..." />
+                <marker date="1456615743000" expanded="true" signature="2064:2082" placeholder="..." />
+                <marker date="1456615743000" expanded="true" signature="6260:6277" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatPrivately.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChatPrivately.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controllers/ChatPrivately.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55140185">
-              <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -73,12 +74,50 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chat.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/chat.js">
+      <file leaf-file-name="userlist.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/userlist.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
-              <folding />
+              <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="135" selection-end-column="3" />
+              <folding>
+                <marker date="1456615479000" expanded="true" signature="1930:1947" placeholder="..." />
+                <marker date="1456615479000" expanded="true" signature="2162:2179" placeholder="..." />
+                <marker date="1456615479000" expanded="true" signature="3403:3420" placeholder="..." />
+                <marker date="1456615479000" expanded="true" signature="3638:3655" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chat.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/chat.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3314917">
+              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+              <folding>
+                <marker date="1456615815000" expanded="true" signature="1782:1792" placeholder="..." />
+                <marker date="1456615815000" expanded="true" signature="1985:2002" placeholder="..." />
+                <marker date="1456615815000" expanded="true" signature="2234:2251" placeholder="..." />
+                <marker date="1456615815000" expanded="true" signature="3141:3152" placeholder="..." />
+                <marker date="1456615815000" expanded="true" signature="3312:3329" placeholder="..." />
+                <marker date="1456615815000" expanded="true" signature="3466:3483" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="announce.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/announce.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.074074075">
+              <caret line="96" column="41" selection-start-line="96" selection-start-column="41" selection-end-line="96" selection-end-column="41" />
+              <folding>
+                <marker date="1456615797000" expanded="true" signature="1600:1610" placeholder="..." />
+                <marker date="1456615797000" expanded="true" signature="1631:1650" placeholder="..." />
+                <marker date="1456615797000" expanded="true" signature="2281:2300" placeholder="..." />
+                <marker date="1456615797000" expanded="true" signature="2944:2955" placeholder="..." />
+                <marker date="1456615797000" expanded="true" signature="3234:3244" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,7 +135,7 @@
       <file leaf-file-name="jquery.min.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/jquery.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="405.74075">
+            <state vertical-scroll-proportion="0.0">
               <caret line="3" column="31404" selection-start-line="3" selection-start-column="31404" selection-end-line="3" selection-end-column="31404" />
               <folding />
             </state>
@@ -108,16 +147,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chatPrivately.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/chatPrivately.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="105" column="54" selection-start-line="105" selection-start-column="54" selection-end-line="105" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -155,14 +184,15 @@
         <option value="$PROJECT_DIR$/views/index.html" />
         <option value="$PROJECT_DIR$/public/stylesheets/index.css" />
         <option value="$PROJECT_DIR$/Controllers/chatPublicly.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/chat.js" />
         <option value="$PROJECT_DIR$/module/directory.js" />
         <option value="$PROJECT_DIR$/Controllers/joinCommunity.js" />
         <option value="$PROJECT_DIR$/views/chatPrivately.html" />
         <option value="$PROJECT_DIR$/module/MessageDb.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/chatPrivately.js" />
         <option value="$PROJECT_DIR$/Controllers/ChatPrivately.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/chatPrivately.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/announce.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/chat.js" />
       </list>
     </option>
   </component>
@@ -174,9 +204,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="196" />
     <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="737" />
+    <option name="width" value="1244" />
+    <option name="height" value="773" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -248,10 +279,6 @@
               <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stylesheets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -268,20 +295,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sprint1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sprint2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -335,7 +348,7 @@
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
-    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
@@ -403,15 +416,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="737" extended-state="6" />
+    <frame x="196" y="23" width="1244" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22109374" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2207686" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47277558" sideWeight="0.115625" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15718563" sideWeight="0.884375" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38945827" sideWeight="0.884375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2494043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -435,21 +448,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/javascripts/signin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="11" selection-start-line="140" selection-start-column="11" selection-end-line="140" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/module/userDB.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -461,7 +459,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1456615815000" expanded="true" signature="1782:1792" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="1985:2002" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="2234:2251" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3141:3152" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3312:3329" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3466:3483" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -498,7 +503,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding />
+          <folding>
+            <marker date="1456615815000" expanded="true" signature="1782:1792" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="1985:2002" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="2234:2251" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3141:3152" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3312:3329" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3466:3483" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -542,7 +554,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="28" selection-start-line="26" selection-start-column="8" selection-end-line="27" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1456615815000" expanded="true" signature="1782:1792" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="1985:2002" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="2234:2251" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3141:3152" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3312:3329" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3466:3483" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -579,7 +598,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="28" selection-start-line="26" selection-start-column="8" selection-end-line="27" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1456615815000" expanded="true" signature="1782:1792" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="1985:2002" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="2234:2251" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3141:3152" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3312:3329" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3466:3483" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -711,7 +737,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="40" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -719,7 +744,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,14 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/chat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -764,7 +780,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/jquery.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="405.74075">
+        <state vertical-scroll-proportion="0.0">
           <caret line="3" column="31404" selection-start-line="3" selection-start-column="31404" selection-end-line="3" selection-end-column="31404" />
           <folding />
         </state>
@@ -794,26 +810,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Controllers/ChatPrivately.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/chatPrivately.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.259259">
-          <caret line="182" column="18" selection-start-line="182" selection-start-column="18" selection-end-line="182" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="117" column="37" selection-start-line="117" selection-start-column="37" selection-end-line="117" selection-end-column="37" />
           <folding>
             <element signature="e#0#37#0" expanded="false" />
-            <marker date="1456613387000" expanded="true" signature="1605:1623" placeholder="..." />
-            <marker date="1456613387000" expanded="true" signature="1856:1874" placeholder="..." />
-            <marker date="1456613387000" expanded="true" signature="2064:2082" placeholder="..." />
-            <marker date="1456613387000" expanded="true" signature="6022:6028" placeholder="..." />
-            <marker date="1456613387000" expanded="true" signature="6267:6284" placeholder="..." />
+            <marker date="1456615743000" expanded="true" signature="1605:1623" placeholder="..." />
+            <marker date="1456615743000" expanded="true" signature="1856:1874" placeholder="..." />
+            <marker date="1456615743000" expanded="true" signature="2064:2082" placeholder="..." />
+            <marker date="1456615743000" expanded="true" signature="6260:6277" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controllers/ChatPrivately.js">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/userlist.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55140185">
-          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="135" selection-end-column="3" />
+          <folding>
+            <marker date="1456615479000" expanded="true" signature="1930:1947" placeholder="..." />
+            <marker date="1456615479000" expanded="true" signature="2162:2179" placeholder="..." />
+            <marker date="1456615479000" expanded="true" signature="3403:3420" placeholder="..." />
+            <marker date="1456615479000" expanded="true" signature="3638:3655" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/announce.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.074074075">
+          <caret line="96" column="41" selection-start-line="96" selection-start-column="41" selection-end-line="96" selection-end-column="41" />
+          <folding>
+            <marker date="1456615797000" expanded="true" signature="1600:1610" placeholder="..." />
+            <marker date="1456615797000" expanded="true" signature="1631:1650" placeholder="..." />
+            <marker date="1456615797000" expanded="true" signature="2281:2300" placeholder="..." />
+            <marker date="1456615797000" expanded="true" signature="2944:2955" placeholder="..." />
+            <marker date="1456615797000" expanded="true" signature="3234:3244" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/chat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3314917">
+          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+          <folding>
+            <marker date="1456615815000" expanded="true" signature="1782:1792" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="1985:2002" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="2234:2251" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3141:3152" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3312:3329" placeholder="..." />
+            <marker date="1456615815000" expanded="true" signature="3466:3483" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

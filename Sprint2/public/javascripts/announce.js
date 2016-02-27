@@ -95,8 +95,6 @@ socket.on('send annoucement', function(message){
 
 //updating the list of online and offline users
 socket.on('updatelist',function(message){
-	console.log("-----------------online : "+ message.online);
-	console.log("-----------------offline : "+ message.offline);
 	var online_list = $(".online-list");
 	online_list.html("");
 	var online_users = message.online;
@@ -128,4 +126,8 @@ $('#focusedInput').on("keydown", function(e){
 		$('#post-btn').click();
 		return false;
 	}
+});
+
+socket.on('send private message', function(message){
+	swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });
