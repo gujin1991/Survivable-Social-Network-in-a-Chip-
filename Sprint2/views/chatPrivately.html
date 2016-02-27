@@ -62,22 +62,29 @@
             <!--<div class="row">-->
             <!-- left column -- main column -->
                 <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
+                    <br>
                     <div class="page-header">
                         <h2> Welcome, <%=username%> </h2>
                         <input type="hidden" id="myname" value="<%=username%>">
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="userlist-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            User List
+
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-info">User List</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" id="userlist-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul id="userlist-dropdown-append"class="dropdown-menu slidedown">
-                            <li><a href="" id="refresh">Refresh</a></li>
+                        <ul id="userlist-dropdown-append" class="dropdown-menu">
                         </ul>
                     </div>
 
-                    <div id="private-stream-list">
-                        <div style="background: gold">Chat with <span id="private-head"></span></div>
-                        <div class="msg grumblr-box">hfidhfidfhids</div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Chat with <span id="private-head"></span></div>
+                        <div class="panel-body">
+                            <div id="private-stream-list">
+                                <div class="msg grumblr-box"></div>
+                            </div>
+                        </div>
                     </div>
                     <div id="post-board">
                         <p id="prompt"><strong>Send a new Message</strong></p>

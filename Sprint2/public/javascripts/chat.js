@@ -40,9 +40,7 @@ $('#post-btn').on('click', function(e) {
 			swal.close()
 			//socket.emit('send message',obj);
 			$.post("/sendPublicMessage",obj,function(response){
-				if (response.statusCode === 200) {
-					//receiveMessage();
-				} else {
+				if (response.statusCode === 400) {
 					swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
 				}
 			});
@@ -55,9 +53,7 @@ $('#post-btn').on('click', function(e) {
 		//socket.emit('send message',obj);
 		//call api
 		$.post("/sendPublicMessage",obj,function(response){
-			if (response.statusCode === 200) {
-				//receiveMessage();
-			} else {
+			if (response.statusCode === 400) {
 				swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
 			}
 		});

@@ -9,21 +9,32 @@ var messageM = new messagee();
 //var directory = new directoryy();
 
 exports.getPrivateMessages = function(req, res) {
+
     messageM.getHistory(req.body.sender,req.body.receiver,function(data){
         res.json(data);
     });
+
 }
 
 
-exports.sendPrivateMessage = function(req,res,socket){
+exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     var message = req.body;
     message.time = now();
+    console.log("------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + message.sender);
     messageM.addMessage(message.sender,message.receiver,message.text,message.time, function(callback){
         if (callback == 200) {
-            socket.emit('send private message', message);
+            sender.emit('send private message', message);
+            console.log(socket);
+            if(req.body.receiver in sockets) socket.emit('send private message', message);
             res.json({"statusCode":200, "message": "Success"});
         }
         else res.json({"statusCode":400, "message": "Fail"});
         //console.log("200 OK",message.username,message.text,message.time);
     });
+}
+
+function now() {
+    var date = new Date();
+    var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
+    return time;
 }
