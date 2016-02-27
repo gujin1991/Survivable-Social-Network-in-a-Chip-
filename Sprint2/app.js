@@ -138,8 +138,10 @@ app.get('/userList', function(req, res){
 
 //chat privately
 app.post('/chatPrivately',function(req,res){
-    if(req.receiver in sockets)chatPrivately.sendPrivateMessage(req,res,sockets[req.receiver]);
-    else res.json({"statusCode":400, "message": "Fail"});
+    console.log("------------------" + req.body.sender);
+    console.log(req.body.receiver);
+    console.log(req.body.sender);
+    chatPrivately.sendPrivateMessage(req,res,sockets[req.body.receiver],sockets[req.body.sender],sockets);
 });
 
 //get previous privately chat message

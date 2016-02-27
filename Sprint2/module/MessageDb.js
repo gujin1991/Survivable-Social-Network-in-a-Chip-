@@ -44,15 +44,14 @@ MessageDb.prototype.privateMessageAdd = function (fromUser, toUser, message, tim
 
 MessageDb.prototype.getPrivateHistory = function (fromUser, toUser, callback) {
     var dbTemp = this.db;
-    dbTemp.serialize(function() {
-        dbTemp.all('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\'' + ' OR '  + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser+ '\';', function(err, rows) {
-        dbTemp.all('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\';', function(err, rows) {
+    dbTemp.serialize(function () {
+        dbTemp.all('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\'' + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\';', function (err, rows) {
             if (err) {
                 callback(400);
             } else {
                 callback(rows);
             }
-        })
+        });
     });
 };
 

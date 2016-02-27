@@ -21,7 +21,10 @@ socket.on('updatelist',function(response){
         }
         return size;
     };
-
+    //$('#post-btn').click(function() {
+    //    //event.preventDefault();
+    //    swal({title: "Error!",text: "Please select a user!", type: "error", confirmButtonText: "OK" });
+    //});
 // Get the size of an object
     var onlineSize = Object.size(response.online);
     var offlineSize = Object.size(response.offline);
@@ -57,10 +60,12 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
         $('#private-head').empty().append('   ' + chatTarget);
         content.empty();
 
-        getPrivateMessage(currentUser, chatTarget)
+        getPrivateMessage(currentUser, chatTarget);
 
-        $('#post-btn').click(function(event) {
-            event.preventDefault();
+        $('#post-btn').click(function() {
+            //event.preventDefault();
+            var text = $('#focusedInput').val();
+            console.log("11111" + text);
             sendMessage(currentUser,chatTarget);
         });
     });
@@ -72,8 +77,8 @@ function getPrivateMessage(senderName, receiverName) {
             var message = messages[i];
             if (message.fromUser === username) {
                 addMessage(message, "gray", message.content, "Me");
-            } else if (message.fromUser === receiverName) {
-                addMessage(message, "gray", message.content, receiverName);
+            } else if (message.toUser === username) {
+                addMessage(message, "gray", message.content, message.fromUser);
             }
         }
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
@@ -86,6 +91,7 @@ function getPrivateMessage(senderName, receiverName) {
 function sendMessage(senderName, receiverName) {
     var text = $('#focusedInput').val();
     var obj = {};
+    console.log("22222222"+text);
     if(text ==="") {
         swal({
             title: "Empty input!",
@@ -104,23 +110,23 @@ function sendMessage(senderName, receiverName) {
             obj['sender'] = senderName;
             obj['receiver'] = receiverName;
             obj['text'] = inputValue;
-            swal.close()
+            console.log("sender : "+ senderName +  text);
+            swal.close();
             //socket.emit('send message',obj);
             $.post("/chatPrivately",obj,function(response){
-                if (response.statusCode === 400) {
-                    swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
-                }
+                console.log(response);
             });
         });
     } else {
         obj['sender'] = senderName;
         obj['receiver'] = receiverName;
-        obj['text'] = text;
+        obj['text']= text;
+        console.log("sender : "+ senderName +  text);
 
+        //socket.emit('send message',obj);
+        //call api
         $.post("/chatPrivately",obj,function(response){
-            if (response.statusCode === 400) {
-                swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
-            }
+            console.log(response);
         });
 
         $('#focusedInput').val('');
@@ -149,19 +155,16 @@ function sortByName(dict, callback) {
 
 // Display the new post message
 socket.on('send private message', function(message){
-
+    console.log("***************************");
     if (message.sender === username) {
         addMessage(message, "black", message.text, "Me");
-    } else if (message.sender === chatTarget){
-        addMessage(message, "black", message.text, chatTarget);
     } else {
-
+        addMessage(message, "black", message.text, message.sender);
     }
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     var chat_body = $('#private-stream-list');
     var height = chat_body[0].scrollHeight;
     chat_body.scrollTop(height);
-    swal({title: "NEW!",text: "The username is reserved, please change another one!", type: "error", confirmButtonText: "OK" });
 });
 
 function addMessage(message, color, text, username) {
@@ -170,17 +173,11 @@ function addMessage(message, color, text, username) {
         '<span><span>' + username + '</span>' +
         '<div class="timestamp pull-right">' +
         '<i class="fa fa-clock-o fa-1"></i>' +
-        '<small style="margin-left: 5px;">' + now() + '</small>' +
+        '<small style="margin-left: 5px;">' + message.time + '</small>' +
         '</div>' +
         '</span>' +
         '</div>' +
         '<div class="messageBody"><strong>'+ text +' </strong></div></div>';
     var one = $(label);
     content.append(one);
-}
-
-function now() {
-    var date = new Date();
-    var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
-    return time;
 }
