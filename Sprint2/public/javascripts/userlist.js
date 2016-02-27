@@ -37,10 +37,6 @@ function setOnlineTable(online_users, size) {
         '<thead><tr><th>Online Users</th></tr></thead>' +
         '<tbody>';
     for(var i=0; i<size; i++) {
-        /*
-         * TODO: add user status to the new table row
-         *       <td><img ....></td>
-         * */
         var imgName;
         var status;
         if (online_users[i].status == 'OK') {
@@ -58,9 +54,9 @@ function setOnlineTable(online_users, size) {
         }
 
         var new_line = '<tr>' +
-            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
-            online_users[i].userName + '</td>' +
-            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<td class="col-md-2">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
+            '<span>' + online_users[i].userName + '</span>' + '</td>' +
+            '<td class="col-md-2 text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
         online_table += new_line;
@@ -77,12 +73,13 @@ function setOfflineTable(offline_users, size) {
         '<thead><tr><th>Offline Users</th></tr></thead>' +
         '<tbody>';
     for(var i=0; i<size; i++) {
-        /*
-         * TODO: add user status to the new table row
-         *       <td><img ....></td>
-         * */
         var imgName;
         var status;
+
+        console.log( "i = " + i +
+                    "username: " + offline_users[i].userName +
+                    ", user status: " + offline_users[i].status);
+
         if (offline_users[i].status == 'OK') {
             imgName = "ok.png";
             status = "OK";
@@ -97,13 +94,10 @@ function setOfflineTable(offline_users, size) {
             status = "Undefined";
         }
 
-        //var new_line = '<tr>' +
-        //    '<td>' + offline_users[i].userName + '</td>' +
-        //    '</tr>';
         var new_line = '<tr>' +
-            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
-            offline_users[i].userName + '</td>' +
-            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<td class="col-md-2">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
+            '<span>' + offline_users[i].userName + '</span>' + '</td>' +
+            '<td class="col-md-2 text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
         offline_table += new_line;
