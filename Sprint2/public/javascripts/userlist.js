@@ -131,3 +131,7 @@ function sortByName(dict, callback) {
     callback(tempDict);
 }
 
+socket.on('send private message', function(message){
+    swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
+});
+
