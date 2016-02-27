@@ -20,11 +20,9 @@ exports.getPrivateMessages = function(req, res) {
 exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     var message = req.body;
     message.time = now();
-    console.log("------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + message.sender);
     messageM.addMessage(message.sender,message.receiver,message.text,message.time, function(callback){
         if (callback == 200) {
             sender.emit('send private message', message);
-            console.log(socket);
             if(req.body.receiver in sockets) socket.emit('send private message', message);
             res.json({"statusCode":200, "message": "Success"});
         }

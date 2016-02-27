@@ -5,9 +5,8 @@ var directory = require('../module/Directory.js');
 
 exports.directUserList = function(req,res){
     if (!req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
+        res.render('index', {'username': req.session.username, 'status': req.session.status});
     } else {
-        console.log("fine!");
-        res.render('users', {'username': req.session.username});
+        res.render('users', {'username': req.session.username, 'status': req.session.status});
     }
 }

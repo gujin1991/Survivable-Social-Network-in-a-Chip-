@@ -38,12 +38,12 @@ exports.checkSignIn = function(req, res) {
     var password = req.body.password;
     new User().initialize(username).exist(function(result){
         if (result == 305){
-            console.log(303);
+
             console.log("user not exist");
             res.json({"statusCode":401, "message": "User not found"});
 
         } else if (result == 303){
-            console.log(305);
+
             console.log("user exist");
             new User().initialize(username, password).userAuth(function(result) {
                 if (result == 403) {
@@ -92,7 +92,8 @@ exports.logout = function(req,res){
 
 exports.directSignin = function(req,res){
     if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
+
+        res.render('index', {'username': req.session.username,'status':req.session.status});
     } else {
         res.render('signin');
     }
@@ -100,7 +101,7 @@ exports.directSignin = function(req,res){
 
 exports.directSignup = function(req,res){
     if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
+        res.render('index', {'username': req.session.username,'status': req.session.status});
     } else {
         res.render('signup');
     }
@@ -110,7 +111,9 @@ exports.directHome = function (req,res) {
     if (!req.session.loggedIn) {
         res.render('signin');
     } else {
-        res.render('index', {'username': req.session.username});
+
+        res.render('index', {'username': req.session.username,'status': req.session.status});
+
     }
 };
 
@@ -156,7 +159,7 @@ exports.getUserInfo = function(userName,callback){
 }
 
 exports.newUser = function(input){
-    return new User().initialize(input.userName, input.status);
+    return new User().initialize(input.userName,null ,input.status);
 }
 
 function qualifiedUsernamePassword(username,password) {
