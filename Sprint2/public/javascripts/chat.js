@@ -39,8 +39,12 @@ $('#post-btn').on('click', function(e) {
 			console.log("client : "+ username +  text);
 			swal.close()
 			//socket.emit('send message',obj);
-			$.post("/sendPublicMessage",obj,function(){
-
+			$.post("/sendPublicMessage",obj,function(response){
+				if (response.statusCode === 200) {
+					//receiveMessage();
+				} else {
+					swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+				}
 			});
 		});
 	} else {
@@ -50,8 +54,12 @@ $('#post-btn').on('click', function(e) {
 
 		//socket.emit('send message',obj);
 		//call api
-		$.post("/sendPublicMessage",obj,function(){
-
+		$.post("/sendPublicMessage",obj,function(response){
+			if (response.statusCode === 200) {
+				//receiveMessage();
+			} else {
+				swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+			}
 		});
 
 		$('#focusedInput').val('');
@@ -88,61 +96,32 @@ $.get('/getHistory', function(data){
     chat_body.scrollTop(height);
 });
 
-
 // Display user login information
 socket.on('connect', function () {
-    socket.emit('login',$("#myname").val());
+	socket.emit('login',$("#myname").val());
 });
-
 
 // Display the new post message
 socket.on('send message', function(message){
 	//var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
-    var label = '<div style="color:black" class="message">' +
-        '<div class="messageHeader">' +
-        '<span>' +
-        '<span>' + message.username +
-        '</span>' +
-        '<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
-        '<div class="timestamp pull-right">' +
-        '<i class="fa fa-clock-o fa-1"></i>' +
-        '<small style="margin-left: 5px;">' + now() + '</small>' +
-        '</div>' +
-        '</span>' +
-        '</div>' +
-        '<div class="messageBody">' +
-        '<strong>'+ message.text +' </strong> ' +
-        '</div>' +
-        '</div>';
-    var one = $(label);
+	var label = '<div style="color:black" class="message">' +
+			'<div class="messageHeader">' +
+			'<span><span>' + message.username + '</span>' +
+			'<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
+			'<div class="timestamp pull-right">' +
+			'<i class="fa fa-clock-o fa-1"></i>' +
+			'<small style="margin-left: 5px;">' + now() + '</small>' +
+			'</div>' +
+			'</span>' +
+			'</div>' +
+			'<div class="messageBody"><strong>'+ message.text +' </strong></div></div>';
+	var one = $(label);
 	content.append(one);
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 	var chat_body = $('#stream-list');
-    var height = chat_body[0].scrollHeight;
-    chat_body.scrollTop(height);
+	var height = chat_body[0].scrollHeight;
+	chat_body.scrollTop(height);
 });
-
-//updating the list of online and offline users
-//socket.on('updatelist',function(message){
-//	console.log("-----------------online : "+ message.online);
-//	console.log("-----------------offline : "+ message.offline);
-//	var online_list = $(".online-list");
-//	online_list.html("");
-//	var online_users = message.online;
-//	for(var i=0; i<online_users.length; i++) {
-//		var label = '<div style="color:black"><span>' +  online_users[i].userName + '</span></div><br/>';
-//		var one = $(label);
-//		online_list.append(one);
-//	}
-//	var offline_list = $(".offline-list");
-//	offline_list.html("");
-//	var offline_users = message.offline;
-//	for(var i=0; i<offline_users.length; i++) {
-//		var label = '<div style="color:gray"><span>' +  offline_users[i].userName + '</span></div><br/>';
-//		var one = $(label);
-//		offline_list.append(one);
-//	}
-//});
 
 //get current time
 function now() {
