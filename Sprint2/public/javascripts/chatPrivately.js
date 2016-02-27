@@ -13,8 +13,7 @@ socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 socket.on('updatelist',function(response){
-    console.log("userList");
-    console.log(response);
+
 
     Object.size = function(obj) {
         var size = 0, key;
@@ -27,16 +26,18 @@ socket.on('updatelist',function(response){
 // Get the size of an object
     var onlineSize = Object.size(response.online);
     var offlineSize = Object.size(response.offline);
+    console.log("offline list");
+    console.log(response.offline);
     //var username = response.currentUser.userName;
     var username = $("#myname").val();
     sortByName(response.online, function(onlineUserList){
         for(var i = 0; i < onlineSize; i++) {
-            console.log("wayayayayaya" + onlineUserList[i].userName);
             setDropdownUserlistClick(username, onlineUserList[i].userName,true);
         }
     });
     sortByName(response.offline, function(offlineUserList) {
         for(var i = 0; i < offlineSize; i++) {
+            console.log(i);
             console.log("wayayayayaya" + offlineUserList[i].userName);
             setDropdownUserlistClick(username, offlineUserList[i].userName,false);
         }
@@ -159,7 +160,7 @@ function sortByName(dict, callback) {
     var tempDict = {};
     for(var i = 0; i < 3; i++) {
         tempDict[i] = sorted[i];
-        console.log(sorted[i]);
+
     }
     callback(tempDict);
 }
