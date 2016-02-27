@@ -63,12 +63,6 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
         //get history
         getPrivateMessage(currentUser, chatTarget);
 
-        //$('#post-btn').click(function() {
-        //    //event.preventDefault();
-        //    var text = $('#focusedInput').val();
-        //    console.log("ttttttttttttttttttttttttttt?????------------" + text);
-        //    sendMessage(currentUser,chatTarget);
-        //});
     });
 }
 
@@ -104,7 +98,6 @@ function getPrivateMessage(senderName, receiverName) {
 function sendMessage(senderName, receiverName) {
     var text = $('#focusedInput').val();
     var obj = {};
-    console.log("22222222"+text);
     if(text ==="") {
         swal({
             title: "Empty input!",
@@ -141,7 +134,6 @@ function sendMessage(senderName, receiverName) {
         $.post("/chatPrivately",obj,function(response){
             console.log(response);
         });
-
         $('#focusedInput').val('');
         $('#focusedInput').focus();
     }
@@ -168,7 +160,6 @@ function sortByName(dict, callback) {
 
 // Display the new post message
 socket.on('send private message', function(message){
-    console.log("***************************");
     if (message.sender === username) {
         addMessage(message, "black", message.text, "Me");
     } else {

@@ -138,7 +138,7 @@ app.get('/userList', function(req, res){
 
 //chat privately
 app.post('/chatPrivately',function(req,res){
-    console.log("------------------" + req.body.sender);
+
     console.log(req.body.receiver);
     console.log(req.body.sender);
     chatPrivately.sendPrivateMessage(req,res,sockets[req.body.receiver],sockets[req.body.sender],sockets);
@@ -160,9 +160,6 @@ io.on('connection', function(socket) {
         signInCtl.getUserInfo(myname,function(callback){
             //socket.user = callback;
             socket.user = signInCtl.newUser(callback);
-
-            console.log("----------~~~~~~~~~~~~~~~"+ socket.user.status);
-
             sockets[myname] = socket;
             signInCtl.addLoggedInUsers(socket.user);
             signInCtl.getOfflineUserIo(socket.user,io);

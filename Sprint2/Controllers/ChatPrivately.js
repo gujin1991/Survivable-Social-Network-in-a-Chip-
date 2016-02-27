@@ -16,12 +16,11 @@ exports.getPrivateMessages = function(req, res) {
 
 }
 
-
 exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     var message = req.body;
     console.log("200 OK");
     message.time = now();
-    messageM.addMessage(message.sender,message.receiver,message.text,message.time, function(callback){
+    messageM.addMessage( message.sender, message.receiver, message.text, message.time, function(callback){
         if (callback == 200) {
             sender.emit('send private message', message);
             if(req.body.receiver in sockets) socket.emit('send private message', message);
@@ -31,7 +30,7 @@ exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     });
 }
 
-function now() {
+function now(){
     var date = new Date();
     var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
     return time;
