@@ -159,7 +159,7 @@ exports.getUserInfo = function(userName,callback){
 }
 
 exports.newUser = function(input){
-    return new User().initialize(input.userName, input.status);
+    return new User().initialize(input.userName,null ,input.status);
 }
 
 function qualifiedUsernamePassword(username,password) {
