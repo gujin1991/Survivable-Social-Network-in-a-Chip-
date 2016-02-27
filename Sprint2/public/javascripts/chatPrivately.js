@@ -165,6 +165,7 @@ function sortByName(dict, callback) {
 }
 // Display the new post message
 socket.on('send private message', function(message){
+    console.log("receive message------" + message);
     //var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
     var label = '<div style="color:black" class="message">' +
         '<div class="messageHeader">' +
@@ -180,7 +181,7 @@ socket.on('send private message', function(message){
     var one = $(label);
     content.append(one);
     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    var chat_body = $('#stream-list');
+    var chat_body = $('#private-stream-list');
     var height = chat_body[0].scrollHeight;
     chat_body.scrollTop(height);
 });
