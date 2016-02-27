@@ -8,7 +8,7 @@ var joinCommunity = require('../Controllers/joinCommunity.js');
 
 suite('Sprint 2 Test', function(){
 
-	test('Test Hello World', function(done){
+	test('Test User', function(done){
 		new User().initialize("jiyu", null, null).updateStatus(new Status().help, function (code) {
 			expect(code).to.eql(200);
 			done();
