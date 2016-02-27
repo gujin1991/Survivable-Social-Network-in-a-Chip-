@@ -40,13 +40,10 @@ function updateStatus(newstatus) {
     var obj = {'username':username,'status':statusContent};
     $.post("/updateStatus",obj,function(response){
         if (response.statusCode === 200) {
-            //$("#status-toggle").empty().append(
-            //    'Status:<span><img src="../images/icons/' + logoName + '">' + statusContent + '</span><span class="caret"></span>');
             $("#status-toggle").empty().append(
                 'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
         } else {
             swal({title: "Error!",text: "The status cannot status!", type: "error", confirmButtonText: "OK" });
-
         }
     });
     //Todo:updateUser List

@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/sweetalert.css">
     <link rel="stylesheet" href="stylesheets/index.css">
     <link rel="stylesheet" href="stylesheets/navbar.css">
-    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
 </head>
 
 
@@ -29,23 +28,22 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/users">Users</a></li>
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
+                        <a href="" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" id="status-ok" data-toggle="tab">OK</a></li>
-                            <li><a href="#" id="status-help" data-toggle="tab">Help</a></li>
-                            <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
+                            <li><a href="" id="status-ok" data-toggle="tab">OK</a></li>
+                            <li><a href="" id="status-help" data-toggle="tab">Help</a></li>
+                            <li><a href="" id="status-emergency" data-toggle="tab">Emergency</a></li>
                         </ul>
                     </li>
-                    <li><a href="/chatPrivately">Chat Privately</a></li>
-                    <li><a href="#">Help</a></li>
+                    <li><a href="">Chat Privately</a></li>
+                    <li><a href="">Help</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Change Profile</a></li>
-                            <li><a href="#">Change Password</a></li>
-                            <li><a href="#">Change Status</a></li>
+                            <li><a href="">Change Profile</a></li>
+                            <li><a href="">Change Password</a></li>
+                            <li><a href="">Change Status</a></li>
                             <li class="divider"></li>
                             <li><a href="/logout"><strong>Sign out</strong></a></li>
                         </ul>
@@ -59,25 +57,6 @@
         </div>
     </nav>
 
-    <div id="announcement">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1 alert alert-info">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <div class="text-center">
-                    <div class="row"><h4>Welcome</h4></div>
-                    <div class="row">
-                        <b>Welcome to our Surviable Social Network!</b>
-                        <br>Importance you need to know about MEANINGS of status:
-                        <br><b>OK</b>: I am OK, I do not need help.
-                        <br><b>Help</b>: I need help, but this is not a life threatening emergency.
-                        <br><b>Emergency</b>: I need help now, as this is a life threatening emergency!
-                        <br>if you have any suggestions/bug report please send it to us: <a href="mailto:jiyus@andrew.cmu.edu"><b>jiyus@andrew.cmu.edu</b></a>.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 	<div id="content" class="container">
         <div class="row">
             <!--<div class="row">-->
@@ -85,42 +64,38 @@
                 <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
                     <div class="page-header">
                         <h2> Welcome, <%=username%> </h2>
+                        <input type="hidden" id="myname" value="<%=username%>">
                     </div>
-                    <div id="stream-list">
-                        <div class="msg grumblr-box"></div>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="userlist-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            User List
+                        </button>
+                        <ul id="userlist-dropdown-append"class="dropdown-menu slidedown">
+                            <li><a href="" id="refresh">Refresh</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="private-stream-list">
+                        <div style="background: gold">Chat with <span id="private-head"></span></div>
+                        <div class="msg grumblr-box">hfidhfidfhids</div>
                     </div>
                     <div id="post-board">
                         <p id="prompt"><strong>Send a new Message</strong></p>
                         <form>
                             <textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>
-                            <button id="check-btn" type="button" class="btn btn-danger pull-right">Check Announcement</button>
                             <button id="post-btn" type="button" class="btn btn-danger pull-right">Send</button>
                         </form>
                         <div id="error"></div>
                     </div>
                 </div>
-                <!-- right column -- sidebar -->
-                <!--<div id="rightcontent" class="col-md-3 col-sm-3 sidebar">-->
-                    <!--<div id="sidebar">-->
-                        <!--<div id="userList">-->
-                            <input type="hidden" id="myname" value="<%=username%>">
-                            <!--<h4>Online Users List</h4>-->
-                            <!--<div class="line"></div>-->
-                            <!--<div class="online-list"></div>-->
-                            <!--<h4>Offline Users List</h4>-->
-                            <!--<div class="line"></div>-->
-                            <!--<div class="offline-list"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+
         </div>
     </div>
     <!-- Bootstrap core JavaScript (used for button dropdown)-->
     <script src="javascripts/jquery.min.js"></script>
 	<script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/sweetalert.min.js"></script>
-    <script src="javascripts/chat.js"></script>
+    <script src="javascripts/chatPrivately.js"></script>
     <script src="javascripts/sharestatus.js"></script>
 </body>
 </html>
