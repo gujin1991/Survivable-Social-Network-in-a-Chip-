@@ -2,49 +2,130 @@
  * Created by congshan on 2/25/16.
  */
 var socket = io.connect();
-//updating the list of online and offline users
-socket.on('updatelist',function(message){
-    console.log("-----------------online : "+ message.online);
-    console.log("-----------------offline : "+ message.offline);
+
+socket.on('connect', function () {
+    socket.emit('login',$("#myname").val());
+});
+
+socket.on('updatelist', function(response){
+    console.log("-----------------online : "+ response.online);
+    console.log("-----------------offline : "+ response.offline);
+
+    Object.size = function(obj) {
+        var size = 0, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+        }
+        return size;
+    };
+
+    var onlineSize = Object.size(response.online);
+    var offlineSize = Object.size(response.offline);
+
+    sortByName(response.online, function(onlineUserList){
+        setOnlineTable(onlineUserList, onlineSize);
+    });
+    sortByName(response.offline, function(offlineUserList) {
+        setOfflineTable(offlineUserList, offlineSize);
+    });
+});
+
+function setOnlineTable(online_users, size) {
     var online_list = $(".online-list");
     online_list.html("");
-    var online_users = message.online;
     var online_table = '<table class="table table-hover">' +
-                        '<thead><tr><th>Online Users</th></tr></thead>' +
-                        '<tbody>';
-    for(var i=0; i<online_users.length; i++) {
+        '<thead><tr><th>Online Users</th></tr></thead>' +
+        '<tbody>';
+    for(var i=0; i<size; i++) {
         /*
          * TODO: add user status to the new table row
          *       <td><img ....></td>
          * */
+        var imgName;
+        var status;
+        if (online_users[i].status == 'OK') {
+            imgName = "ok.png";
+            status = "OK";
+        } else if (online_users[i].status == 'Help') {
+            imgName = "help.png";
+            status = "Help";
+        } else if (online_users[i].status == 'Emergency') {
+            imgName = "emergency.png";
+            status = "Emergency";
+        } else {
+            imgName = "undefined.png";
+            status = "Undefined";
+        }
+
         var new_line = '<tr>' +
-                        '<td>' + online_users[i].userName + '</td>' +
-                        '</tr>';
+            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
+            online_users[i].userName + '</td>' +
+            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<span>' + status + '</span>' + '</td>' +
+            '</tr>';
         online_table += new_line;
     }
     online_table += '</tbody></table>';
     var one = $(online_table);
     online_list.append(one);
+}
 
+function setOfflineTable(offline_users, size) {
     var offline_list = $(".offline-list");
     offline_list.html("");
-    var offline_users = message.offline;
     var offline_table = '<table class="table table-hover">' +
         '<thead><tr><th>Offline Users</th></tr></thead>' +
         '<tbody>';
-    for(var i=0; i<offline_users.length; i++) {
+    for(var i=0; i<size; i++) {
         /*
          * TODO: add user status to the new table row
          *       <td><img ....></td>
          * */
+        var imgName;
+        var status;
+        if (offline_users[i].status == 'OK') {
+            imgName = "ok.png";
+            status = "OK";
+        } else if (offline_users[i].status == 'Help') {
+            imgName = "help.png";
+            status = "Help";
+        } else if (offline_users[i].status == 'Emergency') {
+            imgName = "emergency.png";
+            status = "Emergency";
+        } else {
+            imgName = "undefined.png";
+            status = "Undefined";
+        }
+
+        //var new_line = '<tr>' +
+        //    '<td>' + offline_users[i].userName + '</td>' +
+        //    '</tr>';
         var new_line = '<tr>' +
-            '<td>' + offline_users[i].userName + '</td>' +
+            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
+            offline_users[i].userName + '</td>' +
+            '<td>' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<span>' + status + '</span>' + '</td>' +
             '</tr>';
         offline_table += new_line;
     }
     var one = $(offline_table);
-    online_list.append(one);
-});
-socket.on('connect', function () {
-    socket.emit('login',$("#myname").val());
-});
+    offline_list.append(one);
+}
+
+function sortByName(dict, callback) {
+    var loweCaseSort = function(a, b) {
+        return a.userName.toLowerCase().localeCompare(b.userName.toLowerCase())
+    };
+    var sorted = [];
+    for(var i = 0; i < dict.length; i++) {
+        sorted[sorted.length] = dict[i];
+    }
+    sorted.sort(loweCaseSort);
+
+    var tempDict = {};
+    for(var i = 0; i < 3; i++) {
+        tempDict[i] = sorted[i];
+    }
+    callback(tempDict);
+}
+
