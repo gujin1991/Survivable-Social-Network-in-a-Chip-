@@ -4,11 +4,6 @@
 var socket = io.connect();
 var mystatus = $("#mystatus").val();
 
-jQuery( document ).ready(function( $ ) {
-    if (mystatus == undefined) {
-
-    }
-});
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });

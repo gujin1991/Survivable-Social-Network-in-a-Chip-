@@ -1,8 +1,21 @@
 /**
  * Created by Pan on 2/25/16.
  */
+var mystatus = $("#mystatus").val();
 $(document).ready(function() {
-
+    if (mystatus == "OK") {
+        var logoName = "ok.png";
+        $("#status-toggle").empty().append(
+            'Status:<span><img alt="'+ mystatus +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+    } else if (mystatus == "Help") {
+        var logoName = "help.png";
+        $("#status-toggle").empty().append(
+            'Status:<span><img alt="'+ mystatus +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+    } else if (mystatus == "Emergency") {
+        var logoName = "emergency.png";
+        $("#status-toggle").empty().append(
+            'Status:<span><img alt="'+ mystatus +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+    }
 });
 
 $("#status-ok").click(function(evenet) {
