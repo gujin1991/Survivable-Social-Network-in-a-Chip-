@@ -19,7 +19,7 @@ exports.directAnnoucement = function(req,res){
         res.render('index', {'username': req.session.username});
     } else {
         console.log("fine!");
-        res.render('announcement', {'username': req.session.username});
+        res.render('announcement', {'username': req.session.username, 'status': req.session.status});
     }
 };
 

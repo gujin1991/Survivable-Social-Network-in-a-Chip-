@@ -25,11 +25,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">SSNoC</a>
+                <a class="navbar-brand" href="/">SSNoC</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/users">Users</a></li>
+                    <li><a href="/chatPrivately">Chat Privately</a></li>
+                    <li><a href="/announcement">Announcement</a></li>
+                    <!--<li><a href="#">Help</a></li>-->
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -38,8 +41,6 @@
                             <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
                         </ul>
                     </li>
-                    <li><a href="/chatPrivately">Chat Privately</a></li>
-                    <li><a href="#">Help</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -50,11 +51,11 @@
                             <li><a href="/logout"><strong>Sign out</strong></a></li>
                         </ul>
                     </li>
+                    <li><a href="/">Home</a></li>
                 </ul>
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </form>
-
+                <!--<form class="navbar-form navbar-right">-->
+                    <!--<input type="text" class="form-control" placeholder="Search...">-->
+                <!--</form>-->
             </div>
         </div>
     </nav>
@@ -95,7 +96,7 @@
                         <p id="prompt"><strong>Send a new Message</strong></p>
                         <form>
                             <textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>
-                            <button id="check-btn" type="button" class="btn btn-danger pull-right">Check Announcement</button>
+                            <!--<button id="check-btn" type="button" class="btn btn-danger pull-right">Check Announcement</button>-->
                             <button id="post-btn" type="button" class="btn btn-danger pull-right">Send</button>
                         </form>
                         <div id="error"></div>

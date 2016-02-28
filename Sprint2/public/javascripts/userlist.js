@@ -2,7 +2,7 @@
  * Created by congshan on 2/25/16.
  */
 var socket = io.connect();
-var mystatus = $("#mystatus").val();
+//var mystatus = $("#mystatus").val();
 
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());

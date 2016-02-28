@@ -30,6 +30,9 @@
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/users">Users</a></li>
+                    <li><a href="/chatPrivately">Chat Privately</a></li>
+                    <li><a href="/announcement">Announcement</a></li>
+                    <!--<li><a href="#">Help</a></li>-->
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -38,8 +41,6 @@
                             <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Chat Privately</a></li>
-                    <li><a href="#">Help</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -50,11 +51,11 @@
                             <li><a href="/logout"><strong>Sign out</strong></a></li>
                         </ul>
                     </li>
+                    <li><a href="/">Home</a></li>
                 </ul>
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </form>
-
+                <!--<form class="navbar-form navbar-right">-->
+                    <!--<input type="text" class="form-control" placeholder="Search...">-->
+                <!--</form>-->
             </div>
         </div>
     </nav>
@@ -85,6 +86,8 @@
                 <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
                     <div class="page-header">
                         <h2> Welcome, <%=username%> </h2>
+                        <input type="hidden" id="myname" value="<%=username%>">
+                        <input type="hidden" id="mystatus" value="<%=status%>">
                     </div>
                     <div id="stream-list">
                         <div class="msg grumblr-box"></div>
@@ -103,7 +106,6 @@
                 <!--<div id="rightcontent" class="col-md-3 col-sm-3 sidebar">-->
                     <!--<div id="sidebar">-->
                         <!--<div id="userList">-->
-                            <input type="hidden" id="myname" value="<%=username%>">
                             <!--<h4>Online Users List</h4>-->
                             <!--<div class="line"></div>-->
                             <!--<div class="online-list"></div>-->

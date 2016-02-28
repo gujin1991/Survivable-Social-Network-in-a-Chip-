@@ -124,7 +124,7 @@ app.post('/sendAnnouncements',function(req,res){
 //direct to private char page
 app.get('/chatPrivately', function(req, res){
     if (req.session.loggedIn) {
-        res.render('chatPrivately', {'username': req.session.username});
+        res.render('chatPrivately', {'username': req.session.username, 'status': req.session.status});
     } else {
         res.render('signin');
     }

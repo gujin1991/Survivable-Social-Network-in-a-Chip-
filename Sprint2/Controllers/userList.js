@@ -9,4 +9,4 @@ exports.directUserList = function(req,res){
     } else {
         res.render('users', {'username': req.session.username, 'status': req.session.status});
     }
-}
+};

@@ -55,6 +55,8 @@ function updateStatus(newstatus) {
         if (response.statusCode === 200) {
             $("#status-toggle").empty().append(
                 'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+            $("#mystatus").val(newstatus);
+            console.log("update status:" + $("#mystatus").val());
         } else {
             swal({title: "Error!",text: "The status cannot status!", type: "error", confirmButtonText: "OK" });
         }
