@@ -38,7 +38,7 @@ function setOnlineTable(online_users, size) {
     var online_list = $(".online-list");
     online_list.html("");
     var online_table = '<table class="table table-hover">' +
-        '<thead><tr><th>Online Users</th></tr></thead>' +
+        '<thead><tr><th width="50%">Online Users</th></tr></thead>' +
         '<tbody>';
     for(var i=0; i<size; i++) {
         var imgName;
@@ -58,9 +58,9 @@ function setOnlineTable(online_users, size) {
         }
 
         var new_line = '<tr>' +
-            '<td width="30%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
+            '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
             '<span>' + online_users[i].userName + '</span>' + '</td>' +
-            '<td width="70%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<td width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
         online_table += new_line;
@@ -77,7 +77,7 @@ function setOfflineTable(offline_users, size) {
     var offline_list = $(".offline-list");
     offline_list.html("");
     var offline_table = '<table class="table table-hover">' +
-        '<thead><tr><th>Offline Users</th></tr></thead>' +
+        '<thead><tr><th width="50%">Offline Users</th></tr></thead>' +
         '<tbody>';
     for(var i=0; i<size; i++) {
         var imgName;
@@ -98,9 +98,9 @@ function setOfflineTable(offline_users, size) {
         }
 
         var new_line = '<tr>' +
-            '<td width="30%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
+            '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
             '<span>' + offline_users[i].userName + '</span>' + '</td>' +
-            '<td  width="70%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+            '<td  width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
         offline_table += new_line;

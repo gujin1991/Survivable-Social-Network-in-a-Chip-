@@ -68,7 +68,7 @@ $.get('/getHistory', function(data){
 							'<span>' +
 								'<span>' + message.userName +
 								'</span>' +
-								'<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
+								//'<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
                                 '<div class="timestamp pull-right">' +
                                     '<i class="fa fa-clock-o fa-1"></i>' +
                                     '<small style="margin-left: 5px;">' + message.time + '</small>' +
@@ -99,7 +99,7 @@ socket.on('send message', function(message){
 	var label = '<div style="color:black" class="message">' +
 			'<div class="messageHeader">' +
 			'<span><span>' + message.username + '</span>' +
-			'<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
+			//'<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
 			'<div class="timestamp pull-right">' +
 			'<i class="fa fa-clock-o fa-1"></i>' +
 			'<small style="margin-left: 5px;">' + now() + '</small>' +
