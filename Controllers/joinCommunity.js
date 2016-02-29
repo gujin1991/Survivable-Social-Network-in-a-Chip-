@@ -151,7 +151,7 @@ exports.getUserInfo = function(userName,callback){
 
     new User().getUserInfo(userName,function(err,user){
         if (err){
-            console.log("error");
+            //console.log("error");
             callback(err) // changed this to pass test
         }else{
             callback(user);

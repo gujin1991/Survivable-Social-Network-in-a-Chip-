@@ -15,18 +15,17 @@ suite('Sprint 2 Test', function () {
         });
     });
 
-    //test('Test joinCommunity', function (done) {
-    //    joinCommunity.getUserInfo("guangyuc", function (err, data) {
-    //        if (err) {
-    //            expect(err).to.eql(400);
-    //            done();
-    //        } else {
-    //            expect(data.length).to.not.eql(0);
-    //            done();
-    //        }
-    //    });
-    //});
-
+    test('Test joinCommunity', function (done) {
+        joinCommunity.getUserInfo("guangyuc", function (err, data) {
+            if (err) {
+                expect(err).to.eql(400);
+                done();
+            } else {
+                expect(data.length).to.not.eql(0);
+                done();
+            }
+        });
+    });
 
     test('Test MessageDB', function (done) {
         new MessageDB().messageAdd("jiyu", null, null, function (code) {
