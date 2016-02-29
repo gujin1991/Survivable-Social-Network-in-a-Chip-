@@ -7,8 +7,7 @@ function MessageDb() {
     this.db = new sqlite3.Database('./fse.db');
 
     // TODO add status table
-};
-
+}
 MessageDb.prototype.messageAdd = function (username, message, time, callback) {
     //TODO add user exist auth
     var dbtemp = this.db;
