@@ -1,7 +1,7 @@
 /**
  * Created by jiyushi1 on 2/25/16.
  */
-var directory = require('../module/directory.js')
+var directory = require('../module/Directory.js')
 
 
 exports.updateStatus = function(req,res,io) {

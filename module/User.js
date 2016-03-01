@@ -1,7 +1,7 @@
 /**
  * Created by guangyu on 2/21/16.
  */
-var UserDb = require('./userDB.js');
+var UserDb = require('./UserDb.js');
 
 function User() {
     this.userName = null;

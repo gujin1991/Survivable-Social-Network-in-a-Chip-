@@ -1,4 +1,4 @@
-var UserDb = require('./userDB.js');
+var UserDb = require('./UserDb.js');
 var User = require('./User.js')
 
 

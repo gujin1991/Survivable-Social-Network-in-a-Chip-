@@ -2,7 +2,7 @@
  * created by Jin Gu on 02/25/16
  */
 
-var AnnoucementDB = require('./AnnouncementDB.js');
+var AnnoucementDB = require('./AnnouncementDb.js');
 
 function Annoucement(username, annoucement, time) {
 	this.username = username;

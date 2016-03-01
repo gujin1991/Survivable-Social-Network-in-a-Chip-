@@ -5,12 +5,12 @@ var ejs = require('ejs');
 var url = require('url');
 
 // TODO: Add all controllers here
-var signInCtl = require('./Controllers/JoinCommunity.js');
-var chatPublicly = require('./Controllers/ChatPublicly.js');
-var shareStatus = require('./Controllers/ShareStatus.js');
-var userListCtl = require('./Controllers/userList.js');
-var chatPrivately = require('./Controllers/chatPrivately.js');
-var postAnnouce = require('./Controllers/postAnnouncement.js');
+var signInCtl = require('./controllers/JoinCommunity.js');
+var chatPublicly = require('./controllers/ChatPublicly.js');
+var shareStatus = require('./controllers/ShareStatus.js');
+var userListCtl = require('./controllers/UserList.js');
+var chatPrivately = require('./controllers/chatPrivately.js');
+var postAnnouce = require('./controllers/PostAnnouncement.js');
 
 //save all the socket with the name of it's name.
 var sockets = {}
