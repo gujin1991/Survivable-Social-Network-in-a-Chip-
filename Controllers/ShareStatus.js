@@ -1,16 +1,15 @@
 /**
  * Created by jiyushi1 on 2/25/16.
  */
-var directory = require('../module/Directory.js')
+var directory = require('../module/directory.js')
 
 
 exports.updateStatus = function(req,res,io) {
-    console.log(req.body.username);
-    console.log(req.body.status);
-    directory.updateStatus(req.body.username,req.body.status, function(callback) {
+
+    directory.update(req.body.username,req.body.status, function(callback) {
         if(callback == 200) {
             req.session.status = req.body.status;
-            console.log("***********************\nsession status:" + req.session.status);
+            //console.log("***********************\nsession status:" + req.session.status);
             res.json({"statusCode":200, "message": "Success"});
         }
         else if (callback == 400) res.json({"statusCode":400, "message": "Fail"});
