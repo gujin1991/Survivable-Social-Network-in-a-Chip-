@@ -18,23 +18,22 @@ var directory = new function Directory(){
     //new added
     this.update = function(username,status,callback){
 
-        console.log("***********************"+ username);
-        console.log("***********************"+ status);
+
 
         log = [];
         for (var key in this._newUsers){
-            console.log("print the list in update **********************" + key);
+           // console.log("print the list in update **********************" + key);
             log.push(this._newUsers[key]);
         }
         //console.log(user);
         var user = this._newUsers[username];
-        console.log("user === **************" +user);
+       //console.log("user === **************" +user);
         user.updateStatus(status,callback);
         this._newUsers[username] = user;
     };
 
     this.deleteLoggedInUsers = function(user){
-        console.log("delete **************************** " + user.userName);
+       // console.log("delete **************************** " + user.userName);
         var index = this._loggedInUsers.indexOf(user);
         if (index > -1) {
             this._loggedInUsers.splice(index, 1);
@@ -49,7 +48,7 @@ var directory = new function Directory(){
     this.getOnlineUsers = function(callback){
         log = [];
         for (var key in this._newUsers){
-            console.log("print the list in get online **********************" + key);
+            //console.log("print the list in get online **********************" + key);
             log.push(this._newUsers[key]);
         }
         callback(log);

@@ -57,11 +57,16 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
         event.preventDefault();
         chatTarget = $(this).text();
 
-        $('#private-head').empty().append('   ' + chatTarget);
+
         content.empty();
 
         //get history
-        getPrivateMessage(currentUser, chatTarget);
+        if(chatTarget = currentUser){
+            swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
+        }else {
+            $('#private-head').empty().append('   ' + chatTarget);
+            getPrivateMessage(currentUser, chatTarget);
+        }
 
     });
 }
@@ -69,12 +74,10 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
 $('#post-btn').click(function() {
     //event.preventDefault();
 
-    if ($('#private-head').text() == "") {
-        swal({title: "Error!",text: "No user!", type: "error", confirmButtonText: "OK" });
+    if ($('#private-head').text() == "" || chatTarget == username) {
+        swal({title: "Error!",text: "Please select user you want to chat to!", type: "error", confirmButtonText: "OK" });
         $('#focusedInput').val('');
-    }
-
-    else sendMessage(username,chatTarget);
+    } else sendMessage(username,chatTarget);
 });
 
 function getPrivateMessage(senderName, receiverName) {

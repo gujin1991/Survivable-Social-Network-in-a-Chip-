@@ -11,7 +11,7 @@ socket.on('connect', function () {
 socket.on('updatelist', function(response){
     console.log("-----------------online : "+ response.online);
     console.log("-----------------offline : "+ response.offline);
-
+    console.log("-----------------status : " + response.currentUser.status);
     Object.size = function(obj) {
         var size = 0, key;
         for (key in obj) {
@@ -19,6 +19,8 @@ socket.on('updatelist', function(response){
         }
         return size;
     };
+
+    //$("#mystatus").val(response.currentUser.status);
 
     var onlineSize = Object.size(response.online);
     var offlineSize = Object.size(response.offline);

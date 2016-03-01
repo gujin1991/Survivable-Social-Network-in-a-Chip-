@@ -1,3 +1,6 @@
+/**
+ * Created by jiyushi1 on 2/25/16.
+ */
 //this js file contains all the method  to get history message
 //and search function.
 

@@ -18,8 +18,8 @@ $(document).ready(function() {
     }
 });
 
-$("#status-ok").click(function(evenet) {
-    evenet.preventDefault();
+$("#status-ok").click(function(event) {
+    event.preventDefault();
     updateStatus('OK');
 });
 
@@ -56,7 +56,7 @@ function updateStatus(newstatus) {
             $("#status-toggle").empty().append(
                 'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
             $("#mystatus").val(newstatus);
-            console.log("update status:" + $("#mystatus").val());
+            //console.log("update status:" + $("#mystatus").val());
         } else {
             swal({title: "Error!",text: "The status cannot status!", type: "error", confirmButtonText: "OK" });
         }
