@@ -43,8 +43,13 @@ suite('Sprint 2 Test', function () {
 
     test('Test Message', function (done) {
         new Message().getHistory(function (data) {
-            expect(data.length).to.not.eql(0);
-            done();
+            if (data == 400) {
+                expect(data).to.eql(0);
+                done();
+            } else {
+                expect(data.length).to.not.eql(0);
+                done();
+            }
         });
     });
 
