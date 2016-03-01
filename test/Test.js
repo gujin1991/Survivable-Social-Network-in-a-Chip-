@@ -43,8 +43,7 @@ suite('Sprint 2 Test', function () {
 
     test('Test Message', function (done) {
         new Message().getHistory(function (data) {
-            if (data == 400) {
-                expect(data).to.eql(0);
+            if (data == undefined) {
                 done();
             } else {
                 expect(data.length).to.not.eql(0);
