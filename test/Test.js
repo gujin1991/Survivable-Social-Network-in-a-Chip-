@@ -4,7 +4,7 @@ var Status = require('../module/Status.js');
 var MessageDB = require('../module/MessageDb.js');
 var AnnouncementDB = require('../module/AnnouncementDb.js');
 var Message = require('../module/Message.js');
-var joinCommunity = require('../JoinCommunity.js');
+var joinCommunity = require('../controllers/JoinCommunity.js');
 
 suite('Sprint 2 Test', function () {
 
