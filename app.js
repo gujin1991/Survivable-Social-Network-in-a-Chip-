@@ -135,10 +135,24 @@ app.get('/userList', function(req, res){
     signInCtl.getOfflineUserIo(req,res,io);
 });
 
-app.post('/storeStatus',function(req,res){
-    req.session.status = req.body.status;
-    console.log("test status -----------------------------!!!!!!" + req.session.status);
-    res.json({"statusCode":200, "message": "Success"});
+//store status in session
+
+//app.post('/storeStatus',function(req,res){
+//    req.session.status = req.body.status;
+//    console.log("test status -----------------------------!!!!!!" + req.session.status);
+//    res.json({"statusCode":200, "message": "Success"});
+//});
+
+app.post('/getStatus',function(req,res){
+
+    signInCtl.getUserInfo(req.body.username,function(callback){
+        //socket.user = callback;
+        req.session.status = callback.status;
+        console.log("test status -----------------------------!!!!!!" + req.session.status);
+        res.json({"statusCode":200, "message": "Success" ,"status":callback.status});
+    });
+
+
 });
 
 //chat privately
