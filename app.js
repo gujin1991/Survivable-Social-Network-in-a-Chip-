@@ -9,7 +9,7 @@ var signInCtl = require('./controllers/JoinCommunity.js');
 var chatPublicly = require('./controllers/ChatPublicly.js');
 var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
-var chatPrivately = require('./controllers/chatPrivately.js');
+var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
 
 //save all the socket with the name of it's name.
