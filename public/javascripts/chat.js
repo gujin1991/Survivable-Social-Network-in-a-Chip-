@@ -12,7 +12,6 @@ $('#check-btn').on('click', function(e) {
 
 $.post('/getStatus',{'username':username},function(response){
 
-
 	if (response.statusCode === 200) {
 		var mystatus = response.status;
 
@@ -29,7 +28,10 @@ $.post('/getStatus',{'username':username},function(response){
 		//swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
 		$("#status-toggle").empty().append(
 			'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+	}else{
+		console.log("err");
 	}
+
 });
 
 socket.on('updatelist', function(response){

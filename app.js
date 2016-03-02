@@ -147,9 +147,14 @@ app.post('/getStatus',function(req,res){
 
     signInCtl.getUserInfo(req.body.username,function(callback){
         //socket.user = callback;
-        req.session.status = callback.status;
-        console.log("test status -----------------------------!!!!!!" + req.session.status);
-        res.json({"statusCode":200, "message": "Success" ,"status":callback.status});
+        if(callback == 400){
+            res.json({"statusCode":400, "message": "Fail" });
+        }else{
+            req.session.status = callback.status;
+            console.log("test status -----------------------------!!!!!!" + req.session.status);
+            res.json({"statusCode":200, "message": "Success" ,"status":callback.status});
+        }
+
     });
 
 
