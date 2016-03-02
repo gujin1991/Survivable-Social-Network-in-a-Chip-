@@ -130,11 +130,16 @@ app.get('/chatPrivately', function(req, res){
     }
 });
 
+
 app.get('/userList', function(req, res){
-    signInCtl.getOfflineUserIo(io);
+    signInCtl.getOfflineUserIo(req,res,io);
 });
 
-
+app.post('/storeStatus',function(req,res){
+    req.session.status = req.body.status;
+    console.log("test status -----------------------------!!!!!!" + req.session.status);
+    res.json({"statusCode":200, "message": "Success"});
+});
 
 //chat privately
 app.post('/chatPrivately',function(req,res){

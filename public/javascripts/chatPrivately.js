@@ -55,11 +55,12 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
     $("#userlist-dropdown-append").append($htmlDiv);
     $htmlDiv.children('#chat-userList').click(function() {
         event.preventDefault();
-        var chatTarget = $(this).text();
+        chatTarget = $(this).text();
         content.empty();
 
         //get history
-        if(chatTarget === currentUser){
+        if(chatTarget == currentUser){
+            chatTarget = null;
             swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
         }else {
             $('#private-head').empty().append('   ' + chatTarget);
@@ -160,15 +161,18 @@ function sortByName(dict, callback) {
 
 // Display the new post message
 socket.on('send private message', function(message){
-    if (message.sender === username) {
-        addMessage(message, message.text, "Me");
-    } else {
-        addMessage(message, message.text, message.sender);
+    if (chatTarget != null){
+        if (message.sender === username) {
+            addMessage(message, message.text, "Me");
+        } else {
+            addMessage(message, message.text, message.sender);
+        }
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        var chat_body = $('#private-stream-list');
+        var height = chat_body[0].scrollHeight;
+        chat_body.scrollTop(height);
     }
-    $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    var chat_body = $('#private-stream-list');
-    var height = chat_body[0].scrollHeight;
-    chat_body.scrollTop(height);
+
 });
 
 function addMessage(message, text, username) {

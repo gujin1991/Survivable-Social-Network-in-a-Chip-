@@ -9,6 +9,34 @@ $('#check-btn').on('click', function(e) {
 	});
 });
 
+socket.on('updatelist', function(response){
+	console.log("in chat. js -----------------status : " + response.currentUser.status);
+	$("#mystatus").val(response.currentUser.status);
+	mystatus = $("#mystatus").val();
+
+	if (mystatus == 'OK') {
+		statusContent = "OK";
+		logoName = "ok.png";
+	} else if (mystatus == 'Help') {
+		statusContent = "Help";
+		logoName = "help.png";
+	} else if (mystatus == 'Emergency') {
+		statusContent = "Emergency";
+		logoName = "emergency.png";
+	}
+	var obj = {};
+	obj['status'] = mystatus;
+	$.post('/storeStatus',obj,function(response){
+		if (response.statusCode === 200) {
+			//swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
+			$("#status-toggle").empty().append(
+				'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+		}
+	});
+
+});
+
+
 
 // Post New message
 $('#post-btn').on('click', function(e) {
@@ -134,25 +162,5 @@ socket.on('send private message', function(message){
 	swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });
 
-socket.on('updatelist', function(response){
-	console.log("in chat. js -----------------status : " + response.currentUser.status);
-	$("#mystatus").val(response.currentUser.status);
-	var mystatus = $("#mystatus").val();
 
-	if (mystatus == 'OK') {
-		statusContent = "OK";
-		logoName = "ok.png";
-	} else if (mystatus == 'Help') {
-		statusContent = "Help";
-		logoName = "help.png";
-	} else if (mystatus == 'Emergency') {
-		statusContent = "Emergency";
-		logoName = "emergency.png";
-	}
-	if (response.currentUser.status){
-		$("#status-toggle").empty().append(
-			'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' +
-			logoName + '">'
-			+ '</span><span class="caret"></span>');
-	}
-});
+
