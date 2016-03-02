@@ -1,12 +1,37 @@
 var socket = io.connect();
 var username;
 var content = $('.msg');
+username = $('#myname').val();
 
 $('#check-btn').on('click', function(e) {
 	$.get('/announcement', function() {
 		console.log("Click check-btn");
 		window.location.href = "/announcement";
 	});
+});
+
+$.post('/getStatus',{'username':username},function(response){
+
+	if (response.statusCode === 200) {
+		var mystatus = response.status;
+
+		if (mystatus == 'OK') {
+			statusContent = "OK";
+			logoName = "ok.png";
+		} else if (mystatus == 'Help') {
+			statusContent = "Help";
+			logoName = "help.png";
+		} else if (mystatus == 'Emergency') {
+			statusContent = "Emergency";
+			logoName = "emergency.png";
+		}
+		//swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
+		$("#status-toggle").empty().append(
+			'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+	}else{
+		console.log("err");
+	}
+
 });
 
 socket.on('updatelist', function(response){
@@ -24,15 +49,16 @@ socket.on('updatelist', function(response){
 		statusContent = "Emergency";
 		logoName = "emergency.png";
 	}
-	var obj = {};
-	obj['status'] = mystatus;
-	$.post('/storeStatus',obj,function(response){
-		if (response.statusCode === 200) {
-			//swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
-			$("#status-toggle").empty().append(
-				'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
-		}
-	});
+
+	//var obj = {};
+	//obj['status'] = mystatus;
+	//$.post('/storeStatus',obj,function(response){
+	//	if (response.statusCode === 200) {
+	//		//swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
+	//		$("#status-toggle").empty().append(
+	//			'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
+	//	}
+	//});
 
 });
 

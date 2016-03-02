@@ -61,6 +61,7 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
         //get history
         if(chatTarget == currentUser){
             chatTarget = null;
+            $('#private-head').empty();
             swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
         }else {
             $('#private-head').empty().append('   ' + chatTarget);
@@ -73,7 +74,7 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
 $('#post-btn').click(function() {
     //event.preventDefault();
 
-    if ($('#private-head').text() == "" || chatTarget == username) {
+    if ($('#private-head').text() == "" || chatTarget == null) {
         swal({title: "Error!",text: "Please select user you want to chat to!", type: "error", confirmButtonText: "OK" });
         $('#focusedInput').val('');
     } else sendMessage(username,chatTarget);
