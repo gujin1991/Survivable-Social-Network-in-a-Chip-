@@ -31,6 +31,7 @@ var io = require('socket.io')(server);
 //var loggedInUsers = []
 //var loggedOutUsers = []
 
+
 // view engine setup
 app.engine('.html', ejs.__express);
 app.set('views', __dirname + '/views');
