@@ -2,7 +2,10 @@
  * Created by Pan on 2/25/16.
  */
 var mystatus = $("#mystatus").val();
+console.log("--------------------------------------------my status " + mystatus);
+
 $(document).ready(function() {
+
     if (mystatus == "OK") {
         var logoName = "ok.png";
         $("#status-toggle").empty().append(

@@ -9,7 +9,7 @@ var signInCtl = require('./controllers/JoinCommunity.js');
 var chatPublicly = require('./controllers/ChatPublicly.js');
 var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
-var chatPrivately = require('./controllers/chatPrivately.js');
+var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
 
 //save all the socket with the name of it's name.
@@ -130,11 +130,16 @@ app.get('/chatPrivately', function(req, res){
     }
 });
 
+
 app.get('/userList', function(req, res){
-    signInCtl.getOfflineUserIo(io);
+    signInCtl.getOfflineUserIo(req,res,io);
 });
 
-
+app.post('/storeStatus',function(req,res){
+    req.session.status = req.body.status;
+    console.log("test status -----------------------------!!!!!!" + req.session.status);
+    res.json({"statusCode":200, "message": "Success"});
+});
 
 //chat privately
 app.post('/chatPrivately',function(req,res){
