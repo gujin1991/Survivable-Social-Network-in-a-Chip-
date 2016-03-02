@@ -55,13 +55,11 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
     $("#userlist-dropdown-append").append($htmlDiv);
     $htmlDiv.children('#chat-userList').click(function() {
         event.preventDefault();
-        chatTarget = $(this).text();
-
-
+        var chatTarget = $(this).text();
         content.empty();
 
         //get history
-        if(chatTarget = currentUser){
+        if(chatTarget === currentUser){
             swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
         }else {
             $('#private-head').empty().append('   ' + chatTarget);
