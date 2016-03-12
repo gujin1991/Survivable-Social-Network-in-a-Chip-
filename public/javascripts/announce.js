@@ -67,7 +67,7 @@ $.get('/getAnnouncements', function(data){
 		var message = data[i];
 		var label = '<div style="color:gray"><span><span style="font-style: italic;">' + message.userName + '</span> said: <strong>'+ message.content +' </strong> <small class="pull-right">' + message.time + '</small></span></div><br/>';
 		var one = $(label);
-		content.append(one);
+		content.prepend(one);
 	};
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 	var chat_body = $('#stream-list');
@@ -86,7 +86,7 @@ socket.on('connect', function () {
 socket.on('send annoucement', function(message){
 	var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
     var one = $(label);
-	content.append(one);
+	content.prepend(one);
 	//$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 	//var chat_body = $('#stream-list');
     //var height = chat_body[0].scrollHeight;
