@@ -31,7 +31,7 @@ exports.sendPublicMessage = function(req,res,io){
         }
         else res.json({"statusCode":400, "message": "Fail"});
     });
-
+    
 }
 
 

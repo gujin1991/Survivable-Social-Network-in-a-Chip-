@@ -30,6 +30,7 @@ exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     });
 }
 
+
 function now(){
     var date = new Date();
     var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
