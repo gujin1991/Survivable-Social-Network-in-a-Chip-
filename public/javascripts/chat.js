@@ -117,12 +117,26 @@ $('#post-btn').on('click', function(e) {
 $.get('/getHistory', function(data){
 	for(var i=0; i<data.length; i++) {
 		var message = data[i];
+
+		var status = message.status;
+		var logoName;
+		if (status == 'OK') {
+			logoName = "ok.png";
+		} else if (status == 'Help') {
+			logoName = "help.png";
+		} else if (status == 'Emergency') {
+			logoName = "emergency.png";
+		} else if (status == 'Undefined') {
+			logoName = "undefined.png";
+		}
+		console.log("*******************\nstatus:" + status);
+
 		var label = '<div style="color:gray" class="message">' +
 						'<div class="messageHeader">' +
 							'<span>' +
 								'<span>' + message.userName +
 								'</span>' +
-								//'<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
+								'<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
                                 '<div class="timestamp pull-right">' +
                                     '<i class="fa fa-clock-o fa-1"></i>' +
                                     '<small style="margin-left: 5px;">' + message.time + '</small>' +
@@ -150,10 +164,24 @@ socket.on('connect', function () {
 // Display the new post message
 socket.on('send message', function(message){
 	//var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
+	var status = message.status;
+	var logoName;
+	if (status == 'OK') {
+		logoName = "ok.png";
+	} else if (status == 'Help') {
+		logoName = "help.png";
+	} else if (status == 'Emergency') {
+		logoName = "emergency.png";
+	} else if (status == 'Undefined') {
+		logoName = "undefined.png";
+	}
+
+	console.log("*******************\nstatus:" + status);
+
 	var label = '<div style="color:black" class="message">' +
 			'<div class="messageHeader">' +
 			'<span><span>' + message.username + '</span>' +
-			//'<img alt="OK" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/ok.png">' +
+			'<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
 			'<div class="timestamp pull-right">' +
 			'<i class="fa fa-clock-o fa-1"></i>' +
 			'<small style="margin-left: 5px;">' + now() + '</small>' +

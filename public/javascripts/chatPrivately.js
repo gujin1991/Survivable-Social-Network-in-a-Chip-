@@ -177,9 +177,24 @@ socket.on('send private message', function(message){
 });
 
 function addMessage(message, text, username) {
+
+    var status = message.status;
+    console.log("*****************\n" + status);
+    var logoName;
+    if (status == 'OK') {
+        logoName = "ok.png";
+    } else if (status == 'Help') {
+        logoName = "help.png";
+    } else if (status == 'Emergency') {
+        logoName = "emergency.png";
+    } else if (status == 'Undefined') {
+        logoName = "undefined.png";
+    }
+
     var label = '<div class="message">' +
         '<div class="messageHeader">' +
         '<span><span>' + username + '</span>' +
+        '<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
         '<div class="timestamp pull-right">' +
         '<i class="fa fa-clock-o fa-1"></i>' +
         '<small style="margin-left: 5px;">' + message.time + '</small>' +
