@@ -157,8 +157,6 @@ app.post('/getStatus',function(req,res){
         }
 
     });
-
-
 });
 
 //chat privately
