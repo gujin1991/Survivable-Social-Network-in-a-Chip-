@@ -26,6 +26,8 @@ exports.sendPublicMessage = function(req,res,io){
     message.time = now();
     message.status = req.session.status;
 
+    console.log("display status------------------message status "+ message.username + "    "+req.session.status);
+
     messageM.addMessage(message.username,message.text,message.time,req.session.status ,function(callback){
         if (callback == 200) {
             io.emit('send message', message);

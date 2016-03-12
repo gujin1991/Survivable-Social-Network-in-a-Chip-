@@ -101,6 +101,23 @@ app.get('/users', function(req, res) {
 
 //app.get('/getUsers', checkSignIn.getOfflineUsers);
 
+
+app.post('/getStatus',function(req,res){
+
+    signInCtl.getUserInfo(req.body.username,function(callback){
+        //socket.user = callback;
+        if(callback == 400){
+            res.json({"statusCode":400, "message": "Fail" });
+        }else{
+            req.session.status = callback.status;
+            console.log("test status ----------------------------- " + req.body.username + "      "+ req.session.status);
+            res.json({"statusCode":200, "message": "Success" ,"status":callback.status});
+        }
+
+    });
+});
+
+
 app.post('/sendPublicMessage',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
@@ -144,20 +161,7 @@ app.get('/userList', function(req, res){
 //    res.json({"statusCode":200, "message": "Success"});
 //});
 
-app.post('/getStatus',function(req,res){
 
-    signInCtl.getUserInfo(req.body.username,function(callback){
-        //socket.user = callback;
-        if(callback == 400){
-            res.json({"statusCode":400, "message": "Fail" });
-        }else{
-            req.session.status = callback.status;
-            console.log("test status -----------------------------!!!!!!" + req.session.status);
-            res.json({"statusCode":200, "message": "Success" ,"status":callback.status});
-        }
-
-    });
-});
 
 //chat privately
 app.post('/chatPrivately',function(req,res){
