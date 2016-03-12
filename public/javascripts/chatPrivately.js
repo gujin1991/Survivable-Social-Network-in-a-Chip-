@@ -205,3 +205,10 @@ function addMessage(message, text, username) {
     var one = $(label);
     content.append(one);
 }
+
+$('#focusedInput').on("keydown", function(e){
+    if(e.which === 13){
+        $('#post-btn').click();
+        return false;
+    }
+});

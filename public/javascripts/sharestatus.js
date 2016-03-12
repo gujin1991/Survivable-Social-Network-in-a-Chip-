@@ -2,7 +2,7 @@
  * Created by Pan on 2/25/16.
  */
 var mystatus = $("#mystatus").val();
-console.log("--------------------------------------------my status " + mystatus);
+console.log("--------------------------------------------\nmy status " + mystatus);
 
 $(document).ready(function() {
 
