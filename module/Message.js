@@ -7,8 +7,8 @@ function Message(username, message, time) {
     this.messageDb = new MessageDb();
 }
 
-Message.prototype.addMessage =  function(username,message,time,callback) {
-    this.messageDb.messageAdd(username, message, time, callback);
+Message.prototype.addMessage =  function(username,message,time,status,callback) {
+    this.messageDb.messageAdd(username, message, time, status,callback);
 };
 
 Message.prototype.getHistory = function (callback) {
