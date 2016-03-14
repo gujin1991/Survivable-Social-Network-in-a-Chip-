@@ -45,12 +45,13 @@ exports.checkSignIn = function(req, res) {
         } else if (result == 303){
 
             console.log("user exist");
-            new User().initialize(username, password).userAuth(function(result) {
+            new User().initialize(username, password).userAuth(function(result,user) {
                 if (result == 403) {
                     res.json({"statusCode": 403, "message": "Wrong password"});
                 } else {
-                    req.session.username = req.body.username;
+                    req.session.username = user.userName;
                     req.session.loggedIn = true;
+                    req.session.status = user.status;
                     res.json({"statusCode":200, "message": "Success"});
                 }
             });
