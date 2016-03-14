@@ -18,6 +18,7 @@ function PrivateMessage(fromUser, toUser, message, time) {
 
 PrivateMessage.prototype.addMessage = function (fromUser, toUser, message, time,status, callback) {
     this.messageDb.privateMessageAdd(fromUser, toUser, message, time, status,callback);
+    return this;
 };
 
 PrivateMessage.prototype.getHistory = function (fromUser, toUser, callback) {

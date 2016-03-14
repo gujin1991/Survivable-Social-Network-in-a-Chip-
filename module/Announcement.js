@@ -13,6 +13,7 @@ function Annoucement(username, annoucement, time) {
 
 Annoucement.prototype.addAnnoucement =  function(username,annoucement,time,callback) {
     this.annoucementDb.annoucementAdd(username, annoucement, time, callback);
+    return this;
 };
 
 Annoucement.prototype.getDetails = function (callback) {
