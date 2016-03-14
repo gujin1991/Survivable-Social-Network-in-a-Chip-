@@ -1,3 +1,9 @@
+/**
+ * This is the code block that needs to be reviewed.
+ * Please take a close look. The main task of this
+ * block is to support the PublicChat user case at
+ * the front end.
+ * */
 var socket = io.connect();
 var username;
 var content = $('.msg');
