@@ -4,7 +4,7 @@ var Status = require('../module/Status.js');
 var MessageDB = require('../module/MessageDb.js');
 var Announcement = require('../module/Announcement.js');
 var Message = require('../module/Message.js');
-var joinCommunity = require('../Controllers/JoinCommunity.js');
+var joinCommunity = require('../controllers/JoinCommunity.js');
 var PrivateMessage = require('../module/PrivateMessage.js');
 
 // 缺delete tester函数
