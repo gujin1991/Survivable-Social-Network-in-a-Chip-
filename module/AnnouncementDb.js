@@ -25,7 +25,7 @@ annoucementDb.prototype.getAnnoucement = function (callback) {
     dbTemp.serialize(function() {
         dbTemp.all("SELECT * FROM annoucements", function(err, rows) {
 
-            console.log("rows : " + rows);
+            //console.log("rows : " + rows);
 
             callback(rows);
         })

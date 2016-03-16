@@ -27,7 +27,7 @@ UserDb.prototype.userAdd = function (username, password, callback) {
                 if (err || row == null || row.length == 0) {
                     callback(305, null);
                 } else {
-                    console.log(row[0].status);
+                    //console.log(row[0].status);
                     var u ={};
                     u.userName = row[0].userName;
                     u.status = row[0].status;
@@ -97,7 +97,7 @@ UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
     var dbTemp = this.db;
 
         dbTemp.all(q, function(err, rows) {
-            console.log(rows);
+            //console.log(rows);
             callback(rows);
         })
 
@@ -105,12 +105,12 @@ UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
 
 UserDb.prototype.updateStatus = function(userName,status,callback){
     var q = 'UPDATE users SET status = \'' + status +'\' WHERE userName = \'' + userName +'\'';
-    console.log(q);
+    //console.log(q);
     var dbTemp = this.db;
     dbTemp.run(q,function () {
         dbTemp.all('select status from users where userName = \'' + userName +'\'',function(err,row){
-            console.log("ttt1---------------" + row[0].status);
-            console.log("ttt2---------------" + row);
+            //console.log("ttt1---------------" + row[0].status);
+            //console.log("ttt2---------------" + row);
             if(row[0].status == status) callback(200);
             else callback(400);
         });
@@ -125,7 +125,7 @@ UserDb.prototype.getUserInfo = function(userName, callback) {
                 callback(305, null);
                 return;
             } else {
-                console.log(row[0].status);
+                //console.log(row[0].status);
                 var u ={};
                 u.userName = row[0].userName;
                 u.status = row[0].status;

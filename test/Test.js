@@ -101,7 +101,7 @@ suite('Sprint 2 Test', function(){
 						})
 						.getHistory(user1.userName, user2.userName, function(rows) {
 							var len = rows.length;
-							console.log(rows[len - 1] + "good" + len);
+							//console.log(rows[len - 1] + "good" + len);
 							expect(rows[len - 1].content).to.eql("Hello, Yu!");
 							done();
 						});	
