@@ -173,8 +173,10 @@ app.post('/chatPrivately',function(req,res){
 
 //get previous privately chat message
 app.post('/getPrivateMessage',function(req,res){
-    chatPrivately.getPrivateMessages(req,res,io);
+    chatPrivately.getPrivateMessages(req,res);
 });
+
+
 
 
 
