@@ -12,6 +12,8 @@ var userListCtl = require('./controllers/UserList.js');
 var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
 
+var searchCtl = require('./controllers/SearchInformation.js');
+
 //save all the socket with the name of it's name.
 var sockets = {}
 
@@ -30,7 +32,6 @@ var io = require('socket.io')(server);
 //used to keep the status of online or offline users~
 //var loggedInUsers = []
 //var loggedOutUsers = []
-
 
 // view engine setup
 app.engine('.html', ejs.__express);
@@ -118,6 +119,7 @@ app.post('/getStatus',function(req,res){
 });
 
 
+
 app.post('/sendPublicMessage',function(req,res){
     chatPublicly.sendPublicMessage(req,res,io);
 });
@@ -173,9 +175,14 @@ app.post('/chatPrivately',function(req,res){
 
 //get previous privately chat message
 app.post('/getPrivateMessage',function(req,res){
-    chatPrivately.getPrivateMessages(req,res,io);
+    chatPrivately.getPrivateMessages(req,res);
 });
 
+
+//search information use case.
+app.post('/searchUser', function (req,res) {
+    searchCtl.getUsers();
+});
 
 
 
@@ -192,7 +199,6 @@ io.on('connection', function(socket) {
             signInCtl.getOfflineUserIo(socket.user,io);
         });
     });
-
 
     //this part need to be modified.. we can add io to the log out api..
     //tomorrow.
