@@ -1,21 +1,20 @@
 /**
- * This is the code block that needs to be reviewed.
- * Please take a close look. The main task of this
- * block is to support the PublicChat user case at
- * the front end.
- * */
+ * @chat.js
+ * Provides front end support for user case ChatPublicly.
+ *
+ * ChatPublicly is the feature for users to chat with others
+ * publicly. The chat history is loaded every time the user
+ * logs in. Users can see all the messages from other people.
+ */
+
+/** @global */
 var socket = io.connect();
-var username;
+var username = $('#myname').val();
 var content = $('.msg');
-username = $('#myname').val();
 
-$('#check-btn').on('click', function(e) {
-	$.get('/announcement', function() {
-		console.log("Click check-btn");
-		window.location.href = "/announcement";
-	});
-});
-
+/**
+ * Get user status.
+ */
 $.post('/getStatus',{'username':username},function(response){
 
 	if (response.statusCode === 200) {
@@ -42,6 +41,9 @@ $.post('/getStatus',{'username':username},function(response){
 
 });
 
+/**
+ * Update the current user status.
+ * */
 socket.on('updatelist', function(response){
 	console.log("in chat. js -----------------status : " + response.currentUser.status);
 	$("#mystatus").val(response.currentUser.status);
@@ -71,8 +73,9 @@ socket.on('updatelist', function(response){
 });
 
 
-
-// Post New message
+/**
+ * Post a New Message.
+ * */
 $('#post-btn').on('click', function(e) {
 	var text = $('#focusedInput').val();
     username = $('#myname').val();
@@ -121,7 +124,10 @@ $('#post-btn').on('click', function(e) {
 	}
 	return false;
 });
-// Display previous messages stored in database
+
+/**
+ * Display previous messages stored in database.
+ * */
 $.get('/getHistory', function(data){
 	for(var i=0; i<data.length; i++) {
 		var message = data[i];
@@ -164,12 +170,16 @@ $.get('/getHistory', function(data){
     chat_body.scrollTop(height);
 });
 
-// Display user login information
+/**
+ * Display user login information.
+ * */
 socket.on('connect', function () {
 	socket.emit('login',$("#myname").val());
 });
 
-// Display the new post message
+/**
+ * Display the new post message.
+ * */
 socket.on('send message', function(message){
 	//var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
 	var status = message.status;
@@ -205,14 +215,18 @@ socket.on('send message', function(message){
 	chat_body.scrollTop(height);
 });
 
-//get current time
+/**
+ * Get the Current Time.
+ * */
 function now() {
     var date = new Date();
     var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
     return time;
 }
 
-
+/**
+ * Enable the usage of '\n' to send a message.
+ * */
 $('#focusedInput').on("keydown", function(e){
 	if(e.which === 13){
 		$('#post-btn').click();
@@ -220,9 +234,9 @@ $('#focusedInput').on("keydown", function(e){
 	}
 });
 
+/**
+ * New private message alert.
+ * */
 socket.on('send private message', function(message){
 	swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });
-
-
-
