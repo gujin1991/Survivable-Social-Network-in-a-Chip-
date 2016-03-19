@@ -23,7 +23,7 @@ var directory = new function Directory(){
         log = [];
         for (var key in this._newUsers){
            // console.log("print the list in update **********************" + key);
-           // log.push(this._newUsers[key]);
+            log.push(this._newUsers[key]);
         }
         //console.log(user);
         var user = this._newUsers[username];
@@ -49,7 +49,7 @@ var directory = new function Directory(){
         log = [];
         for (var key in this._newUsers){
             //console.log("print the list in get online **********************" + key);
-            //log.push(this._newUsers[key]);
+            log.push(this._newUsers[key]);
         }
         callback(log);
     };
