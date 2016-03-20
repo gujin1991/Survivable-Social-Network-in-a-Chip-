@@ -93,7 +93,7 @@ UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
     // I update this part from userName to *
     var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')';
     //var q = 'SELECT userName FROM users ';
-    console.log(q);
+    //console.log(q);
     var dbTemp = this.db;
 
         dbTemp.all(q, function(err, rows) {
@@ -135,6 +135,29 @@ UserDb.prototype.getUserInfo = function(userName, callback) {
         });
     });
 };
+
+//new added function for serach information ,given key and online users , find the mathcing offline uses.
+UserDb.prototype.getOfflineUsersByKey = function(key,onlineUsers,callback){
+    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
+        + ' and userName LIKE \'%'+key+ '%\'';
+    console.log(q);
+    var dbTemp = this.db;
+
+    dbTemp.all(q, function(err, rows) {
+        callback(rows);
+    })
+}
+
+UserDb.prototype.searchOnlineUsersByStatus = function(key,onlineUsers,callback){
+    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
+        + ' and status LIKE \'%'+key+ '%\'';
+    console.log(q);
+    var dbTemp = this.db;
+
+    dbTemp.all(q, function(err, rows) {
+        callback(rows);
+    })
+}
 
 
 module.exports = UserDb;

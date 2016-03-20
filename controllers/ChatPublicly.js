@@ -17,7 +17,6 @@ exports.getPublicMessages = function(req, res) {
     messageM.getHistory(function(data){
         res.json(data);
     });
-
 }
 
 
