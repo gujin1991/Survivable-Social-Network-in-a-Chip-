@@ -1,0 +1,44 @@
+var TestMessage = require('../module/TestMessage.js')
+var testMessage = new TestMessage();
+
+//var directoryy = require('../module/Directory.js')
+//var directory = new directoryy();
+
+exports.getTestMessages = function(req, res) {
+    testMessage.getHistory(function(data, getCount){
+        res.json({"message":data, "getCount":getCount});
+    });
+
+}
+
+
+exports.sendTestMessage = function(req,res,io) {
+    var message = req.body;
+    message.time = now();
+    message.status = req.session.status;
+
+    console.log("display status------------------message status "+ message.username + "    "+req.session.status);
+
+    testMessage.addMessage(message.username,message.text,message.time,req.session.status ,function(code, postCount){
+        if (code == 200) {
+            io.emit('send message', message);
+            res.json({"statusCode":200, "message": "Success", "postCount": postCount});
+        }
+        else res.json({"statusCode":400, "message": "Fail", "postCount": postCount});
+    });
+
+}
+
+exports.endMeasurePerformance = function(req,res) {
+    testMessage.endMeasurement(function(postCount, getCount) {
+        res.json({"postCount":postCount, "getCount":getCount});
+    });
+}
+
+
+
+function now() {
+    var date = new Date();
+    var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
+    return time;
+}

@@ -10,6 +10,9 @@ var directory = require('../module/Directory.js')
 var messagePub = require('../module/Message.js')
 var messagePublic = new messagePub();
 
+var announcement = require('../module/Announcement.js');
+var announ = new announcement();
+
 var stopWords = ['a','able','about','across','after','all','almost','also','am','among','an','and',
     'any','are','as','at','be','because', 'been','but','by','can','cannot','could','dear','did','do','does',
     'either','else','ever','every','for','from','get','got','had','has','have', 'he','her','hers','him','his',
@@ -64,12 +67,26 @@ exports.getUsersByStatus = function(req,res){
 
 //search announcement function
 exports.searchAnnouncement = function(req,res){
+    var strArr = req.body.keyword.trim().split(' ');
+
+    //filter the word
+    strArr = filter(strArr);
+
+    if(strArr.length == 0){
+        res.json({"statusCode":401, "message": "ALL STOP WORDS"});
+    }else{
+        announ.getDetailsByKey(strArr,function(data) {
+            res.json(data);
+        });
+    }
+
 
 }
 
 //search public message function
 exports.searchPublic = function(req,res){
-    var strArr = req.body.keyword.split(' ');
+
+    var strArr = req.body.keyword.trim().split(' ');
 
     //filter the word
     strArr = filter(strArr);
@@ -87,7 +104,7 @@ exports.searchPublic = function(req,res){
 
 //search private message funciton
 exports.searchPrivate = function(req,res){
-    var strArr = req.body.keyword.split(' ');
+    var strArr = req.body.keyword.trim().split(' ');
 
     //filter the word
     strArr = filter(strArr);
@@ -95,7 +112,7 @@ exports.searchPrivate = function(req,res){
     if(strArr.length == 0){
         res.json({"statusCode":401, "message": "ALL STOP WORDS"});
     }else{
-        messagePrivate.getHistoryByKey(strArr,req.body.sender,req.body.receiver,function(data){
+        messagePrivate.getHistoryByKey(strArr,req.session.username,function(data){
             res.json(data);
         });
     }

@@ -66,26 +66,27 @@ var str= 'a b c';
 var n = str.split(' ');
 console.log(n);
 
-strArr = ['you','a','you','a','you'];
 
 //var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + strArr.join('\',\'') + '\')'
 //    + ' and userName LIKE \'%'+'enenene'+ '%\'';
+
+var strArr = ['hi'];
 var q = "SELECT * FROM messages WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
 console.log(q);
-var fromUser = 'jiyu';
-var toUser = 'pan';
-var p = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
-    + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\' and content Like \'%'
-    + strArr.join('%\' and content Like \'%') + '%\'';
-console.log(p);
+//var fromUser = 'jiyu';
+//var toUser = 'pan';
+//var p = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
+//    + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\' and content Like \'%'
+//    + strArr.join('%\' and content Like \'%') + '%\'';
+//console.log(p);
 
-strArr = filter(strArr);
+//strArr = filter(strArr);
 
 for(var str in strArr){
     console.log(strArr[str]);
 }
 
-console.log(strArr.length);
+//console.log(strArr.length);
 
 
 function filter(strArr){
@@ -98,3 +99,76 @@ function filter(strArr){
     }
     return strArr;
 }
+
+
+var strArr =  'hi'.split(' ');
+
+var fromUser = 'jiyu';
+var toUser = 'pan';
+
+function getPrivateHistoryByKey(keyword,fromUser, toUser, userDb) {
+
+    var q = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
+        + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\' and content Like \'%'
+        + keyword.join('%\' and content Like \'%') + '%\'';
+    console.log(q);
+    userDb.serialize(function () {
+        userDb.all(q, function (err, rows) {
+            console.log(rows);
+        });
+    });
+};
+
+function getPrivateHistory(fromUser, toUser, userDb) {
+    //var dbTemp = this.db;
+    userDb.serialize(function () {
+        userDb.all('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\'' + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\';', function (err, rows) {
+            console.log(rows);
+        });
+    });
+};
+
+//getPrivateHistoryByKey(strArr,fromUser, toUser, userDb);
+//getPrivateHistory(fromUser, toUser, userDb);
+
+//var str = 'hi';
+//
+//var arr =  str.trim().split(' ');
+//console.log(arr);
+
+var strArr = 'hi aa aaa aa'.split(' ');
+
+//filter the word
+strArr = filter(strArr);
+
+console.log(strArr)
+
+function filter(strArr){
+    for (var i = 0; i < strArr.length ; i++){
+        var index = stopWords.indexOf(strArr[i]);
+        if (index > -1) {
+            strArr.splice(i, 1);
+            i--;
+        }
+    }
+    return strArr;
+}
+
+//write api get and post
+//var testFlag = false;
+//
+//app.post('/searchAnnouncement',function(req,res){
+//    if(!testFlag) searchCtl.searchAnnouncement(req,res);
+//    else res.json({"statusCode":410, "message": "Test Mode"});
+//})
+//
+//app.post('/testMode',function(req,res){
+//    testFlag = true;
+//    //TODO recevice from clients
+//    testFlag = false;
+//})
+
+var q = 'SELECT * FROM privateMessages WHERE fromUser=\'' + 'jiyu' +  '\''
+    + ' OR ' + 'toUser=\'' + 'jiyu' + '\''  + ' and content Like \'%'
+    + strArr.join('%\' and content Like \'%') + '%\'';
+console.log(q);

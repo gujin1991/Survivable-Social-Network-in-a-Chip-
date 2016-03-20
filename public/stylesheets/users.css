@@ -21,3 +21,18 @@ thead {
     font-size: large;
     font-weight: bold;
 }
+.cancel {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    vertical-align: middle;
+    line-height: 1;
+    /*color: #000;*/
+    /*text-shadow: 0 1px 0 #fff;*/
+    /*filter: alpha(opacity=20);*/
+    /*opacity: .2;*/
+}
+
+.lb-search {
+    margin-left: 10px;
+}
