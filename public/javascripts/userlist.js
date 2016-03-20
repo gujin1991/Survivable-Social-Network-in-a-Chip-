@@ -132,3 +132,59 @@ socket.on('send private message', function(message){
     swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });
 
+/**
+ * Update the online&offline user list.
+ * */
+function updateUserList(onlineUserList, offlineUserList) {
+    Object.size = function(obj) {
+        var size = 0, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+        }
+        return size;
+    };
+
+    var onlineSize = Object.size(onlineUserList);
+    var offlineSize = Object.size(offlineUserList);
+    sortByName(onlineUserList, function(onlineUserList){
+        setOnlineTable(onlineUserList, onlineSize);
+    });
+    sortByName(offlineUserList, function(offlineUserList) {
+        setOfflineTable(offlineUserList, offlineSize);
+    });
+}
+
+$("#search-status").change(function(event){
+    var status = $(this).val();
+    if (status == 'All') {
+        $.get('/userList', function(req,res){
+            updateUserList(res.online, res.offline);
+        });
+    } else {
+        var keyword = {"keyword": status};
+        $.post('/searchStatus', keyword, function(response) {
+            updateUserList(response.online, response.offline);
+        });
+    }
+});
+
+$("#search-username").on("keydown", function(event) {
+    if (event.which === 13) {
+        event.preventDefault();
+    }
+});
+
+$("#search-username").on("keyup", function(event) {
+    var username = $(this).val();
+    var keyword = {"keyword": username};
+    $.post('/searchUser', keyword, function(response) {
+        updateUserList(response.online, response.offline);
+    });
+});
+
+$("#search-username-cancel").click(function(event) {
+    $.get('/userList', function(req,res){
+        updateUserList(res.online, res.offline);
+    });
+    $("#search-username").val("");
+});

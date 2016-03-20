@@ -25,7 +25,7 @@ var directory = new function Directory(){
     };
 
     this.searchOffLineByStatus = function(keyword,callback){
-        this.userDb.searchOffLineByStatus(keyword,this._dataUsers,callback);
+        this.userDb.getOfflineUsersByStatus(keyword,this._dataUsers,callback);
     }
 
 

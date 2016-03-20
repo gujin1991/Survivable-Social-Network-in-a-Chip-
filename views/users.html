@@ -8,6 +8,7 @@
     <script src="../socket.io/socket.io.js"></script>
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="stylesheets/sweetalert.css">
+    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/users.css">
     <link rel="stylesheet" href="stylesheets/navbar.css">
 </head>
@@ -69,8 +70,8 @@
                  <div class="jumbotron">
                      <form class="form-inline">
                          <div class="form-group">
-                             <label for="searchStatus" class="lb-search">Search by status: </label>
-                             <select class="form-control" id="searchStatus">
+                             <label for="search-status" class="lb-search">Search by status: </label>
+                             <select id="search-status" class="form-control">
                                  <option>All</option>
                                  <option>OK</option>
                                  <option>Help</option>
@@ -79,10 +80,10 @@
                              </select>
                          </div>
                          <div class="form-group">
-                             <label for="searchName" class="lb-search">Search by username: </label>
-                             <input type="text" class="form-control" id="searchName" placeholder="Username">
+                             <label for="search-username" class="lb-search">Search by username: </label>
+                             <input id="search-username" type="text" class="form-control" placeholder="Username">
                          </div>
-                         <button type="submit" class="btn btn-danger"><span aria-hidden="true" class="cancel">&times;</span></button>
+                         <button id="search-username-cancel" type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
                          </form>
                      <div class="container">
                          <div id="userList">
