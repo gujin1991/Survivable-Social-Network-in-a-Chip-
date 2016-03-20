@@ -18,6 +18,9 @@ var measurePerformance = require('./controllers/MeasurePerformance.js');
 //save all the socket with the name of it's name.
 var sockets = {}
 
+//flag represents test mode
+var testModeFlag = false;
+
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); //pull information from HTML POST(express 4)
@@ -203,19 +206,33 @@ app.post('/searchPrivate',function(req,res){
     searchCtl.searchPrivate(req,res);
 })
 
+
+
 //get postCount
-app.post('./getPostCount', function(req,res) {
-    measurePerformance.sendTestMessage(req,res);
+app.post('./testMode',function(req,res){
+    if(testModeFlag){
+        res.json({"statusCode": 410, "message": "Already in Test"});
+    }else {
+        testModeFlag = true;
+    }
+}
+
+
+app.post('./testPost', function(req,res) {
+    if(testModeFlag) measurePerformance.sendTestMessage(req,res);
+    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
 //get getCount
-app.get('./getGetCount', function(req,res) {
-   measurePerformance.getTestMessages(req,res);
+app.get('./testGet', function(req,res) {
+    if(testModeFlag) measurePerformance.getTestMessages(req,res);
+    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
 //end measurePerformance
 app.post('./endMeasurePerformance', function(req, res) {
-    measurePerformance.endMeasurePerformance(req,res);
+    if(testModeFlag) measurePerformance.endMeasurePerformance(req,res);
+    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
 

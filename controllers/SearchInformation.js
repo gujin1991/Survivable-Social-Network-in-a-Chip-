@@ -120,6 +120,7 @@ exports.searchPrivate = function(req,res){
 
 }
 
+//delete stop words
 function filter(strArr){
     for (var i = 0; i < strArr.length ; i++){
         var index = stopWords.indexOf(strArr[i]);

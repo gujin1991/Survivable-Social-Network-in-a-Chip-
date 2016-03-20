@@ -36,7 +36,7 @@ annoucementDb.prototype.getAnnoucement = function (callback) {
 annoucementDb.prototype.getAnnoucementByKey = function (strArr,callback) {
     var dbTemp = this.db;
 
-    var q = "SELECT * FROM annoucements WHERE content Like \'%" + keyword.join('%\' and content Like \'%') + '%\'';
+    var q = "SELECT * FROM annoucements WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
 
     dbTemp.serialize(function() {
         dbTemp.all(q, function(err, rows) {
