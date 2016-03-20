@@ -26,8 +26,8 @@ PrivateMessage.prototype.getHistory = function (fromUser, toUser, callback) {
 };
 
 //new added function for get private history by key
-PrivateMessage.prototype.getHistoryByKey = function (keyword,fromUser, toUser, callback) {
-    this.messageDb.getPrivateHistoryByKey(keyword,fromUser, toUser, callback);
+PrivateMessage.prototype.getHistoryByKey = function (keyword,user, callback) {
+    this.messageDb.getPrivateHistoryByKey(keyword,user, callback);
 };
 
 module.exports = PrivateMessage;

@@ -70,8 +70,9 @@ console.log(n);
 //var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + strArr.join('\',\'') + '\')'
 //    + ' and userName LIKE \'%'+'enenene'+ '%\'';
 
-//var q = "SELECT * FROM messages WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
-//console.log(q);
+var strArr = ['hi'];
+var q = "SELECT * FROM messages WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
+console.log(q);
 //var fromUser = 'jiyu';
 //var toUser = 'pan';
 //var p = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
@@ -100,7 +101,7 @@ function filter(strArr){
 }
 
 
-var strArr = ['te','how'];
+var strArr =  'hi'.split(' ');
 
 var fromUser = 'jiyu';
 var toUser = 'pan';
@@ -130,7 +131,44 @@ function getPrivateHistory(fromUser, toUser, userDb) {
 //getPrivateHistoryByKey(strArr,fromUser, toUser, userDb);
 //getPrivateHistory(fromUser, toUser, userDb);
 
-var str = 'abc ';
+//var str = 'hi';
+//
+//var arr =  str.trim().split(' ');
+//console.log(arr);
 
-var arr =  str.trim().split(' ');
-console.log(arr);
+var strArr = 'hi aa aaa aa'.split(' ');
+
+//filter the word
+strArr = filter(strArr);
+
+console.log(strArr)
+
+function filter(strArr){
+    for (var i = 0; i < strArr.length ; i++){
+        var index = stopWords.indexOf(strArr[i]);
+        if (index > -1) {
+            strArr.splice(i, 1);
+            i--;
+        }
+    }
+    return strArr;
+}
+
+//write api get and post
+//var testFlag = false;
+//
+//app.post('/searchAnnouncement',function(req,res){
+//    if(!testFlag) searchCtl.searchAnnouncement(req,res);
+//    else res.json({"statusCode":410, "message": "Test Mode"});
+//})
+//
+//app.post('/testMode',function(req,res){
+//    testFlag = true;
+//    //TODO recevice from clients
+//    testFlag = false;
+//})
+
+var q = 'SELECT * FROM privateMessages WHERE fromUser=\'' + 'jiyu' +  '\''
+    + ' OR ' + 'toUser=\'' + 'jiyu' + '\''  + ' and content Like \'%'
+    + strArr.join('%\' and content Like \'%') + '%\'';
+console.log(q);

@@ -12,6 +12,7 @@ var username = $("#myname").val();
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
+
 socket.on('updatelist',function(response){
     $("#userlist-dropdown-append").empty();
     Object.size = function(obj) {
@@ -212,3 +213,4 @@ $('#focusedInput').on("keydown", function(e){
         return false;
     }
 });
+
