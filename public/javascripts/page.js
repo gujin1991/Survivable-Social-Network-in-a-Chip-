@@ -57,7 +57,7 @@ PagingClass.prototype._cloneRows_ = function(){
 };
 
 function addMessage(message) {
-    console.log(content);
+    console.log(message.status);
     var status = message.status;
     var logoName;
     if (status == 'OK') {
@@ -70,7 +70,9 @@ function addMessage(message) {
         logoName = "undefined.png";
     }
     var label;
-    if (message.sender == undefined) {
+    if (status == undefined) {
+        label = '<div><span><span style="font-style: italic;">' + message.userName + '</span> says: <strong>'+ message.content +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
+    } else if (message.fromUser === undefined) {
         label = '<div class="message">' +
             '<div class="messageHeader">' +
             '<span><span>' + message.userName + '</span>' +
@@ -85,7 +87,7 @@ function addMessage(message) {
     } else {
         label = '<div class="message">' +
             '<div class="messageHeader">' +
-            '<span><span>' + message.sender + '</span>' +
+            '<span><span>' + message.fromUser + '</span>' +
             '<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
             '<div class="timestamp pull-right">' +
             '<i class="fa fa-clock-o fa-1"></i>' +
@@ -93,7 +95,7 @@ function addMessage(message) {
             '</div>' +
             '</span>' +
             '</div>' +
-            '<div class="messageBody"><strong>'+ message.text +' </strong></div></div>';
+            '<div class="messageBody"><strong>'+ message.content +' </strong></div></div>';
     }
     var one = $(label);
     content.append(one);
