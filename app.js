@@ -13,6 +13,7 @@ var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
 
 var searchCtl = require('./controllers/SearchInformation.js');
+var measurePerformance = require('./controllers/MeasurePerformance.js');
 
 //save all the socket with the name of it's name.
 var sockets = {}
@@ -201,6 +202,21 @@ app.post('/searchPublic',function(req,res){
 app.post('/searchPrivate',function(req,res){
     searchCtl.searchPrivate(req,res);
 })
+
+//get postCount
+app.post('./getPostCount', function(req,res) {
+    measurePerformance.sendTestMessage(req,res);
+});
+
+//get getCount
+app.get('./getGetCount', function(req,res) {
+   measurePerformance.getTestMessages(req,res);
+});
+
+//end measurePerformance
+app.post('./endMeasurePerformance', function(req, res) {
+    measurePerformance.endMeasurePerformance(req,res);
+});
 
 
 io.on('connection', function(socket) {
