@@ -54,4 +54,33 @@ MessageDb.prototype.getPrivateHistory = function (fromUser, toUser, callback) {
     });
 };
 
+//new ADDED function to getPublic history by key
+MessageDb.prototype.getHistoryByKey = function (keyword,callback) {
+    var dbTemp = this.db;
+    var q = "SELECT * FROM messages WHERE content Like \'%" + keyword.join('%\' and content Like \'%') + '%\'';
+
+    dbTemp.serialize(function () {
+        dbTemp.all(q, function (err, rows) {
+            callback(rows);
+        })
+    });
+};
+
+//new added funciton get private history by key
+MessageDb.prototype.getPrivateHistoryByKey = function (keyword,fromUser, toUser, callback) {
+    var dbTemp = this.db;
+    var q = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
+        + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\' and content Like \'%'
+        + keyword.join('%\' and content Like \'%') + '%\'';
+    dbTemp.serialize(function () {
+        dbTemp.all(q, function (err, rows) {
+            if (err) {
+                callback(400);
+            } else {
+                callback(rows);
+            }
+        });
+    });
+};
+
 module.exports = MessageDb;

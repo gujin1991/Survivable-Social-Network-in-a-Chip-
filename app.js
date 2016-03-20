@@ -151,8 +151,8 @@ app.get('/chatPrivately', function(req, res){
 });
 
 
-app.get('/userList', function(req, res){
-    signInCtl.getOfflineUserIo(req,res,io);
+app.get('/userList', function(req,res){
+    signInCtl.getOfflineUserIo(req,io);
 });
 
 //store status in session
@@ -179,11 +179,28 @@ app.post('/getPrivateMessage',function(req,res){
 });
 
 
+
 //search information use case.
-app.post('/searchUser', function (req,res) {
-    searchCtl.getUsers();
+app.post('/searchUser', function(req,res){
+    searchCtl.getUsersByName(req,res);
 });
 
+
+app.post('/searchStatus',function(req,res){
+    searchCtl.getUsersByStatus(req,res);
+});
+
+app.post('/searchAnnouncement',function(req,res){
+    searchCtl.searchAnnouncement(req,res);
+})
+
+app.post('/searchPublic',function(req,res){
+    searchCtl.searchPublic(req,res);
+})
+
+app.post('/searchPrivate',function(req,res){
+    searchCtl.searchPrivate(req,res);
+})
 
 
 io.on('connection', function(socket) {

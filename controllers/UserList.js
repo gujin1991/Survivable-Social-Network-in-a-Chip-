@@ -1,7 +1,7 @@
 /**
  * Created by congshan on 2/25/16.
  */
-var directory = require('../module/Directory.js');
+//var directory = require('../module/Directory.js');
 
 exports.directUserList = function(req,res){
     if (!req.session.loggedIn) {
