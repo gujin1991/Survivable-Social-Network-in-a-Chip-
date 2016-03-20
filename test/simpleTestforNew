@@ -66,26 +66,26 @@ var str= 'a b c';
 var n = str.split(' ');
 console.log(n);
 
-strArr = ['you','a','you','a','you'];
 
 //var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + strArr.join('\',\'') + '\')'
 //    + ' and userName LIKE \'%'+'enenene'+ '%\'';
-var q = "SELECT * FROM messages WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
-console.log(q);
-var fromUser = 'jiyu';
-var toUser = 'pan';
-var p = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
-    + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\' and content Like \'%'
-    + strArr.join('%\' and content Like \'%') + '%\'';
-console.log(p);
 
-strArr = filter(strArr);
+//var q = "SELECT * FROM messages WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
+//console.log(q);
+//var fromUser = 'jiyu';
+//var toUser = 'pan';
+//var p = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
+//    + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\' and content Like \'%'
+//    + strArr.join('%\' and content Like \'%') + '%\'';
+//console.log(p);
+
+//strArr = filter(strArr);
 
 for(var str in strArr){
     console.log(strArr[str]);
 }
 
-console.log(strArr.length);
+//console.log(strArr.length);
 
 
 function filter(strArr){
@@ -98,3 +98,39 @@ function filter(strArr){
     }
     return strArr;
 }
+
+
+var strArr = ['te','how'];
+
+var fromUser = 'jiyu';
+var toUser = 'pan';
+
+function getPrivateHistoryByKey(keyword,fromUser, toUser, userDb) {
+
+    var q = 'SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\''
+        + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\' and content Like \'%'
+        + keyword.join('%\' and content Like \'%') + '%\'';
+    console.log(q);
+    userDb.serialize(function () {
+        userDb.all(q, function (err, rows) {
+            console.log(rows);
+        });
+    });
+};
+
+function getPrivateHistory(fromUser, toUser, userDb) {
+    //var dbTemp = this.db;
+    userDb.serialize(function () {
+        userDb.all('SELECT * FROM privateMessages WHERE fromUser=\'' + fromUser + '\' and toUser=\'' + toUser + '\'' + ' OR ' + 'fromUser=\'' + toUser + '\' and toUser=\'' + fromUser + '\';', function (err, rows) {
+            console.log(rows);
+        });
+    });
+};
+
+//getPrivateHistoryByKey(strArr,fromUser, toUser, userDb);
+//getPrivateHistory(fromUser, toUser, userDb);
+
+var str = 'abc ';
+
+var arr =  str.trim().split(' ');
+console.log(arr);

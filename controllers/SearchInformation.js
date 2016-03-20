@@ -67,7 +67,7 @@ exports.getUsersByStatus = function(req,res){
 
 //search announcement function
 exports.searchAnnouncement = function(req,res){
-    var strArr = req.body.keyword.split(' ');
+    var strArr = req.body.keyword.trim().split(' ');
 
     //filter the word
     strArr = filter(strArr);
@@ -85,7 +85,8 @@ exports.searchAnnouncement = function(req,res){
 
 //search public message function
 exports.searchPublic = function(req,res){
-    var strArr = req.body.keyword.split(' ');
+
+    var strArr = req.body.keyword.trim().split(' ');
 
     //filter the word
     strArr = filter(strArr);
@@ -103,7 +104,7 @@ exports.searchPublic = function(req,res){
 
 //search private message funciton
 exports.searchPrivate = function(req,res){
-    var strArr = req.body.keyword.split(' ');
+    var strArr = req.body.keyword.trim().split(' ');
 
     //filter the word
     strArr = filter(strArr);
