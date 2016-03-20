@@ -70,6 +70,23 @@
                  <div id="stream-list"></div>
 
                  <div class="jumbotron">
+                     <form class="form-inline">
+                         <div class="form-group">
+                             <label for="searchStatus" class="lb-search">Search by status: </label>
+                             <select class="form-control" id="searchStatus">
+                                 <option>All</option>
+                                 <option>OK</option>
+                                 <option>Help</option>
+                                 <option>Emergency</option>
+                                 <option>Undefined</option>
+                             </select>
+                         </div>
+                         <div class="form-group">
+                             <label for="searchName" class="lb-search">Search by username: </label>
+                             <input type="text" class="form-control" id="searchName" placeholder="Username">
+                         </div>
+                         <button type="submit" class="btn btn-danger"><span aria-hidden="true" class="cancel">&times;</span></button>
+                         </form>
                      <div class="container">
                          <div id="userList">
                              <div class="line"></div>
