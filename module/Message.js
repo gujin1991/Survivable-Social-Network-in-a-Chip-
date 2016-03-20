@@ -15,5 +15,9 @@ Message.prototype.getHistory = function (callback) {
     this.messageDb.getHistory(callback);
 };
 
+//new added function search public message by keywrod
+Message.prototype.getHistoryByKey = function (keyword,callback) {
+    this.messageDb.getHistoryByKey(keyword,callback);
+};
 
 module.exports = Message;

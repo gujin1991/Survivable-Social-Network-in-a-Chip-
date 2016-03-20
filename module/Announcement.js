@@ -20,5 +20,10 @@ Annoucement.prototype.getDetails = function (callback) {
     this.annoucementDb.getAnnoucement(callback);
 };
 
+//new added function to get announcement by key in database
+Annoucement.prototype.getDetailsByKey = function (strArr,callback) {
+    this.annoucementDb.getAnnoucementByKey(strArr,callback);
+};
+
 
 module.exports = Annoucement;

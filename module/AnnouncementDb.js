@@ -32,4 +32,19 @@ annoucementDb.prototype.getAnnoucement = function (callback) {
     });
 };
 
+//new added funciton to select announcements by key
+annoucementDb.prototype.getAnnoucementByKey = function (strArr,callback) {
+    var dbTemp = this.db;
+
+    var q = "SELECT * FROM annoucements WHERE content Like \'%" + keyword.join('%\' and content Like \'%') + '%\'';
+
+    dbTemp.serialize(function() {
+        dbTemp.all(q, function(err, rows) {
+
+
+            callback(rows);
+        })
+    });
+};
+
 module.exports = annoucementDb;
