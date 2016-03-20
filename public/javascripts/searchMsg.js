@@ -14,9 +14,8 @@ $('#search-public-btn').click(function() {
         $('#msg').html('');
         $.post('/searchPublic', search, function(messages){
             document.getElementById("searchResult").style.display = "block";
-            console.log(messages.length);
-            if (messages.statusCode === 400) {
-                swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            if (messages.statusCode === 401) {
+                swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
             } else {
                 displayResult(messages.length, messages,tableID, tbodyID);
             }
@@ -39,12 +38,12 @@ $('#search-private-btn').click(function() {
         var tableID = 'private-stream-list';
         var tbodyID = 'msgPrivate';
         var search = {"keyword": keywords};
-        $('#msg').html('');
+        $('#msgPrivate').html('');
         $.post('/searchPrivate', search, function(messages){
             document.getElementById("searchResult").style.display = "block";
-            console.log(messages.length);
-            if (messages.statusCode === 400) {
-                swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            console.log(messages);
+            if (messages.statusCode === 401) {
+                swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
             } else {
                 displayResult(messages.length, messages,tableID, tbodyID);
             }
@@ -53,8 +52,7 @@ $('#search-private-btn').click(function() {
     }
 });
 $('#cancel-private-btn').click(function() {
-    $.get('/chatPrivately', function(){
-    });
+    location.reload();
     document.getElementById("searchResult").style.display = "none";
 });
 
@@ -70,9 +68,8 @@ $('#search-announce-btn').click(function() {
         $('#msgAnnounce').html('');
         $.post('/searchAnnouncement', search, function(messages){
             document.getElementById("searchResult").style.display = "block";
-            console.log(messages.length);
-            if (messages.statusCode === 400) {
-                swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            if (messages.statusCode === 401) {
+                swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
             } else {
                 displayResult(messages.length, messages,tableID, tbodyID);
             }
