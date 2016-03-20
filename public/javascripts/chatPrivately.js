@@ -6,7 +6,7 @@ var offlineUsers = {};
 var chatTarget;
 var socket = io.connect();
 var $htmlDiv;
-var content = $('.msg');
+var content = $('.msgPrivate');
 var username = $("#myname").val();
 
 socket.on('connect', function () {
@@ -21,10 +21,7 @@ socket.on('updatelist',function(response){
         }
         return size;
     };
-    //$('#post-btn').click(function() {
-    //    //event.preventDefault();
-    //    swal({title: "Error!",text: "Please select a user!", type: "error", confirmButtonText: "OK" });
-    //});
+
 // Get the size of an object
     var onlineSize = Object.size(response.online);
     var offlineSize = Object.size(response.offline);
