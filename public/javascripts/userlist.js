@@ -136,9 +136,6 @@ socket.on('send private message', function(message){
  * Update the online&offline user list.
  * */
 function updateUserList(onlineUserList, offlineUserList) {
-    console.log("-----------------online : "+ onlineUserList);
-    console.log("-----------------offline : "+ offlineUserList);
-
     Object.size = function(obj) {
         var size = 0, key;
         for (key in obj) {
@@ -159,14 +156,12 @@ function updateUserList(onlineUserList, offlineUserList) {
 
 $("#search-status").change(function(event){
     var status = $(this).val();
-    console.log("------------------------\n" + status);
-    if (status == 'Any') {
+    if (status == 'All') {
         $.get('/userList', function(req,res){
             updateUserList(res.online, res.offline);
         });
     } else {
         var keyword = {"keyword": status};
-        console.log("------------------------\n" + keyword);
         $.post('/searchStatus', keyword, function(response) {
             updateUserList(response.online, response.offline);
         });
