@@ -16,68 +16,46 @@
 
 
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">SSNoC</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/users">Users</a></li>
-                    <li><a href="/chatPrivately">Chat Privately</a></li>
-                    <li><a href="/announcement">Announcement</a></li>
-                    <!--<li><a href="#">Help</a></li>-->
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" id="status-ok" data-toggle="tab">OK</a></li>
-                            <li><a href="#" id="status-help" data-toggle="tab">Help</a></li>
-                            <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Change Profile</a></li>
-                            <li><a href="#">Change Password</a></li>
-                            <li><a href="#">Change Status</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/logout"><strong>Sign out</strong></a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/">Home</a></li>
-                </ul>
-                <!--<form class="navbar-form navbar-right">-->
-                    <!--<input type="text" class="form-control" placeholder="Search...">-->
-                <!--</form>-->
-            </div>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SSNoC</a>
         </div>
-    </nav>
-
-    <!--<div id="announcement">-->
-        <!--<div class="row">-->
-            <!--<div class="col-md-10 col-md-offset-1 alert alert-info">-->
-                <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
-                <!--<div class="text-center">-->
-                    <!--<div class="row"><h4>Welcome</h4></div>-->
-                    <!--<div class="row">-->
-                        <!--<b>Welcome to our Surviable Social Network!</b>-->
-                        <!--<br>Importance you need to know about MEANINGS of status:-->
-                        <!--<br><b>OK</b>: I am OK, I do not need help.-->
-                        <!--<br><b>Help</b>: I need help, but this is not a life threatening emergency.-->
-                        <!--<br><b>Emergency</b>: I need help now, as this is a life threatening emergency!-->
-                        <!--<br>if you have any suggestions/bug report please send it to us: <a href="mailto:jiyus@andrew.cmu.edu"><b>jiyus@andrew.cmu.edu</b></a>.-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/users">User List</a></li>
+                <li><a href="/chatPrivately">Chat Privately</a></li>
+                <li><a href="/announcement">Announcement</a></li>
+                <!--<li><a href="#">Help</a></li>-->
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" id="status-ok" data-toggle="tab">OK</a></li>
+                        <li><a href="#" id="status-help" data-toggle="tab">Help</a></li>
+                        <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Change Profile</a></li>
+                        <li><a href="#">Change Password</a></li>
+                        <li><a href="#">Change Status</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><strong>Sign out</strong></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 	<div id="content" class="container">
         <div class="row">
@@ -90,12 +68,41 @@
                         <input type="hidden" id="mystatus" value="<%=status%>">
                     </div>
 
+                    <div class="col-lg-6">
+                        <form>
+                            <div class="input-group">
+                                <input type="text" id="searchAnnounceMsg" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button id="search-announce-btn" class="btn btn-info" type="button"><span><img src="../images/icons/search.png" style="width: 15px"></span></button>
+                            <button id="cancel-announce-btn" class="btn btn-danger" type="button"><span><img src="../images/icons/black.png" style="width: 15px"></span></button>
+                        </span>
+                            </div>
+                        </form>
+                    </div>
+
                     <div class="panel panel-info">
                         <div class="panel-heading">Announcement</div>
                         <div class="panel-body">
-                            <div id="stream-list">
-                                <div class="msg grumblr-box"></div>
+                            <div id="announce-stream-list">
+                                <div id="msgAnnounce" class="grumblr-box"></div>
                             </div>
+                        </div>
+
+                        <div id="searchResult" style="float:right;display: none;">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="prePage();" style="color: Black;">pre</a>
+                                    </td>
+                                    <td>
+
+                                          <span id="pageindex" style="font-weight: bold;"></span>  
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="nextPage();" style="color: Black;">next</a>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
 
@@ -106,23 +113,8 @@
                             <!--<button id="back-btn" type="button" class="btn btn-danger pull-right">Back to chatroom</button>-->
                             <button id="post-btn" type="button" class="btn btn-danger pull-right">Post</button>
                         </form>
-                        <div id="error"></div>
                     </div>
                 </div>
-                <!-- right column -- sidebar -->
-                <!--<div id="rightcontent" class="col-md-3 col-sm-3 sidebar">-->
-                    <!--<div id="sidebar">-->
-                        <!--<div id="userList">-->
-                            <!--<h4>Online Users List</h4>-->
-                            <!--<div class="line"></div>-->
-                            <!--<div class="online-list"></div>-->
-                            <!--<h4>Offline Users List</h4>-->
-                            <!--<div class="line"></div>-->
-                            <!--<div class="offline-list"></div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
     </div>
     <!-- Bootstrap core JavaScript (used for button dropdown)-->
@@ -130,6 +122,8 @@
 	<script src="javascripts/bootstrap.min.js"></script>
     <script src="javascripts/sweetalert.min.js"></script>
     <script src="javascripts/announce.js"></script>
+    <script src="javascripts/searchMsg.js"></script>
+    <script src="javascripts/page.js"></script>
     <script src="javascripts/sharestatus.js"></script>
 </body>
 </html>

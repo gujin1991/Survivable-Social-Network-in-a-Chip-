@@ -1,6 +1,6 @@
 var socket = io.connect();
 var username;
-var content = $('.msg');
+var content = $('#msgAnnounce');
 
 // Check if it is a new user
 //jQuery( document ).ready(function( $ ) {
@@ -70,7 +70,7 @@ $.get('/getAnnouncements', function(data){
 		content.prepend(one);
 	};
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
-	var chat_body = $('#stream-list');
+	var chat_body = $('#announce-stream-list');
     var height = chat_body[0].scrollHeight;
     chat_body.scrollTop(height);
 });
@@ -87,10 +87,6 @@ socket.on('send annoucement', function(message){
 	var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
     var one = $(label);
 	content.prepend(one);
-	//$("html, body").animate({ scrollTop: $(document).height() }, 1000);
-	//var chat_body = $('#stream-list');
-    //var height = chat_body[0].scrollHeight;
-    //chat_body.scrollTop(height);
 });
 
 //updating the list of online and offline users

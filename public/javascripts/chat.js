@@ -10,7 +10,7 @@
 /** @global */
 var socket = io.connect();
 var username = $('#myname').val();
-var content = $('.msg');
+var content = $('#msg');
 
 /**
  * Get user status.
@@ -59,16 +59,6 @@ socket.on('updatelist', function(response){
 		statusContent = "Emergency";
 		logoName = "emergency.png";
 	}
-
-	//var obj = {};
-	//obj['status'] = mystatus;
-	//$.post('/storeStatus',obj,function(response){
-	//	if (response.statusCode === 200) {
-	//		//swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
-	//		$("#status-toggle").empty().append(
-	//			'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
-	//	}
-	//});
 
 });
 
@@ -129,6 +119,10 @@ $('#post-btn').on('click', function(e) {
  * Display previous messages stored in database.
  * */
 $.get('/getHistory', function(data){
+	displayHistory(data);
+});
+
+function displayHistory(data) {
 	for(var i=0; i<data.length; i++) {
 		var message = data[i];
 
@@ -146,30 +140,29 @@ $.get('/getHistory', function(data){
 		console.log("*******************\nstatus:" + status);
 
 		var label = '<div style="color:gray" class="message">' +
-						'<div class="messageHeader">' +
-							'<span>' +
-								'<span>' + message.userName +
-								'</span>' +
-								'<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
-                                '<div class="timestamp pull-right">' +
-                                    '<i class="fa fa-clock-o fa-1"></i>' +
-                                    '<small style="margin-left: 5px;">' + message.time + '</small>' +
-                                '</div>' +
-							'</span>' +
-						'</div>' +
-						'<div class="messageBody">' +
-							'<strong>'+ message.content +' </strong> '+
-						'</div>' +
-					'</div>';
+				'<div class="messageHeader">' +
+				'<span>' +
+				'<span>' + message.userName +
+				'</span>' +
+				'<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
+				'<div class="timestamp pull-right">' +
+				'<i class="fa fa-clock-o fa-1"></i>' +
+				'<small style="margin-left: 5px;">' + message.time + '</small>' +
+				'</div>' +
+				'</span>' +
+				'</div>' +
+				'<div class="messageBody">' +
+				'<strong>'+ message.content +' </strong> '+
+				'</div>' +
+				'</div>';
 		var one = $(label);
 		content.append(one);
 	}
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 	var chat_body = $('#stream-list');
-    var height = chat_body[0].scrollHeight;
-    chat_body.scrollTop(height);
-});
-
+	var height = chat_body[0].scrollHeight;
+	chat_body.scrollTop(height);
+}
 /**
  * Display user login information.
  * */
