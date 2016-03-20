@@ -215,7 +215,7 @@ app.post('./testMode',function(req,res){
     }else {
         testModeFlag = true;
     }
-}
+});
 
 
 app.post('./testPost', function(req,res) {
