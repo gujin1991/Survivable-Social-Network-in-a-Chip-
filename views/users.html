@@ -68,24 +68,30 @@
                  <div id="stream-list"></div>
 
                  <div class="jumbotron">
-                     <form class="form-inline">
-                         <div class="form-group">
-                             <label for="search-status" class="lb-search">Search by status: </label>
-                             <select id="search-status" class="form-control">
-                                 <option>All</option>
-                                 <option>OK</option>
-                                 <option>Help</option>
-                                 <option>Emergency</option>
-                                 <option>Undefined</option>
-                             </select>
-                         </div>
-                         <div class="form-group">
-                             <label for="search-username" class="lb-search">Search by username: </label>
-                             <input id="search-username" type="text" class="form-control" placeholder="Username">
-                         </div>
-                         <button id="search-username-cancel" type="submit" class="btn btn-danger"><i class="fa fa-times"></i></button>
-                         </form>
+
                      <div class="container">
+                         <form class="form-inline">
+                             <div class="form-group">
+                                 <label for="search-status" class="lb-search">Search by status: </label>
+                                 <select id="search-status" class="form-control">
+                                     <option>All</option>
+                                     <option>OK</option>
+                                     <option>Help</option>
+                                     <option>Emergency</option>
+                                     <option>Undefined</option>
+                                 </select>
+                             </div>
+
+                             <label class="lb-search">Search by username: </label>
+                             <div class="input-group">
+                                 <input id="search-username" type="text" class="form-control" placeholder="Username">
+                                 <span class="input-group-btn">
+                                     <button id="search-username-cancel" type="submit" class="btn btn-danger">
+                                         <i class="fa fa-times"></i>
+                                     </button>
+                                 </span>
+                             </div>
+                         </form>
                          <div id="userList">
                              <div class="line"></div>
                              <div class="online-list"></div>
