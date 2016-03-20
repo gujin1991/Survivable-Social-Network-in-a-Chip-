@@ -28,10 +28,10 @@ exports.getUsersByName = function(req,res){
 
     directory.searchOffLine(req.body.keyword,function(offUsers){
 
-        var cur = {};
-        cur.userName = user.userName;
-        cur.status = user.status;
-        message.currentUser = cur;
+        //var cur = {};
+        //cur.userName = user.userName;
+        //cur.status = user.status;
+        //message.currentUser = cur;
         message.offline = offUsers;
 
         directory.searchOnlineUsers(req.body.keyword,function(onlineUsers){
@@ -39,7 +39,7 @@ exports.getUsersByName = function(req,res){
         });
 
 
-        res(message);
+        res.json(message);
         //io.emit('updatelist',message);
     });
 }
@@ -50,17 +50,17 @@ exports.getUsersByStatus = function(req,res){
 
     directory.searchOffLineByStatus(req.body.keyword,function(offUsers){
 
-        var cur = {};
-        cur.userName = user.userName;
-        cur.status = user.status;
-        message.currentUser = cur;
+        //var cur = {};
+        //cur.userName = user.userName;
+        //cur.status = user.status;
+        //message.currentUser = cur;
         message.offline = offUsers;
 
         directory.searchOnlineUsersByStatus(req.body.keyword,function(onlineUsers){
             message.online = onlineUsers;
         });
 
-        res(message);
+        res.json(message);
 
     });
 }

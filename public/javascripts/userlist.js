@@ -159,12 +159,15 @@ function updateUserList(onlineUserList, offlineUserList) {
 
 $("#search-status").change(function(event){
     var status = $(this).val();
+    console.log("------------------------\n" + status);
     if (status == 'Any') {
         $.get('/userList', function(req,res){
-            updateUserList(response.online, response.offline);
+            updateUserList(res.online, res.offline);
         });
     } else {
-        $.post('/searchStatus',{'keyword':status},function(response) {
+        var keyword = {"keyword": status};
+        console.log("------------------------\n" + keyword);
+        $.post('/searchStatus', keyword, function(response) {
             updateUserList(response.online, response.offline);
         });
     }
@@ -178,14 +181,15 @@ $("#search-username").on("keydown", function(event) {
 
 $("#search-username").on("keyup", function(event) {
     var username = $(this).val();
-    $.post('/searchUser',{'keyword':username},function(response) {
+    var keyword = {"keyword": username};
+    $.post('/searchUser', keyword, function(response) {
         updateUserList(response.online, response.offline);
     });
 });
 
-$("#search-username-cancel").onclick(function(event) {
+$("#search-username-cancel").click(function(event) {
     $.get('/userList', function(req,res){
-        updateUserList(response.online, response.offline);
+        updateUserList(res.online, res.offline);
     });
     $("#search-username").val("");
 });
