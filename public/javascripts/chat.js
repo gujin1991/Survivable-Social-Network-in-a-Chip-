@@ -123,6 +123,7 @@ $.get('/getHistory', function(data){
 });
 
 function displayHistory(data) {
+	content.empty();
 	for(var i=0; i<data.length; i++) {
 		var message = data[i];
 

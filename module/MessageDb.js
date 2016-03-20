@@ -61,7 +61,9 @@ MessageDb.prototype.getHistoryByKey = function (keyword,callback) {
 
     dbTemp.serialize(function () {
         dbTemp.all(q, function (err, rows) {
+            console.log(rows);
             callback(rows);
+
         })
     });
 };
@@ -70,8 +72,9 @@ MessageDb.prototype.getHistoryByKey = function (keyword,callback) {
 MessageDb.prototype.getPrivateHistoryByKey = function (keyword,user, callback) {
     var dbTemp = this.db;
     var q = 'SELECT * FROM privateMessages WHERE fromUser=\'' + user +  '\''
-        + ' OR ' + 'toUser=\'' + user + '\''  + '\' and content Like \'%'
+        + ' OR ' + 'toUser=\'' + user + '\' and content Like \'%'
         + keyword.join('%\' and content Like \'%') + '%\'';
+    console.log("q ============" + q);
     dbTemp.serialize(function () {
         dbTemp.all(q, function (err, rows) {
             if (err) {

@@ -104,8 +104,7 @@ exports.searchPublic = function(req,res){
 
 //search private message funciton
 exports.searchPrivate = function(req,res){
-    var strArr = req.body.keyword.trim().split(' ');
-
+    var strArr = req.body.keyword.trim().split(',');
     //filter the word
     strArr = filter(strArr);
 
@@ -113,6 +112,7 @@ exports.searchPrivate = function(req,res){
         res.json({"statusCode":401, "message": "ALL STOP WORDS"});
     }else{
         messagePrivate.getHistoryByKey(strArr,req.session.username,function(data){
+           
             res.json(data);
         });
     }

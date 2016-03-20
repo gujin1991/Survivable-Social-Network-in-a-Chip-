@@ -262,7 +262,6 @@ app.post('/searchPublic',function(req,res){
 
 app.post('/searchPrivate',function(req,res){
 
-
     if(!testModeFlag) searchCtl.searchPrivate(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 })
