@@ -6,7 +6,7 @@ var offlineUsers = {};
 var chatTarget;
 var socket = io.connect();
 var $htmlDiv;
-var content = $('.msgPrivate');
+var content = $('#msgPrivate');
 var username = $("#myname").val();
 
 socket.on('connect', function () {
@@ -83,10 +83,12 @@ function getPrivateMessage(senderName, receiverName) {
     $.post('/getPrivateMessage', users, function(messages){
         for(var i=0; i<messages.length; i++) {
             var message = messages[i];
+            console.log(username);
+            console.log(message.fromUser);
             if (message.fromUser === username) {
-                addMessage(message, message.content, "Me");
+                addPrivateMessage(message, message.content, "Me");
             } else if (message.toUser === username) {
-                addMessage(message, message.content, message.fromUser);
+                addPrivateMessage(message, message.content, message.fromUser);
             }
         }
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
@@ -162,9 +164,9 @@ function sortByName(dict, callback) {
 socket.on('send private message', function(message){
     if (chatTarget != null){
         if (message.sender === username) {
-            addMessage(message, message.text, "Me");
+            addPrivateMessage(message, message.text, "Me");
         } else {
-            addMessage(message, message.text, message.sender);
+            addPrivateMessage(message, message.text, message.sender);
         }
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         var chat_body = $('#private-stream-list');
@@ -174,7 +176,7 @@ socket.on('send private message', function(message){
 
 });
 
-function addMessage(message, text, username) {
+function addPrivateMessage(message, text, name) {
 
     var status = message.status;
     console.log("*****************\n" + status);
@@ -191,7 +193,7 @@ function addMessage(message, text, username) {
 
     var label = '<div class="message">' +
         '<div class="messageHeader">' +
-        '<span><span>' + username + '</span>' +
+        '<span><span>' + name + '</span>' +
         '<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
         '<div class="timestamp pull-right">' +
         '<i class="fa fa-clock-o fa-1"></i>' +
