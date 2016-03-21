@@ -222,8 +222,6 @@ app.get('/userList', function(req,res){
 //chat privately
 app.post('/chatPrivately',function(req,res){
 
-
-
     if(!testModeFlag) chatPrivately.sendPrivateMessage(req,res,sockets[req.body.receiver],sockets[req.body.sender],sockets);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -277,15 +275,20 @@ app.post('/searchPrivate',function(req,res){
 
 
 //get postCount
-app.post('./testModeEnter',function(req,res){
+app.post('./testModeStart',function(req,res){
     if(testModeFlag){
         res.json({"statusCode": 410, "message": "Already in Test"});
     }else {
-        testModeFlag = true;
-        res.json({"statusCode": 200, "message": "Success"});
+        if(req.body.duration >  5) res.json({"statusCode": 412, "message": "Time Exceed"});
+        else {
+            testModeFlag = true;
+            res.json({"statusCode": 200, "message": "Success"});
+        }
+
     }
 });
 
+//used for unexpected stops. 
 app.post('./testModeQuit',function(req,res){
     if(testModeFlag){
         testModeFlag = false;
@@ -295,7 +298,6 @@ app.post('./testModeQuit',function(req,res){
 
     }
 });
-
 
 app.post('./testPost', function(req,res) {
     if(testModeFlag) measurePerformance.sendTestMessage(req,res);
@@ -310,7 +312,10 @@ app.get('./testGet', function(req,res) {
 
 //end measurePerformance
 app.post('./endMeasurePerformance', function(req, res) {
-    if(testModeFlag) measurePerformance.endMeasurePerformance(req,res);
+    if(testModeFlag) {
+        testModeFlag = false;
+        measurePerformance.endMeasurePerformance(req,res);
+    }
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 

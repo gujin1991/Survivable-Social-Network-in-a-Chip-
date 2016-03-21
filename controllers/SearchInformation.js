@@ -112,7 +112,7 @@ exports.searchPrivate = function(req,res){
         res.json({"statusCode":401, "message": "ALL STOP WORDS"});
     }else{
         messagePrivate.getHistoryByKey(strArr,req.session.username,function(data){
-           
+
             res.json(data);
         });
     }

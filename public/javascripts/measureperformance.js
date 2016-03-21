@@ -2,6 +2,8 @@
  * Created by congshan on 3/21/16.
  */
 var value = 0;
+
+
 var interval = setInterval(function() {
     value += 10;
     $("#progress-bar")
