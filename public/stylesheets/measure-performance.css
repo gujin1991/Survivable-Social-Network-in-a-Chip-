@@ -1,7 +1,6 @@
 @charset "UTF-8";
 body {
-    background: url("../images/background.jpg") no-repeat center top scroll;
-    background-size: cover;
+    background: url("../images/background.jpg") no-repeat 50% 50% fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -14,7 +13,7 @@ body {
     border-bottom: none;
 }
 .jumbotron {
-    height: 450px;
+    height: 550px;
     overflow: scroll;
 }
 thead {
