@@ -4,6 +4,17 @@ var testMessage = new TestMessage();
 //var directoryy = require('../module/Directory.js')
 //var directory = new directoryy();
 
+exports.directMeasurePerformance = function(req, res) {
+    console.log("loggedIn = " + req.session.loggedIn);
+
+    if (!req.session.loggedIn) {
+        res.render('index', {'username': req.session.username});
+    } else {
+        console.log("fine!");
+        res.render('measurePerformance', {'username': req.session.username, 'status': req.session.status});
+    }
+};
+
 exports.getTestMessages = function(req, res) {
     testMessage.getHistory(function(data, getCount){
         res.json({"message":data, "getCount":getCount});
