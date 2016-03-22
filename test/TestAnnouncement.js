@@ -25,7 +25,7 @@ suite('SSNoC Unit Test - Announcement', function () {
         new User().getUserInfo("TesterWrong", function (err, user) {
             expect(err).to.not.equal(null);
             expect(err).to.equal(400);
-            done;
+            done();
         });
     });
 });
