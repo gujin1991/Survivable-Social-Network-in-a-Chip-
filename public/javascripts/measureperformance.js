@@ -17,6 +17,7 @@ $('#start-btn').click(function() {
         swal({title: "Error!",text: "cannot greater than 5s!", type: "error", confirmButtonText: "OK" });
     } else {
         $('#stop-btn').prop('disabled', false);
+        $('#start-btn').prop('disabled', true);
         duration = parseInt(duration) * 1000;
         interval = parseInt(interval);
         $.post('/testModeStart',function(response){
@@ -27,7 +28,7 @@ $('#start-btn').click(function() {
             }
         });
         the_interval =  setInterval(testPost, interval);
-        the_duration = setTimeout(stop,duration/2);
+        the_duration = setTimeout(next,duration/2);
 
         intervals = setInterval(progress, duration/10);
     }
