@@ -19,4 +19,8 @@ TestMessage.prototype.endMeasurement = function(callback) {
     this.messageDb.endMeasurement(callback);
 }
 
+TestMessage.prototype.reset = function() {
+    this.messageDb.reset();
+}
+
 module.exports = TestMessage;
