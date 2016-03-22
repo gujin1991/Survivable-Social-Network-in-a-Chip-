@@ -19,10 +19,11 @@ $('#start-btn').click(function() {
         $('#stop-btn').prop('disabled', false);
         duration = parseInt(duration) * 1000;
         interval = parseInt(interval);
-        halfDuration = duration / 2;
-        //the_interval =  setInterval(testGet(), interval);
-        //the_duration = setTimeout(stop,duration);
-        timedCount(duration, interval, halfDuration);
+
+        the_interval =  setInterval(testPost(), interval);
+        the_duration = setTimeout(stop(),duration);
+        //halfDuration = duration / 2;
+        //timedCount(duration, interval, halfDuration);
     }
     return false;
 });
@@ -31,26 +32,33 @@ function stop() {
     $('#stop-btn').prop('disabled', true);
 }
 
-function timedCount(duration, interval, halfDuration) {
-    while (duration > halfDuration) {
-        the_interval =  setInterval(testPost(duration), interval);
-        duration = duration - 1000;
-    } clearInterval(the_interval);
-    while (duration > 0) {
-        the_interval =  setInterval(testGet(duration), interval);
-        duration = duration - 1000;
-    } clearInterval(the_interval);
-    alert("stop");
+// 这么写不对...
+//function timedCount(duration, interval, halfDuration) {
+//    while (duration > halfDuration) {
+//        the_interval =  setInterval(testPost(duration), interval);
+//        duration = duration - 1000;
+//    } clearInterval(the_interval);
+//    while (duration > 0) {
+//        the_interval =  setInterval(testGet(duration), interval);
+//        duration = duration - 1000;
+//    } clearInterval(the_interval);
+//    alert("stop");
+//}
+//function testPost(duration) {
+//    alert("post" + duration);
+//}
+//
+//function testGet(duration) {
+//    alert("get" + duration);
+//}
 
-}
-function testPost(duration) {
-    alert("post" + duration);
-}
-
-function testGet(duration) {
-    alert("get" + duration);
+function testPost() {
+    alert("post");
 }
 
+function testGet() {
+    alert("get");
+}
 var intervals = setInterval(function() {
     value += 10;
     $("#progress-bar")
@@ -62,7 +70,7 @@ var intervals = setInterval(function() {
 }, 1000);
 
 $('#stop-btn').click(function() {
-    //clearTimeout(the_timer);
+    clearTimeout(the_duration);
     $('#duration').val('');
     $('#interval').val('');
 });
