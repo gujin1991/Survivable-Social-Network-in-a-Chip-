@@ -50,6 +50,7 @@ function testPost(duration) {
 function testGet(duration) {
     alert("get" + duration);
 }
+
 var intervals = setInterval(function() {
     value += 10;
     $("#progress-bar")
