@@ -34,7 +34,7 @@ exports.sendTestMessage = function(req,res) {
         if (code == 200) {
             res.json({"statusCode":200, "message": "Success", "postCount": postCount});
         }
-        else res.json({"statusCode":400, "message": "Fail", "postCount": postCount});
+        else res.json({"statusCode":413, "message": "Fail", "postCount": postCount});
     });
 
 }

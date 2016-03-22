@@ -299,15 +299,20 @@ app.post('/testModeQuit',function(req,res){
     }
 });
 
+
+
 app.post('/testPost', function(req,res) {
     if(testModeFlag) measurePerformance.sendTestMessage(req,res);
-    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+    //else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+
+    //measurePerformance.sendTestMessage(req,res);
 });
 
 //get getCount
 app.get('/testGet', function(req,res) {
     if(testModeFlag) measurePerformance.getTestMessages(req,res);
-    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+   // else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+    //measurePerformance.getTestMessages(req,res);
 });
 
 //end measurePerformance , used for normal stops.
@@ -316,7 +321,7 @@ app.post('/endMeasurePerformance', function(req, res) {
         testModeFlag = false;
         measurePerformance.endMeasurePerformance(req,res);
     }
-    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+    //else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
 
