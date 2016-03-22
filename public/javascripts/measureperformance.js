@@ -40,6 +40,14 @@ function next() {
 }
 function stop() {
     clearInterval(the_interval);
+    $.post('/endMeasurePerformance',function(response){
+        if (response.statusCode === 411) {
+            swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
+        } else {
+            $('#number-of-post').val(response.postCount)
+            $('#number-of-get').val(response.getCount)
+        }
+    });
     $('#stop-btn').prop('disabled', true);
     $('#duration').val('');
     $('#interval').val('');
@@ -78,10 +86,18 @@ function progress() {
 }
 
 $('#stop-btn').click(function() {
-    stop();
+    clearInterval(the_interval);
     clearInterval(intervals);
     $("#progress-bar")
         .css("width", 0 + "%")
         .attr("aria-valuenow", 0)
         .text(0+ "%");
+    $.post('/testModeQuit',function(response){
+        if (response.statusCode === 411) {
+            swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
+        }
+    });
+    $('#stop-btn').prop('disabled', true);
+    $('#duration').val('');
+    $('#interval').val('');
 });
