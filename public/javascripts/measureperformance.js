@@ -50,6 +50,8 @@ function stop() {
         } else {
             $('#number-of-post').val(response.postCount)
             $('#number-of-get').val(response.getCount)
+            console.log('test post ? ' ,response.postCount);
+
         }
     });
     $('#stop-btn').prop('disabled', true);

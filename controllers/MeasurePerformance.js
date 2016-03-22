@@ -41,6 +41,7 @@ exports.sendTestMessage = function(req,res) {
 
 exports.endMeasurePerformance = function(req,res) {
     testMessage.endMeasurement(function(postCount, getCount) {
+        console.log('post ? ',postCount ,'get ? ',getCount);
         res.json({"postCount":postCount, "getCount":getCount});
     });
 }
