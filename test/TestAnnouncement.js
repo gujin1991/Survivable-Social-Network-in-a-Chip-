@@ -1,12 +1,12 @@
 var expect = require('expect.js');
 var User = require('../module/User.js');
-var PrivateMessage = require('../module/PrivateMessage.js');
+var Announcement = require('../module/Announcement');
 
 //TODO: review the addAnnoucement function in Announcement.js
-suite('Unit Test for User', function () {
+suite('SSNoC Unit Test - Announcement', function () {
 	test('Unit Test for sending announcement successfully', function (done) {
         new User().getUserInfo("TesterJin", function (err, user) {
-        	var currentTime = new Date().toLocaleTimeString();  //maybe a sync problem?
+        	var currentTime = new Date().toLocaleTimeString();
             new Announcement(user.userName, "Test announcement!", currentTime)
             .addAnnoucement(user.userName, "Test announcement!", currentTime, function (code) {
                 expect(code).to.eql(200);
@@ -16,8 +16,6 @@ suite('Unit Test for User', function () {
                 expect(rows[len - 1].time).to.eql(currentTime);
                 done();
             });
-            
         });
     });
-
 });

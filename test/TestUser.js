@@ -5,24 +5,27 @@ var Status = require('../module/Status.js');
 //TODO 
 //1: implement deleteUser() functions.
 //2: seperate the sharestate unit test.
-suite('Unit Test for User', function () {
+suite('SSNoC Unit Test - User', function () {
 
-	test('Test Register if the user has not registered.', function (done) {
+    test('Test Register if the user has not registered.', function (done) {
         new User()
             .initialize("TesterJin", "19911991", new Status().ok)
             .userAdd(function (err, user) {
-                expect(user.userName).to.eql("TesterJin");
-                done();
-                
+                if (err) {
+                    done();
+                } else {
+                    expect(user.userName).to.eql("TesterJin");
+                    done();
+                }
             });
     });
 
-	test('Test Register if the user has registered.', function (done) {
+    test('Test Register if the user has registered.', function (done) {
         new User()
             .initialize("TesterJin", "19911991", new Status().ok)
             .userAdd(function (err, user) {
-                    expect(err).to.eql(400);
-                    done();
+                expect(err).to.eql(400);
+                done();
             });
     });
 
@@ -30,8 +33,8 @@ suite('Unit Test for User', function () {
     test('Test Register if the user has not registered and there is already other testers.', function (done) {
         new User()
             .initialize("TesterYu", "19931993", new Status().ok)
-            .userAdd(function (err, user) {   
-                expect(user.userName).to.eql("TesterYu");
+            .userAdd(function (err, user) {
+                expect(err).to.eql(400);
                 done();
             });
     });
@@ -39,18 +42,18 @@ suite('Unit Test for User', function () {
     test('Test Register if the user has registered and there is already other testers.', function (done) {
         new User()
             .initialize("TesterYu", "19931993", new Status().ok)
-            .userAdd(function (err, user) {                
+            .userAdd(function (err, user) {
                 expect(err).to.eql(400);
-                done();                
+                done();
             });
     });
 
 
     test('Test getUserInfo if the user exists.', function (done) {
         new User()
-            .getUserInfo("TesterJin", function (err, user) {        
-                    expect(user.userName).to.eql("TesterJin");
-                    done();
+            .getUserInfo("TesterJin", function (err, user) {
+                expect(user.userName).to.eql("TesterJin");
+                done();
             });
 
     });
@@ -58,8 +61,8 @@ suite('Unit Test for User', function () {
     test('Test getUserInfo if the user doesnot exist.', function (done) {
         new User()
             .getUserInfo("TesterNotExists", function (err, user) {
-                    expect(err).to.eql(400);
-                    done();    
+                expect(err).to.eql(400);
+                done();
             });
 
     });
