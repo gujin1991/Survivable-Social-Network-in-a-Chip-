@@ -275,7 +275,7 @@ app.post('/searchPrivate',function(req,res){
 
 
 //get postCount
-app.post('./testModeStart',function(req,res){
+app.post('/testModeStart',function(req,res){
     if(testModeFlag){
         res.json({"statusCode": 410, "message": "Already in Test"});
     }else {
@@ -289,7 +289,7 @@ app.post('./testModeStart',function(req,res){
 });
 
 //used for unexpected stops or mannual stops.
-app.post('./testModeQuit',function(req,res){
+app.post('/testModeQuit',function(req,res){
     if(testModeFlag){
         testModeFlag = false;
         res.json({"statusCode": 200, "message": "Success"});
@@ -299,19 +299,19 @@ app.post('./testModeQuit',function(req,res){
     }
 });
 
-app.post('./testPost', function(req,res) {
+app.post('/testPost', function(req,res) {
     if(testModeFlag) measurePerformance.sendTestMessage(req,res);
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
 //get getCount
-app.get('./testGet', function(req,res) {
+app.get('/testGet', function(req,res) {
     if(testModeFlag) measurePerformance.getTestMessages(req,res);
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
 //end measurePerformance , used for normal stops.
-app.post('./endMeasurePerformance', function(req, res) {
+app.post('/endMeasurePerformance', function(req, res) {
     if(testModeFlag) {
         testModeFlag = false;
         measurePerformance.endMeasurePerformance(req,res);
