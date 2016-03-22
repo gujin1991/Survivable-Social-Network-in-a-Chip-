@@ -27,7 +27,7 @@ $('#start-btn').click(function() {
             }
         });
         the_interval =  setInterval(testPost, interval);
-        the_duration = setTimeout(stop,duration/2);
+        the_duration = setTimeout(next,duration/2);
 
         intervals = setInterval(progress, duration/10);
     }
@@ -35,9 +35,11 @@ $('#start-btn').click(function() {
 });
 function next() {
     clearInterval(the_interval);
+
     the_interval = setInterval(testGet, interval);
     the_duration = setTimeout(stop,duration/2);
 }
+
 function stop() {
     clearInterval(the_interval);
     $.post('/endMeasurePerformance',function(response){
@@ -55,6 +57,7 @@ function stop() {
 
 function testPost() {
     count ++;
+
     var username = $('#myname').val();
     var message = {'username': username, 'text': "This is a test message when testing POST: No.'" + count};
     console.log(message);
@@ -65,6 +68,7 @@ function testPost() {
             swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
         }
     });
+
 }
 
 function testGet() {
