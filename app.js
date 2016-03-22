@@ -288,7 +288,7 @@ app.post('./testModeStart',function(req,res){
     }
 });
 
-//used for unexpected stops. 
+//used for unexpected stops or mannual stops.
 app.post('./testModeQuit',function(req,res){
     if(testModeFlag){
         testModeFlag = false;
@@ -310,7 +310,7 @@ app.get('./testGet', function(req,res) {
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
-//end measurePerformance
+//end measurePerformance , used for normal stops.
 app.post('./endMeasurePerformance', function(req, res) {
     if(testModeFlag) {
         testModeFlag = false;

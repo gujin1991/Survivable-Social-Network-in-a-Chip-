@@ -28,7 +28,7 @@ exports.sendTestMessage = function(req,res,io) {
     message.time = now();
     message.status = req.session.status;
 
-    console.log("display status------------------message status "+ message.username + "    "+req.session.status);
+    //console.log("display status------------------message status "+ message.username + "    "+req.session.status);
 
     testMessage.addMessage(message.username,message.text,message.time,req.session.status ,function(code, postCount){
         if (code == 200) {
