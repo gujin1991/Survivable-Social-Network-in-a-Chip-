@@ -31,7 +31,7 @@ function stop() {
     $('#stop-btn').prop('disabled', true);
 }
 
-function timedCount(duration, interval) {
+function timedCount(duration, interval, halfDuration) {
     while (duration > halfDuration) {
         the_interval =  setInterval(testPost(duration), interval);
         duration = duration - 1000;
