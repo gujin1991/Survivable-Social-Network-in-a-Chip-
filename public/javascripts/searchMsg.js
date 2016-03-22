@@ -17,7 +17,7 @@ $('#search-public-btn').click(function() {
             if (messages.statusCode === 401) {
                 swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
             } else {
-                displayResult(messages.length, messages,tableID, tbodyID);
+                displayResult(messages.length, messages,tableID, tbodyID, false);
             }
         });
         $('#searchPublicMsg').val('');
@@ -45,7 +45,7 @@ $('#search-private-btn').click(function() {
             if (messages.statusCode === 401) {
                 swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
             } else {
-                displayResult(messages.length, messages,tableID, tbodyID);
+                displayResult(messages.length, messages,tableID, tbodyID, false);
             }
         });
         $('#searchPrivateMsg').val('');
@@ -71,7 +71,7 @@ $('#search-announce-btn').click(function() {
             if (messages.statusCode === 401) {
                 swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
             } else {
-                displayResult(messages.length, messages,tableID, tbodyID);
+                displayResult(messages.length, messages,tableID, tbodyID, true);
             }
         });
         $('#searchAnnounceMsg').val('');
@@ -79,12 +79,12 @@ $('#search-announce-btn').click(function() {
 });
 $('#cancel-announce-btn').click(function() {
     $.get('/getAnnouncements', function(data){
+        content = $('#msgAnnounce');
+        content.empty();
         for(var i=0; i<data.length; i++) {
             var message = data[i];
-            var label = '<div style="color:gray"><span><span style="font-style: italic;">' + message.userName + '</span> said: <strong>'+ message.content +' </strong> <small class="pull-right">' + message.time + '</small></span></div><br/>';
-            var one = $(label);
-            content.prepend(one);
-        };
+            prependAnnouncement(message, message.userName, message.content);
+        }
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         var chat_body = $('#announce-stream-list');
         var height = chat_body[0].scrollHeight;
@@ -93,7 +93,10 @@ $('#cancel-announce-btn').click(function() {
     document.getElementById("searchResult").style.display = "none";
 });
 
-function displayResult(rows, messages, tableID, tbodyID) {
+function displayResult(rows, messages, tableID, tbodyID, reverse) {
+    if (reverse) {
+        messages = messages.reverse();
+    }
     if (document.getElementById(tableID)) {
         page = new PagingClass(3, rows, messages,tbodyID);
         document.getElementById('pageindex').innerHTML = page.pageIndex + 1 + ' / ' + page.pageCount;

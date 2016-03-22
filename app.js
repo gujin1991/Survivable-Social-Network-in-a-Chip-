@@ -103,11 +103,11 @@ app.post('/signup', function(req, res) {
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-//direct to annoucement page
+//direct to announcement page
 app.get('/announcement', function(req, res){
 
 
-    if(!testModeFlag) postAnnouce.directAnnoucement(req, res);
+    if(!testModeFlag) postAnnouce.directAnnouncement(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
@@ -174,7 +174,7 @@ app.post('/updateStatus', function(req, res){
 app.get('/getAnnouncements', function(req, res){
 
 
-    if(!testModeFlag) postAnnouce.getAnnoucements(req,res);
+    if(!testModeFlag) postAnnouce.getAnnouncements(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
@@ -182,7 +182,7 @@ app.get('/getAnnouncements', function(req, res){
 app.post('/sendAnnouncements',function(req,res){
 
 
-    if(!testModeFlag) postAnnouce.sendAnnoucements(req,res,io);
+    if(!testModeFlag) postAnnouce.sendAnnouncements(req,res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 

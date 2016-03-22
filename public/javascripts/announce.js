@@ -8,13 +8,9 @@ var content = $('#msgAnnounce');
 //});
 $('#back-btn').on('click', function(e) {
 	//$.get('/announcement', function() {
-		console.log("Click check-btn");
 		window.location.href = "/";
 	//});
 });
-
-
-
 
 // Post New message
 $('#post-btn').on('click', function(e) {
@@ -38,8 +34,7 @@ $('#post-btn').on('click', function(e) {
 			}
 			obj['username'] = username;
 			obj['text'] = inputValue;
-			console.log("client : "+ username +  text);
-			swal.close()
+			swal.close();
 			//socket.emit('send message',obj);
 			$.post("/sendAnnouncements",obj,function(){
 
@@ -48,8 +43,6 @@ $('#post-btn').on('click', function(e) {
 	} else {
 		obj['username']=username;
 		obj['text']=text;
-		console.log("client : "+ username +  text);
-
 		//socket.emit('send message',obj);
 		//call api
 		$.post("/sendAnnouncements",obj,function(){
@@ -65,48 +58,22 @@ $('#post-btn').on('click', function(e) {
 $.get('/getAnnouncements', function(data){
 	for(var i=0; i<data.length; i++) {
 		var message = data[i];
-		var label = '<div style="color:gray"><span><span style="font-style: italic;">' + message.userName + '</span> said: <strong>'+ message.content +' </strong> <small class="pull-right">' + message.time + '</small></span></div><br/>';
-		var one = $(label);
-		content.prepend(one);
-	};
+		prependAnnouncement(message, message.userName, message.content);
+	}
 	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 	var chat_body = $('#announce-stream-list');
     var height = chat_body[0].scrollHeight;
     chat_body.scrollTop(height);
 });
 
-
 // Display user login information
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 
-
 // Display the new post message
-socket.on('send annoucement', function(message){
-	var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
-    var one = $(label);
-	content.prepend(one);
-});
-
-//updating the list of online and offline users
-socket.on('updatelist',function(message){
-	var online_list = $(".online-list");
-	online_list.html("");
-	var online_users = message.online;
-	for(var i=0; i<online_users.length; i++) {
-		var label = '<div style="color:black"><span>' +  online_users[i] + '</span></div><br/>';
-		var one = $(label);
-		online_list.append(one);
-	}
-	var offline_list = $(".offline-list");
-	offline_list.html("");
-	var offline_users = message.offline;
-	for(var i=0; i<offline_users.length; i++) {
-		var label = '<div style="color:gray"><span>' +  offline_users[i] + '</span></div><br/>';
-		var one = $(label);
-		offline_list.append(one);
-	}
+socket.on('send announcement', function(message){
+	prependAnnouncement(message, message.username, message.text);
 });
 
 //get current time
@@ -115,7 +82,6 @@ function now() {
     var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
     return time;
 }
-
 
 $('#focusedInput').on("keydown", function(e){
 	if(e.which === 13){
@@ -127,3 +93,36 @@ $('#focusedInput').on("keydown", function(e){
 socket.on('send private message', function(message){
 	swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });
+
+function prependAnnouncement(message, username, text) {
+	var status = message.status;
+	var logoName;
+	if (status == 'OK') {
+		logoName = "ok.png";
+	} else if (status == 'Help') {
+		logoName = "help.png";
+	} else if (status == 'Emergency') {
+		logoName = "emergency.png";
+	} else if (status == 'Undefined' || status == undefined) {
+		logoName = "undefined.png";
+	}
+
+	var label = '<div style="color:gray" class="message">' +
+		'<div class="messageHeader">' +
+		'<span>' +
+		'<span>' + username +
+		'</span>' +
+		'<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
+		'<div class="timestamp pull-right">' +
+		'<i class="fa fa-clock-o fa-1"></i>' +
+		'<small style="margin-left: 5px;">' + message.time + '</small>' +
+		'</div>' +
+		'</span>' +
+		'</div>' +
+		'<div class="messageBody">' +
+		'<strong>'+ text +' </strong> '+
+		'</div>' +
+		'</div>';
+	var one = $(label);
+	content.prepend(one);
+}

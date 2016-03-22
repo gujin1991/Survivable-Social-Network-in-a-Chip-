@@ -1,44 +1,41 @@
 /* 
- * this file implements the post Annoucement user case
- * there are two functions, one is get Annoucements from database
- * another is send Annoucements by socket.io and save Annoucements
+ * this file implements the post Announcement user case
+ * there are two functions, one is get Announcements from database
+ * another is send Announcements by socket.io and save Announcements
  * in database
  */
 
 var User = require('../module/User.js');
 var user = new User();
 
-var ANNOUCEMENT = require('../module/Announcement.js');
-var Annoucement = new ANNOUCEMENT();
+var ANNOUNCEMENT = require('../module/Announcement.js');
+var Announcement = new ANNOUNCEMENT();
 
-//post annoucement
-exports.directAnnoucement = function(req,res){
+//post announcement
+exports.directAnnouncement = function(req,res){
     console.log("loggedIn = " + req.session.loggedIn);
-
     if (!req.session.loggedIn) {
         res.render('index', {'username': req.session.username});
     } else {
-        console.log("fine!");
         res.render('announcement', {'username': req.session.username, 'status': req.session.status});
     }
 };
 
-
-exports.getAnnoucements = function(req, res) {
- 	Annoucement.getDetails(function(data) {
+exports.getAnnouncements = function(req, res) {
+    Announcement.getDetails(function(data) {
  		res.json(data);
- 	});	
-} 
+ 	});
+};
 
-exports.sendAnnoucements = function(req, res, io) {
- 	var annoucement = req.body;
-    annoucement.time = now();
-    Annoucement.addAnnoucement(annoucement.username,annoucement.text,annoucement.time, function(callback){
-        if (callback == 200) console.log("200 OK",annoucement.username,annoucement.text,annoucement.time);
+exports.sendAnnouncements = function(req, res, io) {
+ 	var announcement = req.body;
+    announcement.time = now();
+    announcement.status = req.session.status;
+    Announcement.addAnnouncement(announcement.username,announcement.status,announcement.text,announcement.time, function(callback){
+        if (callback == 200) console.log("200 OK",announcement.username,announcement.status,announcement.text,announcement.time);
     });
-    io.emit('send annoucement', annoucement);
-} 
-
+    io.emit('send announcement', announcement);
+};
 
 function now() {
     var date = new Date();

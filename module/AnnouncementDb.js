@@ -2,28 +2,26 @@
  * created by Jin Gu on 02/25/16
  */
 
- var sqlite3 = require('sqlite3').verbose();
+var sqlite3 = require('sqlite3').verbose();
 
-function annoucementDb() {
+function announcementDb() {
     this.db = new sqlite3.Database('./fse.db');    
-};
+}
 
-annoucementDb.prototype.annoucementAdd = function (username, annoucement, time, callback) {
-    
+announcementDb.prototype.announcementAdd = function (username, status, announcement, time, callback) {
     var dbtemp = this.db;
     dbtemp.serialize(function () {
-        dbtemp.run("CREATE TABLE IF NOT EXISTS annoucements (annoucementId INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, time TEXT, content TEXT)");
-        var insertAnnoucemment = dbtemp.prepare("insert into annoucements Values(?, ?,?,?)");
-        insertAnnoucemment.run(null, username, time, annoucement);
+        dbtemp.run("CREATE TABLE IF NOT EXISTS announcements (announcementId INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, status TEXT, time TEXT, content TEXT)");
+        var insertAnnouncement = dbtemp.prepare("insert into announcements Values(?,?,?,?,?)");
+        insertAnnouncement.run(null, username, status, time, announcement);
         callback(200);
-        return;
     });
 };
 
-annoucementDb.prototype.getAnnoucement = function (callback) {
+announcementDb.prototype.getAnnouncement = function (callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function() {
-        dbTemp.all("SELECT * FROM annoucements", function(err, rows) {
+        dbTemp.all("SELECT * FROM announcements", function(err, rows) {
 
             //console.log("rows : " + rows);
 
@@ -33,10 +31,10 @@ annoucementDb.prototype.getAnnoucement = function (callback) {
 };
 
 //new added funciton to select announcements by key
-annoucementDb.prototype.getAnnoucementByKey = function (strArr,callback) {
+announcementDb.prototype.getAnnouncementByKey = function (strArr,callback) {
     var dbTemp = this.db;
 
-    var q = "SELECT * FROM annoucements WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
+    var q = "SELECT * FROM announcements WHERE content Like \'%" + strArr.join('%\' and content Like \'%') + '%\'';
 
     dbTemp.serialize(function() {
         dbTemp.all(q, function(err, rows) {
@@ -47,4 +45,4 @@ annoucementDb.prototype.getAnnoucementByKey = function (strArr,callback) {
     });
 };
 
-module.exports = annoucementDb;
+module.exports = announcementDb;

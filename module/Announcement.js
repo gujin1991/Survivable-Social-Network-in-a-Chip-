@@ -2,28 +2,28 @@
  * created by Jin Gu on 02/25/16
  */
 
-var AnnoucementDB = require('./AnnouncementDb.js');
+var AnnouncementDB = require('./AnnouncementDb.js');
 
-function Annoucement(username, annoucement, time) {
+function Announcement(username, status, announcement, time) {
 	this.username = username;
-    this.annoucement = annoucement;
+    this.status = status;
+    this.announcement = announcement;
     this.time = time;
-    this.annoucementDb = new AnnoucementDB();
+    this.announcementDb = new AnnouncementDB();
 }
 
-Annoucement.prototype.addAnnoucement =  function(username,annoucement,time,callback) {
-    this.annoucementDb.annoucementAdd(username, annoucement, time, callback);
+Announcement.prototype.addAnnouncement =  function(username,status,announcement,time,callback) {
+    this.announcementDb.announcementAdd(username, status, announcement, time, callback);
     return this;
 };
 
-Annoucement.prototype.getDetails = function (callback) {
-    this.annoucementDb.getAnnoucement(callback);
+Announcement.prototype.getDetails = function (callback) {
+    this.announcementDb.getAnnouncement(callback);
 };
 
 //new added function to get announcement by key in database
-Annoucement.prototype.getDetailsByKey = function (strArr,callback) {
-    this.annoucementDb.getAnnoucementByKey(strArr,callback);
+Announcement.prototype.getDetailsByKey = function (strArr,callback) {
+    this.announcementDb.getAnnouncementByKey(strArr,callback);
 };
 
-
-module.exports = Annoucement;
+module.exports = Announcement;
