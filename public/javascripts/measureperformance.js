@@ -8,6 +8,8 @@ var interval;
 var halfDuration;
 var the_interval;
 var the_duration;
+var intervals;
+var count = 0;
 $('#start-btn').click(function() {
     duration = $('#duration').val();
     interval = $('#interval').val();
@@ -20,46 +22,28 @@ $('#start-btn').click(function() {
         duration = parseInt(duration) * 1000;
         interval = parseInt(interval);
 
-        the_interval =  setInterval(testPost(), interval);
-        the_duration = setTimeout(stop(),duration);
-        //halfDuration = duration / 2;
-        //timedCount(duration, interval, halfDuration);
+        the_interval =  setTimeout(testPost, interval);
+        setTimeout(stop,duration);
+
+        intervals = setInterval(progress, duration/100);
     }
     return false;
 });
+
 function stop() {
     clearInterval(the_interval);
     $('#stop-btn').prop('disabled', true);
 }
 
-// 这么写不对...
-//function timedCount(duration, interval, halfDuration) {
-//    while (duration > halfDuration) {
-//        the_interval =  setInterval(testPost(duration), interval);
-//        duration = duration - 1000;
-//    } clearInterval(the_interval);
-//    while (duration > 0) {
-//        the_interval =  setInterval(testGet(duration), interval);
-//        duration = duration - 1000;
-//    } clearInterval(the_interval);
-//    alert("stop");
-//}
-//function testPost(duration) {
-//    alert("post" + duration);
-//}
-//
-//function testGet(duration) {
-//    alert("get" + duration);
-//}
-
 function testPost() {
-    alert("post");
+    count ++;
+    console.log(count);
 }
 
 function testGet() {
     alert("get");
 }
-var intervals = setInterval(function() {
+function progress() {
     value += 10;
     $("#progress-bar")
         .css("width", value + "%")
@@ -67,7 +51,7 @@ var intervals = setInterval(function() {
         .text(value + "%");
     if (value >= 100)
         clearInterval(intervals);
-}, 1000);
+}
 
 $('#stop-btn').click(function() {
     clearTimeout(the_duration);
