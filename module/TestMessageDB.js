@@ -30,7 +30,9 @@ TestMessageDb.prototype.getHistory = function (callback) {
     dbTemp.serialize(function () {
         dbTemp.all("SELECT * FROM testMessages", function (err, rows) {
             this.getCount++;
-            callback(rows);
+            if(rows.length > 0)
+                callback(rows);
+            else callback(400);
         })
     });
 };

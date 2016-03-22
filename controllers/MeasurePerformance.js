@@ -16,14 +16,14 @@ exports.directMeasurePerformance = function(req, res) {
 };
 
 exports.getTestMessages = function(req, res) {
-    testMessage.getHistory(function(data, getCount){
+    testMessage.getHistory(function(data){
         res.json({"message":data, "getCount":getCount});
     });
 
 }
 
 
-exports.sendTestMessage = function(req,res,io) {
+exports.sendTestMessage = function(req,res) {
     var message = req.body;
     message.time = now();
     message.status = req.session.status;
@@ -32,7 +32,7 @@ exports.sendTestMessage = function(req,res,io) {
 
     testMessage.addMessage(message.username,message.text,message.time,req.session.status ,function(code, postCount){
         if (code == 200) {
-            io.emit('send message', message);
+
             res.json({"statusCode":200, "message": "Success", "postCount": postCount});
         }
         else res.json({"statusCode":400, "message": "Fail", "postCount": postCount});
