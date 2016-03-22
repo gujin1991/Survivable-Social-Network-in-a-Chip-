@@ -24,7 +24,7 @@ suite('SSNoC Unit Test - Message', function () {
     test('Sending a private message unsuccessfully.', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
             new User().getUserInfo("TesterYu", function (err2, user2) {
-                var currentTime = new Date().toLocaleTimeString();  //maybe a sync problem?
+                var currentTime = new Date().toLocaleTimeString(); 
                 new PrivateMessage(user1.userName, user2.userName, "Hello, Yu!", "OK", currentTime)
                     .addMessage(user1.userName, user2.userName, "Hello, Yu!", currentTime, "OK", function (code) {
                         expect(code).to.eql(200);
