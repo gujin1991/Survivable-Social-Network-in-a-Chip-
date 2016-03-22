@@ -13,7 +13,7 @@ $('#start-btn').click(function() {
     interval = $('#interval').val();
     if(duration ==="" || interval ==="") {
         swal({title: "Error!",text: "Please enter!", type: "error", confirmButtonText: "OK" });
-    } else if (duration > 20) {
+    } else if (duration > 5) {
         swal({title: "Error!",text: "cannot greater than 5s!", type: "error", confirmButtonText: "OK" });
     } else {
         $('#stop-btn').prop('disabled', false);
@@ -44,6 +44,7 @@ function next() {
 function stop() {
     clearInterval(the_interval);
     $.post('/endMeasurePerformance',function(response){
+        console.log(response);
         if (response.statusCode === 411) {
             swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
         } else {
