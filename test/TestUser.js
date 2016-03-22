@@ -8,6 +8,7 @@ var Status = require('../module/Status.js');
 suite('SSNoC Unit Test - User', function () {
 
     test('Test Register if the user has not registered.', function (done) {
+        var currentTime = new Date().toLocaleTimeString();
         new User()
             .initialize("TesterJin", "19911991", new Status().ok)
             .userAdd(function (err, user) {

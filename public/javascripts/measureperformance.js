@@ -51,10 +51,12 @@ function stop() {
     $.post('/endMeasurePerformance',function(response){
         console.log(response);
         if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
+            //swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         } else {
+
             document.getElementById('number-of-post').innerHTML = response.postCount * 2 *1000 / duration + "";
             document.getElementById('number-of-get').innerHTML = response.getCount * 2 * 1000 / duration + "";
+
         }
     });
     clear();
@@ -72,6 +74,7 @@ function testPost() {
         if (response.statusCode === 400) {
             swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
         } else if (response.statusCode === 411) {
+
             swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         }else if (response.statusCode === 413) {
 
@@ -95,6 +98,7 @@ function testPost() {
 
             swal({title: "Error!",text: "Post more than Limit !", type: "error", confirmButtonText: "OK" });
 
+
         }
     });
 
@@ -104,7 +108,7 @@ function testGet() {
     //console.log("here");
     $.get("/testGet",function(response){
         if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
+            //swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         }
     });
 }
