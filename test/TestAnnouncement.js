@@ -2,13 +2,15 @@ var expect = require('expect.js');
 var User = require('../module/User.js');
 var Announcement = require('../module/Announcement');
 
-//TODO: review the addAnnoucement function in Announcement.js
 suite('SSNoC Unit Test - Announcement', function () {
-	test('Unit Test for sending announcement successfully', function (done) {
-        new User().getUserInfo("TesterJin", function (err, user) {
-        	var currentTime = new Date().toLocaleTimeString();
-            new Announcement(user.userName, "Test announcement!", currentTime)
-            .addAnnoucement(user.userName, "Test announcement!", currentTime, function (code) {
+
+    var testerName = 'TesterJin';
+
+    test('Existed User Post Announcement', function (done) {
+        new User().getUserInfo(testerName, function (err, user) {
+            expect(err).to.equal(null);
+            var currentTime = new Date().toLocaleTimeString();
+            new Announcement().addAnnoucement(user.userName, "Test announcement!", currentTime, function (code) {
                 expect(code).to.eql(200);
             }).getDetails(function (rows) {
                 var len = rows.length;
@@ -16,6 +18,14 @@ suite('SSNoC Unit Test - Announcement', function () {
                 expect(rows[len - 1].time).to.eql(currentTime);
                 done();
             });
+        });
+    });
+
+    test('Reject Illegal User Posting Announcement', function () {
+        new User().getUserInfo("TesterWrong", function (err, user) {
+            expect(err).to.not.equal(null);
+            expect(err).to.equal(400);
+            done;
         });
     });
 });
