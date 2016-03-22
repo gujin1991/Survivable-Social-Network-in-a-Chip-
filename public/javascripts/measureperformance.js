@@ -11,6 +11,11 @@ var count = 0;
 $('#start-btn').click(function() {
     duration = $('#duration').val();
     interval = $('#interval').val();
+    value = 0;
+    $("#progress-bar")
+        .css("width", value + "%")
+        .attr("aria-valuenow", value)
+        .text(value+ "%");
     if(duration ==="" || interval ==="") {
         swal({title: "Error!",text: "Please enter!", type: "error", confirmButtonText: "OK" });
     } else if (duration > 5) {
@@ -46,17 +51,13 @@ function stop() {
     $.post('/endMeasurePerformance',function(response){
         console.log(response);
         if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
+            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         } else {
-            $('#number-of-post').val(response.postCount)
-            $('#number-of-get').val(response.getCount)
-            console.log('test post ? ' ,response.postCount);
-
+            document.getElementById('number-of-post').innerHTML = response.postCount;
+            document.getElementById('number-of-get').innerHTML = response.getCount;
         }
     });
-    $('#stop-btn').prop('disabled', true);
-    $('#duration').val('');
-    $('#interval').val('');
+    clear();
 }
 
 function testPost() {
@@ -64,22 +65,22 @@ function testPost() {
 
     var username = $('#myname').val();
     var message = {'username': username, 'text': "This is a test message when testing POST: No.'" + count};
-    console.log(message);
+    //console.log(message);
     $.post("/testPost",message,function(response){
         if (response.statusCode === 400) {
             swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
         } else if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
+            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         }
     });
 
 }
 
 function testGet() {
-    console.log("here");
+    //console.log("here");
     $.get("/testGet",function(response){
         if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
+            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         }
     });
 }
@@ -96,16 +97,23 @@ function progress() {
 $('#stop-btn').click(function() {
     clearInterval(the_interval);
     clearInterval(intervals);
+    $.post('/testModeQuit',function(response){
+        if (response.statusCode === 411) {
+            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
+        }
+    });
     $("#progress-bar")
         .css("width", 0 + "%")
         .attr("aria-valuenow", 0)
         .text(0+ "%");
-    $.post('/testModeQuit',function(response){
-        if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Not in Test Mode!", type: "error", confirmButtonText: "OK" });
-        }
-    });
+    clear();
+    document.getElementById('number-of-post').innerHTML = "0";
+    document.getElementById('number-of-get').innerHTML = "0";
+});
+
+function clear() {
     $('#stop-btn').prop('disabled', true);
+    $('#start-btn').prop('disabled', false);
     $('#duration').val('');
     $('#interval').val('');
-});
+}
