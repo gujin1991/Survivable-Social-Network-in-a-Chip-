@@ -66,13 +66,14 @@ function addMessage(message) {
         logoName = "help.png";
     } else if (status == 'Emergency') {
         logoName = "emergency.png";
-    } else if (status == 'Undefined') {
+    } else if (status == 'Undefined' || status == undefined) {
         logoName = "undefined.png";
     }
     var label;
-    if (status == undefined) {
-        label = '<div><span><span style="font-style: italic;">' + message.userName + '</span> says: <strong>'+ message.content +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
-    } else if (message.fromUser === undefined) {
+    //if (status == undefined) {
+    //    label = '<div><span><span style="font-style: italic;">' + message.userName + '</span> says: <strong>'+ message.content +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
+    //} else
+    if (message.fromUser === undefined) {
         label = '<div class="message">' +
             '<div class="messageHeader">' +
             '<span><span>' + message.userName + '</span>' +
