@@ -53,8 +53,8 @@ function stop() {
         if (response.statusCode === 411) {
             swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         } else {
-            document.getElementById('number-of-post').innerHTML = response.postCount;
-            document.getElementById('number-of-get').innerHTML = response.getCount;
+            document.getElementById('number-of-post').innerHTML = response.postCount * 2 * 1000/ duration + "";
+            document.getElementById('number-of-get').innerHTML = response.getCount * 2 * 1000/ duration + "";
         }
     });
     clear();
