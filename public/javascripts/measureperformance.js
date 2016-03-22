@@ -69,10 +69,18 @@ function testPost() {
     //console.log(message);
     $.post("/testPost",message,function(response){
         if (response.statusCode === 400) {
-            swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            clearInterval(the_interval);
+            clearInterval(intervals);
+            //swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
         } else if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
+            clearInterval(the_interval);
+            clearInterval(intervals);
+
+            //swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
+        }else if (response.statusCode === 413){
+            postLimitClear();
         }
+
     });
 
 }
@@ -81,7 +89,10 @@ function testGet() {
     //console.log("here");
     $.get("/testGet",function(response){
         if (response.statusCode === 411) {
-            swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
+            clearInterval(the_interval);
+            clearInterval(intervals);
+
+            //swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         }
     });
 }
@@ -96,18 +107,24 @@ function progress() {
 }
 
 $('#stop-btn').click(function() {
+
     clearInterval(the_interval);
     clearInterval(intervals);
+    clearTimeout(the_duration);
+
     $.post('/testModeQuit',function(response){
         if (response.statusCode === 411) {
             swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
         }
     });
+
     $("#progress-bar")
         .css("width", 0 + "%")
         .attr("aria-valuenow", 0)
         .text(0+ "%");
+
     clear();
+
     document.getElementById('number-of-post').innerHTML = "0";
     document.getElementById('number-of-get').innerHTML = "0";
 });
@@ -117,4 +134,28 @@ function clear() {
     $('#start-btn').prop('disabled', false);
     $('#duration').val('');
     $('#interval').val('');
+}
+
+function postLimitClear(){
+    swal({title: "Error!",text: "POST LIMIT!", type: "error", confirmButtonText: "OK" });
+    $.post('/testModeQuit',function(response){
+        if (response.statusCode === 411) {
+            //swal({title: "Error!",text: "Testing Outages!", type: "error", confirmButtonText: "OK" });
+        }
+    });
+
+
+    clearInterval(the_interval);
+    clearInterval(intervals);
+    clearTimeout(the_duration);
+    document.getElementById('number-of-post').innerHTML = "0";
+    document.getElementById('number-of-get').innerHTML = "0";
+
+    $("#progress-bar")
+        .css("width", 0 + "%")
+        .attr("aria-valuenow", 0)
+        .text(0+ "%");
+
+    clear();
+
 }
