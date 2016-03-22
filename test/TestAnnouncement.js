@@ -1,5 +1,6 @@
 var expect = require('expect.js');
 var User = require('../module/User.js');
+var Status = require('../module/Status.js');
 var Announcement = require('../module/Announcement');
 
 suite('SSNoC Unit Test - Announcement', function () {
@@ -10,7 +11,7 @@ suite('SSNoC Unit Test - Announcement', function () {
         new User().getUserInfo(testerName, function (err, user) {
             expect(err).to.equal(null);
             var currentTime = new Date().toLocaleTimeString();
-            new Announcement().addAnnoucement(user.userName, "Test announcement!", currentTime, function (code) {
+            new Announcement().addAnnouncement(user.userName, new Status().ok, "Test announcement!", currentTime, function (code) {
                 expect(code).to.eql(200);
             }).getDetails(function (rows) {
                 var len = rows.length;

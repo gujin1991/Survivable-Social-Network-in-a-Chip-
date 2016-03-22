@@ -5,7 +5,7 @@ var expect = require('expect.js');
 var User = require('../module/User.js');
 var PublicMessage = require('../module/Message.js');
 
-suite('SSNoC Unit Test - Message', function () {
+suite('SSNoC Unit Test - Public Message', function () {
 
     test('Sending a public message successfully.', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {

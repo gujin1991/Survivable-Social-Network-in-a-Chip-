@@ -2,7 +2,7 @@ var expect = require('expect.js');
 var User = require('../module/User.js');
 var PrivateMessage = require('../module/PrivateMessage.js');
 
-suite('SSNoC Unit Test - Message', function () {
+suite('SSNoC Unit Test - Private Message', function () {
 
     test('Sending a private message successfully.', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
