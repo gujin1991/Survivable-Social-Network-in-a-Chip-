@@ -61,7 +61,7 @@ MessageDb.prototype.getHistoryByKey = function (keyword,callback) {
 
     dbTemp.serialize(function () {
         dbTemp.all(q, function (err, rows) {
-            console.log(rows);
+            //console.log(rows);
             callback(rows);
 
         })

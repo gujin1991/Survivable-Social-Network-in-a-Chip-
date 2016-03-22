@@ -18,7 +18,18 @@ suite('SSNoC Unit Test - User', function () {
             });
     });
 
-    test('Register Existed User', function (done) {
+    /*test('Register Unregistered UserYu', function (done) {
+        var currentTime = new Date().toLocaleTimeString();
+        new User()
+            .initialize("TesterYu", "19933991", new Status().ok)
+            .userAdd(function (err, user) {
+                expect(err).to.equal(null);
+                expect(user.userName).to.eql("TesterYu");
+                done();
+            });
+    });*/
+
+    test('Register Existed UserJin', function (done) {
         new User()
             .initialize("TesterJin", "19911991", new Status().ok)
             .userAdd(function (err, user) {
@@ -26,6 +37,7 @@ suite('SSNoC Unit Test - User', function () {
                 done();
             });
     });
+
 
     test('Check Existed User', function (done) {
         new User()
