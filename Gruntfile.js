@@ -27,6 +27,7 @@ module.exports = function (grunt) {
                 src: ['test/**/*.js']
             },
         },
+
         mocha_istanbul: {
             coverage: {
                 src: 'test', // a folder works nicely
@@ -46,14 +47,13 @@ module.exports = function (grunt) {
     // Default task(s).
     grunt.registerTask('default', []);
 
-    //Test
+    // Test
     grunt.registerTask('test', ['mochaTest:local']);
 
-    // Shippable
-    grunt.registerTask('shippable', ['mochaTest:shippable', 'mocha_istanbul']);
+    // CircleCI
+    grunt.registerTask('circleci', ['mochaTest:circleci', 'mocha_istanbul']);
 
     //Coverage
     grunt.registerTask('coverage', ['mocha_istanbul']);
-
 
 };
