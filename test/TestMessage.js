@@ -2,13 +2,12 @@ var expect = require('expect.js');
 var User = require('../module/User.js');
 var PrivateMessage = require('../module/PrivateMessage.js');
 
-//TODO: review the addMessage function in PrivateMessage.js
 suite('SSNoC Unit Test - Message', function () {
 
-    test('Unit Test for sending a private message successfully.', function (done) {
+    test('Sending a private message successfully.', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
             new User().getUserInfo("TesterYu", function (err2, user2) {
-                var currentTime = new Date().toLocaleTimeString();  //maybe a sync problem?
+                var currentTime = new Date().toLocaleTimeString();
                 new PrivateMessage(user1.userName, user2.userName, "Hello, Yu!", "OK", currentTime)
                     .addMessage(user1.userName, user2.userName, "Hello, Yu!", currentTime, "OK", function (code) {
                         expect(code).to.eql(200);
@@ -22,7 +21,7 @@ suite('SSNoC Unit Test - Message', function () {
         });
     });
 
-    test('Unit Test for sending a private message unsuccessfully.', function (done) {
+    test('Sending a private message unsuccessfully.', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
             new User().getUserInfo("TesterYu", function (err2, user2) {
                 var currentTime = new Date().toLocaleTimeString();  //maybe a sync problem?
