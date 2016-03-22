@@ -292,8 +292,10 @@ app.post('/testModeStart',function(req,res){
 app.post('/testModeQuit',function(req,res){
     if(testModeFlag){
         testModeFlag = false;
+        measurePerformance.reset();
         res.json({"statusCode": 200, "message": "Success"});
     }else {
+
         res.json({"statusCode": 411, "message": "Not in Test Mode"});
 
     }
@@ -303,7 +305,7 @@ app.post('/testModeQuit',function(req,res){
 
 app.post('/testPost', function(req,res) {
     if(testModeFlag) measurePerformance.sendTestMessage(req,res);
-    //else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 
     //measurePerformance.sendTestMessage(req,res);
 });
@@ -311,7 +313,7 @@ app.post('/testPost', function(req,res) {
 //get getCount
 app.get('/testGet', function(req,res) {
     if(testModeFlag) measurePerformance.getTestMessages(req,res);
-   // else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
     //measurePerformance.getTestMessages(req,res);
 });
 
@@ -321,7 +323,7 @@ app.post('/endMeasurePerformance', function(req, res) {
         testModeFlag = false;
         measurePerformance.endMeasurePerformance(req,res);
     }
-    //else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+    else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
 

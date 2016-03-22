@@ -7,21 +7,18 @@ var Status = require('../module/Status.js');
 //2: seperate the sharestate unit test.
 suite('SSNoC Unit Test - User', function () {
 
-    test('Test Register if the user has not registered.', function (done) {
+    test('Register Unregistered User', function (done) {
         var currentTime = new Date().toLocaleTimeString();
         new User()
-            .initialize("TesterJin", "19911991", new Status().ok)
+            .initialize(currentTime, "19911991", new Status().ok)
             .userAdd(function (err, user) {
-                if (err) {
-                    done();
-                } else {
-                    expect(user.userName).to.eql("TesterJin");
-                    done();
-                }
+                expect(err).to.equal(null);
+                expect(user.userName).to.eql(currentTime);
+                done();
             });
     });
 
-    test('Test Register if the user has registered.', function (done) {
+    test('Register Existed User', function (done) {
         new User()
             .initialize("TesterJin", "19911991", new Status().ok)
             .userAdd(function (err, user) {
@@ -30,25 +27,23 @@ suite('SSNoC Unit Test - User', function () {
             });
     });
 
-
-    test('Test Register if the user has not registered and there is already other testers.', function (done) {
+    test('Check Existed User', function (done) {
         new User()
-            .initialize("TesterYu", "19931993", new Status().ok)
-            .userAdd(function (err, user) {
-                expect(err).to.eql(400);
+            .initialize("TesterJin", "19911991", new Status().ok)
+            .exist(function (code) {
+                expect(code).to.eql(303);
                 done();
             });
     });
 
-    test('Test Register if the user has registered and there is already other testers.', function (done) {
+    test('Check Non-Existed User', function (done) {
         new User()
-            .initialize("TesterYu", "19931993", new Status().ok)
-            .userAdd(function (err, user) {
-                expect(err).to.eql(400);
+            .initialize("TesterWrong", "19911991", new Status().ok)
+            .exist(function (code) {
+                expect(code).to.eql(305);
                 done();
             });
     });
-
 
     test('Test getUserInfo if the user exists.', function (done) {
         new User()
@@ -59,32 +54,27 @@ suite('SSNoC Unit Test - User', function () {
 
     });
 
-    test('Test getUserInfo if the user doesnot exist.', function (done) {
-        new User()
-            .getUserInfo("TesterNotExists", function (err, user) {
-                expect(err).to.eql(400);
-                done();
-            });
+    test('Test getUserInfo if the user does not exist.', function (done) {
+        new User().getUserInfo("TesterNotExists", function (err, user) {
+            expect(err).to.eql(400);
+            done();
+        });
 
     });
 
-
-    test('Test ShareStatus ', function (done) {
+    test('Test ShareStatus', function (done) {
         new User().getUserInfo("TesterJin", function (err, user) {
-            if (!err) {
-                new User().initialize(user.userName, "19911991", new Status().ok)
-                    .updateStatus(new Status().help, function (code) {
-                        expect(code).to.eql(200);
-                        expect(user.userName).to.eql("TesterJin");
-                        expect(user.status).to.eql("Help");
-                        done();
-                    });
-            } else {
-                expect(err).to.eql(400);
-                done();
-            }
-        });
+            expect(err).to.equal(null);
 
+            new User().initialize(user.userName, "19911991", new Status().ok)
+                .updateStatus(new Status().help, function (code) {
+                    expect(code).to.eql(200);
+                    expect(user.userName).to.eql("TesterJin");
+                    expect(user.status).to.eql("Help");
+                    done();
+
+                });
+        });
     });
 
 

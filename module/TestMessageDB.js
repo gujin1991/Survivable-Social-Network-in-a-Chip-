@@ -57,6 +57,10 @@ var TestMessageDb = function TestMessageDb() {
             callback(tempPostCount, tempGetCount);
         });
     };
+    this.reset = function(){
+        post = 0;
+        get = 0;
+    }
 }
 
 

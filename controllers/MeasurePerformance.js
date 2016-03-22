@@ -46,6 +46,10 @@ exports.endMeasurePerformance = function(req,res) {
     });
 }
 
+exports.reset = function() {
+    testMessage.reset();
+}
+
 
 
 function now() {
