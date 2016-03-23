@@ -65,7 +65,6 @@ UserDb.prototype.userAuth = function (username, password, callback) {
                         if (err || row == null || row.length == 0) {
                             callback(305, null);
                         } else {
-                            console.log(row[0].status);
                             var u = {};
                             u.userName = row[0].userName;
                             u.status = row[0].status;
@@ -119,7 +118,6 @@ UserDb.prototype.getUserInfo = function (userName, callback) {
 UserDb.prototype.getOfflineUsersByKey = function (key, onlineUsers, callback) {
     var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
         + ' and userName LIKE \'%' + key + '%\'';
-    console.log(q);
     var dbTemp = this.db;
 
     dbTemp.all(q, function (err, rows) {
@@ -130,7 +128,6 @@ UserDb.prototype.getOfflineUsersByKey = function (key, onlineUsers, callback) {
 UserDb.prototype.getOfflineUsersByStatus = function (key, onlineUsers, callback) {
     var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
         + ' and status LIKE \'%' + key + '%\'';
-    console.log(q);
     var dbTemp = this.db;
 
     dbTemp.all(q, function (err, rows) {
