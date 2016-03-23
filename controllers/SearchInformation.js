@@ -44,7 +44,7 @@ exports.getUsersByName = function(req,res){
     });
 }
 
-
+//search user by status
 exports.getUsersByStatus = function(req,res){
     var message  = {};
 
@@ -112,7 +112,7 @@ exports.searchPrivate = function(req,res){
         res.json({"statusCode":401, "message": "ALL STOP WORDS"});
     }else{
         messagePrivate.getHistoryByKey(strArr,req.session.username,function(data){
-
+            console.log(data);
             res.json(data);
         });
     }
