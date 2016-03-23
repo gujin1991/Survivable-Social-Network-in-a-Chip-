@@ -1,5 +1,5 @@
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/User.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/User.js
 FN:6,User
 FN:14,(anonymous_2)
 FN:21,(anonymous_3)
@@ -56,7 +56,7 @@ BRF:2
 BRH:2
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/UserDb.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/UserDb.js
 FN:9,UserDb
 FN:14,(anonymous_2)
 FN:16,(anonymous_3)
@@ -233,7 +233,7 @@ BRF:29
 BRH:16
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/Status.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/Status.js
 FN:4,Status
 FNF:1
 FNH:1
@@ -250,7 +250,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/Announcement.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/Announcement.js
 FN:7,Announcement
 FN:15,(anonymous_2)
 FN:20,(anonymous_3)
@@ -282,7 +282,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/AnnouncementDb.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/AnnouncementDb.js
 FN:7,announcementDb
 FN:11,(anonymous_2)
 FN:13,(anonymous_3)
@@ -331,7 +331,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/TestMessage.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/TestMessage.js
 FN:3,TestMessage
 FN:10,(anonymous_2)
 FN:14,(anonymous_3)
@@ -365,7 +365,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/TestMessageDB.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/TestMessageDB.js
 FN:4,TestMessageDb
 FN:9,(anonymous_2)
 FN:12,(anonymous_3)
@@ -437,7 +437,7 @@ BRF:4
 BRH:3
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/PrivateMessage.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/PrivateMessage.js
 FN:11,PrivateMessage
 FN:19,(anonymous_2)
 FN:24,(anonymous_3)
@@ -472,7 +472,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/MessageDb.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/MessageDb.js
 FN:6,MessageDb
 FN:11,(anonymous_2)
 FN:14,(anonymous_3)
@@ -565,7 +565,7 @@ BRF:4
 BRH:2
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/Message.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/Message.js
 FN:3,Message
 FN:10,(anonymous_2)
 FN:14,(anonymous_3)
@@ -595,7 +595,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:/Users/Jin/Documents/cmu第二学期/software foundation/github/S16-A1-SSNoC/module/Directory.js
+SF:/Users/guangyu/Desktop/18652/S16-A1-SSNoC/module/Directory.js
 FN:5,Directory
 FN:14,(anonymous_2)
 FN:18,(anonymous_3)
