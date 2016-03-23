@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://127.0.0.1:3001/" />
+<title>SearchThroughPublicMessage</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SearchThroughPublicMessage</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Welcome, every one.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Welcome, again.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>Bob</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Hi, how are you?</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>How is the weather?</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Bob</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>Carol</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>It is warm outside. Spring has come!</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=searchPublicMsg</td>
+	<td>welcome</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=search-public-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.messageBody &gt; strong</td>
+	<td>Welcome, every one.</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='msg']/div[2]/div[2]/strong</td>
+	<td>Welcome, again.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=username</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

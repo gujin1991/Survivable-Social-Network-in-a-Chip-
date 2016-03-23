@@ -1,0 +1,1547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+.failed {color: red; background-color: #ffcccc;}
+.passed {color: green; background-color: #ccffcc;}
+.done {color: #404040; background-color: #ccffcc;}
+.comment {color: #404040; background-color: #d0d0d0;}
+body, table { font-family: Verdana, Arial, sans-serif; font-size: 12pt; }
+table { border-collapse: collapse; border: 1px solid #ccc; }
+th, td { padding-left: 0.3em; padding-right: 0.3em; border: 1px solid #ccc; }
+#suiteSummaryTable thead { font-size: 14pt; font-weight: 800; }
+.test_case thead { font-size: 14pt; font-weight: 400; }
+</style>
+</head>
+<body>
+<table id="suiteSummaryTable" class="selenium">
+<thead><tr class="passed"><td>Test Suite: SearchInformation</td></tr></thead>
+<tbody>
+<tr><td>Test cases: 13 total / <span class="passed">13</span> passed / <span class="failed">0</span> failed</td></tr>
+<tr><td>Commands: 244 total / <span class="passed">244</span> passed / <span class="failed">0</span> failed / <span class="skipped">0</span> skipped</td></tr>
+</tbody></table><br/>
+<table id="suiteTable" class="selenium">
+<thead><tr><td>Index of test cases</td></tr></thead>
+<tbody>
+<tr class="passed"><td><a href="#test0">SearchUserByStatus</a></td></tr>
+<tr class="passed"><td><a href="#test1">SearchUserByName</a></td></tr>
+<tr class="passed"><td><a href="#test2">SearchUserByName-NoUser</a></td></tr>
+<tr class="passed"><td><a href="#test3">SearchUser-Cancel</a></td></tr>
+<tr class="passed"><td><a href="#test4">SearchThroughPublicMessage</a></td></tr>
+<tr class="passed"><td><a href="#test5">SearchThroughPublicMessage-NoMatch</a></td></tr>
+<tr class="done"><td><a href="#test6">SearchThroughPublicMessage-Cencel</a></td></tr>
+<tr class="passed"><td><a href="#test7">SearchThroughAnnouncement</a></td></tr>
+<tr class="passed"><td><a href="#test8">SearchThroughAnnouncement-NoMatch</a></td></tr>
+<tr class="done"><td><a href="#test9">SearchThroughAnnouncement-Cancel</a></td></tr>
+<tr class="passed"><td><a href="#test10">SearchThroughPrivateMessage</a></td></tr>
+<tr class="passed"><td><a href="#test11">SearchThroughPrivateMessage-NoMatch</a></td></tr>
+<tr class="passed"><td><a href="#test12">SearchThroughPrivateMessage-Cancel</a></td></tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test0"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchUserByStatus</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=button.confirm</td>
+	<td></td>
+	<td>Element css=button.confirm not found</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-toggle</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-ok</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Bob</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=button.confirm</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-toggle</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-ok</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Bob</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Carol</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=button.confirm</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-toggle</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-help</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Carol</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Dave</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=button.confirm</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-toggle</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=status-emergency</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Dave</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Eva</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=button.confirm</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Eva</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=User List</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>select</td>
+	<td>id=search-status</td>
+	<td>label=OK</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//select[@id='search-status']/option[2]</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=td &gt; span</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.offline-list &gt; table.table.table-hover &gt; tbody &gt; tr &gt; td &gt; span</td>
+	<td>Bob</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>select</td>
+	<td>id=search-status</td>
+	<td>label=Help</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//select[@id='search-status']/option[3]</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=td &gt; span</td>
+	<td>Carol</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>select</td>
+	<td>id=search-status</td>
+	<td>label=Emergency</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//select[@id='search-status']/option[4]</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=td &gt; span</td>
+	<td>Dave</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>select</td>
+	<td>id=search-status</td>
+	<td>label=Undefined</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//select[@id='search-status']/option[5]</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=td &gt; span</td>
+	<td>Eva</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>select</td>
+	<td>id=search-status</td>
+	<td>label=All</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=option</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test1"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchUserByName</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=User List</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>sendKeys</td>
+	<td>id=search-username</td>
+	<td>a</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=td &gt; span</td>
+	<td>Carol</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>//div[@id='userList']/div[4]/table/tbody/tr[2]/td/span</td>
+	<td>Dave</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>//div[@id='userList']/div[4]/table/tbody/tr[3]/td/span</td>
+	<td>Eva</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test2"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchUserByName-NoUser</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=User List</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>sendKeys</td>
+	<td>id=search-username</td>
+	<td>swift</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=p</td>
+	<td>No matches.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.confirm</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test3"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchUser-Cancel</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=User List</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>sendKeys</td>
+	<td>id=search-username</td>
+	<td>a</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=search-username-cancel</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertValue</td>
+	<td>id=search-username</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=td &gt; span</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.offline-list &gt; table.table.table-hover &gt; tbody &gt; tr &gt; td &gt; span</td>
+	<td>Bob</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>//div[@id='userList']/div[4]/table/tbody/tr[2]/td/span</td>
+	<td>Carol</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>//div[@id='userList']/div[4]/table/tbody/tr[3]/td/span</td>
+	<td>Dave</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>//div[@id='userList']/div[4]/table/tbody/tr[4]/td/span</td>
+	<td>Eva</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test4"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughPublicMessage</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Hello, every one.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Hello, again.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Bob</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Hi, how are you?</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>How is the weather?</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Bob</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Carol</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>It is warm outside. Spring has come!</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchPublicMsg</td>
+	<td>hello</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-public-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.messageBody &gt; strong</td>
+	<td>Hello, every one.</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>//div[@id='msg']/div[2]/div[2]/strong</td>
+	<td>Hello, again.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=username</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test5"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughPublicMessage-NoMatch</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchPublicMsg</td>
+	<td>boom</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-public-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.sweet-alert&gt;p</td>
+	<td>No Matches.</td>
+	<td>Actual value 'No Matches.' did not match 'No matches.'</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.confirm</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=cancel-public-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test6"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughPublicMessage-Cencel</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchPublicMsg</td>
+	<td>boom</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=cancel-public-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test7"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughAnnouncement</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Announcement</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Please take care.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>See u tmr.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=focusedInput</td>
+	<td>Take it easy.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=post-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchAnnounceMsg</td>
+	<td>take</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-announce-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.messageBody &gt; strong</td>
+	<td>Take it easy.</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>//div[@id='msgAnnounce']/div[2]/div[2]/strong</td>
+	<td>Please take care.</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test8"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughAnnouncement-NoMatch</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Announcement</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchAnnounceMsg</td>
+	<td>boom</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-announce-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.sweet-alert &gt; p</td>
+	<td>No Matches.</td>
+	<td>Actual value 'Send a new Message' did not match 'No matches.'</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=cancel-announce-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test9"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughAnnouncement-Cancel</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Announcement</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchAnnounceMsg</td>
+	<td>take</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-announce-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=cancel-announce-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Alice</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Sign out</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test10"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughPrivateMessage</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Steve</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Chat Privately</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchPrivateMsg</td>
+	<td>doing</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-private-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.messageBody &gt; strong</td>
+	<td>I am doing well.</td>
+	<td>Element //div[@id='msgPrivate']/div[2]/div[2]/strong not found</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Steve</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test11"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughPrivateMessage-NoMatch</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Steve</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Chat Privately</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchPrivateMsg</td>
+	<td>boom</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-private-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.sweet-alert &gt; p</td>
+	<td>No Matches.</td>
+	<td>Actual value 'Send a new Message' did not match 'No matches.'</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Steve</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+<br/><hr/><br/><a name="test12"></a><table class="test_case"><thead><tr><td colspan="4">Test case: SearchThroughPrivateMessage-Cancel</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=username</td>
+	<td>Steve</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=password</td>
+	<td>1234</td>
+	<td>Element id=password not found</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=signin</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Chat Privately</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=searchPrivateMsg</td>
+	<td>doing</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=search-private-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertText</td>
+	<td>css=div.messageBody &gt; strong</td>
+	<td>I am doing well.</td>
+	<td>Actual value 'I am doing well.' did not match 'How are you doing?'</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=cancel-private-btn</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=button.navbar-toggle.collapsed</td>
+	<td></td>
+	<td>Element css=button.navbar-toggle.collapsed not found</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=Steve</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+</body></html>

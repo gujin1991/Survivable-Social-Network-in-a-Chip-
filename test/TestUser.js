@@ -2,18 +2,15 @@ var expect = require('expect.js');
 var User = require('../module/User.js');
 var Status = require('../module/Status.js');
 
-//TODO 
-//1: implement deleteUser() functions.
-//2: seperate the sharestate unit test.
 suite('SSNoC Unit Test - User', function () {
 
     test('Register Unregistered User', function (done) {
         var currentTime = new Date().toLocaleTimeString();
         new User()
-            .initialize(currentTime, "19911991", new Status().ok)
+            .initialize('T' + currentTime, "19911991", new Status().ok)
             .userAdd(function (err, user) {
                 expect(err).to.equal(null);
-                expect(user.userName).to.eql(currentTime);
+                expect(user.userName).to.eql('T' + currentTime);
                 done();
             });
     });
