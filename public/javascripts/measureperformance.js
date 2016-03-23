@@ -18,8 +18,8 @@ $('#start-btn').click(function() {
         .text(value+ "%");
     if(duration ==="" || interval ==="") {
         swal({title: "Error!",text: "Please enter!", type: "error", confirmButtonText: "OK" });
-    } else if (duration > 5) {
-        swal({title: "Error!",text: "cannot greater than 5s!", type: "error", confirmButtonText: "OK" });
+    // } else if (duration > 5) {
+    //     swal({title: "Error!",text: "cannot greater than 5s!", type: "error", confirmButtonText: "OK" });
     } else {
         $('#stop-btn').prop('disabled', false);
         $('#start-btn').prop('disabled', true);
@@ -30,12 +30,14 @@ $('#start-btn').click(function() {
                 swal({title: "Error!",text: "Already in Test!", type: "error", confirmButtonText: "OK" });
             } else if (response.statusCode === 412) {
                 swal({title: "Error!",text: "Time Exceed!", type: "error", confirmButtonText: "OK" });
+            }else{
+                the_interval =  setInterval(testPost, interval);
+                the_duration = setTimeout(next,duration/2);
+
+                intervals = setInterval(progress, duration/10);
             }
         });
-        the_interval =  setInterval(testPost, interval);
-        the_duration = setTimeout(next,duration/2);
 
-        intervals = setInterval(progress, duration/10);
     }
     return false;
 });

@@ -254,14 +254,12 @@ app.post('/searchStatus',function(req,res){
 
 app.post('/searchAnnouncement',function(req,res){
 
-
     if(!testModeFlag) searchCtl.searchAnnouncement(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 })
 
 app.post('/searchPublic',function(req,res){
-
-
+    
     if(!testModeFlag)  searchCtl.searchPublic(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 })
@@ -279,12 +277,11 @@ app.post('/testModeStart',function(req,res){
     if(testModeFlag){
         res.json({"statusCode": 410, "message": "Already in Test"});
     }else {
-        if(req.body.duration >  5) res.json({"statusCode": 412, "message": "Time Exceed"});
-        else {
+        // if(req.body.duration >  5) res.json({"statusCode": 412, "message": "Time Exceed"});
+        // else {
             testModeFlag = true;
             res.json({"statusCode": 200, "message": "Success"});
-        }
-
+        //}
     }
 });
 
