@@ -18,6 +18,10 @@
 
 # MacOS
 ##.DS_Store
+.DS_Store
+test/.DS_Store
+controllers/.DS_Store
+module/.DS_Store
 
 # Gradle:
 .idea/gradle.xml
@@ -45,3 +49,11 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# grunt-test
+/coverage/
+/undefined/
+
+# database
+fse.db
+test.db

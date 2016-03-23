@@ -1,92 +1,79 @@
 var UserDb = require('./UserDb.js');
-var User = require('./User.js')
 
-
-var directory = new function Directory(){
-    this._loggedInUsers = [];// store the user object which logged in
-    this._newUsers = {}; //key value pair
-
-    this._dataUsers = []; //store the user name which logged in.
+var directory = new function Directory() {
+    this._loggedInUsers = [];   // store the user object which logged in
+    this._newUsers = {};        // key value pair
+    this._dataUsers = [];       // store the user name which logged in.
 
     this.userDb = new UserDb();
+    
+    this.searchOffLine = function (keyword, callback) {
+        this.userDb.getOfflineUsersByKey(keyword, this._dataUsers, callback);
+    };
 
-    //new added for search users
-    this.searchOffLine = function(keyword,callback){
-        this.userDb.getOfflineUsersByKey(keyword,this._dataUsers,callback);
-    }
-
-    this.searchOnlineUsers = function(keyword,callback){
+    this.searchOnlineUsers = function (keyword, callback) {
         log = [];
-        for (var key in this._newUsers  ){
-            //console.log("print the list in get online **********************" + key);
-            if ( key.indexOf(keyword) != -1 ) log.push(this._newUsers[key]);
+        for (var key in this._newUsers) {
+            if (key.indexOf(keyword) != -1) log.push(this._newUsers[key]);
         }
         callback(log);
     };
 
-    this.searchOffLineByStatus = function(keyword,callback){
-        this.userDb.getOfflineUsersByStatus(keyword,this._dataUsers,callback);
-    }
+    this.searchOffLineByStatus = function (keyword, callback) {
+        this.userDb.getOfflineUsersByStatus(keyword, this._dataUsers, callback);
+    };
 
 
-    this.searchOnlineUsersByStatus = function(keyword,callback){
+    this.searchOnlineUsersByStatus = function (keyword, callback) {
         log = [];
-        for (var key in this._newUsers){
-            if ( this._newUsers[key].status == keyword )log.push(this._newUsers[key]);
+        for (var key in this._newUsers) {
+            if (this._newUsers[key].status == keyword)log.push(this._newUsers[key]);
         }
         callback(log);
     };
-
 
     this.addLoggedInUsers = function (user) {
         this._loggedInUsers.push(user);
-        this._newUsers[user.userName] =  user;
+        this._newUsers[user.userName] = user;
         this._dataUsers.push(user.userName);
 
     };
 
-    //new added
-    this.update = function(username,status,callback){
+    this.update = function (username, status, callback) {
         log = [];
-        for (var key in this._newUsers){
-           // console.log("print the list in update **********************" + key);
+        for (var key in this._newUsers) {
             log.push(this._newUsers[key]);
         }
-        //console.log(user);
         var user = this._newUsers[username];
-       //console.log("user === **************" +user);
-        user.updateStatus(status,callback);
+        user.updateStatus(status, callback);
         this._newUsers[username] = user;
     };
 
+    this.deleteLoggedInUsers = function (user) {
 
-
-    this.deleteLoggedInUsers = function(user){
-       // console.log("delete **************************** " + user.userName);
         var index = this._loggedInUsers.indexOf(user);
         if (index > -1) {
             this._loggedInUsers.splice(index, 1);
         }
-        var index = this._dataUsers.indexOf(user.userName);
+
+        index = this._dataUsers.indexOf(user.userName);
         if (index > -1) {
             this._dataUsers.splice(index, 1);
         }
         delete this._newUsers[user.userName];
     };
 
-    this.getOnlineUsers = function(callback){
+    this.getOnlineUsers = function (callback) {
         log = [];
-        for (var key in this._newUsers){
-            //console.log("print the list in get online **********************" + key);
+        for (var key in this._newUsers) {
             log.push(this._newUsers[key]);
         }
         callback(log);
     };
 
-    this.getOfflineUsers = function(callback){
-        this.userDb.getOfflineUsers(this._dataUsers,callback);
+    this.getOfflineUsers = function (callback) {
+        this.userDb.getOfflineUsers(this._dataUsers, callback);
     };
-
 
 };
 

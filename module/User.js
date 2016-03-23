@@ -30,14 +30,13 @@ User.prototype.userAuth = function (callback) {
     this.userDb.userAuth(this.userName, this.password, callback);
 };
 
-//new method add for update status
-User.prototype.updateStatus = function(status, callback) {
+User.prototype.updateStatus = function (status, callback) {
     this.status = status;
-    this.userDb.updateStatus(this.userName,status,callback);
+    this.userDb.updateStatus(this.userName, status, callback);
 };
 
-User.prototype.getUserInfo = function(userName, callback) {
-    this.userDb.getUserInfo(userName, function(err, dbData){
+User.prototype.getUserInfo = function (userName, callback) {
+    this.userDb.getUserInfo(userName, function (err, dbData) {
         if (err) {
             callback(400, null);
         } else {

@@ -8,8 +8,7 @@ var User = require('./User.js');
 
 function UserDb() {
     this.db = new sqlite3.Database('./fse.db');
-    // TODO add status table
-};
+}
 
 UserDb.prototype.userAdd = function (username, password, callback) {
     var dbTemp = this.db;
@@ -27,12 +26,10 @@ UserDb.prototype.userAdd = function (username, password, callback) {
                 if (err || row == null || row.length == 0) {
                     callback(305, null);
                 } else {
-                    //console.log(row[0].status);
-                    var u ={};
+                    var u = {};
                     u.userName = row[0].userName;
                     u.status = row[0].status;
-                    callback(null,u);
-
+                    callback(null, u);
                 }
             });
 
@@ -47,10 +44,8 @@ UserDb.prototype.exist = function (username, callback) {
         dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
             if (row == null || row.length == 0) {
                 callback(305);
-                return;
             } else {
                 callback(303);
-                return;
             }
         });
     });
@@ -62,23 +57,19 @@ UserDb.prototype.userAuth = function (username, password, callback) {
         dbTemp.all("select password from users where userName=\"" + username + "\"", function (err, row) {
             if (row == null || row.length == 0) {
                 callback(401, null);
-                return;
             } else if (row[0].password != password) {
                 callback(403, null);
-                return;
             } else {
                 dbTemp.serialize(function () {
                     dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
                         if (err || row == null || row.length == 0) {
                             callback(305, null);
-                            return;
                         } else {
                             console.log(row[0].status);
-                            var u ={};
+                            var u = {};
                             u.userName = row[0].userName;
                             u.status = row[0].status;
-                            callback(null,u);
-                            return;
+                            callback(null, u);
                         }
                     });
                 });
@@ -88,76 +79,63 @@ UserDb.prototype.userAuth = function (username, password, callback) {
 };
 
 
-
-UserDb.prototype.getOfflineUsers = function (onlineUsers,callback) {
-    // I update this part from userName to *
+UserDb.prototype.getOfflineUsers = function (onlineUsers, callback) {
     var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')';
-    //var q = 'SELECT userName FROM users ';
-    //console.log(q);
     var dbTemp = this.db;
 
-        dbTemp.all(q, function(err, rows) {
-            //console.log(rows);
-            callback(rows);
-        })
+    dbTemp.all(q, function (err, rows) {
+        callback(rows);
+    })
 
 };
 
-UserDb.prototype.updateStatus = function(userName,status,callback){
-    var q = 'UPDATE users SET status = \'' + status +'\' WHERE userName = \'' + userName +'\'';
-    //console.log(q);
+UserDb.prototype.updateStatus = function (userName, status, callback) {
+    var q = 'UPDATE users SET status = \'' + status + '\' WHERE userName = \'' + userName + '\'';
     var dbTemp = this.db;
-    dbTemp.run(q,function () {
-        dbTemp.all('select status from users where userName = \'' + userName +'\'',function(err,row){
-            //console.log("ttt1---------------" + row[0].status);
-            //console.log("ttt2---------------" + row);
-            if(row[0].status == status) callback(200);
+    dbTemp.run(q, function () {
+        dbTemp.all('select status from users where userName = \'' + userName + '\'', function (err, row) {
+            if (row[0].status == status) callback(200);
             else callback(400);
         });
     });
 };
 
-UserDb.prototype.getUserInfo = function(userName, callback) {
+UserDb.prototype.getUserInfo = function (userName, callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function () {
         dbTemp.all("select * from users where userName=\"" + userName + "\"", function (err, row) {
             if (err || row == null || row.length == 0) {
                 callback(305, null);
-                return;
             } else {
-                //console.log(row[0].status);
-                var u ={};
+                var u = {};
                 u.userName = row[0].userName;
                 u.status = row[0].status;
-                callback(null,u);
-                return;
+                callback(null, u);
             }
         });
     });
 };
 
-//new added function for serach information ,given key and online users , find the mathcing offline uses.
-UserDb.prototype.getOfflineUsersByKey = function(key,onlineUsers,callback){
+UserDb.prototype.getOfflineUsersByKey = function (key, onlineUsers, callback) {
     var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
-        + ' and userName LIKE \'%'+key+ '%\'';
+        + ' and userName LIKE \'%' + key + '%\'';
     console.log(q);
     var dbTemp = this.db;
 
-    dbTemp.all(q, function(err, rows) {
+    dbTemp.all(q, function (err, rows) {
         callback(rows);
     })
-}
+};
 
-UserDb.prototype.getOfflineUsersByStatus = function(key,onlineUsers,callback){
+UserDb.prototype.getOfflineUsersByStatus = function (key, onlineUsers, callback) {
     var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
-        + ' and status LIKE \'%'+key+ '%\'';
+        + ' and status LIKE \'%' + key + '%\'';
     console.log(q);
     var dbTemp = this.db;
 
-    dbTemp.all(q, function(err, rows) {
+    dbTemp.all(q, function (err, rows) {
         callback(rows);
     })
-}
-
+};
 
 module.exports = UserDb;

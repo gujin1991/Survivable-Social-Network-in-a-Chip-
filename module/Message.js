@@ -7,17 +7,16 @@ function Message(username, message, time) {
     this.messageDb = new MessageDb();
 }
 
-Message.prototype.addMessage =  function(username,message,time,status,callback) {
-    this.messageDb.messageAdd(username, message, time, status,callback);
+Message.prototype.addMessage = function (username, message, time, status, callback) {
+    this.messageDb.messageAdd(username, message, time, status, callback);
 };
 
 Message.prototype.getHistory = function (callback) {
     this.messageDb.getHistory(callback);
 };
 
-//new added function search public message by keywrod
-Message.prototype.getHistoryByKey = function (keyword,callback) {
-    this.messageDb.getHistoryByKey(keyword,callback);
+Message.prototype.getHistoryByKey = function (keyword, callback) {
+    this.messageDb.getHistoryByKey(keyword, callback);
 };
 
 module.exports = Message;

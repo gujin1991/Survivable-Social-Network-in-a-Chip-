@@ -6,6 +6,6 @@ function Status() {
     this.help = "Help";
     this.emergency = "Emergency";
     this.undefine = "Undefined";
-};
+}
 
 module.exports = Status;

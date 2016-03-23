@@ -4,7 +4,6 @@
 var MessageDb = require('./MessageDb.js');
 var Message = require('./Message.js');
 
-//TODO no need to inherent actually
 PrivateMessage.prototype = new Message();
 PrivateMessage.prototype.constructor = PrivateMessage;
 
@@ -16,8 +15,8 @@ function PrivateMessage(fromUser, toUser, message, time) {
     this.messageDb = new MessageDb();
 }
 
-PrivateMessage.prototype.addMessage = function (fromUser, toUser, message, time,status, callback) {
-    this.messageDb.privateMessageAdd(fromUser, toUser, message, time, status,callback);
+PrivateMessage.prototype.addMessage = function (fromUser, toUser, message, time, status, callback) {
+    this.messageDb.privateMessageAdd(fromUser, toUser, message, time, status, callback);
     return this;
 };
 
@@ -25,9 +24,8 @@ PrivateMessage.prototype.getHistory = function (fromUser, toUser, callback) {
     this.messageDb.getPrivateHistory(fromUser, toUser, callback);
 };
 
-//new added function for get private history by key
-PrivateMessage.prototype.getHistoryByKey = function (keyword,user, callback) {
-    this.messageDb.getPrivateHistoryByKey(keyword,user, callback);
+PrivateMessage.prototype.getHistoryByKey = function (keyword, user, callback) {
+    this.messageDb.getPrivateHistoryByKey(keyword, user, callback);
 };
 
 module.exports = PrivateMessage;
