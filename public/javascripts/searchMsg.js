@@ -11,13 +11,15 @@ $('#search-public-btn').click(function() {
         var tableID = 'stream-list';
         var tbodyID = 'msg';
         var search = {"keyword": keywords};
-        $('#msg').html('');
         $.post('/searchPublic', search, function(messages){
             console.log(messages);
             document.getElementById("searchResult").style.display = "block";
-            if (messages.statusCode === 401) {
-                swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            if (messages == undefined || messages.length == 0) {
+                swal({title: "Message Not Found!",text: "No Matches.", type: "error", confirmButtonText: "OK" });
+            } else if (messages.statusCode === 401) {
+                swal({title: "Error!",text: "All Stop Words.", type: "error", confirmButtonText: "OK" });
             } else {
+                $('#msg').html('');
                 displayResult(messages.length, messages,tableID, tbodyID, false);
             }
         });
@@ -39,13 +41,15 @@ $('#search-private-btn').click(function() {
         var tableID = 'private-stream-list';
         var tbodyID = 'msgPrivate';
         var search = {"keyword": keywords};
-        $('#msgPrivate').html('');
         $.post('/searchPrivate', search, function(messages){
             document.getElementById("searchResult").style.display = "block";
             console.log(messages);
-            if (messages.statusCode === 401) {
-                swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            if (messages == undefined || messages.length == 0) {
+                swal({title: "Message Not Found!",text: "No Matches.", type: "error", confirmButtonText: "OK" });
+            } else if (messages.statusCode === 401) {
+                swal({title: "Error!",text: "All Stop Words.", type: "error", confirmButtonText: "OK" });
             } else {
+                $('#msgPrivate').html('');
                 displayResult(messages.length, messages,tableID, tbodyID, false);
             }
         });
@@ -66,12 +70,14 @@ $('#search-announce-btn').click(function() {
         var tableID = 'announce-stream-list';
         var tbodyID = 'msgAnnounce';
         var search = {"keyword": keywords};
-        $('#msgAnnounce').html('');
         $.post('/searchAnnouncement', search, function(messages){
             document.getElementById("searchResult").style.display = "block";
-            if (messages.statusCode === 401) {
-                swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+            if (messages == undefined || messages.length == 0) {
+                swal({title: "Announcement Not Found!",text: "No Matches.", type: "error", confirmButtonText: "OK" });
+            } else if (messages.statusCode === 401) {
+                swal({title: "Error!",text: "All Stop Words.", type: "error", confirmButtonText: "OK" });
             } else {
+                $('#msgAnnounce').html('');
                 displayResult(messages.length, messages,tableID, tbodyID, true);
             }
         });
@@ -95,10 +101,6 @@ $('#cancel-announce-btn').click(function() {
 });
 
 function displayResult(rows, messages, tableID, tbodyID, reverse) {
-    if (messages.length == 0 || messages == undefined) {
-        swal({title: "Message not found!",text: "No matches.", type: "error", confirmButtonText: "OK" });
-        return;
-    }
     if (reverse) {
         messages = messages.reverse();
     }
