@@ -71,10 +71,10 @@ MessageDb.prototype.getHistoryByKey = function (keyword,callback) {
 //new added funciton get private history by key
 MessageDb.prototype.getPrivateHistoryByKey = function (keyword,user, callback) {
     var dbTemp = this.db;
-    var q = 'SELECT * FROM privateMessages WHERE fromUser=\'' + user +  '\''
-        + ' OR ' + 'toUser=\'' + user + '\' and content Like \'%'
+    var q = 'SELECT * FROM privateMessages WHERE (fromUser=\'' + user +  '\''
+        + ' OR ' + 'toUser=\'' + user + '\' ) and content Like \'%'
         + keyword.join('%\' and content Like \'%') + '%\'';
-    //console.log("q ============" + q);
+    console.log("q ============" + q);
     dbTemp.serialize(function () {
         dbTemp.all(q, function (err, rows) {
             if (err) {
