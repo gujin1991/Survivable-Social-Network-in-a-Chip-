@@ -60,10 +60,10 @@ $.get('/getAnnouncements', function(data){
 		var message = data[i];
 		prependAnnouncement(message, message.userName, message.content);
 	}
-	$("html, body").animate({ scrollTop: $(document).height() }, 1000);
-	var chat_body = $('#announce-stream-list');
-    var height = chat_body[0].scrollHeight;
-    chat_body.scrollTop(height);
+    // $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    // var chat_body = $('#announce-stream-list');
+    // var height = chat_body[0].scrollHeight;
+    // chat_body.scrollTop(height);
 });
 
 // Display user login information
