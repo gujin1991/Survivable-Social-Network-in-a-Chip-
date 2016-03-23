@@ -146,6 +146,10 @@ function updateUserList(onlineUserList, offlineUserList) {
 
     var onlineSize = Object.size(onlineUserList);
     var offlineSize = Object.size(offlineUserList);
+    if (onlineSize == 0 && offlineSize == 0) {
+        swal({title: "User not found!",text: "No matches.", type: "error", confirmButtonText: "OK" });
+        return;
+    }
     sortByName(onlineUserList, function(onlineUserList){
         setOnlineTable(onlineUserList, onlineSize);
     });

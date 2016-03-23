@@ -13,6 +13,7 @@ $('#search-public-btn').click(function() {
         var search = {"keyword": keywords};
         $('#msg').html('');
         $.post('/searchPublic', search, function(messages){
+            console.log(messages);
             document.getElementById("searchResult").style.display = "block";
             if (messages.statusCode === 401) {
                 swal({title: "Not found!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
@@ -94,6 +95,10 @@ $('#cancel-announce-btn').click(function() {
 });
 
 function displayResult(rows, messages, tableID, tbodyID, reverse) {
+    if (messages.length == 0 || messages == undefined) {
+        swal({title: "Message not found!",text: "No matches.", type: "error", confirmButtonText: "OK" });
+        return;
+    }
     if (reverse) {
         messages = messages.reverse();
     }
@@ -101,7 +106,7 @@ function displayResult(rows, messages, tableID, tbodyID, reverse) {
         page = new PagingClass(3, rows, messages,tbodyID);
         document.getElementById('pageindex').innerHTML = page.pageIndex + 1 + ' / ' + page.pageCount;
     }
-};
+}
 
 function nextPage() {
     page.nextPage();
