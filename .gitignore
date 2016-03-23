@@ -55,5 +55,5 @@ fabric.properties
 /undefined/
 
 # database
-fse.db
-test.db
+# fse.db
+# test.db
