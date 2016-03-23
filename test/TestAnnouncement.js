@@ -22,7 +22,7 @@ suite('SSNoC Unit Test - Announcement', function () {
         });
     });
 
-    test('Reject Illegal User Posting Announcement', function () {
+    test('Reject Illegal User Posting Announcement', function (done) {
         new User().getUserInfo("TesterWrong", function (err, user) {
             expect(err).to.not.equal(null);
             expect(err).to.equal(400);
