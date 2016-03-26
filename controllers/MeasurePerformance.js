@@ -1,9 +1,6 @@
 var TestMessage = require('../module/TestMessage.js')
 var testMessage = new TestMessage();
 
-//var directoryy = require('../module/Directory.js')
-//var directory = new directoryy();
-
 exports.directMeasurePerformance = function(req, res) {
     console.log("loggedIn = " + req.session.loggedIn);
 
@@ -27,9 +24,6 @@ exports.sendTestMessage = function(req,res) {
     var message = req.body;
     message.time = now();
     message.status = req.session.status;
-
-    //console.log("display status------------------message status "+ message.username + "    "+req.session.status);
-
     testMessage.addMessage(message.username,message.text,message.time,req.session.status ,function(code, postCount){
         if (code == 200) {
             res.json({"statusCode":200, "message": "Success", "postCount": postCount});
@@ -49,8 +43,6 @@ exports.endMeasurePerformance = function(req,res) {
 exports.reset = function() {
     testMessage.reset();
 }
-
-
 
 function now() {
     var date = new Date();

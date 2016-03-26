@@ -9,7 +9,6 @@ exports.updateStatus = function(req,res,io) {
     directory.update(req.body.username,req.body.status, function(callback) {
         if(callback == 200) {
             req.session.status = req.body.status;
-            //console.log("***********************\nsession status:" + req.session.status);
             res.json({"statusCode":200, "message": "Success"});
         }
         else if (callback == 400) res.json({"statusCode":400, "message": "Fail"});
@@ -18,7 +17,6 @@ exports.updateStatus = function(req,res,io) {
 
     var message  = {};
     directory.getOfflineUsers(function(offUsers){
-        //user.getOfflineUsers(loggedInUsers,function(offUsers){
         var cur = {};
         cur.userName = req.body.username;
         cur.status = req.body.status;

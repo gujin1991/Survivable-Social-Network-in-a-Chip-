@@ -5,8 +5,6 @@
 var messagee = require('../module/PrivateMessage.js')
 var messageM = new messagee();
 
-//var directoryy = require('../module/Directory.js')
-//var directory = new directoryy();
 
 exports.getPrivateMessages = function(req, res) {
 
@@ -18,7 +16,6 @@ exports.getPrivateMessages = function(req, res) {
 
 exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     var message = req.body;
-    //console.log("200 OK");
     message.time = now();
     message.status = req.session.status;
 
@@ -31,7 +28,6 @@ exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
         else res.json({"statusCode":400, "message": "Fail"});
     });
 }
-
 
 function now(){
     var date = new Date();

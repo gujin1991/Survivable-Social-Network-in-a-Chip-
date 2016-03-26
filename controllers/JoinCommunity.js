@@ -1,8 +1,6 @@
 var User = require('../module/User.js');
 
 var directory = require('../module/Directory.js')
-
-
 var nameReserved = ['about','access','account','accounts','add','address','adm','admin','administration',
     'adult','advertising','affiliate','affiliates','ajax','analytics','android','anon','anonymous',
     'api','app','apps','archive','atom','auth','authentication','avatar','backupbanner','banners','bin',
@@ -135,7 +133,6 @@ exports.deleteLoggedInUsers = function(user){
 exports.getOfflineUserIo = function(user,io){
     var message  = {};
     directory.getOfflineUsers(function(offUsers){
-        //user.getOfflineUsers(loggedInUsers,function(offUsers){
         var cur = {};
         cur.userName = user.userName;
         cur.status = user.status;
@@ -152,7 +149,6 @@ exports.getUserInfo = function(userName,callback){
 
     new User().getUserInfo(userName,function(err,user){
         if (err){
-            //console.log("error");
             callback(err) // changed this to pass test
         }else{
             callback(user);
