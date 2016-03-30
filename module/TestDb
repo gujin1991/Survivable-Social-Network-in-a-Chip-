@@ -1,0 +1,107 @@
+var sqlite3 = require('sqlite3').verbose();
+var Status = require('./Status');
+var User = require('./User.js');
+
+function UserDb() {
+    var db = new sqlite3.Database('./testJiyu.db');
+    return db;
+}
+
+
+
+function userAdd(username, password,db) {
+    var dbTemp = db;
+    var q = "CREATE TABLE IF NOT EXISTS users (userName TEXT PRIMARY KEY, password TEXT, " +
+        "joinTime TEXT , status TEXT, email TEXT, firstName TEXT,lastName TEXT,skill TEXT,gender TEXT)"
+    dbTemp.run(q , function () {
+        dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
+            if (row.length != 0) {
+                //callback(400, null);
+                return;
+            }
+            var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?,?,?,?,?,?)");
+            var time = new Date().toLocaleString();
+            insertUser.run(username, password, time, new Status().undefine ,null , null , null, null, null);
+
+            dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
+                if (err || row == null || row.length == 0) {
+                    //callback(305, null);
+                } else {
+                    var u = {};
+                    console.log(row);
+                    u.userName = row[0].userName;
+                    u.status = row[0].status;
+                    //callback(null, u);
+                }
+            });
+
+        });
+    });
+
+};
+
+ function getUserProfile (userName,db) {
+    var dbTemp = db;
+    dbTemp.serialize(function () {
+        dbTemp.all("select userName,email,firstName,lastName,skill,gender from users where userName=\"" + userName + "\"", function (err, row) {
+            if (err || row == null || row.length == 0) {
+               // callback(305, null);
+            } else {
+                //var u = {};
+                //u.userName = row[0].userName;
+                //u.status = row[0].status;
+               // callback(null, row);
+                console.log(row);
+            }
+        });
+    });
+};
+
+var db = new UserDb();
+
+userAdd("jiyuT","1234",db);
+getUserProfile("jiyuT",db);
+
+
+
+
+function updateProfile(userName, email, firstName,lastName,skill,gender, db) {
+    var q = 'UPDATE users SET email = \'' + email +'\',firstName = \'' + firstName
+        + '\',lastName = \'' + lastName + '\',skill = \'' + skill
+        + '\',gender = \'' + gender
+        + '\' WHERE userName = \'' + userName + '\'';
+    console.log(q);
+    var dbTemp = db;
+    dbTemp.run(q, function () {
+        dbTemp.all("select userName,email,firstName,lastName,skill,gender from users where userName=\"" + userName + "\"", function (err, row) {
+            if (row.length > 0 && row[0].email == email && row[0].firstName == firstName
+                &&  row[0].lastName == lastName && row[0].skill == skill && row[0].gender == gender)console.log(row);
+            else callback(400);
+
+        });
+    });
+
+};
+
+function updatePassword(userName, oldpassword ,password , db) {
+    var dbTemp = db;
+    var q = 'Select password from users Where userName = \'' + userName + '\'';
+    dbTemp.all(q, function (err,row) {
+        if(row == 0 || row[0].password != oldpassword) console.log(400);
+        else {
+            q = 'UPDATE users SET password = \'' + password + '\' WHERE userName = \'' + userName + '\'';
+
+            dbTemp.run(q, function () {
+                dbTemp.all('select password from users where userName = \'' + userName + '\'', function (err, row) {
+                    if (row[0].password == password) console.log(200);
+                    else console.log(401);
+                });
+            });
+        }
+    });
+
+};
+
+
+updateProfile("jiyuT","1@1","jiyu","shi","nothing","male",db);
+updatePassword("jiyuT","12345","12345",db);

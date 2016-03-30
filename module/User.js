@@ -9,6 +9,11 @@ function User() {
     this.logged = false;
     this.status = null;
     this.userDb = new UserDb();
+    this.email = null;
+    this.firstname = null;
+    this.lastname = null;
+    this.skill = null;
+    this.gender = null;
 }
 
 User.prototype.initialize = function (userName, password, status) {
@@ -17,6 +22,25 @@ User.prototype.initialize = function (userName, password, status) {
     this.status = status;
     return this;
 };
+
+//new added function for change profile.. to instaniate a new user object
+User.prototype.initializeForChangeFile = function (userName, email,firstname,lastname,skill,gender) {
+    this.userName = userName;
+    this.email = email;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.skill =  skill;
+    this.gender = gender;
+    return this;
+};
+
+//update those information to databse
+User.prototype.updateProfile = function (callback) {
+    this.userDb.updateProfile(this.userName, this.email ,this.firstname,this.lastname , this.skill,this.gender ,callback);
+};
+
+
+
 
 User.prototype.userAdd = function (callback) {
     this.userDb.userAdd(this.userName, this.password, callback);
@@ -45,6 +69,17 @@ User.prototype.getUserInfo = function (userName, callback) {
             callback(null, dbData);
         }
 
+        return this;
+    });
+};
+
+User.prototype.getUserProfile = function (userName, callback) {
+    this.userDb.getUserProfile(userName, function (err, dbData) {
+        if (err) {
+            callback(400, null);
+        } else {
+            callback(null, dbData);
+        }
         return this;
     });
 };

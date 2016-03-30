@@ -11,6 +11,7 @@ var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
 var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
+var changeProfile = require('./controllers/ChangeProfile.js');
 
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
@@ -59,10 +60,8 @@ app.get('/', function(req, res){
 });
 
 app.get('/index', function(req, res){
-
     if(!testModeFlag) signInCtl.direct(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
-
 });
 
 //direct to login page
@@ -98,7 +97,6 @@ app.post('/signin', function(req, res){
 
 
 app.post('/signup', function(req, res) {
-
     if(!testModeFlag) signInCtl.register(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -321,6 +319,25 @@ app.post('/endMeasurePerformance', function(req, res) {
         measurePerformance.endMeasurePerformance(req,res);
     }
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
+});
+
+
+//new added function for change profile use case
+//navigation bar button click and direct to the page
+//and need to get previous information.
+app.get('/directToProfile',function(req,res){
+    if(!testModeFlag) changeProfile.directToProfile(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.post('/updateProfile',function(req,res){
+    if(!testModeFlag) changeProfile.updateProfile(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.post('/updatePassword',function(req,res){
+    if(!testModeFlag) changeProfile.updatePassword(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 

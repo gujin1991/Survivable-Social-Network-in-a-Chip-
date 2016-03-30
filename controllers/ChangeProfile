@@ -2,4 +2,37 @@
  * Created by jiyushi1 on 2/25/16.
  */
 
+var User = require('../module/User.js');
+
+
+exports.directToProfile = function (req,res) {
+
+    new User().getUserProfile(req.body.username,function(err,user){
+        if (err){
+            res.json({"statusCode":400, "message": "Cannot get data from databse"});
+        }else{
+            res.json(user);
+        }
+    });
+
+
+};
+
+exports.updateProfile = function(req, res) {
+    var username = req.body.username;
+    var email = req.body.email;
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    var skill = req.body.skill;
+    var gender = req.body.gender;
+
+    new User().initializeForChangeFile(username, email,firstname,lastname,skill,gender).updateProfile(function(result) {
+        if (result == 400) {
+            res.json({"statusCode":400, "message": "User existed"});
+        } else {
+            res.json(result);
+        }
+    });
+}
+
 
