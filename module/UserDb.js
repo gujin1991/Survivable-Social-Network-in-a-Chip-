@@ -117,7 +117,7 @@ UserDb.prototype.getUserInfo = function (userName, callback) {
     });
 };
 
-//use case: change profile - funciton: get previous information in db.
+//use case: change profile - funciton: get previous peofile information in db.
 UserDb.prototype.getUserProfile = function (userName, callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function () {

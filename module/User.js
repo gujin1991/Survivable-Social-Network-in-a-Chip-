@@ -14,6 +14,7 @@ function User() {
     this.lastname = null;
     this.skill = null;
     this.gender = null;
+    this.oldpassword = null;
 }
 
 User.prototype.initialize = function (userName, password, status) {
@@ -34,12 +35,22 @@ User.prototype.initializeForChangeFile = function (userName, email,firstname,las
     return this;
 };
 
+User.prototype.initializeForChangePassword = function (userName, oldpassword,password) {
+    this.userName = userName;
+    this.oldpassword =oldpassword;
+    this.password = password;
+    return this;
+};
+
 //update those information to databse
 User.prototype.updateProfile = function (callback) {
     this.userDb.updateProfile(this.userName, this.email ,this.firstname,this.lastname , this.skill,this.gender ,callback);
 };
 
-
+//update password to database
+User.prototype.updatePassword = function (callback) {
+    this.userDb.updatePassword(this.userName, this.oldpassword ,this.password,callback);
+};
 
 
 User.prototype.userAdd = function (callback) {

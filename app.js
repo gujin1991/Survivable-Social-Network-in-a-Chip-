@@ -330,15 +330,30 @@ app.get('/directToProfile',function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
+//direct to password page
+app.get('/directToPassword',function(req,res){
+    if(!testModeFlag) changeProfile.directToPassword(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+//modify your own profile
 app.post('/updateProfile',function(req,res){
     if(!testModeFlag) changeProfile.updateProfile(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
+//change your own password
 app.post('/updatePassword',function(req,res){
     if(!testModeFlag) changeProfile.updatePassword(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
+
+//onther's profile page.
+app.post('/seeProfile',function(req,res){
+    if(!testModeFlag) changeProfile.viewProfile(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
 
 
 io.on('connection', function(socket) {
