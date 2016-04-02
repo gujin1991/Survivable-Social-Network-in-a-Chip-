@@ -4,6 +4,7 @@
 var page;
 
 $('#search-public-btn').click(function() {
+    cancelDelete();
     var keywords = $('#searchPublicMsg').val();
     if (keywords === "") {
         swal({title: "Error!",text: "Please enter!", type: "error", confirmButtonText: "OK" });
@@ -27,13 +28,12 @@ $('#search-public-btn').click(function() {
     }
 });
 $('#cancel-public-btn').click(function() {
-    $.get('/getHistory', function(data){
-        displayHistory(data);
-        document.getElementById("searchResult").style.display = "none";
-    });
+    location.reload();
+    document.getElementById('deleteMsg-btn').style.display = "block";
 });
 
 $('#search-private-btn').click(function() {
+    cancelDelete();
     var keywords = $('#searchPrivateMsg').val();
     if (keywords === "") {
         swal({title: "Error!",text: "Please enter!", type: "error", confirmButtonText: "OK" });
@@ -59,6 +59,7 @@ $('#search-private-btn').click(function() {
 $('#cancel-private-btn').click(function() {
     location.reload();
     document.getElementById("searchResult").style.display = "none";
+    document.getElementById('deleteMsg-btn').style.display = "block";
 });
 
 
@@ -85,18 +86,7 @@ $('#search-announce-btn').click(function() {
     }
 });
 $('#cancel-announce-btn').click(function() {
-    $.get('/getAnnouncements', function(data){
-        content = $('#msgAnnounce');
-        content.empty();
-        for(var i=0; i<data.length; i++) {
-            var message = data[i];
-            prependAnnouncement(message, message.userName, message.content);
-        }
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-        var chat_body = $('#announce-stream-list');
-        var height = chat_body[0].scrollHeight;
-        chat_body.scrollTop(height);
-    });
+    location.reload();
     document.getElementById("searchResult").style.display = "none";
 });
 
@@ -118,4 +108,10 @@ function nextPage() {
 function prePage() {
     page.prePage();
     document.getElementById('pageindex').innerHTML = page.pageIndex + 1 + ' / ' + page.pageCount;
+}
+
+function cancelDelete() {
+    document.getElementById('cancel-btn').style.display = "none";
+    document.getElementById('deleteAll-btn').style.display = "none";
+    document.getElementById('deleteMsg-btn').style.display = "none";
 }

@@ -111,9 +111,9 @@ $('#deleteAll-btn').on('click', function(e) {
 			data: {"idArray":idArray},
 			success: function() {
 				swal("Deleted!", count + " messages have been deleted.", "success");
-				$.get('/getHistory', function(data){
-					displayHistory(data);
-				});
+				//$.get('/getHistory', function(data){
+				//	displayHistory(data);
+				//});
 				cancelOrDoneDel();
 			}
 		});
