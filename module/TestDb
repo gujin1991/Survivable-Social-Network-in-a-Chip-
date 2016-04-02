@@ -106,3 +106,6 @@ function updatePassword(userName, oldpassword ,password , db) {
 //updateProfile("jiyuT","1@1","jiyu","shi","nothing","male",db);
 //updatePassword("jiyuT","12345","12345",db);
 
+var a = "aaa";
+var b = "aaa";
+console.log(a == b);

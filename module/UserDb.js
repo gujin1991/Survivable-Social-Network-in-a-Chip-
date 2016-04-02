@@ -22,7 +22,7 @@ UserDb.prototype.userAdd = function (username, password, callback) {
             }
             var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?,?,?,?,?,?)");
             var time = new Date().toLocaleString();
-            insertUser.run(username, password, time, new Status().undefine ,"" , "" , "", "null", "null");
+            insertUser.run(username, password, time, new Status().undefine ,"null" , "null" , "null", "null", "null");
 
             dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
                 if (err || row == null || row.length == 0) {

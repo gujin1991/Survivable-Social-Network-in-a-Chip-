@@ -11,7 +11,7 @@ var User = require('../module/User.js');
 
 exports.directToProfile = function (req,res) {
     //console.log("req user name " + req.params.username);
-    new User().getUserProfile(req.params.username,function(err,user){
+    new User().getUserProfile(req.session.username,function(err,user){
         if (err){
             res.json({"statusCode":401, "message": "Cannot get data from databse"});
         }else{
@@ -24,9 +24,21 @@ exports.directToProfile = function (req,res) {
     });
 };
 
+exports.viewProfile = function (req,res) {
+    console.log("req user name " + req.params.username);
+
+    new User().getUserProfile(req.params.username,function(err,user){
+        if (err){
+            res.json({"statusCode":400, "message": "Cannot get data from databse"});
+        }else{
+            res.render('otherProfile', user[0]);
+        }
+    });
+};
+
 //wrapper function to change password page.
 exports.directToPassword = function (req,res) {
-    res.render('changePassword');
+    res.render('password',{userName : req.session.username, status: req.session.status});
 };
 
 
@@ -68,14 +80,5 @@ exports.updatePassword = function(req, res) {
     }
 }
 
-exports.viewProfile = function (req,res) {
 
-    new User().getUserProfile(req.body.username,function(err,user){
-        if (err){
-            res.json({"statusCode":400, "message": "Cannot get data from databse"});
-        }else{
-            res.json(user);
-        }
-    });
-};
 

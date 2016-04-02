@@ -315,7 +315,7 @@ app.post('/endMeasurePerformance', function(req, res) {
 //new added function for change profile use case
 //navigation bar button click and direct to the page
 //and need to get previous information.
-app.get('/directToProfile/:username',function(req,res){
+app.get('/directToProfile',function(req,res){
     if(!testModeFlag) changeProfile.directToProfile(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -339,7 +339,7 @@ app.post('/updatePassword',function(req,res){
 });
 
 //onther's profile page.
-app.post('/seeProfile',function(req,res){
+app.get('/seeProfile/:username',function(req,res){
     if(!testModeFlag) changeProfile.viewProfile(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });

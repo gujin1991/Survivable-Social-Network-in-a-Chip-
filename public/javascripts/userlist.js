@@ -9,9 +9,7 @@ socket.on('connect', function () {
 });
 
 socket.on('updatelist', function(response){
-    console.log("-----------------online : "+ response.online);
-    console.log("-----------------offline : "+ response.offline);
-    console.log("-----------------status : " + response.currentUser.status);
+
     Object.size = function(obj) {
         var size = 0, key;
         for (key in obj) {
@@ -59,9 +57,9 @@ function setOnlineTable(online_users, size) {
             status = "Undefined";
         }
 
-        var new_line = '<tr>' +
+        var new_line = '<tr>'+
             '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
-            '<span>' + online_users[i].userName + '</span>' + '</td>' +
+            '<span><a href="/seeProfile/'+online_users[i].userName +'">' + online_users[i].userName + '</a></span>' + '</td>' +
             '<td width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
