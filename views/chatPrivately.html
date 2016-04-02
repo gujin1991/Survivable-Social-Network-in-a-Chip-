@@ -93,7 +93,14 @@
                     </div>
 
                     <div class="panel panel-info">
-                        <div class="panel-heading">Chat with <span id="private-head"></span></div>
+                        <div class="panel-heading">Chat with
+                            <span id="private-head"></span>
+                            <span class="btn-group block-center">
+                                <button id="deleteMsg-btn" class="btn btn-danger" style="display: none;">Delete Message</button>
+                                <button id="cancel-btn" class="btn btn-info" style="display: none;">Cancel</button>
+                                <button id="deleteAll-btn" class="btn btn-danger" style="display: none;">Delete All</button>
+                            </span>
+                        </div>
                         <div class="panel-body">
                             <div id="private-stream-list">
                                 <div id="msgPrivate" class="grumblr-box"></div>

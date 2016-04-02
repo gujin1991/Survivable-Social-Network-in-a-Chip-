@@ -4,33 +4,40 @@
 var messagePri = require('../module/PrivateMessage.js')
 var messagePrivate = new messagePri();
 
-var User = require('../module/User.js');
-var directory = require('../module/Directory.js')
-
 var messagePub = require('../module/Message.js')
 var messagePublic = new messagePub();
 
-//search public message function
-exports.deleteAll = function(req,res){
-
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^\n");
-    console.log(req.body);
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^\n");
+//delete public message function
+exports.deleteAllPublicMsg = function(req,res){
     var strs = req.body.idArray.split(",");
-    console.log(strs);
     var idArray = [];
     for (var i = 0; i < strs.length; i++) {
         if (strs[i] != ""){
             idArray.push(parseInt(strs[i]));
         }
     }
-    console.log("^^^^^^^^^^^^^^^^^^^^^^^^^\n");
-    console.log(idArray);
-
     if(idArray.length == 0){
         res.json({"statusCode":401, "message": "Noting to delete"});
     }else{
         messagePublic.deleteMessageById(idArray,function(response){
+            res.json(response);
+        });
+    }
+}
+
+//delete private message function
+exports.deleteAllPrivateMsg = function(req,res){
+    var strs = req.body.idArray.split(",");
+    var idArray = [];
+    for (var i = 0; i < strs.length; i++) {
+        if (strs[i] != ""){
+            idArray.push(parseInt(strs[i]));
+        }
+    }
+    if(idArray.length == 0){
+        res.json({"statusCode":401, "message": "Noting to delete"});
+    }else{
+        messagePrivate.deletePrivateMessageById(idArray,function(response){
             res.json(response);
         });
     }

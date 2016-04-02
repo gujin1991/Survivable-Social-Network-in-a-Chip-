@@ -86,7 +86,6 @@ MessageDb.prototype.deleteMessageById = function (idArray, callback) {
     });
     dbTemp.all("select * FROM messages WHERE messageId = " + idArray.join(' or messageId = '), function (err, row) {
         if (err || row == null || row.length == 0) {
-
             console.log("right");
             callback(200, null);
         } else {
@@ -94,6 +93,22 @@ MessageDb.prototype.deleteMessageById = function (idArray, callback) {
             callback(400, null);
         }
     });
+};
 
+MessageDb.prototype.deletePrivateMessageById = function (idArray, callback) {
+    var dbTemp = this.db;
+    var q = "DELETE FROM privateMessages WHERE messageId = " + idArray.join(' or messageId = ');
+    console.log(q);
+    dbTemp.run(q, function(err) {
+    });
+    dbTemp.all("select * FROM privateMessages WHERE messageId = " + idArray.join(' or messageId = '), function (err, row) {
+        if (err || row == null || row.length == 0) {
+            console.log("right");
+            callback(200, null);
+        } else {
+            console.log(row);
+            callback(400, null);
+        }
+    });
 };
 module.exports = MessageDb;

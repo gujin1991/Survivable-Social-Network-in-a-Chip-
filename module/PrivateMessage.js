@@ -28,4 +28,8 @@ PrivateMessage.prototype.getHistoryByKey = function (keyword, user, callback) {
     this.messageDb.getPrivateHistoryByKey(keyword, user, callback);
 };
 
+PrivateMessage.prototype.deletePrivateMessageById = function (idArray, callback) {
+    this.messageDb.deletePrivateMessageById(idArray, callback);
+};
+
 module.exports = PrivateMessage;

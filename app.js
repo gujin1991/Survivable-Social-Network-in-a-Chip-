@@ -272,7 +272,12 @@ app.post('/searchPrivate',function(req,res){
 
 // Delete Message!!!!
 app.delete('/deleteMessage',function(req,res){
-    if(!testModeFlag) deleteMessageCtl.deleteAll(req,res);
+    if(!testModeFlag) deleteMessageCtl.deleteAllPublicMsg(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.delete('/deletePrivateMessage',function(req,res){
+    if(!testModeFlag) deleteMessageCtl.deleteAllPrivateMsg(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 

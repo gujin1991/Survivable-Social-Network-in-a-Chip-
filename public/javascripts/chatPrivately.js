@@ -63,7 +63,8 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
             swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
         }else {
             $('#private-head').empty().append('   ' + chatTarget);
-            getPrivateMessage(currentUser, chatTarget);
+            document.getElementById('deleteMsg-btn').style.display = "block";
+            getPrivateMessage(currentUser, chatTarget, false);
         }
 
     });
@@ -78,18 +79,13 @@ $('#post-btn').click(function() {
     } else sendMessage(username,chatTarget);
 });
 
-function getPrivateMessage(senderName, receiverName) {
+function getPrivateMessage(senderName, receiverName, deleteFlag) {
+    $("#msgPrivate").empty();
     var users = {"sender": senderName, "receiver":receiverName};
     $.post('/getPrivateMessage', users, function(messages){
         for(var i=0; i<messages.length; i++) {
             var message = messages[i];
-            console.log(username);
-            console.log(message.fromUser);
-            if (message.fromUser === username) {
-                addPrivateMessage(message, message.content, "Me");
-            } else if (message.toUser === username) {
-                addPrivateMessage(message, message.content, message.fromUser);
-            }
+            addPrivateMessage(message, message.content, deleteFlag);
         }
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         var chat_body = $('#private-stream-list');
@@ -163,11 +159,7 @@ function sortByName(dict, callback) {
 // Display the new post message
 socket.on('send private message', function(message){
     if (chatTarget != null){
-        if (message.sender === username) {
-            addPrivateMessage(message, message.text, "Me");
-        } else {
-            addPrivateMessage(message, message.text, message.sender);
-        }
+        addPrivateMessage(message, message.text, false);
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         var chat_body = $('#private-stream-list');
         var height = chat_body[0].scrollHeight;
@@ -176,7 +168,7 @@ socket.on('send private message', function(message){
 
 });
 
-function addPrivateMessage(message, text, name) {
+function addPrivateMessage(message, text, flag) {
 
     var status = message.status;
     console.log("*****************\n" + status);
@@ -190,11 +182,22 @@ function addPrivateMessage(message, text, name) {
     } else if (status == 'Undefined') {
         logoName = "undefined.png";
     }
-
+    console.log("*****************\n" + username);
+    var name = message.sender;
+    if (name == undefined) {
+        name = message.fromUser;
+    }
     var label = '<div class="message">' +
-        '<div class="messageHeader">' +
-        '<span><span>' + name + '</span>' +
-        '<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
+        '<div class="messageHeader">';
+    if (name == username&& flag) {
+        label += '<span><input type="checkbox" name="messages" value="'+message.messageId +'" /></span>' +
+            '<span> Me </span>';
+    } else if (name == username) {
+        label += '<span> Me </span>';
+    } else {
+        label += '<span> '+ name + '</span>';
+    }
+    label += '<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
         '<div class="timestamp pull-right">' +
         '<i class="fa fa-clock-o fa-1"></i>' +
         '<small style="margin-left: 5px;">' + message.time + '</small>' +
@@ -213,3 +216,52 @@ $('#focusedInput').on("keydown", function(e){
     }
 });
 
+/**
+ * Delete Message.
+ * */
+$('#deleteMsg-btn').on('click', function(e) {
+    document.getElementById('deleteMsg-btn').style.display = "none";
+    document.getElementById('cancel-btn').style.display = "block";
+    document.getElementById('deleteAll-btn').style.display = "block";
+    getPrivateMessage(username, chatTarget, true);
+});
+$('#cancel-btn').on('click', function(e) {
+    cancelOrDoneDel();
+});
+function cancelOrDoneDel() {
+    document.getElementById('cancel-btn').style.display = "none";
+    document.getElementById('deleteAll-btn').style.display = "none";
+    document.getElementById('deleteMsg-btn').style.display = "block";
+    getPrivateMessage(username, chatTarget, false);
+}
+$('#deleteAll-btn').on('click', function(e) {
+    var idArray = "";
+    var count = 0;
+    $.each($("input[name='messages']:checked"), function(){
+        idArray += $(this).val() + ",";
+        count++;
+    });
+    if (idArray == "") {
+        sweetAlert("Warning", "You must choose at least one message to delete!!", "warning");
+        return;
+    }
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover these " + count + " messages!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false
+    }, function(){
+        $.ajax({
+            url: '/deletePrivateMessage',
+            type: 'DELETE',
+            data: {"idArray":idArray},
+            success: function() {
+                swal("Deleted!", count + " messages have been deleted.", "success");
+                cancelOrDoneDel();
+            }
+        });
+    });
+});
