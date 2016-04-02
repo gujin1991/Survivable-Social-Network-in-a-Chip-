@@ -91,6 +91,7 @@ User.prototype.getUserProfile = function (userName, callback) {
         } else {
             callback(null, dbData);
         }
+
         return this;
     });
 };

@@ -10,12 +10,16 @@ var User = require('../module/User.js');
 //
 
 exports.directToProfile = function (req,res) {
-
-    new User().getUserProfile(req.body.username,function(err,user){
+    //console.log("req user name " + req.params.username);
+    new User().getUserProfile(req.params.username,function(err,user){
         if (err){
-            res.json({"statusCode":400, "message": "Cannot get data from databse"});
+            res.json({"statusCode":401, "message": "Cannot get data from databse"});
         }else{
-            res.json(user);
+            //res.json(user);
+            //
+            //console.log(user[0].email);
+            //console.log(user[0].userName);
+            res.render('profile', user[0]);
         }
     });
 };
@@ -34,14 +38,12 @@ exports.updateProfile = function(req, res) {
     var skill = req.body.skill;
     var gender = req.body.gender;
 
-    var flag = req.body.topassword;
 
     new User().initializeForChangeFile(username, email,firstname,lastname,skill,gender).updateProfile(function(result) {
         if (result == 400) {
             res.json({"statusCode":400, "message": "User existed"});
         } else {
-            if(flag) res.json({"statusCode":200, "message": "Info Saved, and To password."});
-            else res.json(result);
+            res.json({"statusCode":200, "message": "Info Saved."});
         }
     });
 }
@@ -76,3 +78,4 @@ exports.viewProfile = function (req,res) {
         }
     });
 };
+

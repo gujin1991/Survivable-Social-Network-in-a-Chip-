@@ -80,16 +80,12 @@ app.get('/signup', function(req, res){
 
 
 app.get('/logout',function(req, res) {
-
     if(!testModeFlag) signInCtl.logout(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-
-
 // direct to chat page
 app.post('/signin', function(req, res){
-
 
     if(!testModeFlag) signInCtl.checkSignIn(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
@@ -131,7 +127,6 @@ app.get('/measurePerformance', function(req, res) {
 
 //app.get('/getUsers', checkSignIn.getOfflineUsers);
 
-
 app.post('/getStatus',function(req,res){
 
     if(!testModeFlag)  signInCtl.getUserInfo(req.body.username,function(callback){
@@ -147,13 +142,11 @@ app.post('/getStatus',function(req,res){
     });
     else res.json({"statusCode": 410, "message": "In Test"});
 
-
 });
 
 
 
 app.post('/sendPublicMessage',function(req,res){
-
 
     if(!testModeFlag) chatPublicly.sendPublicMessage(req,res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
@@ -162,7 +155,6 @@ app.post('/sendPublicMessage',function(req,res){
 //share status
 app.post('/updateStatus', function(req, res){
 
-
     if(!testModeFlag) shareStatus.updateStatus(req, res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -170,8 +162,6 @@ app.post('/updateStatus', function(req, res){
 
 //get announcement
 app.get('/getAnnouncements', function(req, res){
-
-
     if(!testModeFlag) postAnnouce.getAnnouncements(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -325,7 +315,7 @@ app.post('/endMeasurePerformance', function(req, res) {
 //new added function for change profile use case
 //navigation bar button click and direct to the page
 //and need to get previous information.
-app.get('/directToProfile',function(req,res){
+app.get('/directToProfile/:username',function(req,res){
     if(!testModeFlag) changeProfile.directToProfile(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -353,8 +343,6 @@ app.post('/seeProfile',function(req,res){
     if(!testModeFlag) changeProfile.viewProfile(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
-
-
 
 io.on('connection', function(socket) {
     var myname;

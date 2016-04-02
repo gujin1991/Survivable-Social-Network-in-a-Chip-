@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS from Bootstrap -->
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/sweetalert.css">
+    <!-- CSS from designer -->
+    <link rel="stylesheet" href="../stylesheets/signin.css">
+    <link rel="stylesheet" href="../stylesheets/navbar.css">
+    <title>Chatroom Sign-in</title>
+
+
+
+</head>
+
+<body>
+
+<input type="hidden" id="skill" value="<%=skill%>">
+<input type="hidden" id="gender" value="<%=gender%>">
+<input type="hidden" id="userName" value="<%=userName%>">
+
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/users">User List</a></li>
+                <li><a href="/chatPrivately">Chat Privately</a></li>
+                <li><a href="/announcement">Announcement</a></li>
+                <li><a href="/measurePerformance">Performance</a></li>
+                <!--<li><a href="#">Help</a></li>-->
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" id="status-ok" data-toggle="tab">OK</a></li>
+                        <li><a href="#" id="status-help" data-toggle="tab">Help</a></li>
+                        <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=userName%></span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/directToProfile/<%=userName%>">Change Profile</a></li>
+                        <li><a href="/directToPassword">Change Password</a></li>
+                        <li><a href="#">Change Status</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout"><strong>Sign out</strong></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <div id="wrapper" class="col-md-6 col-md-offset-3 text-center">
+
+            <form method="post" class="form-horizontal form-signin">
+                <h3 class="form-signin-heading"> Your Profile</h3>
+                <hr class="featurette-divider">
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Email:  </label>
+                    <div class="col-sm-7">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="email"  value=<%=email%>>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">FirstName:  </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="FirstName"  value=<%=firstName%>>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">LastName:  </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="LastName"  value=<%=lastName%>>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Skill:  </label>
+                <select name="Skill" id = "Skill">
+                    <option value="Surgery"> Surgery Doctor</option>
+                    <option value="Electrical"> Electrical Engineer</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="null">Not Selected</option>
+                </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">Gender:  </label>
+                <select name="Gender" id = "Gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="null">Not Selected</option>
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button type="button" id="submit" class="btn btn-large btn-transparent btn-rounded">Sava and Submit</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="error"></div>
+        </div>
+    </div>
+</div>
+
+<script src="../javascripts/jquery.min.js"></script>
+<script src="../javascripts/bootstrap.min.js"></script>
+<script src="../javascripts/sweetalert.min.js"></script>
+<script src="../javascripts/profile.js"></script>
+</body>
+</html>

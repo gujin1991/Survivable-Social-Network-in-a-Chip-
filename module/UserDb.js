@@ -22,7 +22,7 @@ UserDb.prototype.userAdd = function (username, password, callback) {
             }
             var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?,?,?,?,?,?)");
             var time = new Date().toLocaleString();
-            insertUser.run(username, password, time, new Status().undefine ,null , null , null, null, null);
+            insertUser.run(username, password, time, new Status().undefine ,"" , "" , "", "null", "null");
 
             dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
                 if (err || row == null || row.length == 0) {
@@ -120,8 +120,13 @@ UserDb.prototype.getUserInfo = function (userName, callback) {
 //use case: change profile - funciton: get previous peofile information in db.
 UserDb.prototype.getUserProfile = function (userName, callback) {
     var dbTemp = this.db;
+
     dbTemp.serialize(function () {
         dbTemp.all("select userName,email,firstName,lastName,skill,gender from users where userName=\"" + userName + "\"", function (err, row) {
+
+            //console.log("error ------------------" + err);
+            console.log(row);
+
             if (err || row == null || row.length == 0) {
                 callback(305, null);
             } else {
@@ -132,7 +137,7 @@ UserDb.prototype.getUserProfile = function (userName, callback) {
 };
 
 //use case: change profile - funciton: update profile in db
-UserDb.prototype.updateProfile = function (userName, email, firstName,lastName,skill,gender, callback) {
+UserDb.prototype.updateProfile = function (userName, email, firstName,lastName,skill,gender,callback) {
 
 
     var q = 'UPDATE users SET email = \'' + email +'\',firstName = \'' + firstName

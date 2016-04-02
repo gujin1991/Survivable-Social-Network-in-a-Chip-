@@ -110,9 +110,7 @@ exports.directHome = function (req,res) {
     if (!req.session.loggedIn) {
         res.render('signin');
     } else {
-
         res.render('index', {'username': req.session.username,'status': req.session.status});
-
     }
 };
 
