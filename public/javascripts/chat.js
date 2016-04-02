@@ -11,7 +11,7 @@
 var socket = io.connect();
 var username = $('#myname').val();
 var content = $('#msg');
-
+var deleteFlag = false;
 /**
  * Get user status.
  */
@@ -61,12 +61,72 @@ socket.on('updatelist', function(response){
 	}
 
 });
-
-
+/**
+ * Delete Message.
+ * */
+$('#deleteMsg-btn').on('click', function(e) {
+	document.getElementById('deleteMsg-btn').style.display = "none";
+	document.getElementById('cancel-btn').style.display = "block";
+	document.getElementById('deleteAll-btn').style.display = "block";
+	deleteFlag = true;
+	$.get('/getHistory', function(data){
+		displayHistory(data);
+	});
+});
+$('#cancel-btn').on('click', function(e) {
+	cancelOrDoneDel();
+});
+function cancelOrDoneDel() {
+	document.getElementById('cancel-btn').style.display = "none";
+	document.getElementById('deleteAll-btn').style.display = "none";
+	document.getElementById('deleteMsg-btn').style.display = "block";
+	deleteFlag = false;
+	$.get('/getHistory', function(data){
+		displayHistory(data);
+	});
+}
+$('#deleteAll-btn').on('click', function(e) {
+	var idArray = "";
+	var count = 0;
+	$.each($("input[name='messages']:checked"), function(){
+		idArray += $(this).val() + ",";
+		count++;
+	});
+	if (idArray == "") {
+		sweetAlert("Warning", "You must choose at least one message to delete!!", "warning");
+		return;
+	}
+	swal({
+		title: "Are you sure?",
+		text: "You will not be able to recover these " + count + " messages!",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "Yes, delete it!",
+		closeOnConfirm: false
+	}, function(){
+		$.ajax({
+			url: '/deleteMessage',
+			type: 'DELETE',
+			data: {"idArray":idArray},
+			success: function() {
+				swal("Deleted!", count + " messages have been deleted.", "success");
+				$.get('/getHistory', function(data){
+					displayHistory(data);
+				});
+				cancelOrDoneDel();
+			}
+		});
+	});
+});
 /**
  * Post a New Message.
  * */
 $('#post-btn').on('click', function(e) {
+	if (deleteFlag) {
+		alert("Please cancel delete first");
+		return;
+	}
 	var text = $('#focusedInput').val();
     username = $('#myname').val();
 	var obj = {};
@@ -138,12 +198,12 @@ function displayHistory(data) {
 		} else if (status == 'Undefined') {
 			logoName = "undefined.png";
 		}
-		console.log("*******************\nstatus:" + status);
-
 		var label = '<div style="color:gray" class="message">' +
-				'<div class="messageHeader">' +
-				'<span>' +
-				'<span>' + message.userName +
+						'<div class="messageHeader">';
+		if (message.userName == username && deleteFlag) {
+			label += '<span><input type="checkbox" name="messages" value="'+message.messageId +'" /></span>';
+		}
+		label += '<span>' + message.userName +
 				'</span>' +
 				'<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
 				'<div class="timestamp pull-right">' +

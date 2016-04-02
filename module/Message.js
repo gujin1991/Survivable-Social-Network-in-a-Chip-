@@ -18,5 +18,7 @@ Message.prototype.getHistory = function (callback) {
 Message.prototype.getHistoryByKey = function (keyword, callback) {
     this.messageDb.getHistoryByKey(keyword, callback);
 };
-
+Message.prototype.deleteMessageById = function (idArray, callback) {
+    this.messageDb.deleteMessageById(idArray, callback);
+};
 module.exports = Message;

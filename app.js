@@ -14,7 +14,7 @@ var postAnnouce = require('./controllers/PostAnnouncement.js');
 
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
-
+var deleteMessageCtl = require('./controllers/DeleteMessage.js');
 //save all the socket with the name of it's name.
 var sockets = {}
 
@@ -270,6 +270,11 @@ app.post('/searchPrivate',function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 })
 
+// Delete Message!!!!
+app.delete('/deleteMessage',function(req,res){
+    if(!testModeFlag) deleteMessageCtl.deleteAll(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
 
 
 //get postCount
