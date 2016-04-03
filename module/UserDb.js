@@ -109,6 +109,7 @@ UserDb.prototype.getUserInfo = function (userName, callback) {
                 callback(305, null);
             } else {
                 var u = {};
+                //console.log(row);
                 u.userName = row[0].userName;
                 u.status = row[0].status;
                 callback(null, u);

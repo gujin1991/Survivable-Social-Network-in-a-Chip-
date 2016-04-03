@@ -57,7 +57,7 @@ suite('SSNoC Unit Test - Message', function () {
             var message = new TestMessage(user1.userName, "Hello, Yu!", "OK", currentTime);
 
             var i = 0;
-            for (i = 0; i < 100; i++) {
+            for (i = 0; i < 1000; i++) {
                 message.addMessage(user1.userName, "Hello, Yu!", currentTime, "OK", function (code) {
                     expect(code).to.eql(200);
                 });

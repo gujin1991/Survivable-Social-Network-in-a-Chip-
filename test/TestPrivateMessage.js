@@ -8,6 +8,8 @@ suite('SSNoC Unit Test - Private Message', function () {
         new User().getUserInfo("TesterJin", function (err1, user1) {
             new User().getUserInfo("TesterYu", function (err2, user2) {
                 var currentTime = new Date().toLocaleTimeString();
+                console.log(user1);
+                console.log(user2);
                 new PrivateMessage(user1.userName, user2.userName, "Hello, Yu!", "OK", currentTime)
                     .addMessage(user1.userName, user2.userName, "Hello, Yu!", currentTime, "OK", function (code) {
                         expect(code).to.eql(200);
@@ -25,6 +27,8 @@ suite('SSNoC Unit Test - Private Message', function () {
         new User().getUserInfo("TesterJin", function (err1, user1) {
             new User().getUserInfo("TesterYu", function (err2, user2) {
                 var currentTime = new Date().toLocaleTimeString();
+                console.log(user1);
+                console.log(user2);
                 new PrivateMessage(user1.userName, user2.userName, "Hello, Yu!", "OK", currentTime)
                     .addMessage(user1.userName, user2.userName, "Hello, Yu!", currentTime, "OK", function (code) {
                         expect(code).to.eql(200);
