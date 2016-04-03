@@ -30,6 +30,7 @@ exports.getAnnouncements = function(req, res) {
 exports.sendAnnouncements = function(req, res, io) {
  	var announcement = req.body;
     announcement.time = now();
+    console.log("!!!!!!!!!@@@@@@@@@" + announcement.time);
     announcement.status = req.session.status;
     Announcement.addAnnouncement(announcement.username,announcement.status,announcement.text,announcement.time, function(callback){
         if (callback == 200) console.log("200 OK",announcement.username,announcement.status,announcement.text,announcement.time);

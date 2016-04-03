@@ -25,4 +25,11 @@ Announcement.prototype.getDetailsByKey = function (strArr,callback) {
     this._announcementDb.getAnnouncementByKey(strArr,callback);
 };
 
+Announcement.prototype.searchAnnounceByDate = function (startDate,endDate,callback) {
+    this._announcementDb.searchAnnounceByDate(startDate,endDate,callback);
+};
+
+Announcement.prototype.deleteAnnounceByDate = function (startDate,endDate,callback) {
+    this._announcementDb.deleteAnnounceByDate(startDate,endDate,callback);
+};
 module.exports = Announcement;

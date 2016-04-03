@@ -1,6 +1,9 @@
 var socket = io.connect();
 var username;
 var content = $('#msgAnnounce');
+var startDate;
+var endDate;
+var idArray;
 
 // Check if it is a new user
 //jQuery( document ).ready(function( $ ) {
@@ -76,12 +79,6 @@ socket.on('send announcement', function(message){
 	prependAnnouncement(message, message.username, message.text);
 });
 
-//get current time
-function now() {
-    var date = new Date();
-    var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
-    return time;
-}
 
 $('#focusedInput').on("keydown", function(e){
 	if(e.which === 13){
@@ -125,4 +122,94 @@ function prependAnnouncement(message, username, text) {
 		'</div>';
 	var one = $(label);
 	content.prepend(one);
+}
+
+/**
+ * Delete Message.
+ * */
+$('#deleteMsg-btn').on('click', function(e) {
+	document.getElementById('deleteMsg-btn').style.display = "none";
+	document.getElementById('cancel-btn').style.display = "block";
+	document.getElementById('deleteAll-btn').style.display = "block";
+	displayDatePicker();
+	chooseDate();
+});
+$('#cancel-btn').on('click', function(e) {
+	cancelOrDoneDel();
+});
+
+function chooseDate(){
+	$("#txtFromDate").datepicker({
+		maxDate: 0,
+		numberOfMonths: 1,
+		onSelect: function(selected) {
+			$("#txtToDate").datepicker("option","minDate", selected);
+			startDate = $(this).val().replace(/\b0(?=\d)/g, '');
+			//alert(startDate);
+		}
+	});
+	$("#txtToDate").datepicker({
+		maxDate:0,
+		numberOfMonths: 1,
+		onSelect: function(selected) {
+			$("#txtFromDate").datepicker("option","maxDate", selected);
+			endDate = $(this).val().replace(/\b0(?=\d)/g, '');
+			//alert(endDate);
+		}
+	});
+}
+
+$('#deleteAll-btn').on('click', function(e) {
+	if (startDate == undefined || endDate == undefined) {
+		sweetAlert("Warning", "You must choose the dates to delete!!", "warning");
+		return;
+	}
+	var dateRange = {"startDate":startDate,"endDate": endDate};
+	$.get('/searchAnnounceByDate',dateRange, function(response) {
+		if (response === 400) {
+			swal({title: "Error!", text: "Error.", type: "error", confirmButtonText: "OK"});
+		} if (response  === 0) {
+			swal({title: "Error!", text: "No such data.", type: "error", confirmButtonText: "OK"});
+		} else {
+			var count = response;
+			swal({
+				title: "Are you sure?",
+				text: "You will not be able to recover these messages" + count + " From " + startDate + " To " + endDate + " ?",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Yes, delete it!",
+				closeOnConfirm: false
+			}, function(){
+				$.ajax({
+					url: '/deleteAnnounceByDate',
+					type: 'DELETE',
+					data: {"startDate":startDate,"endDate": endDate},
+					success: function() {
+						swal("Deleted!", count + " messages have been deleted.", "success");
+						cancelOrDoneDel();
+					}
+				});
+			});
+		}
+	});
+});
+
+function displayDatePicker() {
+	var label = '<span>' +
+			'<form class="form-inline" id="date-form">' +
+				'<label>From</label>' +
+				'<input id="txtFromDate" type="text" class="form-control" placeholder="Start Date">' +
+				'<label>To </label>' +
+				'<input id="txtToDate" type="text" class="form-control" placeholder="End Date">' +
+			'</form></span>';
+	var one = $(label);
+	$("#dateForm").append(one);
+}
+
+function cancelOrDoneDel() {
+	$("#dateForm").empty();
+	document.getElementById('cancel-btn').style.display = "none";
+	document.getElementById('deleteAll-btn').style.display = "none";
+	document.getElementById('deleteMsg-btn').style.display = "block";
 }

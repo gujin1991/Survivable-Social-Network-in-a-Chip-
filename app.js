@@ -270,6 +270,7 @@ app.post('/searchPrivate',function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 })
 
+// TODO:
 // Delete Message!!!!
 app.delete('/deleteMessage',function(req,res){
     if(!testModeFlag) deleteMessageCtl.deleteAllPublicMsg(req,res);
@@ -281,6 +282,14 @@ app.delete('/deletePrivateMessage',function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
+app.get('/searchAnnounceByDate', function(req,res){
+    if(!testModeFlag) deleteMessageCtl.searchAnnounceByDate(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+app.delete('/deleteAnnounceByDate', function(req,res){
+    if(!testModeFlag) deleteMessageCtl.deleteAnnounceByDate(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
 
 //get postCount
 app.post('/testModeStart',function(req,res){

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="stylesheets/navbar.css">
     <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/announcement.css">
+    <link href="stylesheets/jquery-ui.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -79,9 +80,16 @@
                             </div>
                         </form>
                     </div>
-
+                    <br>
                     <div class="panel panel-info">
-                        <div class="panel-heading">Announcement</div>
+                        <div class="panel-heading"><span style="font-size: medium">Announcement</span>
+                            <span class="btn-group pull-right">
+                                <button id="deleteMsg-btn" class="btn btn-danger">Delete Message</button>
+                                <button id="deleteAll-btn" class="btn btn-danger" style="display: none;">Delete All</button>
+                                <button id="cancel-btn" class="btn btn-info" style="display: none;">Cancel</button>
+                            </span>
+                            <div id="dateForm"></div>
+                        </div>
                         <div class="panel-body">
                             <div id="announce-stream-list">
                                 <div id="msgAnnounce" class="grumblr-box"></div>
@@ -124,5 +132,6 @@
     <script src="javascripts/searchMsg.js"></script>
     <script src="javascripts/page.js"></script>
     <script src="javascripts/sharestatus.js"></script>
+    <script src="javascripts/jquery-ui.min.js"></script>
 </body>
 </html>
