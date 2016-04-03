@@ -60,7 +60,10 @@ function userAdd(username, password,db) {
 var db = new UserDb();
 
 userAdd("jiyuT","1234",db);
-getUserProfile("jiyuT",db);
+
+userAdd("jiyuTT","1234",db);
+userAdd("jiyuTTt","1234",db);
+//getUserProfile("jiyuT",db);
 
 
 
@@ -109,3 +112,8 @@ function updatePassword(userName, oldpassword ,password , db) {
 var a = "aaa";
 var b = "aaa";
 console.log(a == b);
+
+var q = 'Select Count(*),* from users' ;
+db.all(q,function(err,row){
+    console.log(row);
+})
