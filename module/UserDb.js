@@ -126,7 +126,7 @@ UserDb.prototype.getUserProfile = function (userName, callback) {
         dbTemp.all("select userName,email,firstName,lastName,skill,gender from users where userName=\"" + userName + "\"", function (err, row) {
 
             //console.log("error ------------------" + err);
-            console.log(row);
+            //console.log(row);
 
             if (err || row == null || row.length == 0) {
                 callback(305, null);

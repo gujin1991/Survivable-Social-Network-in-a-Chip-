@@ -53,7 +53,7 @@ exports.updateProfile = function(req, res) {
 
     new User().initializeForChangeFile(username, email,firstname,lastname,skill,gender).updateProfile(function(result) {
         if (result == 400) {
-            res.json({"statusCode":400, "message": "User existed"});
+            res.json({"statusCode":400, "message": "Cannot save"});
         } else {
             res.json({"statusCode":200, "message": "Info Saved."});
         }
@@ -72,10 +72,10 @@ exports.updatePassword = function(req, res) {
             if (result == 400) {
                 res.json({"statusCode":400, "message": "Wrong Old Password"});
             } else if(result == 200) {
-                res.json({"statusCode":200, "message": "Password Updated!"});
-            }else{
-                res.json({"statusCode":401, "message": "Something Wrong with DB"});
-            }
+                res.json({"statusCode": 200, "message": "Password Updated!"});
+            }//}else{
+            //    res.json({"statusCode":401, "message": "Something Wrong with DB"});
+            //}
         });
     }
 }
