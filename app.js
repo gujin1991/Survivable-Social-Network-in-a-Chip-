@@ -11,6 +11,7 @@ var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
 var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
+var notification = require('./controllers/Notification.js');
 
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
@@ -83,6 +84,12 @@ app.get('/signup', function(req, res){
 app.get('/logout',function(req, res) {
 
     if(!testModeFlag) signInCtl.logout(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.get('/notification',function(req, res) {
+
+    if(!testModeFlag) notification.directNotification(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
