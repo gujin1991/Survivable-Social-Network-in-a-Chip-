@@ -42,7 +42,6 @@ announcementDb.prototype.getAnnouncementByKey = function (strArr, callback) {
 announcementDb.prototype.searchAnnounceByDate = function (startDate, endDate, callback) {
     var dbTemp = this.db;
     var q = "SELECT * FROM announcements WHERE time >= '" + startDate + "' and time <= '" + endDate +"'";
-    var idArray = [];
     dbTemp.serialize(function () {
         dbTemp.all(q, function (err, row) {
             if (err) {
@@ -60,12 +59,9 @@ announcementDb.prototype.deleteAnnounceByDate = function (startDate, endDate, ca
     dbTemp.run(q, function(err) {
     });
     dbTemp.run(q2, function (err, row) {
-        console.log(err);
         if (!err || row == null || row.length == 0) {
-            console.log("right");
             callback(200, null);
         } else {
-            console.log(row);
             callback(400, null);
         }
     });

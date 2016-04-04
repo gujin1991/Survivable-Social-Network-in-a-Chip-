@@ -26,7 +26,7 @@ suite('SSNoC Unit Test - Public Message', function () {
     });
 
     test('Deleting a public message successfully.', function (done) {
-        new User().getUserInfo("TesterPan", function (err1, user1) {
+        new User().getUserInfo("TesterJin", function (err1, user1) {
             new User().getUserInfo("TesterYu", function (err2, user2) {
                 var currentTime = now();
                 var message = new PublicMessage(user1.userName, "Hello, Yu!", "OK", currentTime);
@@ -39,15 +39,13 @@ suite('SSNoC Unit Test - Public Message', function () {
                     expect(rows[len - 1].content).to.eql("Hello, Yu!");
                     expect(rows[len - 1].time).to.eql(currentTime);
                     idArray.push(parseInt(expect(rows[len - 1].messageId)));
-                    done();
                 });
                 message.deleteMessageById(idArray,function (code) {
                     expect(code).to.eql(200);
                 });
                 message.getHistory(function (rows) {
                     var len = rows.length;
-                    expect(rows[len - 1].content).not.to.eql("Hello, Yu!");
-                    expect(rows[len - 1].time).not.to.eql(currentTime);
+                    expect(rows[len - 1].messageId).not.to.eql(idArray[0]);
                     done();
                 });
             });

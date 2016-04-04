@@ -37,7 +37,7 @@ suite('SSNoC Unit Test - Private Message', function () {
     });
 
     test('Deleting a private message successfully.', function (done) {
-        new User().getUserInfo("TesterPan", function (err1, user1) {
+        new User().getUserInfo("TesterJin", function (err1, user1) {
             new User().getUserInfo("TesterYu", function (err2, user2) {
                 var currentTime = now();
                 var privateMessage = new PrivateMessage(user1.userName, user2.userName, "Hello, Yu!", "OK", currentTime);
@@ -50,15 +50,13 @@ suite('SSNoC Unit Test - Private Message', function () {
                     expect(rows[len - 1].content).to.eql("Hello, Yu!");
                     expect(rows[len - 1].time).to.eql(currentTime);
                     idArray.push(parseInt(expect(rows[len - 1].messageId)));
-                    done();
                 });
                 privateMessage.deletePrivateMessageById(idArray,function (code) {
                     expect(code).to.eql(200);
                 });
-                privateMessage.getHistory(function (rows) {
+                privateMessage.getHistory(user1.userName, user2.userName, function (rows) {
                     var len = rows.length;
-                    expect(rows[len - 1].content).not.to.eql("Hello, Yu!");
-                    expect(rows[len - 1].time).not.to.eql(currentTime);
+                    expect(rows[len - 1].messageId).not.to.eql(idArray[0]);
                     done();
                 });
             });

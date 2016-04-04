@@ -31,7 +31,7 @@ suite('SSNoC Unit Test - Announcement', function () {
     });
 
     test('Deleting a announcement successfully.', function (done) {
-        new User().getUserInfo("TesterPan", function (err, user) {
+        new User().getUserInfo(testerName, function (err, user) {
                 var currentTime = now();
                 var announce = new Announcement(user.userName, new Status().ok, "Test announcement!", currentTime);
                 announce.addAnnouncement(user.userName, new Status().ok, "Test announcement!", currentTime, function (code) {
@@ -41,12 +41,11 @@ suite('SSNoC Unit Test - Announcement', function () {
                     var len = rows.length;
                     expect(rows[len - 1].content).to.eql("Test announcement!");
                     expect(rows[len - 1].time).to.eql(currentTime);
-                    done();
                 });
                 announce.deleteAnnounceByDate(currentTime, currentTime,function (code) {
                     expect(code).to.eql(200);
                 });
-                announce.getDetails.(function (rows) {
+                announce.getDetails(function (rows) {
                     var len = rows.length;
                     expect(rows[len - 1].content).not.to.eql("Test announcement!");
                     expect(rows[len - 1].time).not.to.eql(currentTime);
