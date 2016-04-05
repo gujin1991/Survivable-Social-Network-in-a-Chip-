@@ -2,7 +2,7 @@ var sqlite3 = require('sqlite3').verbose();
 
 var TestMessageDb = function TestMessageDb() {
     this.db = new sqlite3.Database('./test.db');
-    var limit = 1000;
+    var limit = 20000;
     var post = 0;
     var get = 0;
     this.messageAdd = function (username, message, time, status, callback) {

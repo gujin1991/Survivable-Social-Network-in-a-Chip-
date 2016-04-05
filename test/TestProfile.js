@@ -7,14 +7,6 @@ var Status = require('../module/Status.js');
 
 suite('SSNoC Unit Test - ChangeProfile', function () {
     test('Get Profile of a user.', function (done) {
-        //var currentTime = new Date().toLocaleTimeString();
-        //new User()
-        //    .initialize('S' + currentTime, "19911991", new Status().ok)
-        //    .userAdd(function (err, user) {
-        //        expect(err).to.equal(null);
-        //        expect(user.userName).to.eql('S' + currentTime);
-        //        done();
-        //    });
 
         new User().getUserProfile('TesterJin',function(err,user){
             expect(err).to.equal(null);

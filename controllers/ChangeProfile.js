@@ -13,7 +13,7 @@ exports.directToProfile = function (req,res) {
     //console.log("req user name " + req.params.username);
     new User().getUserProfile(req.session.username,function(err,user){
         if (err){
-            res.json({"statusCode":401, "message": "Cannot get data from databse"});
+            res.json({"statusCode":401, "message": "Cannot get data from database"});
         }else{
             //res.json(user);
             //
