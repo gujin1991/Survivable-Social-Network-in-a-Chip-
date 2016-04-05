@@ -7,8 +7,15 @@ var typeEmergency = "Emergency!";
 var type = typeGreatNews;
 
 $('#notification-btn').click(function () {
-    // TODO add maximum word limit
-    sendNotification();
+    var content = document.getElementById('focusedInput').value;
+    var length = content.split(/[^\s]+/).length - 1;
+    if (length > 10) {
+        swal("Too Long", "Your notification should be within 10 words", "error");
+    } else {
+        var sender = $('#myname').val();
+        var notification = {'type': type, 'content': content, 'sender': sender};
+        $.post("/notification", notification);
+    }
     document.getElementById('focusedInput').value = "";
 });
 
@@ -29,20 +36,14 @@ $('#type-emergency').click(function () {
     type = typeEmergency;
 });
 
-function sendNotification() {
-    var content = document.getElementById('focusedInput').value;
-    var sender = $('#myname').val();
-    var notification = {'type': type, 'content': content, 'sender': sender};
-    $.post("/notification", notification);
-}
-
 function showNotification(notification) {
-    var image, sound;
+    var image;
     if (notification.type == 'Great News!') {
-        // TODO add sound
         image = "images/icons/greatNews.gif";
+        document.getElementById("greatNewsSound").play();
     } else {
         image = "images/icons/emergency.gif";
+        document.getElementById("emergencySound").play();
     }
     swal({
         title: notification.content,
