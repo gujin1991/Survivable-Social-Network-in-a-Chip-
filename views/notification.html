@@ -70,14 +70,19 @@
                 <input type="hidden" id="mystatus" value="<%=status%>">
             </div>
 
-            <div id="post-board">
+            <div id="notification-board">
                 <p id="prompt"><strong>Post a New Notification</strong></p>
                 <form>
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active" id="type-great"><a data-toggle="tab">Great News!</a></li>
+                        <li role="presentation"><a data-toggle="tab" id="type-emergency">Emergency</a></li>
+                    </ul>
                     <textarea class="form-control" id="focusedInput"
                               placeholder="Please type a new message..."></textarea>
-                    <div class="btn-group">
-                        <button id="cancel-btn" type="button" class="btn btn-danger pull-left">Cancel</button>
-                        <button id="notification-btn" type="button" class="btn btn-success pull-right">Send</button>
+
+                    <div class="btn-group pull-right">
+                        <button id="cancel-btn" type="button" class="btn btn-danger ">Cancel</button>
+                        <button id="notification-btn" type="button" class="btn btn-success ">Send</button>
                     </div>
                 </form>
                 <div id="error"></div>
@@ -90,6 +95,12 @@
 <script src="javascripts/jquery.min.js"></script>
 <script src="javascripts/bootstrap.min.js"></script>
 <script src="javascripts/sweetalert.min.js"></script>
+<script src="javascripts/announce.js"></script>
+<script src="javascripts/searchMsg.js"></script>
+<script src="javascripts/page.js"></script>
+<script src="javascripts/sharestatus.js"></script>
 <script src="javascripts/notification.js"></script>
+
+
 </body>
 </html>
