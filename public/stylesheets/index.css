@@ -87,6 +87,26 @@ body {
 	border-radius:5px;
 	box-shadow:2px 2px 4px #BEBCBC;
 }
+
+#notification-btn {
+	margin-top: 10px;
+}
+
+#cancel-btn {
+	margin-top: 10px;
+}
+
+#notification-board {
+	margin-top: 10px;
+	text-align: left;
+	background-color: #f5f5f5;
+	border-left: 1px solid #eee;
+	padding: 20px 20px 20px;
+	height:200px;
+	/*height: 40%;*/
+	border-radius:5px;
+	box-shadow:2px 2px 4px #BEBCBC;
+}
 .message {
 	/*border: 1px;*/
 	/*border-top: dotted;*/
