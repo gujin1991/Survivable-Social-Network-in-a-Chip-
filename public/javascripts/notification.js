@@ -9,7 +9,9 @@ var type = typeGreatNews;
 $('#notification-btn').click(function () {
     var content = document.getElementById('focusedInput').value;
     var length = content.split(/[^\s]+/).length - 1;
-    if (length > 10) {
+    if (length == 0) {
+        swal("Say Something", "Your notification cannot be empty", "error");
+    } else if (length > 10) {
         swal("Too Long", "Your notification should be within 10 words", "error");
     } else {
         var sender = $('#myname').val();
