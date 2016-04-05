@@ -124,7 +124,7 @@ $('#deleteAll-btn').on('click', function(e) {
  * */
 $('#post-btn').on('click', function(e) {
 	if (deleteFlag) {
-		alert("Please cancel delete first");
+		sweetAlert("Warning", "Please cancel delete first!", "warning");
 		return;
 	}
 	var text = $('#focusedInput').val();

@@ -63,10 +63,6 @@ $.get('/getAnnouncements', function(data){
 		var message = data[i];
 		prependAnnouncement(message, message.userName, message.content);
 	}
-    // $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    // var chat_body = $('#announce-stream-list');
-    // var height = chat_body[0].scrollHeight;
-    // chat_body.scrollTop(height);
 });
 
 // Display user login information
@@ -187,6 +183,7 @@ $('#deleteAll-btn').on('click', function(e) {
 					data: {"startDate":startDate,"endDate": endDate},
 					success: function() {
 						swal("Deleted!", count + " messages have been deleted.", "success");
+						location.reload();
 						cancelOrDoneDel();
 					}
 				});

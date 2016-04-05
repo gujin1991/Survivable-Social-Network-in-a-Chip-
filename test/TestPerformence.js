@@ -12,7 +12,7 @@ suite('SSNoC Unit Test - Message', function () {
 
     test('Send test successfully.', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
-            var currentTime = new Date().toLocaleTimeString();
+            var currentTime = now();
             var message = new TestMessage(user1.userName, "Hello, Yu!", "OK", currentTime);
             message.addMessage(user1.userName, "Hello, Yu!", currentTime, "OK", function (code) {
                 expect(code).to.eql(200);
@@ -24,7 +24,7 @@ suite('SSNoC Unit Test - Message', function () {
 
     test('Test Get History', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
-            var currentTime = new Date().toLocaleTimeString();
+            var currentTime = now();
             var message = new TestMessage(user1.userName, "Hello, Yu!", "OK", currentTime);
 
             message.getHistory(function (code) {
@@ -36,7 +36,7 @@ suite('SSNoC Unit Test - Message', function () {
 
     test('Test End Test', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
-            var currentTime = new Date().toLocaleTimeString();
+            var currentTime = now();
             var message = new TestMessage(user1.userName, "Hello, Yu!", "OK", currentTime);
 
             message.addMessage(user1.userName, "Hello, Yu!", currentTime, "OK", function (code) {
@@ -53,7 +53,7 @@ suite('SSNoC Unit Test - Message', function () {
 
     test('Test Performance Limit', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
-            var currentTime = new Date().toLocaleTimeString();
+            var currentTime = now();
             var message = new TestMessage(user1.userName, "Hello, Yu!", "OK", currentTime);
 
             var i = 0;
@@ -74,4 +74,9 @@ suite('SSNoC Unit Test - Message', function () {
             });
         });
     });
+    function now() {
+        var date = new Date();
+        var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
+        return time;
+    }
 });
