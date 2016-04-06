@@ -80,14 +80,20 @@ MessageDb.prototype.getPrivateHistoryByKey = function (keyword, user, callback) 
 
 MessageDb.prototype.deleteMessageById = function (idArray, callback) {
     var dbTemp = this.db;
-    var q = "DELETE FROM messages WHERE messageId = " + idArray.join(' or messageId = ');
-    dbTemp.run(q, function(err) {
-    });
     dbTemp.all("select * FROM messages WHERE messageId = " + idArray.join(' or messageId = '), function (err, row) {
         if (err || row == null || row.length == 0) {
-            callback(200, null);
+            callback(404, null);
         } else {
-            callback(400, null);
+            var q = "DELETE FROM messages WHERE messageId = " + idArray.join(' or messageId = ');
+            dbTemp.run(q, function(err) {
+            });
+            dbTemp.all("select * FROM messages WHERE messageId = " + idArray.join(' or messageId = '), function (err, row) {
+                if (err || row == null || row.length == 0) {
+                    callback(200, null);
+                } else {
+                    callback(400, null);
+                }
+            });
         }
     });
 };

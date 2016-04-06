@@ -47,13 +47,31 @@ suite('SSNoC Unit Test - Announcement', function () {
                 });
                 announce.getDetails(function (rows) {
                     var len = rows.length;
-                    expect(rows[len - 1].content).not.to.eql("Test announcement!");
                     expect(rows[len - 1].time).not.to.eql(currentTime);
                     done();
             });
         });
     });
 
+    test('Deleting a announcement does not exist.', function (done) {
+        new User().getUserInfo(testerName, function (err, user) {
+            var currentTime = now();
+            var announce = new Announcement(user.userName, new Status().ok, "Test announcement!", currentTime);
+            announce.addAnnouncement(user.userName, new Status().ok, "Test announcement!", currentTime, function (code) {
+                expect(code).to.eql(200);
+            });
+            announce.getDetails(function (rows) {
+                var len = rows.length;
+                expect(rows[len - 1].content).to.eql("Test announcement!");
+                expect(rows[len - 1].time).to.eql(currentTime);
+            });
+            var time = "5/1/2016";
+            announce.searchAnnounceByDate(time, time,function (length) {
+                expect(length).to.eql(0);
+                done();
+            });
+        });
+    });
     function now() {
         var date = new Date();
         var time = (date.getMonth() + 1)+ '/' + date.getDate() + '/' + date.getFullYear()  + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
