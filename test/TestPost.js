@@ -7,10 +7,8 @@ var Status = require('../module/Status.js');
 var Post = require('../module/Post');
 
 suite('SSNoC Unit Test - Post', function () {
-    var testerName = 'TesterJin';
-
-    test('Existing User Send Post', function (done) {
-        new User().getUserInfo(testerName, function (err, user) {
+    test('Existing User Send Post', function (done){
+        new User().getUserInfo("TesterJin", function (err, user) {
             expect(err).to.equal(null);
             var currentTime = new Date().toLocaleTimeString();
             new Post().addPost(user.userName, new Status().ok, "Test post!", currentTime, function (code) {
@@ -25,13 +23,13 @@ suite('SSNoC Unit Test - Post', function () {
     });
 
     test('Existing User Send Invalid Post', function (done) {
-        new User().getUserInfo(testerName, function (err, user) {
+        new User().getUserInfo("TesterJin", function (err, user) {
             expect(err).to.equal(null);
             var currentTime = new Date().toLocaleTimeString();
             new Post().addPost(user.userName, new Status().ok, null, currentTime, function (code) {
                 expect(code).to.eql(400);
-                done();
             });
+            done();
         });
     });
 });

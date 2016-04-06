@@ -13,7 +13,6 @@ function Post(username, status, content, time) {
 
 Post.prototype.addPost =  function(username,status,content,time,callback) {
     this._postDb.postAdd(username, status, content, time, callback);
-    return this;
 };
 
 Post.prototype.getAllPosts = function (callback) {
