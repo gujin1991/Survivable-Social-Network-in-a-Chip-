@@ -11,6 +11,7 @@ var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
 var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
+var postCtl = require('./controllers/Post.js');
 
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
@@ -323,6 +324,49 @@ app.post('/endMeasurePerformance', function(req, res) {
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
+/**
+ * GET posts: direct to the post page.
+ * */
+app.get('/posts', function(req, res){
+    if(!testModeFlag) {
+        postCtl.directPost(req, res);
+    } else {
+        res.json({"statusCode": 410, "message": "In Test"});
+    }
+});
+
+/**
+ * Get getPosts: get all posts from the database.
+ * */
+app.get('/getPosts', function(req, res){
+    if(!testModeFlag) {
+        postCtl.getPosts(req, res);
+    } else {
+        res.json({"statusCode": 410, "message": "In Test"});
+    }
+});
+
+/**
+ * getPostsByUsername: get all posts from the database according to the username.
+ * */
+app.post('/getPostsByUsername', function(req, res){
+    if(!testModeFlag) {
+        postCtl.getPostsByUsername(req, res);
+    } else {
+        res.json({"statusCode": 410, "message": "In Test"});
+    }
+});
+
+/**
+ * POST sendPost: send a post.
+ * */
+app.post('/sendPost',function(req,res){
+    if(!testModeFlag) {
+        postCtl.sendPost(req,res,io);
+    } else {
+        res.json({"statusCode": 410, "message": "In Test"});
+    }
+});
 
 io.on('connection', function(socket) {
     var myname;
