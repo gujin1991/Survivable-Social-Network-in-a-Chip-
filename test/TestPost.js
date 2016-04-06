@@ -45,8 +45,8 @@ suite('SSNoC Unit Test - Post', function () {
                 }).getPostsByUsername(user.userName, function (rows_curr) {
                     var len_curr = rows_curr.length;
                     expect(len_curr).to.eql(len_prev + 1);
-                    expect(rows_curr[len - 1].content).to.eql("Test all posts!");
-                    expect(rows_curr[len - 1].time).to.eql(currentTime);
+                    expect(rows_curr[len_curr - 1].content).to.eql("Test all posts!");
+                    expect(rows_curr[len_curr - 1].time).to.eql(currentTime);
                     done();
                 });
             });
