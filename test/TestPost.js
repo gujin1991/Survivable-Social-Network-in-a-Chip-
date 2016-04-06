@@ -33,4 +33,24 @@ suite('SSNoC Unit Test - Post', function () {
             done();
         });
     });
+
+    test('Get All Posts', function (done) {
+        new User().getUserInfo("TesterJin", function (err, user) {
+            expect(err).to.equal(null);
+            new Post().getAllPosts(function(rows){
+                var len_prev = rows.length;
+                var currentTime = new Date().toLocaleTimeString();
+                new Post().addPost(user.userName, new Status().ok, "Test all posts!", currentTime, function (code) {
+                    expect(code).to.eql(200);
+                }).getPostsByUsername(user.userName, function (rows_curr) {
+                    var len_curr = rows_curr.length;
+                    expect(len_curr).to.eql(len_prev + 1);
+                    expect(rows_curr[len - 1].content).to.eql("Test all posts!");
+                    expect(rows_curr[len - 1].time).to.eql(currentTime);
+                    done();
+                });
+            });
+            done();
+        });
+    });
 });
