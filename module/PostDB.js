@@ -11,12 +11,16 @@ function PostDB() {
  * */
 PostDB.prototype.postAdd = function (username, status, content, time, callback) {
     var dbTemp = this.db;
-    dbTemp.serialize(function () {
-        dbTemp.run("CREATE TABLE IF NOT EXISTS posts (postId INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, status TEXT, time TEXT, content TEXT)");
-        var insertPost = dbTemp.prepare("insert into posts Values(?, ?, ?, ?, ?)");
-        insertPost.run(null, username, status, time, content);
-        callback(200);
-    });
+    if (content == null || content == undefined || content.length == 0) {
+        callback(400);
+    } else {
+        dbTemp.serialize(function () {
+            dbTemp.run("CREATE TABLE IF NOT EXISTS posts (postId INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, status TEXT, time TEXT, content TEXT)");
+            var insertPost = dbTemp.prepare("insert into posts Values(?, ?, ?, ?, ?)");
+            insertPost.run(null, username, status, time, content);
+            callback(200);
+        });
+    }
 };
 /**
  * @function getAllPosts: get all posts from the database.
