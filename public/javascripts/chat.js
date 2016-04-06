@@ -243,7 +243,7 @@ socket.on('send post', function(post) {
 			title: 'New Post by '+post.username+": ",
 			message: post.content
 		},{
-			newest_on_top: true
+			newest_on_top: true,
 		});
 	}
 });

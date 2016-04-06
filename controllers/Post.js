@@ -35,10 +35,11 @@ exports.sendPost = function(req, res, io) {
     pst.time = now();
     pst.status = req.session.status;
     post.addPost(pst.username, pst.status, pst.content, pst.time, function(callback){
-        if (callback == 200)
+        if (callback == 200) {
             console.log("200 OK",pst.username, pst.status, pst.content, pst.time);
+            io.emit('send post', pst);
+        }
     });
-    io.emit('send post', pst);
 };
 
 function now() {
