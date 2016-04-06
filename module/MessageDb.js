@@ -50,6 +50,48 @@ MessageDb.prototype.getPrivateHistory = function (fromUser, toUser, callback) {
     });
 };
 
+
+MessageDb.prototype.groupMessageAdd = function (fromUser, toUser, message, time, status, callback) {
+    //TODO add user exist auth
+    var dbtemp = this.db;
+    dbtemp.serialize(function () {
+        dbtemp.run("CREATE TABLE IF NOT EXISTS groupMessages (messageId INTEGER PRIMARY KEY AUTOINCREMENT, fromUser TEXT, toUser TEXT, time TEXT, content TEXT, status TEXT)");
+        var insertMessage = dbtemp.prepare("insert into groupMessages Values(?, ?, ?, ?, ?, ?)");
+        insertMessage.run(null, fromUser, toUser, time, message, status);
+        callback(200);
+        return;
+    });
+};
+
+MessageDb.prototype.getGroupHistory = function (fromUser, callback) {
+    var dbTemp = this.db;
+    dbTemp.serialize(function () {
+        dbTemp.all("SELECT * FROM groupMessages", function (err, rows) {
+            if (err) {
+                callback(400);
+            } else {
+                callback(rows);
+            }
+        });
+    });
+};
+
+
+MessageDb.prototype.deleteGroupHistory = function (callback) {
+    var dbTemp = this.db;
+    dbTemp.serialize(function () {
+        dbTemp.run("DELETE FROM groupMessages", function (err, rows) {
+            if (err) {
+                callback(400);
+            } else {
+                callback(200);
+            }
+        });
+    });
+};
+
+
+
 MessageDb.prototype.getHistoryByKey = function (keyword, callback) {
     var dbTemp = this.db;
     var q = "SELECT * FROM messages WHERE content Like \'%" + keyword.join('%\' and content Like \'%') + '%\'';

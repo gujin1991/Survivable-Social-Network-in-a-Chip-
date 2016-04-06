@@ -1,16 +1,30 @@
 /**
- * Created by Pan on 2/25/16.
+ * Created by Jin Gu on 4/1/16.
  */
 var onlineUsers = {};
-var offlineUsers = {};
 var chatTarget;
+var groupUsers = [];
 var socket = io.connect();
 var $htmlDiv;
 var content = $('#msgPrivate');
 var username = $("#myname").val();
+var hostname;
+var invitation = {};
 
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
+    getPreviousMessage(username);
+    $.get('/requireGroupList', function(data) {
+        groupUsers  = data.groupList;
+        //console.log(groupUsers);
+        if(groupUsers.length > 1) {
+            chatTarget = groupUsers[1];
+        }
+            hostname = groupUsers[0];
+
+    });
+
+
 });
 
 socket.on('updatelist',function(response){
@@ -25,66 +39,91 @@ socket.on('updatelist',function(response){
 
 // Get the size of an object
     var onlineSize = Object.size(response.online);
-    var offlineSize = Object.size(response.offline);
-    //var username = response.currentUser.userName;
     sortByName(response.online, function(onlineUserList){
         onlineUsers = onlineUserList;
         for(var i = 0; i < onlineSize; i++) {
             setDropdownUserlistClick(username, onlineUserList[i].userName,true);
         }
     });
-    sortByName(response.offline, function(offlineUserList) {
-        offlineUsers = offlineUserList;
-        for(var i = 0; i < offlineSize; i++) {
-            setDropdownUserlistClick(username, offlineUserList[i].userName,false);
-        }
-    });
+
 });
 
-function setDropdownUserlistClick(currentUser, username, isOnline) {
-    $htmlDiv = $('<li class="disabled"><a href="" id="chat-userList"><img alt="OK" height="20px" width="20px" style="margin-right: 5px;" src="../images/icons/current.png">'+ currentUser + '</a></li>');
-    if(isOnline) {
-        if (username != currentUser) {
-            $htmlDiv = $('<li><a href="" id="chat-userList"><img alt="OK" height="20px" width="20px" style="margin-right: 5px;" src="../images/icons/online.png">'+ username + '</a></li>');
-        }
-    } else {
-        $htmlDiv = $('<li><a href="" id="chat-userList"><img alt="OK" height="20px" width="20px" style="margin-right: 5px;" src="../images/icons/offline.png">'+ username + '</a></li>');
-    }
-    $("#userlist-dropdown-append").append($htmlDiv);
-    $htmlDiv.children('#chat-userList').click(function() {
-        event.preventDefault();
-        chatTarget = $(this).text();
-        content.empty();
 
-        //get history
-        if(chatTarget == currentUser){
-            chatTarget = null;
-            $('#private-head').empty();
-            swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
-        }else {
-            $('#private-head').empty().append('   ' + chatTarget);
-            getPrivateMessage(currentUser, chatTarget);
-        }
-
-    });
-}
 
 $('#post-btn').click(function() {
     //event.preventDefault();
-
-    if ($('#private-head').text() == "" || chatTarget == null) {
+    console.log('length ' + groupUsers.length);
+    if (chatTarget == null) {
         swal({title: "Error!",text: "Please select user you want to chat to!", type: "error", confirmButtonText: "OK" });
         $('#focusedInput').val('');
-    } else sendMessage(username,chatTarget);
+    } else sendMessage(username, chatTarget);
 });
 
-function getPrivateMessage(senderName, receiverName) {
-    var users = {"sender": senderName, "receiver":receiverName};
-    $.post('/getPrivateMessage', users, function(messages){
+
+$('#end-btn').click(function() {
+    console.log(hostname + 'hostname');
+    if(hostname == username) {
+        console.log(hostname + 'inhost');
+        var users = {"hostname": hostname};
+        $.post('/endGroupChat', users, function(res) {
+                groupUsers = [];
+                window.location.href = "/";
+            
+        });
+    } else {
+        swal({title: "Sorry!",text: "You can not end the session because you are not the host!", type: "warning", confirmButtonText: "OK" });
+    }
+});
+
+socket.on('groupChatEnd', function(HostName) {
+    if(HostName != username) {
+        groupUsers = [];
+        window.location.href = "/";        
+        swal({title: "Opps!", text: "The session has been ended by the host.", type: "warning", confirmButtonText: "OK"});
+    }
+
+} )
+
+$('#focusedInput').on("keydown", function(e){
+    if(e.which === 13){
+        $('#post-btn').click();
+        return false;
+    }
+});
+
+//Update the groupList
+socket.on('update groupUsers', function(groupList) {
+    groupUsers = groupList;
+});
+
+
+
+
+// Display the new post message
+socket.on('send group message', function(message){
+    if (chatTarget != null){
+        console.log('message' + message);
+        if (message.sender === username) {
+            addPrivateMessage(message, message.text, "Me");
+        } else {
+            addPrivateMessage(message, message.text, message.sender);
+        }
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        var chat_body = $('#private-stream-list');
+        var height = chat_body[0].scrollHeight;
+        chat_body.scrollTop(height);
+    }
+
+});
+
+
+function getPreviousMessage(senderName) {
+    var users = {"sender": senderName};
+    $.post('/getGroupMessage', users, function(messages){
         for(var i=0; i<messages.length; i++) {
             var message = messages[i];
-            console.log(username);
-            console.log(message.fromUser);
+            //console.log(username);
+            //console.log(message.fromUser);
             if (message.fromUser === username) {
                 addPrivateMessage(message, message.content, "Me");
             } else if (message.toUser === username) {
@@ -98,7 +137,7 @@ function getPrivateMessage(senderName, receiverName) {
     });
 }
 
-function sendMessage(senderName, receiverName) {
+function sendMessage(senderName, receiversName) {
     var text = $('#focusedInput').val();
     var obj = {};
     if(text ==="") {
@@ -117,10 +156,10 @@ function sendMessage(senderName, receiverName) {
                 return false
             }
             obj['sender'] = senderName;
-            obj['receiver'] = receiverName;
+            obj['receiver'] = receiversName;
             obj['text'] = inputValue;
             swal.close();
-            $.post("/chatPrivately",obj,function(response){
+            $.post("/groupChat",obj,function(response){
                 if (response.statusCode === 400) {
                     swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
                 }
@@ -128,10 +167,10 @@ function sendMessage(senderName, receiverName) {
         });
     } else {
         obj['sender'] = senderName;
-        obj['receiver'] = receiverName;
+        obj['receiver'] = receiversName;
         obj['text']= text;
 
-        $.post("/chatPrivately",obj,function(response){
+        $.post("/groupChat",obj,function(response){
             if (response.statusCode === 400) {
                 swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
             }
@@ -160,26 +199,11 @@ function sortByName(dict, callback) {
     callback(tempDict);
 }
 
-// Display the new post message
-socket.on('send private message', function(message){
-    if (chatTarget != null){
-        if (message.sender === username) {
-            addPrivateMessage(message, message.text, "Me");
-        } else {
-            addPrivateMessage(message, message.text, message.sender);
-        }
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-        var chat_body = $('#private-stream-list');
-        var height = chat_body[0].scrollHeight;
-        chat_body.scrollTop(height);
-    }
-
-});
 
 function addPrivateMessage(message, text, name) {
 
     var status = message.status;
-    console.log("*****************\n" + status);
+    //console.log("*****************\n" + status);
     var logoName;
     if (status == 'OK') {
         logoName = "ok.png";
@@ -206,33 +230,31 @@ function addPrivateMessage(message, text, name) {
     content.append(one);
 }
 
-$('#focusedInput').on("keydown", function(e){
-    if(e.which === 13){
-        $('#post-btn').click();
-        return false;
-    }
-});
-
-socket.on('get group invitation', function(invitation){
-    username = $('#myname').val();
-    console.log("get invitation");
-    if(invitation.receiver == username)
-        swal({   title: "Notification!",   text: "You have a group invitation from " + invitation.sender,   imageUrl: "../images/icons/message.png" });
-});
-
-
-$('#groupchat').on('click', function(e) {
-    username = $('#myname').val();
-    var user = {"username": username};
-    //var users = {"hostname": hostname};
-    console.log("click grouchat " + username);
-    $.post('/checkGroupAvail', {'username': username}, function(res) {
-        //console.log("click grouchat");
-        if(res.available == 'True') {
-            window.location.href = "/groupChat";
-        } else {
-            swal({   title: "Notification!",   text: "Sorry! There is a group meeting going on and you have not been invited.",   imageUrl: "../images/icons/message.png" });
+function setDropdownUserlistClick(currentUser, username, isOnline) {
+    $htmlDiv = $('<li class="disabled"><a href="" id="chat-userList"><img alt="OK" height="20px" width="20px" style="margin-right: 5px;" src="../images/icons/current.png">'+ currentUser + '</a></li>');
+    if(isOnline) {
+        if (username != currentUser) {
+            $htmlDiv = $('<li><a href="" id="chat-userList"><img alt="OK" height="20px" width="20px" style="margin-right: 5px;" src="../images/icons/online.png">'+ username + '</a></li>');
         }
+    } else {
+        $htmlDiv = $('<li><a href="" id="chat-userList"><img alt="OK" height="20px" width="20px" style="margin-right: 5px;" src="../images/icons/offline.png">'+ username + '</a></li>');
+    }
+    $("#userlist-dropdown-append").append($htmlDiv);
+    console.log('send invitation');
+    $htmlDiv.children('#chat-userList').click(function() {
+        console.log('send invitation2');
+        //event.preventDefault();
+        chatTarget = $(this).text();
+        invitation = {'sender': currentUser, 'receiver':chatTarget};
+        socket.emit('send group invitation', invitation);
+        if(chatTarget == currentUser){
+            chatTarget = null;
+            $('#private-head').empty();
+            swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
+        }
+
     });
-});
+}
+
+
 

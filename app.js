@@ -11,12 +11,16 @@ var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
 var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
-
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
 
+var groupChat = require('./controllers/GroupChat.js')
+
 //save all the socket with the name of it's name.
-var sockets = {}
+var sockets = {};
+
+//save all current the group users here.
+var groupUsers = [];
 
 //flag represents test mode
 var testModeFlag = false;
@@ -349,4 +353,88 @@ io.on('connection', function(socket) {
         delete sockets[myname];
     });
 
+    //send group invitation
+    socket.on('send group invitation', function(inviteMsg) {
+        console.log("test");
+        if(groupUsers.indexOf(inviteMsg.receiver) == - 1) {
+            groupUsers.push(inviteMsg.receiver);
+        }
+        io.emit('get group invitation', inviteMsg);
+    });
+
+});
+
+//group chat
+app.post('/groupChat',function(req,res){
+    //console.log('good'+ req.body.receiver);
+    //console.log('good'+ groupUsers);
+
+
+
+
+    if(!testModeFlag) {
+        //may be unnecessary
+        if(groupUsers.indexOf(req.body.receiver) == -1) {
+            groupUsers.push(req.body.receiver);
+        }
+        io.emit('update groupUsers', groupUsers);
+        groupChat.sendGroupMessage(req, res,io);
+        
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+//get groupUserList
+app.get('/requireGroupList', function(req, res) {
+   res.json({"groupList": groupUsers});
+});
+
+//get previous group chat message
+app.post('/getGroupMessage',function(req,res){
+
+
+    if(!testModeFlag) groupChat.getMessages(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+//end the group chat
+app.post('/endGroupChat', function(req,res) {
+    if(!testModeFlag) groupChat.endGroupChat(req,res,io,function(callback) {
+        if(callback == 200) {
+            groupUsers = [];
+        }
+    });
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+//check if group chat available
+app.post('/checkGroupAvail', function(req,res) {
+    //console.log(req.body);
+    //console.log(groupUsers);
+   if(groupUsers.indexOf(req.body.username) != -1 || groupUsers.length == 0) {
+       if(groupUsers.length == 0) {
+           groupUsers.push(req.body.username);
+       }
+       res.json({'available':'True'});
+   } else {
+       res.json({'available':'False'});
+   }
+});
+
+
+//direct to group chat page
+app.get('/groupChat', function(req, res){
+
+
+    if(!testModeFlag){
+        if (req.session.loggedIn) {
+            res.render('groupChat', {'username': req.session.username, 'status': req.session.status});
+        } else {
+            res.render('signin');
+        }
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
 });

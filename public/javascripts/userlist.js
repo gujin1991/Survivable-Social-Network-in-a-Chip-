@@ -192,3 +192,26 @@ $("#search-username-cancel").click(function(event) {
     });
     $("#search-username").val("");
 });
+
+socket.on('get group invitation', function(invitation){
+    username = $('#myname').val();
+    console.log("get invitation");
+    if(invitation.receiver == username)
+        swal({   title: "Notification!",   text: "You have a group invitation from " + invitation.sender,   imageUrl: "../images/icons/message.png" });
+});
+
+
+$('#groupchat').on('click', function(e) {
+    username = $('#myname').val();
+    var user = {"username": username};
+    //var users = {"hostname": hostname};
+    console.log("click grouchat " + username);
+    $.post('/checkGroupAvail', {'username': username}, function(res) {
+        //console.log("click grouchat");
+        if(res.available == 'True') {
+            window.location.href = "/groupChat";
+        } else {
+            swal({   title: "Notification!",   text: "Sorry! There is a group meeting going on and you have not been invited.",   imageUrl: "../images/icons/message.png" });
+        }
+    });
+});
