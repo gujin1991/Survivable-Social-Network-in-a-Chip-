@@ -43,6 +43,8 @@ $.get('/getPosts', function(data){
 $('#post-all-btn').on('click', function(e) {
     var div = $('#posts');
     div.empty();
+    $('#post-mine-btn').text("My Posts");
+    $('#post-mine-btn').removeAttr("disabled");
     $.get('/getPosts', function(data){
         for(var i=0; i<data.length; i++) {
             var post = data[i];
@@ -81,6 +83,8 @@ $(document).on('click', '.my-btn-link', function(e){
             var post = data[i];
             addPost(post, post.userName, post.content);
         }
+        $('#post-mine-btn').text(myname + "'s Posts");
+        $('#post-mine-btn').attr("disabled", true);
     });
 });
 
