@@ -15,5 +15,6 @@ exports.postNotification = function (req, res, io) {
     } else {
         var notification = req.body;
         io.emit('broadcast notification', notification);
+        res.end();
     }
 };
