@@ -15,7 +15,7 @@ suite('SSNoC Unit Test - Post', function () {
             var currentTime = new Date().toLocaleTimeString();
             new Post().addPost(user.userName, new Status().ok, "Test post!", currentTime, function (code) {
                 expect(code).to.eql(200);
-            }).getDetails(function (rows) {
+            }).getPostsByUsername(user.userName, function (rows) {
                 var len = rows.length;
                 expect(rows[len - 1].content).to.eql("Test post!");
                 expect(rows[len - 1].time).to.eql(currentTime);
