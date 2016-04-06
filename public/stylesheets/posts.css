@@ -20,3 +20,15 @@ body {
 .my-btn-group {
     margin: 71px 0 0;
 }
+
+.my-btn-link {
+    background-color: transparent;
+    color: #333;
+    font-size: 14px;
+}
+.my-btn-link:hover {
+    color: rgba(51, 51, 51, 0.6);
+}
+.my-btn-link:active {
+    color: rgba(51, 51, 51, 0.6);
+}

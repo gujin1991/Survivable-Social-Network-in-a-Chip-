@@ -132,6 +132,19 @@ socket.on('send private message', function(message){
     swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });
 
+socket.on('send post', function(post) {
+    var myname = $('#myname').val();
+    // pop out alert
+    if (post.username != myname) {
+        $.notify({
+            title: 'New Post by '+post.username+": ",
+            message: post.content
+        },{
+            newest_on_top: true
+        });
+    }
+});
+
 /**
  * Update the online&offline user list.
  * */

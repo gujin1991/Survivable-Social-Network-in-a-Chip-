@@ -9,7 +9,17 @@ socket.on('connect', function () {
 });
 
 socket.on('send post', function(post) {
+    var myname = $('#myname').val();
     addPost(post, post.username, post.content);
+    // pop out alert
+    if (post.username != myname) {
+        $.notify({
+            title: 'New Post by '+post.username+": ",
+            message: post.content
+        },{
+            newest_on_top: true
+        });
+    }
 });
 
 socket.on('send private message', function(message){
@@ -45,9 +55,25 @@ $('#post-all-btn').on('click', function(e) {
  * show my posts.
  * */
 $('#post-mine-btn').on('click', function(e) {
-    console.log("************");
     var div = $('#posts');
     var myname = $('#myname').val();
+    div.empty();
+    $.post('/getPostsByUsername', {'postUsername':myname}, function(data){
+        for(var i=0; i<data.length; i++) {
+            var post = data[i];
+            addPost(post, post.userName, post.content);
+        }
+    });
+});
+
+/**
+ * get the posts of user by clicking on his/her name.
+ * */
+$(document).on('click', '.my-btn-link', function(e){
+    console.log("this is working ----- ");
+    var div = $('#posts');
+    var myname = $(this).text();
+    console.log(myname);
     div.empty();
     $.post('/getPostsByUsername', {'postUsername':myname}, function(data){
         console.log(myname + data.length);
@@ -118,7 +144,7 @@ function addPost(post, username, content) {
     var div = $('#posts');
     var label = '<div class="panel panel-default">' +
                     '<div class="panel-heading">' +
-                        '<span>' + username + '</span>' +
+                        '<button class="my-btn-link btn btn-link" type="submit">' + username + '</button>' +
                         '<img alt="' + status + '" height="20px" width="20px" style="margin-left: 5px;" src="../images/icons/' + logoName + '">' +
                         '<div class="timestamp pull-right">' +
                             '<i class="fa fa-clock-o fa-1"></i>' +
