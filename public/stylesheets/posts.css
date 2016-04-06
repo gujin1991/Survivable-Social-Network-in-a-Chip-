@@ -16,6 +16,7 @@ body {
 .jumbotron {
     height: 450px;
     overflow: scroll;
+    background-color: rgba(191, 191, 191, 0.3);;
 }
 .my-btn-group {
     margin: 71px 0 0;

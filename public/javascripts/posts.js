@@ -2,7 +2,6 @@
  * Created by congshan on 4/6/16.
  */
 var socket = io.connect();
-var unread = 0;
 
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
@@ -86,6 +85,10 @@ $(document).on('click', '.my-btn-link', function(e){
         $('#post-mine-btn').text(myname + "'s Posts");
         $('#post-mine-btn').attr("disabled", true);
     });
+});
+
+$('#cancel-btn').on('click', function(e){
+    $('#focusedInput').val('');
 });
 
 /**
