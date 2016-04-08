@@ -60,7 +60,7 @@ suite('SSNoC Unit Test - SearchInformation', function () {
         directory.deleteLoggedInUsers(new User().initialize(testerName, "19911991", new Status().ok));
         directory.searchOffLineByStatus(new Status().help, function(offlineUser) {
             //console.log(offlineUser);
-            expect(offlineUser[0].userName).eql(testerName);
+            expect(offlineUser[offlineUser.length -1 ].userName).eql(testerName);
             done();
         });
 
