@@ -69,7 +69,6 @@ suite('SSNoC Unit Test - ChangeProfile', function () {
             expect(user[0].skill).to.eql('Computer Science');
             expect(user[0].gender).to.eql('Male');
 
-
         });
         temp.initializeForChangeFile('TesterJin','null','null','null','null','null').updateProfile(function(result) {
             done();
