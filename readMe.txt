@@ -1,1 +1,1 @@
-Author:Jin Gu.
+Author:Jin GU

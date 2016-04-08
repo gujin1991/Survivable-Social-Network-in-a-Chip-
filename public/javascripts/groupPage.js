@@ -72,7 +72,7 @@ $('#end-btn').click(function() {
 });
 
 socket.on('groupChatEnd', function(HostName) {
-    if(HostName != username) {
+    if(HostName != username && username != hostname) {
 
         end = 1;
         swal({title: "Opps!", text: "The session has been ended by the host.", type: "warning", confirmButtonText: "OK"});
