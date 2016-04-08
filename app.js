@@ -11,12 +11,16 @@ var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
 var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
-
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
 
+var groupChat = require('./controllers/GroupChat.js')
+
 //save all the socket with the name of it's name.
-var sockets = {}
+var sockets = {};
+
+//save all current the group users here.
+var groupUsers = [];
 
 //flag represents test mode
 var testModeFlag = false;
@@ -350,3 +354,92 @@ io.on('connection', function(socket) {
     });
 
 });
+
+app.post('/sendGroupInvitation', function(req, res) {
+    groupChat.addNewGroupUser(req,res);
+    console.log("sender" + req.body.sender);
+    console.log("sender" + req.body.receiver);
+    console.log("sender" + req.body.groupName);
+    var invitaion = {'sender': req.body.sender, 'receiver':req.body.receiver, 'groupName':req.body.groupName};
+    io.emit('get group invitation', invitaion);
+});
+
+//send message
+app.post('/groupChat',function(req,res){
+    //console.log('good'+ req.body.receiver);
+    //console.log('good'+ groupUsers);
+    if(!testModeFlag) {
+        groupChat.sendGroupMessage(req, res,io);
+        
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+//get previous group chat message
+app.get('/getGroupMessage',function(req,res){
+
+
+    if(!testModeFlag) groupChat.getMessages(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+//end the group chat
+app.post('/endGroupChat', function(req,res) {
+    if(!testModeFlag) groupChat.endGroupChat(req,res,io);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+
+//direct to group chat page
+app.get('/groupChat', function(req, res){
+
+
+    if(!testModeFlag){
+        if (req.session.loggedIn) {
+            res.render('groupChat', {'username': req.session.username, 'status': req.session.status});
+        } else {
+            res.render('signin');
+        }
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+//direct to group page
+app.get('/groupPage', function(req, res){
+
+    console.log(req.query.hostname);
+    if(!testModeFlag){
+        if (req.session.loggedIn) {
+            console.log("true");
+
+            res.render('groupPage', {'username': req.session.username, 'status': req.session.status, 'hostname':req.query.hostname});
+        } else {
+            res.render('signin');
+        }
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.post('/createNewGroup', function(req, res) {
+    console.log(req.body.groupName + "test");
+    groupChat.addNewGroup(req,res);
+
+});
+
+
+/*app.post('/addGroupUser', function(req, res) {
+    console.log(req.body.userName + "testUser");
+    groupChat.addNewGroupUser(req,res);
+
+});*/
+
+app.get('/getGroup', function(req,res) {
+    console.log(req + "getGroup");
+    groupChat.getGroup(req,res);
+});
+
+
+

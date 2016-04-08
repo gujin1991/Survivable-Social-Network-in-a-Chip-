@@ -8,13 +8,13 @@ var expect = require('expect.js');
 var User = require('../module/User.js');
 var TestMessage = require('../module/TestMessage.js');
 
-suite('SSNoC Unit Test - Message', function () {
+suite('SSNoC Unit Test - MeasurePerformance', function () {
 
     test('Send test successfully.', function (done) {
         new User().getUserInfo("TesterJin", function (err1, user1) {
             var currentTime = new Date().toLocaleTimeString();
-            var message = new TestMessage(user1.userName, "Hello, Yu!", "OK", currentTime);
-            message.addMessage(user1.userName, "Hello, Yu!", currentTime, "OK", function (code) {
+            var message = new TestMessage("TesterJin", "Hello, Yu!", "OK", currentTime);
+            message.addMessage("TesterJin", "Hello, Yu!", currentTime, "OK", function (code) {
                 expect(code).to.eql(200);
                 done();
             });

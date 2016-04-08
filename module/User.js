@@ -49,4 +49,28 @@ User.prototype.getUserInfo = function (userName, callback) {
     });
 };
 
+User.prototype.addGroup = function(userName, callback) {
+    this.userDb.addGroup(userName, userName, function(code) {
+        callback(code);
+    });
+};
+
+User.prototype.addGroupUser = function(GroupName, username, callback) {
+    this.userDb.addGroupUser(GroupName, username, function(code) {
+        callback(code);
+    });
+}
+
+
+User.prototype.getGroup_User = function(userName, callback) {
+    this.userDb.getGroup_DB(userName, function(code) {
+        callback(code);
+    });
+};
+
+User.prototype.deleteGroup_User = function (groupName, callback) {
+    this.userDb.deleteGroup_DB(groupName, callback);
+};
+
+
 module.exports = User;

@@ -135,4 +135,74 @@ UserDb.prototype.getOfflineUsersByStatus = function (key, onlineUsers, callback)
     })
 };
 
+UserDb.prototype.addGroup = function(groupName, hostname, callback) {
+    var dbTemp = this.db;
+    dbTemp.run("CREATE TABLE IF NOT EXISTS groups (GroupName TEXT, usersName Text, Date Text)", function (err) {
+        var insertUser = dbTemp.prepare("insert into groups Values(?,?,?)");
+        var time = new Date().toLocaleString();
+        insertUser.run(groupName, hostname,time);
+        if(err) {
+            callback(400);
+        } else {
+            callback(200);
+        }
+
+
+    });
+};
+
+UserDb.prototype.addGroupUser = function(groupName, userName, callback) {
+    var dbTemp = this.db;
+    var preUsers;
+    console.log("groupName" + groupName);
+    //dbTemp.all("select * from users where userName=\"" + userName + "\"", function (err, row) {
+
+        dbTemp.all('select * from groups where groupName =  \'' + groupName + '\'', function(err, row) {
+        console.log("groupName" + row);
+        if(row.length > 0) {
+            preUsers = row[0].usersName;
+            console.log("groupName" + row);
+            var q = 'UPDATE groups SET usersName = \'' + preUsers + " " + userName + '\' WHERE groupName = \'' + groupName + '\'';
+            dbTemp.run(q, function () {
+                //console.log("group " + group);
+                callback(200);
+            });
+        } else {
+            callback(400);
+        }
+    });
+
+
+
+}
+
+
+UserDb.prototype.getGroup_DB = function(userName, callback) {
+    console.log(userName);
+    var q = 'SELECT groupname FROM groups where usersname like\'%' + userName + '%\'' ;
+    var dbTemp = this.db;
+    dbTemp.all(q, function (err, rows) {
+        if(err) {
+            callback({'group':err,'code':400});
+        } else
+            callback({'group':rows,'code':200});
+        console.log(rows);
+
+    })
+};
+
+UserDb.prototype.deleteGroup_DB = function (groupName, callback) {
+    var dbTemp = this.db;
+    console.log("groupName " + groupName);
+
+    dbTemp.serialize(function () {
+        dbTemp.run("DELETE FROM groups where groupName = \"" + groupName + "\"", function (err, rows) {
+            console.log("delete " + err);
+            callback(200);
+        });
+    });
+};
+
+
+
 module.exports = UserDb;

@@ -234,3 +234,12 @@ $('#focusedInput').on("keydown", function(e){
 socket.on('send private message', function(message){
 	swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
 });
+
+socket.on('get group invitation', function(invitation){
+	username = $('#myname').val();
+	console.log("get invitation");
+	if(invitation.receiver == username)
+		swal({   title: "Notification!",   text: "You have a group invitation from " + invitation.sender,   imageUrl: "../images/icons/message.png" });
+});
+
+
