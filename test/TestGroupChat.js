@@ -27,6 +27,13 @@ suite('SSNoC Unit Test - Group Chat', function () {
             });
     });
 
+    test('Initialize the group', function(done) {
+        new User().deleteGroup_User("GUU",function(code) {
+            expect(code).to.eql(200);
+            done();
+        })
+    });
+
     test('Add new group', function(done) {
         new User().addGroup("GUU", function(code) {
             expect(code).to.eql(200);
