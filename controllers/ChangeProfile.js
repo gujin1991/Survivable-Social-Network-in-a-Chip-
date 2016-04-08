@@ -29,7 +29,7 @@ exports.viewProfile = function (req,res) {
 
     new User().getUserProfile(req.params.username,function(err,user){
         if (err){
-            res.json({"statusCode":400, "message": "Cannot get data from databse"});
+            res.json({"statusCode":400, "message": "Cannot get data from database"});
         }else{
             res.render('otherProfile', user[0]);
         }

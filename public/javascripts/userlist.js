@@ -99,7 +99,8 @@ function setOfflineTable(offline_users, size) {
 
         var new_line = '<tr>' +
             '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
-            '<span>' + offline_users[i].userName + '</span>' + '</td>' +
+            '<span><a href="/seeProfile/'+ offline_users[i].userName +'">' + offline_users[i].userName + '</a></span>' + '</td>' +
+            //'<span>' + offline_users[i].userName + '</span>' + '</td>' +
             '<td  width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
