@@ -10,11 +10,11 @@ exports.getNotification = function (req, res) {
 };
 
 exports.postNotification = function (req, res, io) {
-    if (!req.session.loggedIn) {
-        res.render('index', {'username': req.session.username});
-    } else {
+    // if (!req.session.loggedIn) {
+    //     res.render('index', {'username': req.session.username});
+    // } else {
         var notification = req.body;
         io.emit('broadcast notification', notification);
         res.end();
-    }
+    // }
 };
