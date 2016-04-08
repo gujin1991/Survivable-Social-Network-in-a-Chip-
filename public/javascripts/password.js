@@ -46,6 +46,7 @@ $submit.on('click', function(e) {
                 username : userName,
                 password : newP,
                 oldpassword : oldP
+             
             },
             function(response) {
                 //console.log(response);
