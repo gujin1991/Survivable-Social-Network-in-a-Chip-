@@ -82,7 +82,7 @@ exports.register = function(req, res) {
 
 exports.logout = function(req,res){
     var myname = req.session.username;
-    console.log('User ' + myname + " left the room.");
+    //console.log('User ' + myname + " left the room.");
     directory.getOnlineUsers(function(onlineUsers){
         var index = onlineUsers.indexOf(myname);
         if (index > -1) {
@@ -91,6 +91,7 @@ exports.logout = function(req,res){
         req.session.destroy();
         res.redirect('/');
     });
+
 }
 
 exports.directSignin = function(req,res){

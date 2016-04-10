@@ -11,12 +11,14 @@ var shareStatus = require('./controllers/ShareStatus.js');
 var userListCtl = require('./controllers/UserList.js');
 var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
-
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
+var administer = require('./controllers/A​dminister.js');
 
 //save all the socket with the name of it's name.
 var sockets = {}
+
+
 
 //flag represents test mode
 var testModeFlag = false;
@@ -228,8 +230,6 @@ app.post('/chatPrivately',function(req,res){
 
 //get previous privately chat message
 app.post('/getPrivateMessage',function(req,res){
-
-
     if(!testModeFlag) chatPrivately.getPrivateMessages(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -238,16 +238,12 @@ app.post('/getPrivateMessage',function(req,res){
 
 //search information use case.
 app.post('/searchUser', function(req,res){
-
-
     if(!testModeFlag)  searchCtl.getUsersByName(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 
 app.post('/searchStatus',function(req,res){
-
-
     if(!testModeFlag) searchCtl.getUsersByStatus(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -322,6 +318,20 @@ app.post('/endMeasurePerformance', function(req, res) {
 });
 
 
+//new use case : administer users profile
+app.get('/changeProfileByAdmin', function(req,res) {
+    if(!testModeFlag) administer.directToProfile(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+//modify user's  profile
+app.put('/updateProfile',function(req,res){
+    if(!testModeFlag) administer.updateProfile(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+
 
 io.on('connection', function(socket) {
     var myname;
@@ -342,8 +352,6 @@ io.on('connection', function(socket) {
     socket.on('disconnect',function(){
         //console.log('disconnect : ' + socket.username);
         signInCtl.deleteLoggedInUsers(socket.user);
-        //signInCtl.deleteLoggedInUsers(socket.username);
-       //chatPublicly.getOfflineUserIo(loggedInUsers,io);
         signInCtl.getOfflineUserIo(socket.user,io);
         delete sockets[myname];
     });

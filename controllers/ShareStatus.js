@@ -26,7 +26,6 @@ exports.updateStatus = function(req,res,io) {
             message.online = onlineUsers;
         });
         io.emit('updatelist',message);
-
     });
 }
 

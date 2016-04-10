@@ -6,9 +6,11 @@ var UserDb = require('./UserDb.js');
 function User() {
     this.userName = null;
     this.password = null;
-    this.logged = false;
     this.status = null;
     this.userDb = new UserDb();
+    this.oldUsername = null;
+    this.privilege = null;
+    this.accountStatus = null;
 }
 
 User.prototype.initialize = function (userName, password, status) {
@@ -16,6 +18,20 @@ User.prototype.initialize = function (userName, password, status) {
     this.password = password;
     this.status = status;
     return this;
+};
+
+User.prototype.initializeForAdmin = function (oldUsername,username,password, privilege,accountStatus) {
+    this.userName = username;
+    this.password = password;
+    this.oldUsername = oldUsername;
+    this.privilege = privilege;
+    this.accountStatus = accountStatus;
+    return this;
+};
+
+
+User.prototype.updateProfileByAdmin = function (callback) {
+    this.userDb.updateProfile(this.oldUsername, this.userName ,this.password,this.privilege , this.accountStatus,callback);
 };
 
 User.prototype.userAdd = function (callback) {
@@ -42,6 +58,18 @@ User.prototype.getUserInfo = function (userName, callback) {
         } else {
             this.userName = dbData.userName;
             this.status = dbData.status;
+            callback(null, dbData);
+        }
+
+        return this;
+    });
+};
+
+User.prototype.getUserProfile = function (userName, callback) {
+    this.userDb.getUserProfile(userName, function (err, dbData) {
+        if (err) {
+            callback(400, null);
+        } else {
             callback(null, dbData);
         }
 

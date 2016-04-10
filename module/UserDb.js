@@ -22,7 +22,7 @@ UserDb.prototype.userAdd = function (username, password, callback) {
             }
             var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?,?,?)");
             var time = new Date().toLocaleString();
-            insertUser.run(username, password, time, new Status().undefine,Privilege.citizen,AccountStatus.active);
+            insertUser.run(username, password, time, new Status().undefine,new Privilege().citizen,new AccountStatus().active);
 
             dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
                 if (err || row == null || row.length == 0) {
@@ -138,6 +138,53 @@ UserDb.prototype.getOfflineUsersByStatus = function (key, onlineUsers, callback)
     dbTemp.all(q, function (err, rows) {
         callback(rows);
     })
+};
+
+UserDb.prototype.getUserProfile = function (userName, callback) {
+    var dbTemp = this.db;
+
+    dbTemp.serialize(function () {
+        dbTemp.all("select * from users where userName=\"" + userName + "\"", function (err, row) {
+
+            //console.log("error ------------------" + err);
+            //console.log(row);
+
+            if (err || row == null || row.length == 0) {
+                callback(305, null);
+            } else {
+                callback(null, row);
+            }
+        });
+    });
+};
+
+
+UserDb.prototype.updateProfile = function (oldUsername, username, password, privilege, accountStatus,callback) {
+    var dbTemp = this.db;
+
+    dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
+        if ( row.length != 0) {
+            callback(401, null);
+        }else{
+            var q = 'UPDATE users SET userName = \'' + username +'\',password = \'' + password
+                + '\',privilege = \'' + privilege + '\',accountStatus = \'' + accountStatus
+                + '\' WHERE userName = \'' + oldUsername + '\'';
+            //console.log(q);
+
+            dbTemp.run(q, function () {
+                dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
+                    if (row.length > 0 && row[0].password == password && row[0].privilege == privilege
+                        &&  row[0].accountStatus == accountStatus ){
+                        callback(200);
+                        // console.log(row);
+                    }else callback(400);
+
+                });
+            });
+        }
+    });
+
+
 };
 
 module.exports = UserDb;
