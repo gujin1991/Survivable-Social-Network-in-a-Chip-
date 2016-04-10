@@ -298,8 +298,6 @@ app.post('/testModeQuit',function(req,res){
     }
 });
 
-
-
 app.post('/testPost', function(req,res) {
     if(testModeFlag) measurePerformance.sendTestMessage(req,res);
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
@@ -322,6 +320,7 @@ app.post('/endMeasurePerformance', function(req, res) {
     }
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
+
 
 
 io.on('connection', function(socket) {

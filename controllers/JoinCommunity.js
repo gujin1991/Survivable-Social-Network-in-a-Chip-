@@ -35,12 +35,13 @@ exports.checkSignIn = function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
     new User().initialize(username).exist(function(result){
-        if (result == 305){
+
+        if (result == 401){
 
             console.log("user not exist");
             res.json({"statusCode":401, "message": "User not found"});
 
-        } else if (result == 303){
+        } else if (result == 403){
 
             console.log("user exist");
             new User().initialize(username, password).userAuth(function(result,user) {
@@ -53,6 +54,9 @@ exports.checkSignIn = function(req, res) {
                     res.json({"statusCode":200, "message": "Success"});
                 }
             });
+        }else if(result == 407){
+            console.log("user not active");
+            res.json({"statusCode":407, "message": "Inactive User"});
         }
     });
 }

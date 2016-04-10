@@ -4,6 +4,8 @@
 //
 var sqlite3 = require('sqlite3').verbose();
 var Status = require('./Status');
+var Privilege = require('./Privilege');
+var AccountStatus = require('./AccountStatus');
 var User = require('./User.js');
 
 function UserDb() {
@@ -12,15 +14,15 @@ function UserDb() {
 
 UserDb.prototype.userAdd = function (username, password, callback) {
     var dbTemp = this.db;
-    dbTemp.run("CREATE TABLE IF NOT EXISTS users (userName TEXT PRIMARY KEY, password TEXT, joinTime TEXT , status TEXT)", function () {
+    dbTemp.run("CREATE TABLE IF NOT EXISTS users (userName TEXT PRIMARY KEY, password TEXT, joinTime TEXT , status TEXT, privilege TEXT, accountStatus TEXT)", function () {
         dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
             if (row.length != 0) {
                 callback(400, null);
                 return;
             }
-            var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?)");
+            var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?,?,?)");
             var time = new Date().toLocaleString();
-            insertUser.run(username, password, time, new Status().undefine);
+            insertUser.run(username, password, time, new Status().undefine,Privilege.citizen,AccountStatus.active);
 
             dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
                 if (err || row == null || row.length == 0) {
@@ -43,10 +45,13 @@ UserDb.prototype.exist = function (username, callback) {
     dbTemp.serialize(function () {
         dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
             if (row == null || row.length == 0) {
-                callback(305);
-            } else {
-                callback(303);
+                callback(401);
+            } else if(row[0].accountStatus == AccountStatus.active){
+                callback(403);
+            }else{
+                callback(407);// 307 means inactive
             }
+
         });
     });
 };
