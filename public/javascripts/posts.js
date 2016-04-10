@@ -166,3 +166,14 @@ function addPost(post, username, content) {
     div.prepend(one);
 }
 
+function thirty_pc() {
+    var height = $(window).height();
+    var thirtypc = (85 * height) / 100;
+    thirtypc = parseInt(thirtypc) + 'px';
+    $(".jumbotron").css('height',thirtypc);
+}
+
+$(document).ready(function() {
+    thirty_pc();
+    $(window).bind('resize', thirty_pc);
+});

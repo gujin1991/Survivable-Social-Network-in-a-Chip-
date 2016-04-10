@@ -14,12 +14,18 @@ body {
     border-bottom: none;
 }
 .jumbotron {
-    height: 450px;
-    overflow: scroll;
+    /*padding-top: 1px;*/
+    margin: 71px 0 20px;
+    height: 80%;
     background-color: rgba(191, 191, 191, 0.3);;
 }
+#posts {
+    height: 90%;
+    overflow: scroll;
+}
+
 .my-btn-group {
-    margin: 71px 0 0;
+    /*margin: 71px 0 0;*/
 }
 
 .my-btn-link {

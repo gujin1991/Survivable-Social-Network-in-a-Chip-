@@ -52,4 +52,6 @@ suite('SSNoC Unit Test - Post', function () {
             done();
         });
     });
+
+    // add test for user doesn't exist
 });

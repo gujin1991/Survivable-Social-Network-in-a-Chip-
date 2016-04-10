@@ -63,26 +63,27 @@
         <input type="hidden" id="mystatus" value="<%=status%>">
         <!-- main column -->
         <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
-            <div class="btn-group btn-group-justified my-btn-group" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button id="post-all-btn" type="submit" class="btn btn-default">All Posts</button>
+
+            <div class="jumbotron">
+                <div class="btn-group btn-group-justified my-btn-group" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button id="post-all-btn" type="submit" class="btn btn-default">All Posts</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button id="post-mine-btn" type="submit" class="btn btn-default">My Posts</button>
+                    </div>
                 </div>
-                <div class="btn-group" role="group">
-                    <button id="post-mine-btn" type="submit" class="btn btn-default">My Posts</button>
-                </div>
-            </div>
-            <div class="input-group">
-                <input id="focusedInput" type="text" class="form-control" placeholder="Enter your post here...">
+                <div class="input-group">
+                    <input id="focusedInput" type="text" class="form-control" placeholder="Enter your post here...">
                  <span class="input-group-btn">
                      <button id="cancel-btn" type="submit" class="btn btn-danger">
-                         Cancel
+                         <i class="fa fa-times"></i>
                      </button>
                      <button id="post-btn" type="submit" class="btn btn-info">
-                         Post
+                         <i class="fa fa-paper-plane"></i>
                      </button>
                  </span>
-            </div>
-            <div class="jumbotron">
+                </div>
                 <div id="posts"></div>
             </div>
         </div>
