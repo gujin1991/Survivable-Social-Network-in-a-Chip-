@@ -3,6 +3,7 @@
  */
 
 var User = require('../module/User.js');
+var directory = require('../module/Directory.js')
 
 var nameReserved = ['about','access','account','accounts','add','address','adm','admin','administration',
     'adult','advertising','affiliate','affiliates','ajax','analytics','android','anon','anonymous',
@@ -65,7 +66,19 @@ exports.updateProfile = function(req, res) {
             res.json({"statusCode":400, "message": "Cannot save"});
         } else if(result == 200) {
             if(oldUsername != username){
+                directory.updateUserName(oldUsername,username);
 
+                directory.getOfflineUsers(function(offUsers){
+                    var cur = {};
+                    cur.userName = user.userName;
+                    cur.status = user.status;
+                    message.currentUser = cur;
+                    message.offline = offUsers;
+                    directory.getOnlineUsers(function(onlineUsers){
+                        message.online = onlineUsers;
+                    });
+                    io.emit('updatelist',message);
+                });
             }
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){

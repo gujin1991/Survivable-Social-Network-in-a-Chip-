@@ -87,4 +87,10 @@ function updateProfile(oldUsername, username, password, privilege, accountStatus
 
 //userAdd("jiyuT","1234",db);
 //userAdd("jiyuTest","1234",db);
-updateProfile("jiyuT","jiyuHahahahahaha1","12345","Administrator","inactive",db);
+//updateProfile("jiyuT","jiyuHahahahahaha1","12345","Administrator","inactive",db);
+
+var user = {};
+user['abc'] = 'abc';
+
+if(user['aaa'] == null) console.log("heiheihie");
+if(user['abc'] != null) console.log("heiheihie");

@@ -33,6 +33,7 @@ var directory = new function Directory() {
     };
 
     this.addLoggedInUsers = function (user) {
+
         this._loggedInUsers.push(user);
         this._newUsers[user.userName] = user;
         this._dataUsers.push(user.userName);
@@ -74,6 +75,37 @@ var directory = new function Directory() {
     this.getOfflineUsers = function (callback) {
         this.userDb.getOfflineUsers(this._dataUsers, callback);
     };
+
+
+    this.updateUserName = function (oldUsername,username){
+        //this._loggedInUsers.push(user);
+        //this._newUsers[user.userName] = user;
+        //this._dataUsers.push(user.userName);
+
+        if(this._newUsers[oldUsername] == null) return;
+        else{
+            var index = this._dataUsers.indexOf(oldUsername);
+            if (index > -1) {
+                this._dataUsers.splice(index, 1);
+            }
+            this._dataUsers.push(username);
+
+
+            var user = this._newUsers[oldUsername];
+            user.userName = username;
+            delete this._newUsers[oldUsername];
+            this._newUsers[user.userName] = user;
+
+
+            index = this._loggedInUsers.indexOf(oldUsername);
+            if (index > -1) {
+                this._loggedInUsers.splice(index, 1);
+            }
+            this._loggedInUsers.push(username);
+
+        }
+
+    }
 
 };
 
