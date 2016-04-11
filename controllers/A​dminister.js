@@ -4,6 +4,8 @@
 
 var User = require('../module/User.js');
 var directory = require('../module/Directory.js')
+var Privilege = require('../module/Privilege');
+var AccountStatus = require('../module/AccountStatus');
 
 var nameReserved = ['about','access','account','accounts','add','address','adm','admin','administration',
     'adult','advertising','affiliate','affiliates','ajax','analytics','android','anon','anonymous',
@@ -37,7 +39,7 @@ var nameReserved = ['about','access','account','accounts','add','address','adm',
 
 exports.directToProfile = function (req,res) {
     //console.log("req user name " + req.params.username);
-    new User().getUserProfile(req.session.username,function(err,user){
+    new User().getUserProfile(req.body.username,function(err,user){
         if (err){
             res.json({"statusCode":401, "message": "Cannot get data from database"});
         }else{
@@ -47,7 +49,7 @@ exports.directToProfile = function (req,res) {
     });
 };
 
-exports.updateProfile = function(req, res) {
+exports.updateProfile = function(req, res,sockets) {
 
     var oldUsername = req.body.oldUsername;
     var username = req.body.username;
@@ -61,11 +63,17 @@ exports.updateProfile = function(req, res) {
     }
 
 
+
     new User().initializeForAdmin(oldUsername,username,password,privilege,accountStatus).updateProfileByAdmin(function(result) {
         if (result == 400) {
             res.json({"statusCode":400, "message": "Cannot save"});
         } else if(result == 200) {
             if(oldUsername != username){
+                //update all the message? - - how...
+                //1.update all message in the database...
+                //2. when change the message to invisiable?
+
+
                 directory.updateUserName(oldUsername,username);
 
                 directory.getOfflineUsers(function(offUsers){
@@ -80,12 +88,38 @@ exports.updateProfile = function(req, res) {
                     io.emit('updatelist',message);
                 });
             }
+
+            //find the user and kick him out... if changed to inactive..
+            var socket = sockets[oldUsername];
+
+            //if online
+            if(socket != null){
+                socket.emit('Log out');
+            }
+
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){
             res.json({"statusCode":401, "message": "This Username is already existed"});
         }
     });
 }
+
+exports.viewProfile = function (req,res) {
+    console.log("req user name " + req.params.username);
+    if(req.session.privilege != new Privilege().administrator){
+        res.json({"statusCode":401, "message": "You're not Administrator"});
+    }else{
+        new User().getUserProfile(req.params.username,function(err,user){
+            if (err){
+                res.json({"statusCode":400, "message": "Cannot get data from database"});
+            }else{
+                res.render('otherProfile', user[0]);
+            }
+        });
+    }
+
+};
+
 
 
 function qualifiedUsernamePassword(username,password) {

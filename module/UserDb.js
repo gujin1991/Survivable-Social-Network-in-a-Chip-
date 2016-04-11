@@ -183,8 +183,6 @@ UserDb.prototype.updateProfile = function (oldUsername, username, password, priv
             });
         }
     });
-
-
 };
 
 module.exports = UserDb;

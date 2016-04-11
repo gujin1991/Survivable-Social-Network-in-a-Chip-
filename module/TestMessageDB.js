@@ -48,12 +48,11 @@ var TestMessageDb = function TestMessageDb() {
 
         dbTemp.serialize(function () {
             dbTemp.run("delete from testMessages");
-
             post = 0;
             get = 0;
-
             callback(tempPostCount, tempGetCount);
         });
+
     };
 
     // TODO test this method

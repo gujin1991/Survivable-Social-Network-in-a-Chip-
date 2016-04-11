@@ -320,7 +320,7 @@ app.post('/endMeasurePerformance', function(req, res) {
 
 //new use case : administer users profile
 app.get('/changeProfileByAdmin', function(req,res) {
-    if(!testModeFlag) administer.directToProfile(req,res);
+    if(!testModeFlag) administer.directToProfile(req,res,sockets);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
@@ -330,7 +330,11 @@ app.put('/updateProfile',function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-
+//go to other's profile page.
+app.get('/seeProfile/:username',function(req,res){
+    if(!testModeFlag) administer.viewProfile(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
 
 
 io.on('connection', function(socket) {
