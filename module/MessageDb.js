@@ -2,7 +2,7 @@
  * Created by guangyu on 2/21/16.
  */
 var sqlite3 = require('sqlite3').verbose();
-
+var AccountStatus = require('./AccountStatus');
 function MessageDb() {
     this.db = new sqlite3.Database('./fse.db');
 }
@@ -18,8 +18,9 @@ MessageDb.prototype.messageAdd = function (username, message, time, status, call
 
 MessageDb.prototype.getHistory = function (callback) {
     var dbTemp = this.db;
+    var q = "SELECT * FROM messages m Inner JOIN users u on m.userName = u.userName where u.accountStatus = \'" + new AccountStatus().active + '\';';
     dbTemp.serialize(function () {
-        dbTemp.all("SELECT * FROM messages", function (err, rows) {
+        dbTemp.all(q, function (err, rows) {
             callback(rows);
         })
     });
@@ -77,5 +78,28 @@ MessageDb.prototype.getPrivateHistoryByKey = function (keyword, user, callback) 
         });
     });
 };
+
+//new added for new use cases..
+
+MessageDb.prototype.updatePublicUserName = function (oldUsername, username) {
+    var dbTemp = this.db;
+    var q = 'UPDATE messages SET userName = \'' + username + '\' WHERE userName = \'' + oldUsername + '\'';
+    dbTemp.run(q, function () {
+    });
+
+};
+
+MessageDb.prototype.updatePrivateUserName = function (oldUsername, username) {
+    var dbTemp = this.db;
+    var q = 'UPDATE privateMessages SET fromUser = \'' + username + '\' WHERE fromUser = \'' + oldUsername + '\'';
+    dbTemp.run(q, function () {
+    });
+    var q = 'UPDATE privateMessages SET toUser = \'' + username + '\' WHERE toUser = \'' + oldUsername + '\'';
+    dbTemp.run(q, function () {
+    });
+
+};
+
+
 
 module.exports = MessageDb;

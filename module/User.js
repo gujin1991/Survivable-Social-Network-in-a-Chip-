@@ -13,10 +13,12 @@ function User() {
     this.accountStatus = null;
 }
 
-User.prototype.initialize = function (userName, password, status) {
+User.prototype.initialize = function (userName, password, status,privilege,accoountStatus) {
     this.userName = userName;
     this.password = password;
     this.status = status;
+    this.accountStatus = accoountStatus;
+    this.privilege = privilege;
     return this;
 };
 
@@ -56,8 +58,10 @@ User.prototype.getUserInfo = function (userName, callback) {
         if (err) {
             callback(400, null);
         } else {
-            this.userName = dbData.userName;
-            this.status = dbData.status;
+            //this.userName = dbData.userName;
+            //this.status = dbData.status;
+            //this.accountStatus = dbData.accountStatus;
+            //this.privilege = dbData.privilege;
             callback(null, dbData);
         }
 

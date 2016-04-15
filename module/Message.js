@@ -19,4 +19,8 @@ Message.prototype.getHistoryByKey = function (keyword, callback) {
     this.messageDb.getHistoryByKey(keyword, callback);
 };
 
+Message.prototype.updateUserName = function(oldUsername,username) {
+    this.messageDb.updatePublicUserName(oldUsername,username);
+}
+
 module.exports = Message;

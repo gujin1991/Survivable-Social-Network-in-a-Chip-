@@ -46,7 +46,7 @@ UserDb.prototype.exist = function (username, callback) {
         dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
             if (row == null || row.length == 0) {
                 callback(401);
-            } else if(row[0].accountStatus == AccountStatus.active){
+            } else if(row[0].accountStatus == new AccountStatus().active){
                 callback(403);
             }else{
                 callback(407);// 307 means inactive

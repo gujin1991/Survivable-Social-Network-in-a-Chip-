@@ -93,7 +93,6 @@ app.get('/logout',function(req, res) {
 // direct to chat page
 app.post('/signin', function(req, res){
 
-
     if(!testModeFlag) signInCtl.checkSignIn(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -319,10 +318,11 @@ app.post('/endMeasurePerformance', function(req, res) {
 
 
 //new use case : administer users profile
-app.get('/changeProfileByAdmin', function(req,res) {
-    if(!testModeFlag) administer.directToProfile(req,res,sockets);
-    else res.json({"statusCode": 410, "message": "In Test"});
-});
+
+//app.get('/changeProfileByAdmin', function(req,res) {
+//    if(!testModeFlag) administer.directToProfile(req,res,sockets);
+//    else res.json({"statusCode": 410, "message": "In Test"});
+//});
 
 //modify user's  profile
 app.put('/updateProfile',function(req,res){

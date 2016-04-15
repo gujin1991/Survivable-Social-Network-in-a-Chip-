@@ -94,3 +94,6 @@ user['abc'] = 'abc';
 
 if(user['aaa'] == null) console.log("heiheihie");
 if(user['abc'] != null) console.log("heiheihie");
+
+var q = "SELECT * FROM messages m Inner JOIN users u on m.userName = u.userName where u.accountStatus = \'" + new AccountStatus().active + '\';';
+console.log(q);

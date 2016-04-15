@@ -28,4 +28,8 @@ PrivateMessage.prototype.getHistoryByKey = function (keyword, user, callback) {
     this.messageDb.getPrivateHistoryByKey(keyword, user, callback);
 };
 
+PrivateMessage.prototype.updateUserName = function(oldUsername,username) {
+    this.messageDb.updatePrivateUserName(oldUsername,username);
+}
+
 module.exports = PrivateMessage;

@@ -7,6 +7,11 @@ var directory = require('../module/Directory.js')
 var Privilege = require('../module/Privilege');
 var AccountStatus = require('../module/AccountStatus');
 
+var messageePub = require('../module/Message.js');
+var messageePriv = require('../module/PrivateMessage.js');
+var messagePublic = new messageePub();
+var messagePrivate = new messageePriv();
+
 var nameReserved = ['about','access','account','accounts','add','address','adm','admin','administration',
     'adult','advertising','affiliate','affiliates','ajax','analytics','android','anon','anonymous',
     'api','app','apps','archive','atom','auth','authentication','avatar','backupbanner','banners','bin',
@@ -37,17 +42,17 @@ var nameReserved = ['about','access','account','accounts','add','address','adm',
     'yourusername','yoursite','yourdomain'];
 
 
-exports.directToProfile = function (req,res) {
-    //console.log("req user name " + req.params.username);
-    new User().getUserProfile(req.body.username,function(err,user){
-        if (err){
-            res.json({"statusCode":401, "message": "Cannot get data from database"});
-        }else{
-
-            res.render('profile', user[0]);
-        }
-    });
-};
+//exports.directToProfile = function (req,res) {
+//    //console.log("req user name " + req.params.username);
+//    new User().getUserProfile(req.body.username,function(err,user){
+//        if (err){
+//            res.json({"statusCode":401, "message": "Cannot get data from database"});
+//        }else{
+//
+//            res.render('profile', user[0]);
+//        }
+//    });
+//};
 
 exports.updateProfile = function(req, res,sockets) {
 
@@ -56,6 +61,11 @@ exports.updateProfile = function(req, res,sockets) {
     var password = req.body.password;
     var privilege = req.body.privilege;
     var accountStatus = req.body.accountStatus;
+    var oldAccountStatus = req.body.oldAccountStatus;
+
+    if(req.session.privilege != new Privilege().administrator) {
+        res.json({"statusCode": 401, "message": "You're not Administrator"});
+    }
 
     if (!qualifiedUsernamePassword(username, password)) {
         res.json({"statusCode": 405, "message": "Username/Password invalid"});
@@ -68,12 +78,15 @@ exports.updateProfile = function(req, res,sockets) {
         if (result == 400) {
             res.json({"statusCode":400, "message": "Cannot save"});
         } else if(result == 200) {
-            if(oldUsername != username){
+
+            //used only for  updating user name  what if the status changed?
+            if(oldUsername != username || oldAccountStatus != accountStatus){
+
+
+
                 //update all the message? - - how...
                 //1.update all message in the database...
                 //2. when change the message to invisiable?
-
-
                 directory.updateUserName(oldUsername,username);
 
                 directory.getOfflineUsers(function(offUsers){
@@ -86,8 +99,28 @@ exports.updateProfile = function(req, res,sockets) {
                         message.online = onlineUsers;
                     });
                     io.emit('updatelist',message);
+
+
+
                 });
+
+                updateMessage(oldUsername,username);
+                //do not need to emit to specific socket because we will kick the user out of chat room
+
+                //if name changed need to update the userlist...
+                //if status changed need to update the user list...
+                //need to update the user list !!!
+                //need to update the public message
+                //since user list changed , don't worry about
+
+
             }
+
+            if (oldAccountStatus != accountStatus){
+
+
+            }
+
 
             //find the user and kick him out... if changed to inactive..
             var socket = sockets[oldUsername];
@@ -96,7 +129,6 @@ exports.updateProfile = function(req, res,sockets) {
             if(socket != null){
                 socket.emit('Log out');
             }
-
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){
             res.json({"statusCode":401, "message": "This Username is already existed"});
@@ -122,13 +154,26 @@ exports.viewProfile = function (req,res) {
 
 
 
-function qualifiedUsernamePassword(username,password) {
 
+
+function qualifiedUsernamePassword(username,password) {
     if (username.length < 3 || password.length < 4 || nameReserved.indexOf(username) >= 0) {
         return false;
     } else {
         return true;
     }
+
+}
+
+function updateMessage(oldUsername,username){
+
+    var message = req.body;
+    message.time = now();
+    message.status = req.session.status;
+
+    messagePublic.updateUserName(oldUsername,username);
+    messagePrivate.updateUserName(oldUsername,username);
+
 
 }
 

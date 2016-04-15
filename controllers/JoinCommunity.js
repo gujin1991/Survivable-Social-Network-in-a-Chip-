@@ -166,7 +166,7 @@ exports.getUserInfo = function(userName,callback){
 }
 
 exports.newUser = function(input){
-    return new User().initialize(input.userName,null ,input.status);
+    return new User().initialize(input.userName,null ,input.status,input.privilege,input.accountStatus);
 }
 
 function qualifiedUsernamePassword(username,password) {
