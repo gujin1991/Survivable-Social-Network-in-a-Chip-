@@ -206,7 +206,7 @@ app.get('/chatPrivately', function(req, res){
 
 app.get('/userList', function(req,res){
 
-    if(!testModeFlag) signInCtl.getOfflineUserIo(sockets[req.session.username],io);
+    if(!testModeFlag) signInCtl.getOfflineUserApi(sockets[req.session.username],io,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 

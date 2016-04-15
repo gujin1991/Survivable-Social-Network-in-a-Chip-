@@ -111,11 +111,6 @@ exports.updateProfile = function(req, res,sockets) {
             }
 
             var message = {};
-            //var flagAdmin = false;
-            //
-            //if(req.session.privilege ==  new Privilege().administrator){
-            //    flagAdmin = true;
-            //}
 
             directory.getOfflineUsers(function(offUsers){
                 var cur = {};

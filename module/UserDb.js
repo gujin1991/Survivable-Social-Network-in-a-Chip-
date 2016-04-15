@@ -88,8 +88,9 @@ UserDb.prototype.userAuth = function (username, password, callback) {
 
 
 UserDb.prototype.getOfflineUsers = function (onlineUsers, callback) {
-    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' + 'and accountStatus = \''
-        + new AccountStatus().active+"\';";
+    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' ;
+        //+ 'and accountStatus = \''
+        //+ new AccountStatus().active+"\';";
     var dbTemp = this.db;
 
     dbTemp.all(q, function (err, rows) {

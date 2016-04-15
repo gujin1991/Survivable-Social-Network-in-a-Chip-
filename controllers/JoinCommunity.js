@@ -48,11 +48,14 @@ exports.checkSignIn = function(req, res) {
                 if (result == 403) {
                     res.json({"statusCode": 403, "message": "Wrong password"});
                 } else {
+
                     req.session.username = user.userName;
                     req.session.privilege = user.privilege;
                     req.session.nickName = user.nickName;
                     req.session.loggedIn = true;
                     req.session.status = user.status;
+                    console.log("test ppp");
+                    console.log(req.session.privilege);
                     res.json({"statusCode":200, "message": "Success"});
                 }
             });
@@ -109,7 +112,7 @@ exports.directSignin = function(req,res){
 
 exports.directSignup = function(req,res){
     if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username,'status': req.session.status});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege});
     } else {
         res.render('signup');
     }
@@ -120,7 +123,7 @@ exports.directHome = function (req,res) {
         res.render('signin');
     } else {
 
-        res.render('index', {'username': req.session.username,'status': req.session.status});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege});
 
     }
 };
@@ -153,6 +156,25 @@ exports.getOfflineUserIo = function(user,io){
             message.online = onlineUsers;
         });
         io.emit('updatelist',message);
+
+    });
+}
+
+exports.getOfflineUserApi = function(user,io,res){
+    var message  = {};
+    directory.getOfflineUsers(function(offUsers){
+        var cur = {};
+        cur.userName = user.userName;
+        cur.status = user.status;
+        cur.nickName = user.userName;
+
+        message.currentUser = cur;
+        message.offline = offUsers;
+        directory.getOnlineUsers(function(onlineUsers){
+            message.online = onlineUsers;
+        });
+        //io.emit('updatelist',message);
+        res.json(message);
     });
 }
 
