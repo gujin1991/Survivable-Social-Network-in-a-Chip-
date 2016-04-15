@@ -112,7 +112,8 @@ exports.directSignin = function(req,res){
 
 exports.directSignup = function(req,res){
     if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege
+            , 'password':req.session.password});
     } else {
         res.render('signup');
     }
@@ -123,7 +124,8 @@ exports.directHome = function (req,res) {
         res.render('signin');
     } else {
 
-        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege,
+            'password':req.session.password});
 
     }
 };
