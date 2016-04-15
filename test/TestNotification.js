@@ -14,7 +14,7 @@ var requestBody = {
 };
 
 suite('SSNoC Unit Test - Notification', function () {
-    test('Test Get History', function (done) {
+    test('Test Notification', function (done) {
         request({
             url: "http://localhost:3001/notification",
             method: "POST",
