@@ -74,6 +74,7 @@ exports.updateProfile = function(req, res,sockets) {
 
 
 
+    //update database first.
     new User().initializeForAdmin(oldUsername,username,password,privilege,accountStatus).updateProfileByAdmin(function(result) {
         if (result == 400) {
             res.json({"statusCode":400, "message": "Cannot save"});
@@ -81,45 +82,19 @@ exports.updateProfile = function(req, res,sockets) {
 
             //used only for  updating user name  what if the status changed?
             if(oldUsername != username || oldAccountStatus != accountStatus){
-
-
-
                 //update all the message? - - how...
                 //1.update all message in the database...
                 //2. when change the message to invisiable?
                 directory.updateUserName(oldUsername,username);
-
-                directory.getOfflineUsers(function(offUsers){
-                    var cur = {};
-                    cur.userName = user.userName;
-                    cur.status = user.status;
-                    message.currentUser = cur;
-                    message.offline = offUsers;
-                    directory.getOnlineUsers(function(onlineUsers){
-                        message.online = onlineUsers;
-                    });
-                    io.emit('updatelist',message);
-
-
-
+                updateMessage(oldUsername,username);
+                messagePublic.getHistory(function(data){
+                    //new added emit . need to negotiate with front end about this
+                    socket.emit('update publicMessage',data)
                 });
 
-                updateMessage(oldUsername,username);
                 //do not need to emit to specific socket because we will kick the user out of chat room
-
-                //if name changed need to update the userlist...
-                //if status changed need to update the user list...
-                //need to update the user list !!!
-                //need to update the public message
-                //since user list changed , don't worry about
-
-
             }
 
-            if (oldAccountStatus != accountStatus){
-
-
-            }
 
 
             //find the user and kick him out... if changed to inactive..
@@ -129,6 +104,20 @@ exports.updateProfile = function(req, res,sockets) {
             if(socket != null){
                 socket.emit('Log out');
             }
+
+            directory.getOfflineUsers(function(offUsers){
+                var cur = {};
+                cur.userName = user.userName;
+                cur.status = user.status;
+                message.currentUser = cur;
+                message.offline = offUsers;
+                directory.getOnlineUsers(function(onlineUsers){
+                    message.online = onlineUsers;
+                });
+                io.emit('updatelist',message);
+            });
+
+
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){
             res.json({"statusCode":401, "message": "This Username is already existed"});

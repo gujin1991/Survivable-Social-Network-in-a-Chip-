@@ -326,7 +326,7 @@ app.post('/endMeasurePerformance', function(req, res) {
 
 //modify user's  profile
 app.put('/updateProfile',function(req,res){
-    if(!testModeFlag) administer.updateProfile(req,res);
+    if(!testModeFlag) administer.updateProfile(req,res,sockets);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 

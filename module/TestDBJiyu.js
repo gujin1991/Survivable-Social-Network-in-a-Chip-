@@ -97,3 +97,11 @@ if(user['abc'] != null) console.log("heiheihie");
 
 var q = "SELECT * FROM messages m Inner JOIN users u on m.userName = u.userName where u.accountStatus = \'" + new AccountStatus().active + '\';';
 console.log(q);
+
+var onlineUsers = [];
+onlineUsers.push('jiyu');
+onlineUsers.push('pan');
+q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' + 'and accountStatus = \''
+    + new AccountStatus().active+"\';";
+
+console.log(q);
