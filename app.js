@@ -128,6 +128,7 @@ app.get('/measurePerformance', function(req, res) {
     /* TODO: code added just for build UI, might need modification later
      *       Redirect to meadure performance page
      * */
+
     if(!testModeFlag) measurePerformance.directMeasurePerformance(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });

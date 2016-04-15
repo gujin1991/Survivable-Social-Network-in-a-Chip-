@@ -95,8 +95,6 @@ exports.updateProfile = function(req, res,sockets) {
                 //do not need to emit to specific socket because we will kick the user out of chat room
             }
 
-
-
             //find the user and kick him out... if changed to inactive..
             var socket = sockets[oldUsername];
 

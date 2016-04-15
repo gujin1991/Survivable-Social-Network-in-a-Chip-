@@ -6,12 +6,12 @@ var AccountStatus = require('./AccountStatus');
 function MessageDb() {
     this.db = new sqlite3.Database('./fse.db');
 }
-MessageDb.prototype.messageAdd = function (username, message, time, status, callback) {
+MessageDb.prototype.messageAdd = function (username, message, time, status, nickName,callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function () {
-        dbTemp.run("CREATE TABLE IF NOT EXISTS messages (messageId INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, time TEXT, content TEXT, status TEXT)");
-        var insertMessage = dbTemp.prepare("insert into messages Values(?, ?, ?, ?, ?)");
-        insertMessage.run(null, username, time, message, status);
+        dbTemp.run("CREATE TABLE IF NOT EXISTS messages (messageId INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, time TEXT, content TEXT, status TEXT , nickName TEXT)");
+        var insertMessage = dbTemp.prepare("insert into messages Values(?, ?, ?, ?, ?,?)");
+        insertMessage.run(null, username, time, message, status, nickName);
         callback(200);
     });
 };
@@ -26,13 +26,28 @@ MessageDb.prototype.getHistory = function (callback) {
     });
 };
 
-MessageDb.prototype.privateMessageAdd = function (fromUser, toUser, message, time, status, callback) {
+MessageDb.prototype.privateMessageAdd = function (fromUser, toUser, message, time, status,senderNickname,receiverNickname,callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function () {
-        dbTemp.run("CREATE TABLE IF NOT EXISTS privateMessages (messageId INTEGER PRIMARY KEY AUTOINCREMENT, fromUser TEXT, toUser TEXT, time TEXT, content TEXT, status TEXT)");
-        var insertMessage = dbTemp.prepare("insert into privateMessages Values(?, ?, ?, ?, ?, ?)");
-        insertMessage.run(null, fromUser, toUser, time, message, status);
-        callback(200);
+        dbTemp.run("CREATE TABLE IF NOT EXISTS privateMessages (messageId INTEGER PRIMARY KEY AUTOINCREMENT, fromUser TEXT, toUser TEXT, time TEXT, content TEXT, status TEXT," +
+            "senderNickname TEXT, receiverNickname TEXT)");
+
+        dbTemp.all("SELECT * FROM users where userName = \'" + toUser +"\';" , function(err,row){
+            //console.log("row");
+            //console.log(row);
+            //console.log(toUser);
+            if (err || row == null || row.length == 0) {
+                callback(400, null);
+            }else{
+                var insertMessage = dbTemp.prepare("insert into privateMessages Values(?, ?, ?, ?, ?, ?,?,?)");
+                insertMessage.run(null, fromUser, toUser, time, message, status,senderNickname,receiverNickname);
+                callback(200);
+            }
+
+
+        });
+
+
     });
 };
 

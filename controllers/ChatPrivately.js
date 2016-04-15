@@ -18,16 +18,17 @@ exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     var message = req.body;
     message.time = now();
     message.status = req.session.status;
+    message.senderNickname = '';
+    message.receiverNickname = '';
 
-
-
-    messageM.addMessage( message.sender, message.receiver, message.text, message.time,req.session.status,function(callback){
+    messageM.addMessage( message.sender, message.receiver, message.text, message.time,req.session.status,
+                message.senderNickname,message.receiverNickname,function(callback){
         if (callback == 200) {
             sender.emit('send private message', message);
             if(req.body.receiver in sockets) socket.emit('send private message', message);
             res.json({"statusCode":200, "message": "Success"});
         }
-        else res.json({"statusCode":400, "message": "Fail"});
+        else if (callback == 400 )res.json({"statusCode":400, "message": "Fail"});
     });
 }
 

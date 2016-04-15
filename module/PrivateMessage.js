@@ -15,8 +15,8 @@ function PrivateMessage(fromUser, toUser, message, time) {
     this.messageDb = new MessageDb();
 }
 
-PrivateMessage.prototype.addMessage = function (fromUser, toUser, message, time, status, callback) {
-    this.messageDb.privateMessageAdd(fromUser, toUser, message, time, status, callback);
+PrivateMessage.prototype.addMessage = function (fromUser, toUser, message, time, status,senderNickname,receiverNickname, callback) {
+    this.messageDb.privateMessageAdd(fromUser, toUser, message, time, status,senderNickname,receiverNickname,callback);
     return this;
 };
 

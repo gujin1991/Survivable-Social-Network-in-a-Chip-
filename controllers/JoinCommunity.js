@@ -50,7 +50,7 @@ exports.checkSignIn = function(req, res) {
                 } else {
                     req.session.username = user.userName;
                     req.session.privilege = user.privilege;
-
+                    req.session.nickName = user.nickName;
                     req.session.loggedIn = true;
                     req.session.status = user.status;
                     res.json({"statusCode":200, "message": "Success"});
@@ -75,8 +75,8 @@ exports.register = function(req, res) {
                 res.json({"statusCode":400, "message": "User existed"});
             } else {
                 req.session.username = req.body.username;
+                req.session.nickName = req.body.username;
                 req.session.privilege = 'Citizen';
-
                 req.session.loggedIn = true;
                 res.json({"statusCode":200, "message": "Success"});
             }
@@ -145,6 +145,8 @@ exports.getOfflineUserIo = function(user,io){
         var cur = {};
         cur.userName = user.userName;
         cur.status = user.status;
+        cur.nickName = user.userName;
+
         message.currentUser = cur;
         message.offline = offUsers;
         directory.getOnlineUsers(function(onlineUsers){
@@ -166,7 +168,7 @@ exports.getUserInfo = function(userName,callback){
 }
 
 exports.newUser = function(input){
-    return new User().initialize(input.userName,null ,input.status,input.privilege,input.accountStatus);
+    return new User().initialize(input.userName,null ,input.status,input.privilege,input.accountStatus,input.nickName);
 }
 
 function qualifiedUsernamePassword(username,password) {
