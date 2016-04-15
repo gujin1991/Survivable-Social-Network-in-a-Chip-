@@ -19,6 +19,8 @@ exports.sendPrivateMessage = function(req,res,socket,sender,sockets){
     message.time = now();
     message.status = req.session.status;
 
+
+
     messageM.addMessage( message.sender, message.receiver, message.text, message.time,req.session.status,function(callback){
         if (callback == 200) {
             sender.emit('send private message', message);
