@@ -56,12 +56,16 @@ var nameReserved = ['about','access','account','accounts','add','address','adm',
 
 exports.updateProfile = function(req, res,sockets) {
 
-    var oldUsername = req.body.oldUsername;
+
     var username = req.body.username;
     var password = req.body.password;
     var privilege = req.body.privilege;
     var accountStatus = req.body.accountStatus;
+
+    var oldUsername = req.body.oldUsername;
     var oldAccountStatus = req.body.oldAccountStatus;
+    var oldPassword = req.body.oldPassword;
+    var oldPrivilege = req.body.oldPrivilege;
 
     if(req.session.privilege != new Privilege().administrator) {
         res.json({"statusCode": 401, "message": "You're not Administrator"});
@@ -72,7 +76,10 @@ exports.updateProfile = function(req, res,sockets) {
         return;
     }
 
-
+    if(oldUsername == username && oldAccountStatus == accountStatus && oldPrivilege == privilege && oldPassword == password){
+        res.json({"statusCode": 201, "message": "You don't change anything"});
+        return;
+    }
 
     //update database first.
     new User().initializeForAdmin(oldUsername,username,password,privilege,accountStatus).updateProfileByAdmin(function(result) {
@@ -103,18 +110,26 @@ exports.updateProfile = function(req, res,sockets) {
                 socket.emit('Log out');
             }
 
+            var message = {};
+            //var flagAdmin = false;
+            //
+            //if(req.session.privilege ==  new Privilege().administrator){
+            //    flagAdmin = true;
+            //}
+
             directory.getOfflineUsers(function(offUsers){
                 var cur = {};
-                cur.userName = user.userName;
-                cur.status = user.status;
+                cur.userName = req.session.username;
+                cur.status = req.session.status;
                 message.currentUser = cur;
                 message.offline = offUsers;
+
                 directory.getOnlineUsers(function(onlineUsers){
                     message.online = onlineUsers;
                 });
+
                 io.emit('updatelist',message);
             });
-
 
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){
