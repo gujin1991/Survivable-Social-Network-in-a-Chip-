@@ -13,7 +13,7 @@ var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
-var administer = require('./controllers/A​dminister.js');
+var administer = require('./controllers/Administer.js');
 
 //save all the socket with the name of it's name.
 var sockets = {}
@@ -119,6 +119,12 @@ app.get('/getHistory', function(req, res) {
 });
 
 app.get('/users', function(req, res) {
+
+    if(!testModeFlag) userListCtl.directUserList(req, res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.get('/adminUsers', function(req, res) {
 
     if(!testModeFlag) userListCtl.directUserList(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
