@@ -41,6 +41,7 @@ var io = require('socket.io')(server);
 
 // view engine setup
 app.engine('.html', ejs.__express);
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 

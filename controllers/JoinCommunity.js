@@ -48,7 +48,6 @@ exports.checkSignIn = function(req, res) {
                 if (result == 403) {
                     res.json({"statusCode": 403, "message": "Wrong password"});
                 } else {
-
                     req.session.username = user.userName;
                     req.session.privilege = user.privilege;
                     req.session.nickName = user.nickName;
@@ -104,7 +103,8 @@ exports.logout = function(req,res){
 exports.directSignin = function(req,res){
     if (req.session.loggedIn) {
 
-        res.render('index', {'username': req.session.username,'status':req.session.status});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege
+            ,'password':req.session.password});
     } else {
         res.render('signin');
     }
