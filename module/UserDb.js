@@ -172,7 +172,8 @@ UserDb.prototype.updateProfile = function (oldUsername, username, password, priv
     var dbTemp = this.db;
 
     dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
-        if ( row.length != 0) {
+        if(oldUsername != username && row.length != 0)
+        {
             callback(401, null);
         }else{
             var q = 'UPDATE users SET userName = \'' + username +'\',password = \'' + password
