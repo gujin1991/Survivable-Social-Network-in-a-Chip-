@@ -1,8 +1,7 @@
 /**
- * Created by congshan on 2/25/16.
+ * Created by Pan on 4/15/16.
  */
 var socket = io.connect();
-//var mystatus = $("#mystatus").val();
 
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
@@ -17,8 +16,6 @@ socket.on('updatelist', function(response){
         }
         return size;
     };
-
-    //$("#mystatus").val(response.currentUser.status);
 
     var onlineSize = Object.size(response.online);
     var offlineSize = Object.size(response.offline);
@@ -100,7 +97,6 @@ function setOfflineTable(offline_users, size) {
         var new_line = '<tr>' +
             '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
             '<span><a href="/seeProfile/'+ offline_users[i].userName +'">' + offline_users[i].userName + '</a></span>' + '</td>' +
-            //'<span>' + offline_users[i].userName + '</span>' + '</td>' +
             '<td  width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
             '<span>' + status + '</span>' + '</td>' +
             '</tr>';
@@ -161,12 +157,20 @@ $("#search-status").change(function(event){
     var status = $(this).val();
     if (status == 'All') {
         $.get('/userList', function(req,res){
-            updateUserList(res.online, res.offline);
+            if (res.statusCode === 410) {
+                swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+            } else {
+                updateUserList(res.online, res.offline);
+            }
         });
     } else {
         var keyword = {"keyword": status};
         $.post('/searchStatus', keyword, function(response) {
-            updateUserList(response.online, response.offline);
+            if (response.statusCode === 410) {
+                swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+            } else {
+                updateUserList(response.online, response.offline);
+            }
         });
     }
 });
@@ -181,13 +185,35 @@ $("#search-username").on("keyup", function(event) {
     var username = $(this).val();
     var keyword = {"keyword": username};
     $.post('/searchUser', keyword, function(response) {
-        updateUserList(response.online, response.offline);
+        if (response.statusCode === 410) {
+            swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+        } else {
+            updateUserList(response.online, response.offline);
+        }
     });
 });
 
 $("#search-username-cancel").click(function(event) {
     $.get('/userList', function(req,res){
-        updateUserList(res.online, res.offline);
+        if (response.statusCode === 410) {
+            swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+        } else {
+            updateUserList(res.online, res.offline);
+        }
     });
     $("#search-username").val("");
+});
+
+socket.on('Log out',function() {
+    swal({
+        title: "Sorry! You are out...",
+        text: "You were kicked out by Administrator!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
 });

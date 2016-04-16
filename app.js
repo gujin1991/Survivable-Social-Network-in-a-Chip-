@@ -163,16 +163,12 @@ app.post('/getStatus',function(req,res){
 
 
 app.post('/sendPublicMessage',function(req,res){
-
-
     if(!testModeFlag) chatPublicly.sendPublicMessage(req,res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 //share status
 app.post('/updateStatus', function(req, res){
-
-
     if(!testModeFlag) shareStatus.updateStatus(req, res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -180,16 +176,12 @@ app.post('/updateStatus', function(req, res){
 
 //get announcement
 app.get('/getAnnouncements', function(req, res){
-
-
     if(!testModeFlag) postAnnouce.getAnnouncements(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 //post announcement
 app.post('/sendAnnouncements',function(req,res){
-
-
     if(!testModeFlag) postAnnouce.sendAnnouncements(req,res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -197,11 +189,9 @@ app.post('/sendAnnouncements',function(req,res){
 
 //direct to private char page
 app.get('/chatPrivately', function(req, res){
-
-
     if(!testModeFlag){
         if (req.session.loggedIn) {
-            res.render('chatPrivately', {'username': req.session.username, 'status': req.session.status});
+            res.render('chatPrivately', {'username': req.session.username, 'status': req.session.status,'privilege' : req.session.privilege});
         } else {
             res.render('signin');
         }
@@ -216,19 +206,8 @@ app.get('/userList', function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-//store status in session
-
-//app.post('/storeStatus',function(req,res){
-//    req.session.status = req.body.status;
-//    console.log("test status -----------------------------!!!!!!" + req.session.status);
-//    res.json({"statusCode":200, "message": "Success"});
-//});
-
-
-
 //chat privately
 app.post('/chatPrivately',function(req,res){
-
     if(!testModeFlag) chatPrivately.sendPrivateMessage(req,res,sockets[req.body.receiver],sockets[req.body.sender],sockets);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -332,7 +311,7 @@ app.post('/endMeasurePerformance', function(req, res) {
 
 //modify user's  profile
 app.put('/updateProfile',function(req,res){
-    if(!testModeFlag) administer.updateProfile(req,res,sockets);
+    if(!testModeFlag) administer.updateProfile(req,res,sockets,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 

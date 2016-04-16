@@ -68,7 +68,17 @@ $signin.on('click', function(e) {
                          confirmButtonText: "OK"
                     });
                     $password.val('');
-               } else if (response.statusCode === 401) {
+               } else if (response.statusCode === 407) {
+                    swal({
+                        title: "Inactive User!",
+                        text: "Sorry! You are the inactive user new and cannot log in anymore!",
+                        type: "error",
+                        confirmButtonText: "OK"
+                    });
+                    $password.val('');
+                } else if (response.statusCode === 410) {
+                    swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+                } else if (response.statusCode === 401) {
                     swal({
                             title: "No user found!",
                             text: "Would you want to create new account?",

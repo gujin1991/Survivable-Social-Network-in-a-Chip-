@@ -18,8 +18,6 @@ $('#start-btn').click(function() {
         .text(value+ "%");
     if(duration ==="" || interval ==="") {
         swal({title: "Error!",text: "Please enter!", type: "error", confirmButtonText: "OK" });
-    // } else if (duration > 5) {
-    //     swal({title: "Error!",text: "cannot greater than 5s!", type: "error", confirmButtonText: "OK" });
     } else {
         $('#stop-btn').prop('disabled', false);
         $('#start-btn').prop('disabled', true);
@@ -27,7 +25,7 @@ $('#start-btn').click(function() {
         interval = parseInt(interval);
         $.post('/testModeStart',function(response){
             if (response.statusCode === 410) {
-                swal({title: "Error!",text: "Already in Test!", type: "error", confirmButtonText: "OK" });
+                swal({title: "Error!",text: "Other Monitor is already testing the system! Please wait...", type: "error", confirmButtonText: "OK" });
             } else if (response.statusCode === 412) {
                 swal({title: "Error!",text: "Time Exceed!", type: "error", confirmButtonText: "OK" });
             }else{
@@ -159,5 +157,18 @@ function postLimitClear(){
         .text(0+ "%");
 
     clear();
-
 }
+
+socket.on('Log out',function() {
+    swal({
+        title: "Sorry! You are out...",
+        text: "You were kicked out by Administrator!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
+});

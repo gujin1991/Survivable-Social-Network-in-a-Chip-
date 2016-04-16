@@ -2,7 +2,6 @@
  * Created by Pan on 2/25/16.
  */
 var mystatus = $("#mystatus").val();
-console.log("--------------------------------------------\nmy status " + mystatus);
 
 $(document).ready(function() {
 
@@ -49,8 +48,6 @@ function updateStatus(newstatus) {
         statusContent = "Emergency";
         logoName = "emergency.png";
     }
-    console.log(statusContent);
-    console.log(logoName);
 
     username = $('#myname').val();
     var obj = {'username':username,'status':statusContent};
@@ -59,11 +56,24 @@ function updateStatus(newstatus) {
             $("#status-toggle").empty().append(
                 'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
             $("#mystatus").val(newstatus);
-            //console.log("update status:" + $("#mystatus").val());
+        } else if (response.statusCode === 410) {
+            swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
         } else {
             swal({title: "Error!",text: "The status cannot status!", type: "error", confirmButtonText: "OK" });
         }
     });
-    //Todo:updateUser List
-    //Todo: send to server
 }
+
+socket.on('Log out',function() {
+    swal({
+        title: "Sorry! You are out...",
+        text: "You were kicked out by Administrator!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
+});

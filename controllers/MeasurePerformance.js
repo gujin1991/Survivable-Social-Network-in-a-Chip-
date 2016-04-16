@@ -8,7 +8,7 @@ exports.directMeasurePerformance = function(req, res) {
         res.render('index', {'username': req.session.username});
     } else {
         console.log("fine!");
-        res.render('measurePerformance', {'username': req.session.username, 'status': req.session.status});
+        res.render('measurePerformance', {'username': req.session.username, 'status': req.session.status,'privilege' : req.session.privilege});
     }
 };
 

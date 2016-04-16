@@ -29,11 +29,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/users">User List</a></li>
+                <% if (privilege == 'Administrator'){ %>
+                <li><a href="/users">Administrator</a ></li>
+                <%}else{%>
+                <li><a href="/adminUsers">User List</a ></li>
+                <%}%>
                 <li><a href="/chatPrivately">Chat Privately</a></li>
-                <li><a href="/announcement">Announcement</a></li>
-                <li><a href="/measurePerformance">Performance</a></li>
-                <!--<li><a href="#">Help</a></li>-->
+                <li><a href="/announcement">Announcement</a ></li>
+                <% if (privilege == 'Monitor'){ %>
+                <li><a href="/measurePerformance">Performance</a ></li>
+                <%}%>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -45,10 +50,6 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Change Profile</a></li>
-                        <li><a href="#">Change Password</a></li>
-                        <li><a href="#">Change Status</a></li>
-                        <li class="divider"></li>
                         <li><a href="/logout"><strong>Sign out</strong></a></li>
                     </ul>
                 </li>
@@ -66,6 +67,7 @@
                         <h2> Welcome, <%=username%> </h2>
                         <input type="hidden" id="myname" value="<%=username%>">
                         <input type="hidden" id="mystatus" value="<%=status%>">
+                        <input type="hidden" id="privilege" value="<%=privilege%>">
                     </div>
 
                     <div>
@@ -104,15 +106,15 @@
                             </table>
                         </div>
                     </div>
-
-                    <div id="post-board">
-                        <p id="prompt"><strong>Post a new Announcement</strong></p>
-                        <form>
-                            <textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>
-                            <!--<button id="back-btn" type="button" class="btn btn-danger pull-right">Back to chatroom</button>-->
-                            <button id="post-btn" type="button" class="btn btn-danger pull-right">Post</button>
-                        </form>
-                    </div>
+                    <% if (privilege == 'Coordinator'){ %>
+                        <div id="post-board">
+                            <p id="prompt"><strong>Post a new Announcement</strong></p>
+                            <form>
+                                <textarea class="form-control" id="focusedInput" placeholder="Please type a new message..."></textarea>
+                                <button id="post-btn" type="button" class="btn btn-danger pull-right">Post</button>
+                            </form>
+                        </div>
+                    <% } %>
                 </div>
         </div>
     </div>

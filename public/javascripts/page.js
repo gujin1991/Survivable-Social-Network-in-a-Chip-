@@ -70,9 +70,6 @@ function addMessage(message) {
         logoName = "undefined.png";
     }
     var label;
-    //if (status == undefined) {
-    //    label = '<div><span><span style="font-style: italic;">' + message.userName + '</span> says: <strong>'+ message.content +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
-    //} else
     if (message.fromUser === undefined) {
         label = '<div class="message">' +
             '<div class="messageHeader">' +

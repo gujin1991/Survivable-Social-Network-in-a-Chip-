@@ -41,22 +41,7 @@ var nameReserved = ['about','access','account','accounts','add','address','adm',
     'wwws','web','webmail','website','websites','webmaster','workshop','xxx','xpg','you','yourname',
     'yourusername','yoursite','yourdomain'];
 
-
-//exports.directToProfile = function (req,res) {
-//    //console.log("req user name " + req.params.username);
-//    new User().getUserProfile(req.body.username,function(err,user){
-//        if (err){
-//            res.json({"statusCode":401, "message": "Cannot get data from database"});
-//        }else{
-//
-//            res.render('profile', user[0]);
-//        }
-//    });
-//};
-
-exports.updateProfile = function(req, res,sockets) {
-
-
+exports.updateProfile = function(req, res,sockets,io) {
     var username = req.body.username;
     var password = req.body.password;
     var privilege = req.body.privilege;
@@ -91,14 +76,13 @@ exports.updateProfile = function(req, res,sockets) {
             if(oldUsername != username || oldAccountStatus != accountStatus){
                 //update all the message? - - how...
                 //1.update all message in the database...
-                //2. when change the message to invisiable?
+                //2. when change the message to invisible?
                 directory.updateUserName(oldUsername,username);
                 updateMessage(oldUsername,username);
                 messagePublic.getHistory(function(data){
                     //new added emit . need to negotiate with front end about this
-                    socket.emit('update publicMessage',data)
+                    io.emit('update publicMessage',data)
                 });
-
                 //do not need to emit to specific socket because we will kick the user out of chat room
             }
 
@@ -129,6 +113,8 @@ exports.updateProfile = function(req, res,sockets) {
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){
             res.json({"statusCode":401, "message": "This Username is already existed"});
+        } else if(result == 400){
+            res.json({"statusCode":400, "message": "..."});
         }
     });
 }
@@ -142,7 +128,7 @@ exports.viewProfile = function (req,res) {
             if (err){
                 res.json({"statusCode":400, "message": "Cannot get data from database"});
             }else{
-                res.render('adminProfile', {'adminName': req.session.username,'status':req.session.status, 'user': user[0]});
+                res.render('adminProfile', {'adminName': req.session.username,'status':req.session.status,'privilege' : req.session.privilege, 'user': user[0]});
             }
         });
     }
@@ -160,14 +146,7 @@ function qualifiedUsernamePassword(username,password) {
 }
 
 function updateMessage(oldUsername,username){
-
-    var message = req.body;
-    message.time = now();
-    message.status = req.session.status;
-
     messagePublic.updateUserName(oldUsername,username);
     messagePrivate.updateUserName(oldUsername,username);
-
-
 }
 

@@ -2,16 +2,12 @@
  * Created by congshan on 2/25/16.
  */
 var socket = io.connect();
-//var mystatus = $("#mystatus").val();
 
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 
 socket.on('updatelist', function(response){
-    console.log("-----------------online : "+ response.online);
-    console.log("-----------------offline : "+ response.offline);
-    console.log("-----------------status : " + response.currentUser.status);
     Object.size = function(obj) {
         var size = 0, key;
         for (key in obj) {
@@ -19,8 +15,6 @@ socket.on('updatelist', function(response){
         }
         return size;
     };
-
-    //$("#mystatus").val(response.currentUser.status);
 
     var onlineSize = Object.size(response.online);
     var offlineSize = Object.size(response.offline);
@@ -167,7 +161,11 @@ $("#search-status").change(function(event){
     } else {
         var keyword = {"keyword": status};
         $.post('/searchStatus', keyword, function(response) {
-            updateUserList(response.online, response.offline);
+            if (response.statusCode === 410) {
+                swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+            } else {
+                updateUserList(response.online, response.offline);
+            }
         });
     }
 });
@@ -191,4 +189,18 @@ $("#search-username-cancel").click(function(event) {
         updateUserList(res.online, res.offline);
     });
     $("#search-username").val("");
+});
+
+socket.on('Log out',function() {
+    swal({
+        title: "Sorry! You are out...",
+        text: "You were kicked out by Administrator!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
 });
