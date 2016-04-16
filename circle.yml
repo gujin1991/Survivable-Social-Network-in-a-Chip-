@@ -21,6 +21,8 @@ dependencies:
 
 # run tests
 test:
+  pre:
+    - ./conf/FseDbInit.sh
   override:
     - mkdir -p $CIRCLE_TEST_REPORTS/mocha
     - grunt circleci
