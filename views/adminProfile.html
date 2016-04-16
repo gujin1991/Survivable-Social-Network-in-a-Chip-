@@ -28,11 +28,16 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/users">User List</a></li>
+                <% if (privilege == 'Administrator'){ %>
+                <li><a href="/users">Administrator</a ></li>
+                <%}else{%>
+                <li><a href="/adminUsers">User List</a ></li>
+                <%}%>
                 <li><a href="/chatPrivately">Chat Privately</a></li>
-                <li><a href="/announcement">Announcement</a></li>
-                <li><a href="/measurePerformance">Performance</a></li>
-                <!--<li><a href="#">Help</a></li>-->
+                <li><a href="/announcement">Announcement</a ></li>
+                <% if (privilege == 'Monitor'){ %>
+                <li><a href="/measurePerformance">Performance</a ></li>
+                <%}%>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -54,14 +59,13 @@
 
 <div class="container">
     <div class="row">
-        <div id="wrapper" class="col-md-6 col-md-offset-3 text-center">
-
+        <div id="wrapper" class="col-md-8 col-md-offset-2 text-center">
             <form method="post" class="form-horizontal form-signin">
                 <h3 class="form-signin-heading"> Administer User Profile </h3>
                 <hr class="featurette-divider">
-
+                <input type="hidden" id="user" value="<%=user%>">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Account Status:  </label>
+                    <label class="col-sm-5 control-label">Account Status:</label>
                     <div class="col-sm-7">
                         <input id="new_account" type="checkbox" data-off-text="Inactive" data-on-text="Active" checked="<%=user.accountStatus%>" class="BSswitch">
                         <input type="hidden" id="account" value="<%=user.accountStatus%>">
@@ -69,7 +73,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Privilege:  </label>
+                    <label class="col-sm-5 control-label">Privilege:  </label>
                     <div class="col-sm-7">
                         <select class="form-control" id="new_privilege">
                             <option value='<%=user.privilege%>' selected><%=user.privilege%></option>
@@ -83,7 +87,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Username:  </label>
+                    <label class="col-sm-5 control-label">Username:  </label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control" id="new_userName" value=<%=user.userName%>>
                         <input type="hidden" id="userName" value="<%=user.userName%>">
@@ -91,7 +95,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Password:  </label>
+                    <label class="col-sm-5 control-label">Password:  </label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control" id="new_password" value=<%=user.password%>>
                         <input type="hidden" id="password" value="<%=user.password%>">
@@ -100,7 +104,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
-                        <button type="button" id="submit" class="btn btn-large btn-transparent btn-rounded">Save and Submit</button>
+                        <button type="button" id="submit" class="btn btn-primary btn-large btn-transparent btn-rounded">Save and Submit</button>
                     </div>
                 </div>
             </form>

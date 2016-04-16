@@ -17,7 +17,7 @@ exports.directAnnouncement = function(req,res){
     if (!req.session.loggedIn) {
         res.render('index', {'username': req.session.username});
     } else {
-        res.render('announcement', {'username': req.session.username, 'status': req.session.status});
+        res.render('announcement', {'username': req.session.username, 'status': req.session.status,'privilege' : req.session.privilege});
     }
 };
 

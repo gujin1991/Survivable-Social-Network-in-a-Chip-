@@ -30,12 +30,13 @@ $.post('/getStatus',{'username':username},function(response){
 			statusContent = "Emergency";
 			logoName = "emergency.png";
 		}
-		//swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
         if (statusContent != undefined) {
             $("#status-toggle").empty().append(
                 'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
         }
-    }else{
+    } else if (response.statusCode === 410) {
+		swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+	} else{
 		console.log("err");
 	}
 
@@ -45,7 +46,6 @@ $.post('/getStatus',{'username':username},function(response){
  * Update the current user status.
  * */
 socket.on('updatelist', function(response){
-	console.log("in chat. js -----------------status : " + response.currentUser.status);
 	$("#mystatus").val(response.currentUser.status);
 	mystatus = $("#mystatus").val();
 
@@ -59,7 +59,6 @@ socket.on('updatelist', function(response){
 		statusContent = "Emergency";
 		logoName = "emergency.png";
 	}
-
 });
 
 
@@ -93,6 +92,8 @@ $('#post-btn').on('click', function(e) {
 			$.post("/sendPublicMessage",obj,function(response){
 				if (response.statusCode === 400) {
 					swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+				} else if (response.statusCode === 410) {
+					swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
 				}
 			});
 		});
@@ -106,6 +107,8 @@ $('#post-btn').on('click', function(e) {
 		$.post("/sendPublicMessage",obj,function(response){
 			if (response.statusCode === 400) {
 				swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+			} else if (response.statusCode === 410) {
+				swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
 			}
 		});
 
@@ -138,7 +141,6 @@ function displayHistory(data) {
 		} else if (status == 'Undefined') {
 			logoName = "undefined.png";
 		}
-		console.log("*******************\nstatus:" + status);
 
 		var label = '<div style="color:gray" class="message">' +
 				'<div class="messageHeader">' +
@@ -175,7 +177,6 @@ socket.on('connect', function () {
  * Display the new post message.
  * */
 socket.on('send message', function(message){
-	//var label = '<div><span><span style="font-style: italic;">' + message.username + '</span> says: <strong>'+ message.text +' </strong> <small class="pull-right">' + now() + '</small></span></div><br/>';
 	var status = message.status;
 	var logoName;
 	if (status == 'OK') {
@@ -187,8 +188,6 @@ socket.on('send message', function(message){
 	} else if (status == 'Undefined') {
 		logoName = "undefined.png";
 	}
-
-	console.log("*******************\nstatus:" + status);
 
 	var label = '<div style="color:black" class="message">' +
 			'<div class="messageHeader">' +
@@ -233,4 +232,22 @@ $('#focusedInput').on("keydown", function(e){
  * */
 socket.on('send private message', function(message){
 	swal({   title: "Notification!",   text: "You have a new message from " + message.sender,   imageUrl: "../images/icons/message.png" });
+});
+
+socket.on('update publicMessage',function(data) {
+	displayHistory(data);
+});
+
+socket.on('Log out',function() {
+	swal({
+		title: "Sorry! You are out...",
+		text: "You were kicked out by Administrator!",
+		type: "warning",
+		showCancelButton: false,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "OK!",
+		closeOnConfirm: false
+	}, function(){
+		window.location = "/logout";
+	});
 });

@@ -3,7 +3,7 @@
  */
 exports.directUserList = function(req,res){
     if (!req.session.loggedIn) {
-        res.render('index', {'username': req.session.username, 'status': req.session.status,'privilege' : req.session.privilege});
+        res.render('index', {'username': req.session.username});
     } else if (req.session.privilege == 'Administrator'){
         res.render('adminUsers', {'username': req.session.username, 'status': req.session.status,'privilege' : req.session.privilege});
     } else {

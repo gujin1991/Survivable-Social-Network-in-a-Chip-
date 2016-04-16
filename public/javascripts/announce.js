@@ -2,14 +2,8 @@ var socket = io.connect();
 var username;
 var content = $('#msgAnnounce');
 
-// Check if it is a new user
-//jQuery( document ).ready(function( $ ) {
-//
-//});
 $('#back-btn').on('click', function(e) {
-	//$.get('/announcement', function() {
-		window.location.href = "/";
-	//});
+	window.location.href = "/";
 });
 
 // Post New message
@@ -36,17 +30,19 @@ $('#post-btn').on('click', function(e) {
 			obj['text'] = inputValue;
 			swal.close();
 			//socket.emit('send message',obj);
-			$.post("/sendAnnouncements",obj,function(){
-
+			$.post("/sendAnnouncements",obj,function(response){
+				if (response.statusCode === 410) {
+					swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+				}
 			});
 		});
 	} else {
 		obj['username']=username;
 		obj['text']=text;
-		//socket.emit('send message',obj);
-		//call api
-		$.post("/sendAnnouncements",obj,function(){
-
+		$.post("/sendAnnouncements",obj,function(response){
+			if (response.statusCode === 410) {
+				swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+			}
 		});
 
 		$('#focusedInput').val('');
@@ -60,10 +56,6 @@ $.get('/getAnnouncements', function(data){
 		var message = data[i];
 		prependAnnouncement(message, message.userName, message.content);
 	}
-    // $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    // var chat_body = $('#announce-stream-list');
-    // var height = chat_body[0].scrollHeight;
-    // chat_body.scrollTop(height);
 });
 
 // Display user login information
@@ -126,3 +118,17 @@ function prependAnnouncement(message, username, text) {
 	var one = $(label);
 	content.prepend(one);
 }
+
+socket.on('Log out',function() {
+	swal({
+		title: "Sorry! You are out...",
+		text: "You were kicked out by Administrator!",
+		type: "warning",
+		showCancelButton: false,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "OK!",
+		closeOnConfirm: false
+	}, function(){
+		window.location = "/logout";
+	});
+});

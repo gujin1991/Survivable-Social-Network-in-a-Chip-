@@ -62,7 +62,7 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
             chatTarget = null;
             $('#private-head').empty();
             swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
-        }else {
+        } else {
             $('#private-head').empty().append('   ' + chatTarget);
             getPrivateMessage(currentUser, chatTarget);
         }
@@ -72,13 +72,14 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
 
 
 
-$('#post-btn').click(function() {
+$('#post-btn').click(function(response) {
     //event.preventDefault();
     if ($('#private-head').text() == "" || chatTarget == null) {
         swal({title: "Error!",text: "Please select user you want to chat to!", type: "error", confirmButtonText: "OK" });
         $('#focusedInput').val('');
+    } else if (response.statusCode === 410) {
+        swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
     } else sendMessage(username,chatTarget);
-    //need to modify that the user name may not exist.
 });
 
 function getPrivateMessage(senderName, receiverName) {
@@ -86,8 +87,6 @@ function getPrivateMessage(senderName, receiverName) {
     $.post('/getPrivateMessage', users, function(messages){
         for(var i=0; i<messages.length; i++) {
             var message = messages[i];
-            //console.log(username);
-            //console.log(message.fromUser);
             if (message.fromUser === username) {
                 addPrivateMessage(message, message.content, "Me");
             } else if (message.toUser === username) {
@@ -126,7 +125,17 @@ function sendMessage(senderName, receiverName) {
             console.log(obj);
             $.post("/chatPrivately",obj,function(response){
                 if (response.statusCode === 400) {
-                    swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+                    swal({
+                        title: "Error!",
+                        text: "Cannot send Messages, User not exist, Please refresh the site!",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "OK!",
+                        closeOnConfirm: false
+                    }, function(){
+                        window.location = "/chatPrivately";
+                    });
                 }
             });
         });
@@ -137,7 +146,17 @@ function sendMessage(senderName, receiverName) {
         //console.log(obj);
         $.post("/chatPrivately",obj,function(response){
             if (response.statusCode === 400) {
-                swal({title: "Error!",text: "Cannot send Messages, User not exist, Please refresh the site!", type: "error", confirmButtonText: "OK" });
+                swal({
+                    title: "Error!",
+                    text: "Cannot send Messages, User not exist, Please refresh the site!",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "OK!",
+                    closeOnConfirm: false
+                }, function(){
+                    window.location = "/chatPrivately";
+                });
             }
         });
         $('#focusedInput').val('');
@@ -215,5 +234,19 @@ $('#focusedInput').on("keydown", function(e){
         $('#post-btn').click();
         return false;
     }
+});
+
+socket.on('Log out',function() {
+    swal({
+        title: "Sorry! You are out...",
+        text: "You were kicked out by Administrator!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
 });
 
