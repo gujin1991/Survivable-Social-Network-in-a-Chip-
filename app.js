@@ -14,6 +14,7 @@ var postAnnouce = require('./controllers/PostAnnouncement.js');
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
 var administer = require('./controllers/Administer.js');
+var mapCtl = require('./controllers/Map.js');
 
 //save all the socket with the name of it's name.
 var sockets = {}
@@ -342,6 +343,12 @@ app.get('/seeProfile/:username',function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
+app.get('/map', function(req,res) {
+    if(!testModeFlag) {
+        mapCtl.directMap(req,res);
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
 
 io.on('connection', function(socket) {
     var myname;
