@@ -14,9 +14,10 @@ var postAnnouce = require('./controllers/PostAnnouncement.js');
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
 var administer = require('./controllers/A​dminister.js');
+var mapLocation = require('./controllers/MapLocation.js');
 
 //save all the socket with the name of it's name.
-var sockets = {}
+var sockets = {};
 
 
 
@@ -333,6 +334,13 @@ app.put('/updateProfile',function(req,res){
 //go to other's profile page.
 app.get('/seeProfile/:username',function(req,res){
     if(!testModeFlag) administer.viewProfile(req,res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+
+//update the map
+app.post('/updateLocation', function(req,res) {
+    if(!testModeFlag) mapLocation.updateMap(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
