@@ -57,8 +57,9 @@ suite('SSNoC Unit Test - SearchInformation', function () {
 
     test('Search offline user by status', function (done) {
         var offlineUser = "offlineUser";
+        directory.addLoggedInUsers(new User().initialize(testerName, "19911991", new Status().ok, "", "", ""));
         directory.deleteLoggedInUsers(new User().initialize(testerName, "19911991", new Status().ok, "", "", ""));
-        directory.searchOffLineByStatus(new Status().help, function (offlineUser) {
+        directory.searchOffLineByStatus(new Status().ok, function (offlineUser) {
             //console.log(offlineUser);
             expect(offlineUser[0].userName).eql(testerName);
             done();
