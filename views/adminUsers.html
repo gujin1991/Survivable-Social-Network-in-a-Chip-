@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Users</title>
+    <script src="../socket.io/socket.io.js"></script>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/sweetalert.css">
+    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
+    <link rel="stylesheet" href="stylesheets/users.css">
+    <link rel="stylesheet" href="stylesheets/navbar.css">
+</head>
+<body>
+     <!--Navigation bar -->
+     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+         <div class="container-fluid">
+             <div class="navbar-header">
+                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                 </button>
+                 <a class="navbar-brand" href="/">SSNoC</a>
+             </div>
+             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                 <ul class="nav navbar-nav navbar-right">
+                     <li><a href="/users">User List</a></li>
+                     <li><a href="/chatPrivately">Chat Privately</a></li>
+                     <li><a href="/announcement">Announcement</a></li>
+                     <li><a href="/measurePerformance">Performance</a></li>
+                     <!--<li><a href="#">Help</a></li>-->
+                     <li class="dropdown">
+                         <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
+                         <ul class="dropdown-menu" role="menu">
+                             <li><a href="#" id="status-ok" data-toggle="tab">OK</a></li>
+                             <li><a href="#" id="status-help" data-toggle="tab">Help</a></li>
+                             <li><a href="#" id="status-emergency" data-toggle="tab">Emergency</a></li>
+                         </ul>
+                     </li>
+                     <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
+                         <ul class="dropdown-menu">
+                             <li><a href="/directToProfile">Change Profile</a></li>
+                             <li><a href="/directToPassword">Change Password</a></li>
+                             <li><a href="#">Change Status</a></li>
+                             <li class="divider"></li>
+                             <li><a href="/logout"><strong>Sign out</strong></a></li>
+                         </ul>
+                     </li>
+                 </ul>
+             </div>
+         </div>
+     </nav>
+
+     <div id="content" class="container">
+         <div class="row">
+             <!--<div class="row">-->
+             <input type="hidden" id="myname" value="<%=username%>">
+             <input type="hidden" id="mystatus" value="<%=status%>">
+             <!-- left column -- main column -->
+             <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
+                 <div class="page-header">
+                     <h2> User List </h2>
+                 </div>
+                 <div id="stream-list"></div>
+
+                 <div class="jumbotron">
+
+                     <div class="container">
+                         <form class="form-inline">
+                             <div class="form-group">
+                                 <label for="search-status" class="lb-search">Search by status: </label>
+                                 <select id="search-status" class="form-control">
+                                     <option>All</option>
+                                     <option>OK</option>
+                                     <option>Help</option>
+                                     <option>Emergency</option>
+                                     <option>Undefined</option>
+                                 </select>
+                             </div>
+
+                             <label class="lb-search">Search by username: </label>
+                             <div class="input-group">
+                                 <input id="search-username" type="text" class="form-control" placeholder="Username">
+                                 <span class="input-group-btn">
+                                     <button id="search-username-cancel" type="submit" class="btn btn-danger">
+                                         <i class="fa fa-times"></i>
+                                     </button>
+                                 </span>
+                             </div>
+                         </form>
+                         <div id="userList">
+                             <div class="line"></div>
+                             <div class="online-list"></div>
+                             <div class="line"></div>
+                             <div class="offline-list"></div>
+                         </div>
+                     </div>
+                 </div>
+
+
+
+             </div>
+             <!-- right column -- sidebar -->
+             <!--<div id="rightcontent" class="col-md-3 col-sm-3 sidebar">-->
+                 <!--<div id="sidebar">-->
+
+                 <!--</div>-->
+             <!--</div>-->
+             </div>
+         </div>
+     </div>
+
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/sweetalert.min.js"></script>
+    <script src="javascripts/adminUserlist.js"></script>
+    <script src="javascripts/sharestatus.js"></script>
+</body>
+</html>

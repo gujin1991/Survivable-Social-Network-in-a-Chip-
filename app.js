@@ -41,7 +41,6 @@ var io = require('socket.io')(server);
 
 // view engine setup
 app.engine('.html', ejs.__express);
-
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
@@ -120,6 +119,12 @@ app.get('/getHistory', function(req, res) {
 });
 
 app.get('/users', function(req, res) {
+
+    if(!testModeFlag) userListCtl.directUserList(req, res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.get('/adminUsers', function(req, res) {
 
     if(!testModeFlag) userListCtl.directUserList(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});

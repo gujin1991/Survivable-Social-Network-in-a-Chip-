@@ -142,15 +142,12 @@ exports.viewProfile = function (req,res) {
             if (err){
                 res.json({"statusCode":400, "message": "Cannot get data from database"});
             }else{
-                res.render('otherProfile', user[0]);
+                res.render('adminProfile', {'adminName': req.session.username,'status':req.session.status, 'user': user[0]});
             }
         });
     }
 
 };
-
-
-
 
 
 function qualifiedUsernamePassword(username,password) {
