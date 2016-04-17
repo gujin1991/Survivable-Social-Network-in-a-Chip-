@@ -121,8 +121,8 @@ function prependAnnouncement(message, username, text) {
 
 socket.on('Log out',function() {
 	swal({
-		title: "Sorry! You are out...",
-		text: "You were kicked out by Administrator!",
+		title: "Oops...",
+		text: "Your session has expired. Please log in again!",
 		type: "warning",
 		showCancelButton: false,
 		confirmButtonColor: "#DD6B55",
