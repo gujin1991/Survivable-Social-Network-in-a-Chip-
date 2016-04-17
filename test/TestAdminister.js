@@ -31,9 +31,7 @@ suite('SSNoC Unit Test - Administer', function () {
         });
 
     });
-
-
-
+    
     test('Update Profile.', function (done) {
         var temp = new User();
         temp.initializeForAdmin("SSNAdmin","SSNAdminTest","1234","Citizen","inactive").updateProfileByAdmin(function(result) {
