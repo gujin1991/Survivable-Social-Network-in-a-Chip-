@@ -1,0 +1,35 @@
+{
+  "name": "q",
+  "version": "1.0.0",
+  "description": "**Jiyu Shi**<p> **Guangyu Chen**<p> **Pan Li**<p> **Jin Gu**<p> **Congshan lv**<p>",
+  "main": "Gruntfile.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "express-session": "^1.13.0",
+    "grunt": "^0.4.5",
+    "istanbul": "^0.4.2",
+    "passport-local": "^1.0.0",
+    "passport": "^0.3.2",
+    "socket.io": "^1.4.3",
+    "sqlite3": "^3.1.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmusv-fse/S16-A1-SSNoC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmusv-fse/S16-A1-SSNoC/issues"
+  },
+  "homepage": "https://github.com/cmusv-fse/S16-A1-SSNoC#readme"
+}
