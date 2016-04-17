@@ -52,14 +52,17 @@ function setOnlineTable(online_users, size) {
             imgName = "undefined.png";
             status = "Undefined";
         }
-
-        var new_line = '<tr>' +
-            '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
-            '<span>' + online_users[i].userName + '</span>' + '</td>' +
-            '<td width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
-            '<span>' + status + '</span>' + '</td>' +
-            '</tr>';
-        online_table += new_line;
+        if (online_users[i].accountStatus == "active") {
+            var new_line = '<tr>' +
+                '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
+                '<span>' + online_users[i].userName + '</span>' + '</td>' +
+                '<td width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+                '<span>' + status + '</span>' + '</td>' +
+                '<td width="50%" class="text-left">'+
+                '<span>' + online_users[i].privilege + '</span>' + '</td>' +
+                '</tr>';
+            online_table += new_line;
+        }
     }
     online_table += '</tbody></table>';
     var one = $(online_table);
@@ -92,14 +95,17 @@ function setOfflineTable(offline_users, size) {
             imgName = "undefined.png";
             status = "Undefined";
         }
-
-        var new_line = '<tr>' +
-            '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
-            '<span>' + offline_users[i].userName + '</span>' + '</td>' +
-            '<td  width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
-            '<span>' + status + '</span>' + '</td>' +
-            '</tr>';
-        offline_table += new_line;
+        if (offline_users[i].accountStatus === "active") {
+            var new_line = '<tr>' +
+                '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
+                '<span>' + offline_users[i].userName + '</span>' + '</td>' +
+                '<td  width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+                '<span>' + status + '</span>' + '</td>' +
+                '<td width="50%" class="text-left">'+
+                '<span>' + offline_users[i].privilege + '</span>' + '</td>' +
+                '</tr>';
+            offline_table += new_line;
+        }
     }
     var one = $(offline_table);
     offline_list.append(one);

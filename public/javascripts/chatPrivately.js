@@ -30,13 +30,17 @@ socket.on('updatelist',function(response){
     sortByName(response.online, function(onlineUserList){
         onlineUsers = onlineUserList;
         for(var i = 0; i < onlineSize; i++) {
-            setDropdownUserlistClick(username, onlineUserList[i].userName,true);
+            if (onlineUserList[i].accountStatus === "active") {
+                setDropdownUserlistClick(username, onlineUserList[i].userName, true);
+            }
         }
     });
     sortByName(response.offline, function(offlineUserList) {
         offlineUsers = offlineUserList;
         for(var i = 0; i < offlineSize; i++) {
-            setDropdownUserlistClick(username, offlineUserList[i].userName,false);
+            if (offlineUsers[i].accountStatus === "active") {
+                setDropdownUserlistClick(username, offlineUserList[i].userName, false);
+            }
         }
     });
 });
