@@ -1,6 +1,10 @@
 /**
  * Created by Pan on 4/15/16.
  */
+
+
+
+
 var user = $('#user');
 var oldAccount = $('#account').val();
 var oldPrivilege = $('#privilege').val();
@@ -8,6 +12,13 @@ var oldName = $('#userName').val();
 var oldPassword = $('#password').val();
 var adminName = $('#adminName').val();
 var $submit = $('#submit');
+
+var socket = io.connect();
+console.log(adminName);
+socket.on('connect', function () {
+    socket.emit('login',adminName);
+});
+
 if (oldAccount == 'active') {
     $('.BSswitch').bootstrapSwitch('state', true);
 } else {

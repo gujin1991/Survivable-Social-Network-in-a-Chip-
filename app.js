@@ -283,6 +283,7 @@ app.get('/map', function(req,res) {
 io.on('connection', function(socket) {
     var myname;
     socket.on('login', function(username) {
+        console.log(username + 'log in !!!!!!!!!!!!!!!!!');
         myname = username;
         signInCtl.getUserInfo(myname,function(callback){
             socket.user = signInCtl.newUser(callback);
@@ -293,7 +294,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect',function(){
-        //console.log(socket.user.userName + " log out !!!!!!!!!!!!")
+        console.log(socket.user.userName + " log out !!!!!!!!!!!!")
         signInCtl.deleteLoggedInUsers(socket.user);
         signInCtl.getOfflineUserIo(socket.user,io);
         delete sockets[myname];
