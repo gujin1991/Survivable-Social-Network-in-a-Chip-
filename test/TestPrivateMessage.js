@@ -20,6 +20,7 @@ suite('SSNoC Unit Test - Private Message', function () {
                 });
             })
         });
+        new PrivateMessage().deleteByUsernamePrivate("TesterJin");
     });
 
     test('Sending a private message unsuccessfully.', function (done) {

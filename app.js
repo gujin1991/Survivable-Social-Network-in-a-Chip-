@@ -293,6 +293,7 @@ io.on('connection', function(socket) {
     });
 
     socket.on('disconnect',function(){
+        //console.log(socket.user.userName + " log out !!!!!!!!!!!!")
         signInCtl.deleteLoggedInUsers(socket.user);
         signInCtl.getOfflineUserIo(socket.user,io);
         delete sockets[myname];

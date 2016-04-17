@@ -20,6 +20,7 @@ suite('SSNoC Unit Test - Public Message', function () {
                 expect(rows[len - 1].time).to.eql(currentTime);
                 done();
             });
+            message.deleteByUsername("TesterJin");
         });
     });
 });

@@ -111,6 +111,20 @@ MessageDb.prototype.updatePrivateUserName = function (oldUsername, username) {
 
 };
 
+MessageDb.prototype.deleteByUsername = function(username){
+    var dbTemp = this.db;
+    var q = 'DELETE FROM messages WHERE userName = \'' + username  + '\';';
+    dbTemp.run(q, function () {
+    });
 
+}
+
+MessageDb.prototype.deleteByUsernamePrivate = function(username){
+    var dbTemp = this.db;
+    var q = 'DELETE FROM privateMessages WHERE toUser = \'' + username  + '\' or fromUser = \'' + username + '\';';
+    dbTemp.run(q, function () {
+    });
+
+}
 
 module.exports = MessageDb;

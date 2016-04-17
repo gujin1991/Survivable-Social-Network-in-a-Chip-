@@ -23,4 +23,13 @@ Message.prototype.updateUserName = function(oldUsername,username) {
     this.messageDb.updatePublicUserName(oldUsername,username);
 }
 
+Message.prototype.deleteByUsername = function(username) {
+    this.messageDb.deleteByUsername(username);
+}
+
+Message.prototype.deleteByUsernamePrivate = function(username) {
+    this.messageDb.deleteByUsernamePrivate(username);
+}
+
+
 module.exports = Message;

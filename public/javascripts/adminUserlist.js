@@ -7,6 +7,8 @@ socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 
+
+
 socket.on('updatelist', function(response){
 
     Object.size = function(obj) {

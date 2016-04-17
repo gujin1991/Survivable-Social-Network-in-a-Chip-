@@ -88,7 +88,7 @@ UserDb.prototype.userAuth = function (username, password, callback) {
 
 
 UserDb.prototype.getOfflineUsers = function (onlineUsers, callback) {
-    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' ;
+    var q = 'SELECT * FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' ;
         //+ 'and accountStatus = \''
         //+ new AccountStatus().active+"\';";
     var dbTemp = this.db;
@@ -130,7 +130,7 @@ UserDb.prototype.getUserInfo = function (userName, callback) {
 };
 
 UserDb.prototype.getOfflineUsersByKey = function (key, onlineUsers, callback) {
-    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
+    var q = 'SELECT * FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
         + ' and userName LIKE \'%' + key + '%\'';
     var dbTemp = this.db;
 
@@ -140,7 +140,7 @@ UserDb.prototype.getOfflineUsersByKey = function (key, onlineUsers, callback) {
 };
 
 UserDb.prototype.getOfflineUsersByStatus = function (key, onlineUsers, callback) {
-    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
+    var q = 'SELECT * FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
         + ' and status LIKE \'%' + key + '%\'';
     var dbTemp = this.db;
 
