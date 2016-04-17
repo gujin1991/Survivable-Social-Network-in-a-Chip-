@@ -36,7 +36,7 @@
                 <%}%>
                 <li><a href="/chatPrivately">Chat Privately</a></li>
                 <li><a href="/announcement">Announcement</a ></li>
-                <% if (privilege == 'Monitor'){ %>
+                <% if (privilege == 'Monitor' || privilege == 'Administrator'){ %>
                 <li><a href="/measurePerformance">Performance</a ></li>
                 <%}%>
                 <li class="dropdown">
@@ -106,7 +106,7 @@
                             </table>
                         </div>
                     </div>
-                    <% if (privilege == 'Coordinator'){ %>
+                    <% if (privilege == 'Coordinator' || privilege == 'Administrator'){ %>
                         <div id="post-board">
                             <p id="prompt"><strong>Post a new Announcement</strong></p>
                             <form>
