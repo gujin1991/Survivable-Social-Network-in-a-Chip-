@@ -1,16 +1,24 @@
 /**
  * Created by Pan on 4/15/16.
  */
-/**
- * Created by jiyushi1 on 4/1/16.
- */
 
+
+
+
+var user = $('#user');
 var oldAccount = $('#account').val();
 var oldPrivilege = $('#privilege').val();
 var oldName = $('#userName').val();
 var oldPassword = $('#password').val();
 var adminName = $('#adminName').val();
 var $submit = $('#submit');
+
+var socket = io.connect();
+console.log(adminName);
+socket.on('connect', function () {
+    socket.emit('login',adminName);
+});
+
 if (oldAccount == 'active') {
     $('.BSswitch').bootstrapSwitch('state', true);
 } else {
@@ -31,30 +39,31 @@ $.post('/getStatus',{'username':adminName},function(response){
             statusContent = "Emergency";
             logoName = "emergency.png";
         }
-        //swal({title: "Test Success!",text: "just a test !", type: "error", confirmButtonText: "OK" });
         if (statusContent != undefined) {
             $("#status-toggle").empty().append(
                 'Status:<span><img alt="'+ statusContent +'" height="20px" width="20px" src="../images/icons/' + logoName + '">' + '</span><span class="caret"></span>');
         }
-    }else{
-        console.log("err");
+    } else if (response.statusCode === 410) {
+        swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
     }
 
 });
 
-////set previous skill or gender.
-//$(function setSkilAndGender() {
-//    $("#Gender").val(gender);
-//    $("#Skill").val(skill);
-//});
-
+var newPrivilege = oldPrivilege;
+$('#new_privilege').change(function(){
+    newPrivilege = $(this).val();
+});
 //submit the change file.
 $submit.on('click', function(e) {
-    var newAccount = $('#new_account').val();
-    var newPrivilege = $('#new_privilege').val();
     var newName = $('#new_userName').val();
     var newPassword = $('#new_password').val();
-
+    var temp = $("#new_account").bootstrapSwitch('state');
+    var newAccount;
+    if (temp) {
+        newAccount = "active";
+    } else {
+        newAccount = "inactive";
+    }
     if (!newName || newName.length < 2) {
         swal({title: "Invalid username!",text: "The username should be at least 2 character long!", type: "error", confirmButtonText: "OK" });
 
@@ -81,7 +90,17 @@ $submit.on('click', function(e) {
             success: function(response) {
                 //console.log(response);
                 if (response.statusCode === 200) {
-                    swal("Good job!", "You Update your Information!", "success")
+                    swal({
+                        title: "Good job!",
+                        text: "You Update your Information!",
+                        type: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "OK!",
+                        closeOnConfirm: false
+                    }, function(){
+                        window.location = "/seeProfile/" + newName;
+                    });
                 } else if (response.statusCode === 401) {
                     swal({
                         title: "Something Wrong!",
@@ -89,10 +108,24 @@ $submit.on('click', function(e) {
                         type: "error",
                         confirmButtonText: "OK"
                     });
-                }else if(response.statusCode === 410 ){
-                    swal("Test Mode!", "We are now in Test!", "warning")
+                } else if (response.statusCode === 410) {
+                    swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
                 }
             }
         });
     }
+});
+
+socket.on('Log out',function() {
+    swal({
+        title: "Oops...",
+        text: "Your session has expired. Please log in again!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
 });

@@ -16,6 +16,8 @@ $('#search-public-btn').click(function() {
             document.getElementById("searchResult").style.display = "block";
             if (messages == undefined || messages.length == 0) {
                 swal({title: "Message Not Found!",text: "No Matches.", type: "error", confirmButtonText: "OK" });
+            } else if (messages.statusCode === 410) {
+                swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
             } else if (messages.statusCode === 401) {
                 swal({title: "Error!",text: "All Stop Words.", type: "error", confirmButtonText: "OK" });
             } else {
@@ -119,3 +121,17 @@ function prePage() {
     page.prePage();
     document.getElementById('pageindex').innerHTML = page.pageIndex + 1 + ' / ' + page.pageCount;
 }
+
+socket.on('Log out',function() {
+    swal({
+        title: "Oops...",
+        text: "Your session has expired. Please log in again!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
+});

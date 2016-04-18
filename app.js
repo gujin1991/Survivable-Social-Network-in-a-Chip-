@@ -18,11 +18,12 @@ var administer = require('./controllers/A​dminister.js');
 var mapLocation = require('./controllers/MapLocation.js');
 
 
+
+var administer = require('./controllers/Administer.js');
+var mapCtl = require('./controllers/Map.js');
+
 //save all the socket with the name of it's name.
-var sockets = {};
-
-
-
+var sockets = {}
 //flag represents test mode
 var testModeFlag = false;
 
@@ -38,9 +39,6 @@ var server = app.listen(3001,function(){
 });
 
 var io = require('socket.io')(server);
-//used to keep the status of online or offline users~
-//var loggedInUsers = []
-//var loggedOutUsers = []
 
 // view engine setup
 app.engine('.html', ejs.__express);
@@ -91,15 +89,12 @@ app.get('/logout',function(req, res) {
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-
-
 // direct to chat page
 app.post('/signin', function(req, res){
 
     if(!testModeFlag) signInCtl.checkSignIn(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
-
 
 app.post('/signup', function(req, res) {
 
@@ -109,26 +104,21 @@ app.post('/signup', function(req, res) {
 
 //direct to announcement page
 app.get('/announcement', function(req, res){
-
-
     if(!testModeFlag) postAnnouce.directAnnouncement(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 app.get('/getHistory', function(req, res) {
-
     if(!testModeFlag) chatPublicly.getPublicMessages(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 app.get('/users', function(req, res) {
-
     if(!testModeFlag) userListCtl.directUserList(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 app.get('/adminUsers', function(req, res) {
-
     if(!testModeFlag) userListCtl.directUserList(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -137,13 +127,9 @@ app.get('/measurePerformance', function(req, res) {
     /* TODO: code added just for build UI, might need modification later
      *       Redirect to meadure performance page
      * */
-
     if(!testModeFlag) measurePerformance.directMeasurePerformance(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
-
-//app.get('/getUsers', checkSignIn.getOfflineUsers);
-
 
 app.post('/getStatus',function(req,res){
 
@@ -153,46 +139,31 @@ app.post('/getStatus',function(req,res){
             res.json({"statusCode":400, "message": "Fail" });
         }else{
             req.session.status = callback.status;
-            console.log("test status ----------------------------- " + req.body.username + "      "+ req.session.status);
             res.json({"statusCode":200, "message": "Success" ,"status":callback.status});
         }
-
     });
     else res.json({"statusCode": 410, "message": "In Test"});
-
-
 });
 
-
-
 app.post('/sendPublicMessage',function(req,res){
-
-
     if(!testModeFlag) chatPublicly.sendPublicMessage(req,res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 //share status
 app.post('/updateStatus', function(req, res){
-
-
     if(!testModeFlag) shareStatus.updateStatus(req, res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-
 //get announcement
 app.get('/getAnnouncements', function(req, res){
-
-
     if(!testModeFlag) postAnnouce.getAnnouncements(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
 //post announcement
 app.post('/sendAnnouncements',function(req,res){
-
-
     if(!testModeFlag) postAnnouce.sendAnnouncements(req,res,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -200,11 +171,9 @@ app.post('/sendAnnouncements',function(req,res){
 
 //direct to private char page
 app.get('/chatPrivately', function(req, res){
-
-
     if(!testModeFlag){
         if (req.session.loggedIn) {
-            res.render('chatPrivately', {'username': req.session.username, 'status': req.session.status});
+            res.render('chatPrivately', {'username': req.session.username, 'status': req.session.status,'privilege' : req.session.privilege});
         } else {
             res.render('signin');
         }
@@ -214,24 +183,12 @@ app.get('/chatPrivately', function(req, res){
 
 
 app.get('/userList', function(req,res){
-
     if(!testModeFlag) signInCtl.getOfflineUserApi(sockets[req.session.username],io,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-//store status in session
-
-//app.post('/storeStatus',function(req,res){
-//    req.session.status = req.body.status;
-//    console.log("test status -----------------------------!!!!!!" + req.session.status);
-//    res.json({"statusCode":200, "message": "Success"});
-//});
-
-
-
 //chat privately
 app.post('/chatPrivately',function(req,res){
-
     if(!testModeFlag) chatPrivately.sendPrivateMessage(req,res,sockets[req.body.receiver],sockets[req.body.sender],sockets);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -241,8 +198,6 @@ app.post('/getPrivateMessage',function(req,res){
     if(!testModeFlag) chatPrivately.getPrivateMessages(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
-
-
 
 //search information use case.
 app.post('/searchUser', function(req,res){
@@ -257,35 +212,27 @@ app.post('/searchStatus',function(req,res){
 });
 
 app.post('/searchAnnouncement',function(req,res){
-
     if(!testModeFlag) searchCtl.searchAnnouncement(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
-})
+});
 
 app.post('/searchPublic',function(req,res){
-    
     if(!testModeFlag)  searchCtl.searchPublic(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
-})
+});
 
 app.post('/searchPrivate',function(req,res){
-
     if(!testModeFlag) searchCtl.searchPrivate(req,res);
     else res.json({"statusCode": 410, "message": "In Test"});
-})
-
-
+});
 
 //get postCount
 app.post('/testModeStart',function(req,res){
     if(testModeFlag){
         res.json({"statusCode": 410, "message": "Already in Test"});
     }else {
-        // if(req.body.duration >  5) res.json({"statusCode": 412, "message": "Time Exceed"});
-        // else {
-            testModeFlag = true;
-            res.json({"statusCode": 200, "message": "Success"});
-        //}
+        testModeFlag = true;
+        res.json({"statusCode": 200, "message": "Success"});
     }
 });
 
@@ -296,24 +243,19 @@ app.post('/testModeQuit',function(req,res){
         measurePerformance.reset();
         res.json({"statusCode": 200, "message": "Success"});
     }else {
-
         res.json({"statusCode": 411, "message": "Not in Test Mode"});
-
     }
 });
 
 app.post('/testPost', function(req,res) {
     if(testModeFlag) measurePerformance.sendTestMessage(req,res);
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
-
-    //measurePerformance.sendTestMessage(req,res);
 });
 
 //get getCount
 app.get('/testGet', function(req,res) {
     if(testModeFlag) measurePerformance.getTestMessages(req,res);
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
-    //measurePerformance.getTestMessages(req,res);
 });
 
 //end measurePerformance , used for normal stops.
@@ -325,17 +267,9 @@ app.post('/endMeasurePerformance', function(req, res) {
     else res.json({"statusCode": 411, "message": "Not in Test Mode"});
 });
 
-
-//new use case : administer users profile
-
-//app.get('/changeProfileByAdmin', function(req,res) {
-//    if(!testModeFlag) administer.directToProfile(req,res,sockets);
-//    else res.json({"statusCode": 410, "message": "In Test"});
-//});
-
 //modify user's  profile
 app.put('/updateProfile',function(req,res){
-    if(!testModeFlag) administer.updateProfile(req,res,sockets);
+    if(!testModeFlag) administer.updateProfile(req,res,sockets,io);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
@@ -345,6 +279,12 @@ app.get('/seeProfile/:username',function(req,res){
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
+app.get('/map', function(req,res) {
+    if(!testModeFlag) {
+        mapCtl.directMap(req,res);
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
 
 //update the map
 app.post('/updateLocation', function(req,res) {
@@ -355,11 +295,10 @@ app.post('/updateLocation', function(req,res) {
 
 io.on('connection', function(socket) {
     var myname;
-    //var user;
     socket.on('login', function(username) {
+        console.log(username + 'log in !!!!!!!!!!!!!!!!!');
         myname = username;
         signInCtl.getUserInfo(myname,function(callback){
-            //socket.user = callback;
             socket.user = signInCtl.newUser(callback);
             sockets[myname] = socket;
             signInCtl.addLoggedInUsers(socket.user);
@@ -367,13 +306,10 @@ io.on('connection', function(socket) {
         });
     });
 
-    //this part need to be modified.. we can add io to the log out api..
-    //tomorrow.
     socket.on('disconnect',function(){
-        //console.log('disconnect : ' + socket.username);
+        console.log(socket.user.userName + " log out !!!!!!!!!!!!")
         signInCtl.deleteLoggedInUsers(socket.user);
         signInCtl.getOfflineUserIo(socket.user,io);
         delete sockets[myname];
     });
-
 });

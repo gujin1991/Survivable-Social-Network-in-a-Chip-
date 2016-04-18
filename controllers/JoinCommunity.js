@@ -68,7 +68,6 @@ exports.checkSignIn = function(req, res) {
 exports.register = function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    //var status = req.body.userstatus;
     if (!qualifiedUsernamePassword(username, password)) {
         res.json({"statusCode":405, "message": "Username/Password invalid"});
     } else {

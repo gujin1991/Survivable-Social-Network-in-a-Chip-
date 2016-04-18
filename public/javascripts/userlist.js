@@ -2,16 +2,12 @@
  * Created by congshan on 2/25/16.
  */
 var socket = io.connect();
-//var mystatus = $("#mystatus").val();
 
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 
 socket.on('updatelist', function(response){
-    console.log("-----------------online : "+ response.online);
-    console.log("-----------------offline : "+ response.offline);
-    console.log("-----------------status : " + response.currentUser.status);
     Object.size = function(obj) {
         var size = 0, key;
         for (key in obj) {
@@ -19,8 +15,6 @@ socket.on('updatelist', function(response){
         }
         return size;
     };
-
-    //$("#mystatus").val(response.currentUser.status);
 
     var onlineSize = Object.size(response.online);
     var offlineSize = Object.size(response.offline);
@@ -58,14 +52,17 @@ function setOnlineTable(online_users, size) {
             imgName = "undefined.png";
             status = "Undefined";
         }
-
-        var new_line = '<tr>' +
-            '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
-            '<span>' + online_users[i].userName + '</span>' + '</td>' +
-            '<td width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
-            '<span>' + status + '</span>' + '</td>' +
-            '</tr>';
-        online_table += new_line;
+        if (online_users[i].accountStatus == "active") {
+            var new_line = '<tr>' +
+                '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/online.png">' +
+                '<span>' + online_users[i].userName + '</span>' + '</td>' +
+                '<td width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+                '<span>' + status + '</span>' + '</td>' +
+                '<td width="50%" class="text-left">'+
+                '<span>' + online_users[i].privilege + '</span>' + '</td>' +
+                '</tr>';
+            online_table += new_line;
+        }
     }
     online_table += '</tbody></table>';
     var one = $(online_table);
@@ -98,14 +95,17 @@ function setOfflineTable(offline_users, size) {
             imgName = "undefined.png";
             status = "Undefined";
         }
-
-        var new_line = '<tr>' +
-            '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
-            '<span>' + offline_users[i].userName + '</span>' + '</td>' +
-            '<td  width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
-            '<span>' + status + '</span>' + '</td>' +
-            '</tr>';
-        offline_table += new_line;
+        if (offline_users[i].accountStatus === "active") {
+            var new_line = '<tr>' +
+                '<td width="50%">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/offline.png">' +
+                '<span>' + offline_users[i].userName + '</span>' + '</td>' +
+                '<td  width="50%" class="text-left">' + '<img alt="Online" height="20px" width="20px" style="margin-right:5px;" src="../images/icons/' + imgName + '">' +
+                '<span>' + status + '</span>' + '</td>' +
+                '<td width="50%" class="text-left">'+
+                '<span>' + offline_users[i].privilege + '</span>' + '</td>' +
+                '</tr>';
+            offline_table += new_line;
+        }
     }
     var one = $(offline_table);
     offline_list.append(one);
@@ -167,7 +167,11 @@ $("#search-status").change(function(event){
     } else {
         var keyword = {"keyword": status};
         $.post('/searchStatus', keyword, function(response) {
-            updateUserList(response.online, response.offline);
+            if (response.statusCode === 410) {
+                swal({title: "Error!",text: "Monitor is testing systems now! Please wait...", type: "error", confirmButtonText: "OK" });
+            } else {
+                updateUserList(response.online, response.offline);
+            }
         });
     }
 });
@@ -191,4 +195,18 @@ $("#search-username-cancel").click(function(event) {
         updateUserList(res.online, res.offline);
     });
     $("#search-username").val("");
+});
+
+socket.on('Log out',function() {
+    swal({
+        title: "Oops...",
+        text: "Your session has expired. Please log in again!",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK!",
+        closeOnConfirm: false
+    }, function(){
+        window.location = "/logout";
+    });
 });

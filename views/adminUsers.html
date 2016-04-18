@@ -27,11 +27,16 @@
              </div>
              <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                  <ul class="nav navbar-nav navbar-right">
-                     <li><a href="/users">User List</a></li>
+                     <% if (privilege == 'Administrator'){ %>
+                     <li><a href="/users">Administrator</a ></li>
+                     <%}else{%>
+                     <li><a href="/adminUsers">User List</a ></li>
+                     <%}%>
                      <li><a href="/chatPrivately">Chat Privately</a></li>
-                     <li><a href="/announcement">Announcement</a></li>
-                     <li><a href="/measurePerformance">Performance</a></li>
-                     <!--<li><a href="#">Help</a></li>-->
+                     <li><a href="/announcement">Announcement</a ></li>
+                     <% if (privilege == 'Monitor' || privilege == 'Administrator'){ %>
+                     <li><a href="/measurePerformance">Performance</a ></li>
+                     <%}%>
                      <li class="dropdown">
                          <a href="#" data-toggle="dropdown" id="status-toggle">Status<span class="caret"></span></a>
                          <ul class="dropdown-menu" role="menu">
@@ -43,10 +48,6 @@
                      <li class="dropdown">
                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id = "username"><%=username%></span><b class="caret"></b></a>
                          <ul class="dropdown-menu">
-                             <li><a href="/directToProfile">Change Profile</a></li>
-                             <li><a href="/directToPassword">Change Password</a></li>
-                             <li><a href="#">Change Status</a></li>
-                             <li class="divider"></li>
                              <li><a href="/logout"><strong>Sign out</strong></a></li>
                          </ul>
                      </li>
@@ -100,16 +101,7 @@
                          </div>
                      </div>
                  </div>
-
-
-
              </div>
-             <!-- right column -- sidebar -->
-             <!--<div id="rightcontent" class="col-md-3 col-sm-3 sidebar">-->
-                 <!--<div id="sidebar">-->
-
-                 <!--</div>-->
-             <!--</div>-->
              </div>
          </div>
      </div>

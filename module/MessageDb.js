@@ -6,12 +6,17 @@ var AccountStatus = require('./AccountStatus');
 function MessageDb() {
     this.db = new sqlite3.Database('./fse.db');
 }
+
 MessageDb.prototype.messageAdd = function (username, message, time, status, nickName,callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function () {
         dbTemp.run("CREATE TABLE IF NOT EXISTS messages (messageId INTEGER PRIMARY KEY AUTOINCREMENT, userName TEXT, time TEXT, content TEXT, status TEXT , nickName TEXT)");
         var insertMessage = dbTemp.prepare("insert into messages Values(?, ?, ?, ?, ?,?)");
         insertMessage.run(null, username, time, message, status, nickName);
+        /*dbTemp.all("SELECT * FROM messages", function(err, row) {
+            console.log("add" + row.length);
+        });*/
+
         callback(200);
     });
 };
@@ -65,10 +70,14 @@ MessageDb.prototype.getPrivateHistory = function (fromUser, toUser, callback) {
 
 MessageDb.prototype.getHistoryByKey = function (keyword, callback) {
     var dbTemp = this.db;
-    var q = "SELECT * FROM messages WHERE content Like \'%" + keyword.join('%\' and content Like \'%') + '%\'';
+    //var q = "SELECT * FROM messages WHERE content Like \'%" + keyword.join('%\' and content Like \'%') + '%\'';
+    var q = "SELECT * FROM messages";
 
     dbTemp.serialize(function () {
+
+
         dbTemp.all(q, function (err, rows) {
+            console.log(keyword + " keyword" + rows);
             callback(rows);
         })
     });
@@ -112,6 +121,20 @@ MessageDb.prototype.updatePrivateUserName = function (oldUsername, username) {
 
 };
 
+MessageDb.prototype.deleteByUsername = function(username){
+    var dbTemp = this.db;
+    var q = 'DELETE FROM messages WHERE userName = \'' + username  + '\';';
+    dbTemp.run(q, function () {
+    });
 
+}
+
+MessageDb.prototype.deleteByUsernamePrivate = function(username){
+    var dbTemp = this.db;
+    var q = 'DELETE FROM privateMessages WHERE toUser = \'' + username  + '\' or fromUser = \'' + username + '\';';
+    dbTemp.run(q, function () {
+    });
+
+}
 
 module.exports = MessageDb;

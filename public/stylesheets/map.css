@@ -1,0 +1,37 @@
+@charset "UTF-8";
+body {
+    background: url("../images/background.jpg") no-repeat 50% 50% fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    font-family: "Lato", sans-serif;
+    /*padding-bottom: 50%;*/
+}
+.page-header {
+    padding-bottom: 9px;
+    margin: 71px 0 20px;
+    border-bottom: none;
+}
+.jumbotron {
+    /*padding-top: 1px;*/
+    margin: 71px 0 20px;
+    height: 80%;
+    min-height: 400px;
+    background-color: rgba(191, 191, 191, 0.3);
+}
+#map-container {
+    height: 100%;
+}
+#map {
+    height: 100%;
+    overflow: scroll;
+    padding: 10px;
+    background-color: rgba(191, 191, 191, 0.3);
+}
+.my-btn-group {
+    /*margin: 71px 0 0;*/
+}
+.label-map {
+    background-color: rgba(0, 0, 0, 0.3);
+}

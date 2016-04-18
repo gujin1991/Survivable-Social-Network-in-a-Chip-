@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS testMessages (messageId INTEGER PRIMARY KEY AUTOINCRE
 CREATE TABLE IF NOT EXISTS users (userName TEXT PRIMARY KEY, password TEXT, joinTime TEXT , status TEXT, privilege TEXT, accountStatus TEXT, nickName TEXT);
 
 insert into users Values("SSNAdmin","admin","1/15/2016, 12:00:00 PM","OK","Administrator","active","");
-insert into users Values("TesterJin","1234","1/15/2016, 12:00:00 PM","OK","Administrator","active","");
+insert into users Values("TesterJin","19911991","1/15/2016, 12:00:00 PM","OK","Administrator","active","");
 insert into users Values("TesterYu","admin","1/15/2016, 12:00:00 PM","OK","Administrator","active","");

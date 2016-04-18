@@ -32,4 +32,9 @@ PrivateMessage.prototype.updateUserName = function(oldUsername,username) {
     this.messageDb.updatePrivateUserName(oldUsername,username);
 }
 
+PrivateMessage.prototype.deleteByUsernamePrivate = function(username) {
+    this.messageDb.deleteByUsernamePrivate(username);
+}
+
+
 module.exports = PrivateMessage;

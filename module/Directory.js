@@ -49,6 +49,7 @@ var directory = new function Directory() {
         var user = this._newUsers[username];
         user.updateStatus(status, callback);
         this._newUsers[username] = user;
+        //return this;
     };
 
     this.deleteLoggedInUsers = function (user) {
@@ -63,6 +64,7 @@ var directory = new function Directory() {
             this._dataUsers.splice(index, 1);
         }
         delete this._newUsers[user.userName];
+        //return this;
     };
 
     this.getOnlineUsers = function (callback) {
