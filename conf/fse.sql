@@ -13,4 +13,4 @@ CREATE TABLE if NOT EXISTS locations (name text PRIMARY KEY, x text, y text, typ
 
 insert into users Values("SSNAdmin","admin","1/15/2016, 12:00:00 PM","OK","Administrator","active","");
 insert into users Values("TesterJin","19911991","1/15/2016, 12:00:00 PM","OK","Administrator","active","");
-insert into users Values("TesterYu","admin","1/15/2016, 12:00:00 PM","OK","Administrator","active","");
+insert into users Values("TesterYu","admin","1/15/2016, 12:00:00 PM","OK","Administrator","inactive","");

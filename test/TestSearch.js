@@ -10,7 +10,7 @@ var PrivateMessage = require('../module/PrivateMessage.js')
 var testMessagePri = new PrivateMessage();
 
 var User = require('../module/User.js');
-var directory = require('../module/Directory.js')
+var directory = require('../module/Directory.js');
 
 var PublicMessage = require('../module/Message.js')
 var testMessagePub = new PublicMessage();

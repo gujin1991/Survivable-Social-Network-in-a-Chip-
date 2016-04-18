@@ -50,7 +50,7 @@ UserDb.prototype.exist = function (username, callback) {
             } else if(row[0].accountStatus == new AccountStatus().active){
                 callback(403);
             }else{
-                callback(407);// 307 means inactive
+                callback(407);// 407 means inactive
             }
 
         });
