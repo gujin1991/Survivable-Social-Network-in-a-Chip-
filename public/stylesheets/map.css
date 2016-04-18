@@ -23,6 +23,17 @@ body {
 #map-container {
     height: 100%;
 }
+#admin-map-container {
+    height: 100%;
+    width: 70%;
+    float: left;
+}
+#admin-map {
+    height: 100%;
+    overflow: scroll;
+    padding: 10px;
+    background-color: rgba(191, 191, 191, 0.3);
+}
 #map {
     height: 100%;
     overflow: scroll;
