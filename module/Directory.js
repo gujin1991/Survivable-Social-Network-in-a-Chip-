@@ -53,7 +53,7 @@ var directory = new function Directory() {
     };
 
     this.deleteLoggedInUsers = function (user) {
-        console.log(user.userName + "deletelog");
+        //console.log(user.userName + "deletelog");
         var index = this._loggedInUsers.indexOf(user);
         if (index > -1) {
             this._loggedInUsers.splice(index, 1);
