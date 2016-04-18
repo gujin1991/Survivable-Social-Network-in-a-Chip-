@@ -13,17 +13,17 @@ function Location(name, longitude, latitude, type, time) {
     this.locationDB = new LocationDB();
 }
 
-Location.prototype.add = function(name, longitude, latitude, type, time, callback) {
+Location.prototype.addLocation = function(name, longitude, latitude, type, time, callback) {
     this.locationDB.addLocation(name, longitude, latitude, type, time, callback);
-}
+};
 
+Location.prototype.deleteLocation = function(name, callback) {
+    this.locationDB.deleteLocation(name, callback);
+};
 
-/*Location.prototype.delete = function(name, longitude, latitude, type, callback) {
-    this.locationDB.delteLocation(name, longitude, latitude, type, callback);
-}*/
-
-Location.prototype.get = function(callback) {
+Location.prototype.getLocation = function(callback) {
     this.locationDB.getLocation(callback);
-}
+};
+
 
 module.exports = Location;

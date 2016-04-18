@@ -13,12 +13,6 @@ var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
-
-var administer = require('./controllers/A​dminister.js');
-var mapLocation = require('./controllers/MapLocation.js');
-
-
-
 var administer = require('./controllers/Administer.js');
 var mapCtl = require('./controllers/Map.js');
 
@@ -286,12 +280,12 @@ app.get('/map', function(req,res) {
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-//update the map
-app.post('/updateLocation', function(req,res) {
-    if(!testModeFlag) mapLocation.updateMap(req,res);
+app.post('/map', function (req,res) {
+    if(!testModeFlag) {
+        mapCtl.addMark(req,res, io);
+    }
     else res.json({"statusCode": 410, "message": "In Test"});
 });
-
 
 io.on('connection', function(socket) {
     var myname;
