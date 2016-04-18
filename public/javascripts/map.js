@@ -13,9 +13,18 @@ socket.on('updatelocation', function(response){
 });
 
 $(document).ready(function() {
-    addLabel(0.2, 0.3, "Congshan Lv", "OK", true);
-    addLabel(0.4, 0.63, "Sarah", "OK", true);
+    addMarker();
 });
+
+function addMarker() {
+    map.setMaxBounds(bounds);
+    L.imageOverlay(url, bounds).addTo(map);
+    var m = {
+        x: 900,
+        y: 600
+    };
+    var marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom()-0.5)).addTo(map);
+}
 
 /**
  * x: [0,1]; y: [0,1];
@@ -67,3 +76,15 @@ function addLabel(x, y, username, status, isOnline) {
     //$("#map").append(userInfo);
     $('#map').append(div);
 }
+
+//function thirty_pc() {
+//    var height = $(window).height();
+//    var thirtypc = (80 * height) / 100;
+//    thirtypc = parseInt(thirtypc) + 'px';
+//    $(".jumbotron").css('height',thirtypc);
+//}
+//
+//$(document).ready(function() {
+//    thirty_pc();
+//    $(window).bind('resize', thirty_pc);
+//});

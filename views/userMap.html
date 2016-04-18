@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/map.css">
     <link rel="stylesheet" href="stylesheets/navbar.css">
+    <link rel="stylesheet" href="stylesheets/leaflet.css" />
 </head>
 <body>
 <!--Navigation bar -->
@@ -86,9 +87,10 @@
                 </div>
                 <div id="map-container">
                     <div id="map">
-                        <img id="map-img" src="../images/CMUCampusMap.png" class="img-responsive center-block" alt="Responsive image">
+                        <!--<img id="map-img" src="../images/CMUCampusMap.png" class="img-responsive center-block" alt="Responsive image">-->
                     </div>
                 </div>
+                <!--<div id="mapid" style="width: 600px; height: 400px"></div>-->
             </div>
         </div>
     </div>
@@ -99,6 +101,30 @@
 <script src="javascripts/bootstrap.min.js"></script>
 <script src="javascripts/sweetalert.min.js"></script>
 <script src="javascripts/sharestatus.js"></script>
+<script src="javascripts/leaflet.js"></script>
 <script src="javascripts/map.js"></script>
+<script>
+    var map = L.map('map', {
+        maxZoom: 3,
+        minZoom: 1,
+        crs: L.CRS.Simple
+    }).setView([900, 600], 1);
+
+    var w = 1800;
+    var h = 1200;
+    var url = '../images/CMUCampusMap.png';
+
+    var southWest = map.unproject([0, h], map.getMaxZoom()-0.5);
+    var northEast = map.unproject([w, 0], map.getMaxZoom()-0.5);
+    var bounds = new L.LatLngBounds(southWest, northEast);
+
+    map.setMaxBounds(bounds);
+    L.imageOverlay(url, bounds).addTo(map);
+//    var m = {
+//        x: 900,
+//        y: 600
+//    };
+//    var marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom()-0.5)).addTo(map);
+</script>
 </body>
 </html>

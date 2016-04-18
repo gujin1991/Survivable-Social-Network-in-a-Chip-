@@ -2,6 +2,7 @@
  * Created by Pan on 2/25/16.
  */
 var mystatus = $("#mystatus").val();
+//var socket = io.connect();
 
 $(document).ready(function() {
 
