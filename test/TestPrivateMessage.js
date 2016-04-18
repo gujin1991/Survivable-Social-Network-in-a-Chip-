@@ -1,41 +1,40 @@
 var expect = require('expect.js');
 var User = require('../module/User.js');
 var PrivateMessage = require('../module/PrivateMessage.js');
+var testMsgPri = new PrivateMessage();
 
 suite('SSNoC Unit Test - Private Message', function () {
+    var tester1 = "TesterJin";
+    var tester2 = "TesterYu";
 
     test('Sending a private message successfully.', function (done) {
-        new User().getUserInfo("TesterJin", function (err1, user1) {
-            new User().getUserInfo("TesterYu", function (err2, user2) {
+
                 var currentTime = new Date().toLocaleTimeString();
-                new PrivateMessage().addMessage(user1.userName, user2.userName, "Hello, Yu!", currentTime, "OK", "", "", function (code) {
+                testMsgPri.addMessage(tester1, tester2, "Hello, Yu!", currentTime, "OK", "", "", function (code) {
                     expect(code).to.eql(200);
-                    new PrivateMessage().getHistory(user1.userName, user2.userName, function (rows) {
+                    testMsgPri.getHistory(tester1, tester2, function (rows) {
                         var len = rows.length;
-                        console.log(rows);
+                        //console.log(rows);
                         expect(rows[len - 1].content).to.eql("Hello, Yu!");
                         expect(rows[len - 1].time).to.eql(currentTime);
                         done();
                     });
                 });
-            })
-        });
-        new PrivateMessage().deleteByUsernamePrivate("TesterJin");
+
+
+        //new PrivateMessage().deleteByUsernamePrivate("TesterJin");
     });
 
     test('Sending a private message unsuccessfully.', function (done) {
-        new User().getUserInfo("TesterJin", function (err1, user1) {
-            new User().getUserInfo("TesterYu", function (err2, user2) {
+
                 var currentTime = new Date().toLocaleTimeString();
-                new PrivateMessage(user1.userName, user2.userName, "Hello, Yu!", "OK", currentTime)
-                    .addMessage(user1.userName, user2.userName, "Hello, Yu!", currentTime, "OK", "", "", function (code) {
-                        expect(code).to.eql(200);
-                        new PrivateMessage().getHistory(user1.userName, "TesterNotExists", function (code) {
-                            expect(code).to.eql(400);
-                            done();
-                        });
+
+                testMsgPri.addMessage(tester1, tester2, "Hello, Yu!", currentTime, "OK", "", "", function (code) {
+                    expect(code).to.eql(200);
+                    testMsgPri.getHistory(tester1, "TesterNotExists", function (code) {
+                        expect(code).to.eql(400);
+                        done();
                     });
-            });
-        });
+                });
     });
 });

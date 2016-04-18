@@ -41,7 +41,7 @@ LocationDB.prototype.getLocation = function (callback) {
                 var row = rows[i];
                 var location = {"name":row.name, "location": JSON.stringify({"x":row.x,"y":row.y}), "type": row.type}
                 if (row.type == 'user') {
-                    location['status'] =
+                    location['status'] = ""; //TODO call get status
                 } else {
                     location['status'] = null;
                 }
@@ -50,5 +50,6 @@ LocationDB.prototype.getLocation = function (callback) {
         }
     });
 };
+
 
 module.exports = LocationDB;

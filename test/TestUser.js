@@ -1,6 +1,7 @@
 var expect = require('expect.js');
 var User = require('../module/User.js');
 var Status = require('../module/Status.js');
+//var testUser = new User();
 
 suite('SSNoC Unit Test - User', function () {
 

@@ -20,6 +20,7 @@ var directory = new function Directory() {
     };
 
     this.searchOffLineByStatus = function (keyword, callback) {
+        console.log(this._dataUsers);
         this.userDb.getOfflineUsersByStatus(keyword, this._dataUsers, callback);
     };
 
@@ -48,10 +49,11 @@ var directory = new function Directory() {
         var user = this._newUsers[username];
         user.updateStatus(status, callback);
         this._newUsers[username] = user;
+        //return this;
     };
 
     this.deleteLoggedInUsers = function (user) {
-
+        console.log(user.userName + "deletelog");
         var index = this._loggedInUsers.indexOf(user);
         if (index > -1) {
             this._loggedInUsers.splice(index, 1);
@@ -62,6 +64,7 @@ var directory = new function Directory() {
             this._dataUsers.splice(index, 1);
         }
         delete this._newUsers[user.userName];
+        //return this;
     };
 
     this.getOnlineUsers = function (callback) {

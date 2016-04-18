@@ -142,6 +142,7 @@ UserDb.prototype.getOfflineUsersByKey = function (key, onlineUsers, callback) {
 UserDb.prototype.getOfflineUsersByStatus = function (key, onlineUsers, callback) {
     var q = 'SELECT * FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
         + ' and status LIKE \'%' + key + '%\'';
+    //var q = 'SELECT * FROM USERS';
     var dbTemp = this.db;
 
     dbTemp.all(q, function (err, rows) {

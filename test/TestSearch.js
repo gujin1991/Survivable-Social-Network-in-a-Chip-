@@ -13,7 +13,7 @@ var User = require('../module/User.js');
 var directory = require('../module/Directory.js')
 
 var PublicMessage = require('../module/Message.js')
-//var testMessagePub = new publicMessage();
+var testMessagePub = new PublicMessage();
 
 var Announcement = require('../module/Announcement.js');
 //var testAnnoucement = new Announcement();
@@ -50,19 +50,25 @@ suite('SSNoC Unit Test - SearchInformation', function () {
         directory.searchOnlineUsersByStatus(new Status().ok, function (onlineUser) {
             //console.log(onlineUser[0]);
             //onlineUser += "append";
-            expect(onlineUser[0].userName).eql(testerName);
+            expect(onlineUser[0].userName).to.eql(testerName);
             done();
         });
     });
 
     test('Search offline user by status', function (done) {
         var offlineUser = "offlineUser";
-        directory.addLoggedInUsers(new User().initialize(testerName, "19911991", new Status().ok, "", "", ""));
-        directory.deleteLoggedInUsers(new User().initialize(testerName, "19911991", new Status().ok, "", "", ""));
-        directory.searchOffLineByStatus(new Status().ok, function (offlineUser) {
-            //console.log(offlineUser);
-            expect(offlineUser[0].userName).eql(testerName);
-            done();
+        //directory.addLoggedInUsers(new User().initialize(testerName, "19911991", new Status().ok, "", "", ""));
+        directory.update(testerName, new Status().help, function(code) {
+            expect(code).to.eql(200);
+            //console.log("Updatecode=" + code);
+
+
+            directory.deleteLoggedInUsers(new User().initialize(testerName, "19911991", new Status().help, "", "", ""));
+            directory.searchOffLineByStatus(new Status().help, function (offlineUser) {
+                //console.log(offlineUser);
+                expect(offlineUser[0].userName).eql(testerName);
+                done();
+            });
         });
     });
 
@@ -76,11 +82,14 @@ suite('SSNoC Unit Test - SearchInformation', function () {
     });
 
     test('Search public message', function (done) {
-        new PublicMessage().addMessage(testerName, "Hello, Jin!", new Date().toLocaleTimeString(), new Status().ok, "", function (code) {
+        //new PublicMessage().addMessage()
+        testMessagePub.addMessage(testerName, "Hello, Jin!", new Date().toLocaleTimeString(), new Status().ok, "", function (code) {
             expect(code).eql(200);
-            new PublicMessage().getHistoryByKey(["Jin"], function (row) {
+            //console.log(" public msg code=" + code);
+            //new PublicMessage().getHistory()
+            testMessagePub.getHistoryByKey(["Jin"], function (row) {
                 //console.log(row);
-                expect(row[row.length - 1].content).eql("Hello, Jin!");
+                expect(row[row.length - 1].content).to.eql("Hello, Jin!");
                 done();
             });
         });

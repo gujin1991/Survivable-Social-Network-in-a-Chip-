@@ -25,4 +25,5 @@ Location.prototype.getLocation = function(callback) {
     this.locationDB.getLocation(callback);
 };
 
+
 module.exports = Location;
