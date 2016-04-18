@@ -12,14 +12,11 @@ exports.getPublicMessages = function(req, res) {
     });
 }
 
-
-
-
 exports.sendPublicMessage = function(req,res,io){
     var message = req.body;
     message.time = now();
     message.status = req.session.status;
-    messageM.addMessage(message.username,message.text,message.time,req.session.status ,function(callback){
+    messageM.addMessage(message.username,message.text,message.time,req.session.status,message.nickName ,function(callback){
         if (callback == 200) {
             io.emit('send message', message);
             res.json({"statusCode":200, "message": "Success"});

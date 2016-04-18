@@ -13,12 +13,13 @@ function User() {
     this.accountStatus = null;
 }
 
-User.prototype.initialize = function (userName, password, status,privilege,accoountStatus) {
+User.prototype.initialize = function (userName, password, status,privilege,accoountStatus,nickName) {
     this.userName = userName;
     this.password = password;
     this.status = status;
     this.accountStatus = accoountStatus;
     this.privilege = privilege;
+    this.nickName = nickName;
     return this;
 };
 

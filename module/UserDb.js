@@ -14,15 +14,15 @@ function UserDb() {
 
 UserDb.prototype.userAdd = function (username, password, callback) {
     var dbTemp = this.db;
-    dbTemp.run("CREATE TABLE IF NOT EXISTS users (userName TEXT PRIMARY KEY, password TEXT, joinTime TEXT , status TEXT, privilege TEXT, accountStatus TEXT)", function () {
+    dbTemp.run("CREATE TABLE IF NOT EXISTS users (userName TEXT PRIMARY KEY, password TEXT, joinTime TEXT , status TEXT, privilege TEXT, accountStatus TEXT ,nickName TEXT)", function () {
         dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
             if (row.length != 0) {
                 callback(400, null);
                 return;
             }
-            var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?,?,?)");
+            var insertUser = dbTemp.prepare("insert into users Values(?,?,?,?,?,?,?)");
             var time = new Date().toLocaleString();
-            insertUser.run(username, password, time, new Status().undefine,new Privilege().citizen,new AccountStatus().active);
+            insertUser.run(username, password, time, new Status().undefine,new Privilege().citizen,new AccountStatus().active,username);
 
             dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
                 if (err || row == null || row.length == 0) {
@@ -31,6 +31,7 @@ UserDb.prototype.userAdd = function (username, password, callback) {
                     var u = {};
                     u.userName = row[0].userName;
                     u.status = row[0].status;
+                    u.nickName = row[0].nickName;
                     callback(null, u);
                 }
             });
@@ -73,6 +74,9 @@ UserDb.prototype.userAuth = function (username, password, callback) {
                             var u = {};
                             u.userName = row[0].userName;
                             u.status = row[0].status;
+                            u.privilege = row[0].privilege;
+                            u.accountStatus = row[0].accountStatus;
+                            u.nickName = row[0].nickName;
                             callback(null, u);
                         }
                     });
@@ -84,8 +88,9 @@ UserDb.prototype.userAuth = function (username, password, callback) {
 
 
 UserDb.prototype.getOfflineUsers = function (onlineUsers, callback) {
-    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' + 'and accountStatus = \''
-        + new AccountStatus().active+"\';";
+    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' ;
+        //+ 'and accountStatus = \''
+        //+ new AccountStatus().active+"\';";
     var dbTemp = this.db;
 
     dbTemp.all(q, function (err, rows) {
@@ -117,6 +122,7 @@ UserDb.prototype.getUserInfo = function (userName, callback) {
                 u.status = row[0].status;
                 u.privilege = row[0].privilege;
                 u.accountStatus = row[0].accountStatus;
+                u.nickName = row[0].nickName;
                 callback(null, u);
             }
         });
@@ -134,8 +140,8 @@ UserDb.prototype.getOfflineUsersByKey = function (key, onlineUsers, callback) {
 };
 
 UserDb.prototype.getOfflineUsersByStatus = function (key, onlineUsers, callback) {
-    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')'
-        + ' and status LIKE \'%' + key + '%\'';
+    var q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')';
+        //+ ' and status LIKE \'%' + key + '%\'';
     var dbTemp = this.db;
 
     dbTemp.all(q, function (err, rows) {
@@ -166,7 +172,8 @@ UserDb.prototype.updateProfile = function (oldUsername, username, password, priv
     var dbTemp = this.db;
 
     dbTemp.all("select * from users where userName=\"" + username + "\"", function (err, row) {
-        if ( row.length != 0) {
+        if(oldUsername != username && row.length != 0)
+        {
             callback(401, null);
         }else{
             var q = 'UPDATE users SET userName = \'' + username +'\',password = \'' + password

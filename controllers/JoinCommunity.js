@@ -50,9 +50,11 @@ exports.checkSignIn = function(req, res) {
                 } else {
                     req.session.username = user.userName;
                     req.session.privilege = user.privilege;
-
+                    req.session.nickName = user.nickName;
                     req.session.loggedIn = true;
                     req.session.status = user.status;
+                    console.log("test ppp");
+                    console.log(req.session.privilege);
                     res.json({"statusCode":200, "message": "Success"});
                 }
             });
@@ -75,8 +77,8 @@ exports.register = function(req, res) {
                 res.json({"statusCode":400, "message": "User existed"});
             } else {
                 req.session.username = req.body.username;
+                req.session.nickName = req.body.username;
                 req.session.privilege = 'Citizen';
-
                 req.session.loggedIn = true;
                 res.json({"statusCode":200, "message": "Success"});
             }
@@ -101,7 +103,8 @@ exports.logout = function(req,res){
 exports.directSignin = function(req,res){
     if (req.session.loggedIn) {
 
-        res.render('index', {'username': req.session.username,'status':req.session.status});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege
+            ,'password':req.session.password});
     } else {
         res.render('signin');
     }
@@ -109,7 +112,8 @@ exports.directSignin = function(req,res){
 
 exports.directSignup = function(req,res){
     if (req.session.loggedIn) {
-        res.render('index', {'username': req.session.username,'status': req.session.status});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege
+            , 'password':req.session.password});
     } else {
         res.render('signup');
     }
@@ -120,7 +124,8 @@ exports.directHome = function (req,res) {
         res.render('signin');
     } else {
 
-        res.render('index', {'username': req.session.username,'status': req.session.status});
+        res.render('index', {'username': req.session.username,'status': req.session.status,'privilege' : req.session.privilege,
+            'password':req.session.password});
 
     }
 };
@@ -145,12 +150,33 @@ exports.getOfflineUserIo = function(user,io){
         var cur = {};
         cur.userName = user.userName;
         cur.status = user.status;
+        cur.nickName = user.userName;
+
         message.currentUser = cur;
         message.offline = offUsers;
         directory.getOnlineUsers(function(onlineUsers){
             message.online = onlineUsers;
         });
         io.emit('updatelist',message);
+
+    });
+}
+
+exports.getOfflineUserApi = function(user,io,res){
+    var message  = {};
+    directory.getOfflineUsers(function(offUsers){
+        var cur = {};
+        cur.userName = user.userName;
+        cur.status = user.status;
+        cur.nickName = user.userName;
+
+        message.currentUser = cur;
+        message.offline = offUsers;
+        directory.getOnlineUsers(function(onlineUsers){
+            message.online = onlineUsers;
+        });
+        //io.emit('updatelist',message);
+        res.json(message);
     });
 }
 
@@ -166,7 +192,7 @@ exports.getUserInfo = function(userName,callback){
 }
 
 exports.newUser = function(input){
-    return new User().initialize(input.userName,null ,input.status,input.privilege,input.accountStatus);
+    return new User().initialize(input.userName,null ,input.status,input.privilege,input.accountStatus,input.nickName);
 }
 
 function qualifiedUsernamePassword(username,password) {

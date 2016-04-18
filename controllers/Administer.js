@@ -56,12 +56,16 @@ var nameReserved = ['about','access','account','accounts','add','address','adm',
 
 exports.updateProfile = function(req, res,sockets) {
 
-    var oldUsername = req.body.oldUsername;
+
     var username = req.body.username;
     var password = req.body.password;
     var privilege = req.body.privilege;
     var accountStatus = req.body.accountStatus;
+
+    var oldUsername = req.body.oldUsername;
     var oldAccountStatus = req.body.oldAccountStatus;
+    var oldPassword = req.body.oldPassword;
+    var oldPrivilege = req.body.oldPrivilege;
 
     if(req.session.privilege != new Privilege().administrator) {
         res.json({"statusCode": 401, "message": "You're not Administrator"});
@@ -72,7 +76,10 @@ exports.updateProfile = function(req, res,sockets) {
         return;
     }
 
-
+    if(oldUsername == username && oldAccountStatus == accountStatus && oldPrivilege == privilege && oldPassword == password){
+        res.json({"statusCode": 201, "message": "You don't change anything"});
+        return;
+    }
 
     //update database first.
     new User().initializeForAdmin(oldUsername,username,password,privilege,accountStatus).updateProfileByAdmin(function(result) {
@@ -95,8 +102,6 @@ exports.updateProfile = function(req, res,sockets) {
                 //do not need to emit to specific socket because we will kick the user out of chat room
             }
 
-
-
             //find the user and kick him out... if changed to inactive..
             var socket = sockets[oldUsername];
 
@@ -105,18 +110,21 @@ exports.updateProfile = function(req, res,sockets) {
                 socket.emit('Log out');
             }
 
+            var message = {};
+
             directory.getOfflineUsers(function(offUsers){
                 var cur = {};
-                cur.userName = user.userName;
-                cur.status = user.status;
+                cur.userName = req.session.username;
+                cur.status = req.session.status;
                 message.currentUser = cur;
                 message.offline = offUsers;
+
                 directory.getOnlineUsers(function(onlineUsers){
                     message.online = onlineUsers;
                 });
+
                 io.emit('updatelist',message);
             });
-
 
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){
@@ -134,15 +142,12 @@ exports.viewProfile = function (req,res) {
             if (err){
                 res.json({"statusCode":400, "message": "Cannot get data from database"});
             }else{
-                res.render('otherProfile', user[0]);
+                res.render('adminProfile', {'adminName': req.session.username,'status':req.session.status, 'user': user[0]});
             }
         });
     }
 
 };
-
-
-
 
 
 function qualifiedUsernamePassword(username,password) {

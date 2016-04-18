@@ -104,4 +104,6 @@ onlineUsers.push('pan');
 q = 'SELECT userName,status FROM users WHERE userName NOT IN (\'' + onlineUsers.join('\',\'') + '\')' + 'and accountStatus = \''
     + new AccountStatus().active+"\';";
 
+toUser = 'jiyu';
+q = "SELECT * FROM users where userName = \'" + toUser +"\';"
 console.log(q);

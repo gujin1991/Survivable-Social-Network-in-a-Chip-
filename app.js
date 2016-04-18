@@ -13,8 +13,10 @@ var chatPrivately = require('./controllers/ChatPrivately.js');
 var postAnnouce = require('./controllers/PostAnnouncement.js');
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
+
 var administer = require('./controllers/A​dminister.js');
 var mapLocation = require('./controllers/MapLocation.js');
+
 
 //save all the socket with the name of it's name.
 var sockets = {};
@@ -125,10 +127,17 @@ app.get('/users', function(req, res) {
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
+app.get('/adminUsers', function(req, res) {
+
+    if(!testModeFlag) userListCtl.directUserList(req, res);
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
 app.get('/measurePerformance', function(req, res) {
     /* TODO: code added just for build UI, might need modification later
      *       Redirect to meadure performance page
      * */
+
     if(!testModeFlag) measurePerformance.directMeasurePerformance(req, res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
@@ -206,8 +215,7 @@ app.get('/chatPrivately', function(req, res){
 
 app.get('/userList', function(req,res){
 
-
-    if(!testModeFlag) signInCtl.getOfflineUserIo(req,io);
+    if(!testModeFlag) signInCtl.getOfflineUserApi(sockets[req.session.username],io,res);
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 

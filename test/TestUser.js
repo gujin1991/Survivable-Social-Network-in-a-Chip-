@@ -7,7 +7,7 @@ suite('SSNoC Unit Test - User', function () {
     test('Register Unregistered User', function (done) {
         var currentTime = new Date().toLocaleTimeString();
         new User()
-            .initialize('T' + currentTime, "19911991", new Status().ok)
+            .initialize('T' + currentTime, "19911991", new Status().ok, "", "", "")
             .userAdd(function (err, user) {
                 expect(err).to.equal(null);
                 expect(user.userName).to.eql('T' + currentTime);
@@ -15,20 +15,9 @@ suite('SSNoC Unit Test - User', function () {
             });
     });
 
-    /*test('Register Unregistered UserYu', function (done) {
-        var currentTime = new Date().toLocaleTimeString();
-        new User()
-            .initialize("TesterYu", "19933991", new Status().ok)
-            .userAdd(function (err, user) {
-                expect(err).to.equal(null);
-                expect(user.userName).to.eql("TesterYu");
-                done();
-            });
-    });*/
-
     test('Register Existed UserJin', function (done) {
         new User()
-            .initialize("TesterJin", "19911991", new Status().ok)
+            .initialize("TesterJin", "19911991", new Status().ok, "", "", "")
             .userAdd(function (err, user) {
                 expect(err).to.eql(400);
                 done();
@@ -38,18 +27,18 @@ suite('SSNoC Unit Test - User', function () {
 
     test('Check Existed User', function (done) {
         new User()
-            .initialize("TesterJin", "19911991", new Status().ok)
+            .initialize("TesterJin", "19911991", new Status().ok, "", "", "")
             .exist(function (code) {
-                expect(code).to.eql(303);
+                expect(code).to.eql(403);
                 done();
             });
     });
 
     test('Check Non-Existed User', function (done) {
         new User()
-            .initialize("TesterWrong", "19911991", new Status().ok)
+            .initialize("TesterWrong", "19911991", new Status().ok, "", "", "")
             .exist(function (code) {
-                expect(code).to.eql(305);
+                expect(code).to.eql(401);
                 done();
             });
     });
@@ -75,16 +64,16 @@ suite('SSNoC Unit Test - User', function () {
         new User().getUserInfo("TesterJin", function (err, user) {
             expect(err).to.equal(null);
 
-            new User().initialize(user.userName, "19911991", new Status().ok)
+            new User().initialize(user.userName, "19911991", new Status().ok, "", "", "")
                 .updateStatus(new Status().help, function (code) {
                     expect(code).to.eql(200);
                     expect(user.userName).to.eql("TesterJin");
-                    expect(user.status).to.eql("Help");
-                    done();
-
+                    new User().getUserInfo("TesterJin", function (err, user){
+                        expect(err).to.equal(null);
+                        expect(user.status).to.eql("Help");
+                        done();
+                    });
                 });
         });
     });
-
-
 });

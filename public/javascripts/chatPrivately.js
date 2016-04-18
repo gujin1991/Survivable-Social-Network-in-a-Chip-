@@ -52,33 +52,33 @@ function setDropdownUserlistClick(currentUser, username, isOnline) {
     }
 
     $("#userlist-dropdown-append").append($htmlDiv);
+    $htmlDiv.children('#chat-userList').click(function() {
+        event.preventDefault();
+        chatTarget = $(this).text();
+        content.empty();
 
+        //get history
+        if(chatTarget == currentUser){
+            chatTarget = null;
+            $('#private-head').empty();
+            swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
+        }else {
+            $('#private-head').empty().append('   ' + chatTarget);
+            getPrivateMessage(currentUser, chatTarget);
+        }
+
+    });
 }
 
-$htmlDiv.children('#chat-userList').click(function() {
-    event.preventDefault();
-    chatTarget = $(this).text();
-    content.empty();
 
-    //get history
-    if(chatTarget == currentUser){
-        chatTarget = null;
-        $('#private-head').empty();
-        swal({title: "Sorry",text: "You can not talk to yourself...At least in our app you can't...", type: "error", confirmButtonText: "OK" });
-    }else {
-        $('#private-head').empty().append('   ' + chatTarget);
-        getPrivateMessage(currentUser, chatTarget);
-    }
-
-});
 
 $('#post-btn').click(function() {
     //event.preventDefault();
-
     if ($('#private-head').text() == "" || chatTarget == null) {
         swal({title: "Error!",text: "Please select user you want to chat to!", type: "error", confirmButtonText: "OK" });
         $('#focusedInput').val('');
     } else sendMessage(username,chatTarget);
+    //need to modify that the user name may not exist.
 });
 
 function getPrivateMessage(senderName, receiverName) {
@@ -86,8 +86,8 @@ function getPrivateMessage(senderName, receiverName) {
     $.post('/getPrivateMessage', users, function(messages){
         for(var i=0; i<messages.length; i++) {
             var message = messages[i];
-            console.log(username);
-            console.log(message.fromUser);
+            //console.log(username);
+            //console.log(message.fromUser);
             if (message.fromUser === username) {
                 addPrivateMessage(message, message.content, "Me");
             } else if (message.toUser === username) {
@@ -123,6 +123,7 @@ function sendMessage(senderName, receiverName) {
             obj['receiver'] = receiverName;
             obj['text'] = inputValue;
             swal.close();
+            console.log(obj);
             $.post("/chatPrivately",obj,function(response){
                 if (response.statusCode === 400) {
                     swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
@@ -133,10 +134,10 @@ function sendMessage(senderName, receiverName) {
         obj['sender'] = senderName;
         obj['receiver'] = receiverName;
         obj['text']= text;
-
+        //console.log(obj);
         $.post("/chatPrivately",obj,function(response){
             if (response.statusCode === 400) {
-                swal({title: "Error!",text: "Cannot get Messages!", type: "error", confirmButtonText: "OK" });
+                swal({title: "Error!",text: "Cannot send Messages, User not exist, Please refresh the site!", type: "error", confirmButtonText: "OK" });
             }
         });
         $('#focusedInput').val('');
@@ -182,7 +183,7 @@ socket.on('send private message', function(message){
 function addPrivateMessage(message, text, name) {
 
     var status = message.status;
-    console.log("*****************\n" + status);
+    //console.log("*****************\n" + status);
     var logoName;
     if (status == 'OK') {
         logoName = "ok.png";
