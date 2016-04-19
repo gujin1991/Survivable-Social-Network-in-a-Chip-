@@ -29,7 +29,8 @@ body {
     float: left;
 }
 #admin-map {
-    height: 100%;
+    height: auto;
+    min-height: 400px;
     overflow: scroll;
     padding: 10px;
     background-color: rgba(191, 191, 191, 0.3);
