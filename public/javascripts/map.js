@@ -13,17 +13,51 @@ socket.on('updatelocation', function(response){
 });
 
 $(document).ready(function() {
-    addMarker();
+    addMarker(0.2,0.3,"Sarah","OK",true);
+    addMarker(0.25,0.35,"John","Help",true);
+    addMarker(0.39,0.15,"Taylor","Emergency",true);
+    addMarker(0.59,0.6,"Ann","Undefined",true);
+    addMarker(0.5,0.5,"Congshan","Help",false);
 });
 
-function addMarker() {
+function addMarker(x,y,username,status,isOnline) {
     map.setMaxBounds(bounds);
     L.imageOverlay(url, bounds).addTo(map);
+    var w = 1800*x;
+    var h = 1200*y;
     var m = {
-        x: 900,
-        y: 600
+        x: w,
+        y: h
     };
-    var marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom()-0.5)).addTo(map);
+    var marker;
+    if (isOnline) {
+        var onlineMarker;
+        if (status == "OK") {
+            onlineMarker = L.AwesomeMarkers.icon({
+                icon: 'check-circle', markerColor: 'green', prefix: 'fa'
+            });
+        } else if (status == "Help") {
+            onlineMarker = L.AwesomeMarkers.icon({
+                icon: 'info-circle', markerColor: 'orange', prefix: 'fa'
+            });
+        } else if (status == "Emergency") {
+            onlineMarker = L.AwesomeMarkers.icon({
+                icon: 'plus-circle', markerColor: 'red', prefix: 'fa'
+            });
+        } else {
+            onlineMarker = L.AwesomeMarkers.icon({
+                icon: 'question-circle', markerColor: 'blue', prefix: 'fa'
+            });
+        }
+        marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom()-0.5), {icon: onlineMarker});
+    } else {
+        var offlineMarker = L.AwesomeMarkers.icon({
+            icon: 'times-circle', markerColor: 'lightgray', prefix: 'fa'
+        });
+        marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom()-0.5), {icon: offlineMarker});
+    }
+    marker.bindLabel(username, { noHide: true,direction: 'auto'});
+    marker.addTo(map);
 }
 
 /**
@@ -79,7 +113,7 @@ function addLabel(x, y, username, status, isOnline) {
 
 //function thirty_pc() {
 //    var height = $(window).height();
-//    var thirtypc = (80 * height) / 100;
+//    var thirtypc = (85 * height) / 100;
 //    thirtypc = parseInt(thirtypc) + 'px';
 //    $(".jumbotron").css('height',thirtypc);
 //}

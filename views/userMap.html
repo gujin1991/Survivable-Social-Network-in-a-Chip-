@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="stylesheets/map.css">
     <link rel="stylesheet" href="stylesheets/navbar.css">
     <link rel="stylesheet" href="stylesheets/leaflet.css" />
+    <link rel="stylesheet" href="stylesheets/leaflet.label.css" />
+    <link rel="stylesheet" href="stylesheets/leaflet.awesome-markers.css" />
 </head>
 <body>
 <!--Navigation bar -->
@@ -64,16 +66,7 @@
         <input type="hidden" id="mystatus" value="<%=status%>">
         <!-- main column -->
         <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
-
             <div class="jumbotron">
-                <!--<div class="btn-group btn-group-justified my-btn-group" role="group" aria-label="...">-->
-                    <!--<div class="btn-group" role="group">-->
-                        <!--<button id="post-all-btn" type="submit" class="btn btn-default">All Posts</button>-->
-                    <!--</div>-->
-                    <!--<div class="btn-group" role="group">-->
-                        <!--<button id="post-mine-btn" type="submit" class="btn btn-default">My Posts</button>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="input-group">
                     <input id="focusedInput" type="text" class="form-control" placeholder="Enter your place here...">
                  <span class="input-group-btn">
@@ -85,7 +78,7 @@
                      </button>
                  </span>
                 </div>
-                <div id="map-container">
+                <div id="map-container" class="well well-sm">
                     <div id="map">
                         <!--<img id="map-img" src="../images/CMUCampusMap.png" class="img-responsive center-block" alt="Responsive image">-->
                     </div>
@@ -95,13 +88,14 @@
         </div>
     </div>
 </div>
-</div>
 
 <script src="javascripts/jquery.min.js"></script>
 <script src="javascripts/bootstrap.min.js"></script>
 <script src="javascripts/sweetalert.min.js"></script>
 <script src="javascripts/sharestatus.js"></script>
 <script src="javascripts/leaflet.js"></script>
+<script src="javascripts/leaflet.label-src.js"></script>
+<script src="javascripts/leaflet.awesome-markers.js"></script>
 <script src="javascripts/map.js"></script>
 
 <!--guangyu test-->
@@ -124,11 +118,6 @@
 
     map.setMaxBounds(bounds);
     L.imageOverlay(url, bounds).addTo(map);
-//    var m = {
-//        x: 900,
-//        y: 600
-//    };
-//    var marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom()-0.5)).addTo(map);
 </script>
 </body>
 </html>
