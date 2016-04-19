@@ -3,9 +3,15 @@
  */
 var Privilege = require('../module/Privilege');
 var Location = require('../module/Location.js');
-var location = new Location();
+var loc = new Location();
+var counter = {};
+function Map() {
+    counter['medicine'] = 0;
+    counter['food'] = 0;
+    counter['water'] = 0;
+}
 
-exports.directMap = function (req, res) {
+Map.prototype.directMap = function (req, res) {
     console.log("req user name " + req.params.username);
     if (req.session.privilege != new Privilege().administrator) { // citizen
         res.render('userMap', {'username': req.session.username, 'status': req.session.status});
@@ -14,15 +20,27 @@ exports.directMap = function (req, res) {
     }
 };
 
-exports.addMark = function (req, res, io) {
-    var name = req.body.name;
+Map.prototype.addMark = function (req, res, io) {
     var type = req.body.type;
+    var name = req.body.name;
+    if (type != 'user') {
+        var count = parseInt(counter[type]) + 1;
+        counter[type] = count;
+        name = type + count;
+    }
+
     var location = JSON.parse(req.body.location);
-    location.addLocation(name, location.x, location.y, type, time, function (name, code) {
+    var time = now();
+    loc.addLocation(name, location.x, location.y, type, time, function (name, code) {
         res.end();
     });
-    var newLocations = location.getLocation();
-    io.emit("updateMap", newLocations)
+    loc.getLocation(function (err, newLocations) {
+        if (err) {
+            //TODO
+        } else {
+            io.emit("updateMap", newLocations)
+        }
+    });
 };
 
 function now() {
@@ -31,3 +49,5 @@ function now() {
         + ' ' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes());
     return time;
 }
+
+module.exports = Map;

@@ -14,7 +14,8 @@ var postAnnouce = require('./controllers/PostAnnouncement.js');
 var searchCtl = require('./controllers/SearchInformation.js');
 var measurePerformance = require('./controllers/MeasurePerformance.js');
 var administer = require('./controllers/Administer.js');
-var mapCtl = require('./controllers/Map.js');
+var MapCtl = require('./controllers/Map.js');
+var mapCtl = new MapCtl();
 
 //save all the socket with the name of it's name.
 var sockets = {}

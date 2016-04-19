@@ -50,3 +50,8 @@ function addMark(type, location) {
     var body = {"name": username, "type": cursor, "location": JSON.stringify(location)};
     $.post('/map', body);
 }
+
+socket.on("updateMap", function (locations) {
+    //TODO
+    console.log(locations);
+});
