@@ -48,7 +48,7 @@ LocationDB.prototype.getLocation = function (callback) {
                     "type": row.type
                 };
                 if (row.type == 'user') {
-                    user.getUserInfo(name, function (err, info) {
+                    user.getUserInfo(row.name, function (err, info) {
                         if (err) {
                             location['status'] = 'OK'; // TODO call get status
                         } else {

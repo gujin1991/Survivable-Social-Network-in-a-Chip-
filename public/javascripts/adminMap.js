@@ -3,20 +3,42 @@
  */
 var cursor = 'default';
 
-$("#map-img").click(function (e) {
-    var parentOffset = $(this).parent().offset();
-    var clickX = e.pageX - parentOffset.left;
-    var clickY = e.pageY - parentOffset.top;
-    var relLocation = normalize({"x": clickX, "y": clickY}, mapSize());
+// $("#admin-map-container").click(function (e) {
+//     // alert("You clicked the map at " + e.latlng);
+//     var parentOffset = $(this).parent().offset();
+//     var clickX = e.pageX - parentOffset.left;
+//     var clickY = e.pageY - parentOffset.top;
+//     var relLocation = normalize({"x": clickX, "y": clickY}, mapSize());
+//
+//     if (cursor !== 'default') {
+//         addMark(cursor, relLocation)
+//     }
+//     cursor = 'default';
+// });
 
-    if (cursor !== 'default') {
-        addMark(cursor, relLocation)
+$(document).keydown(function (event) {
+    if (event.keyCode == 27) {
+        cursor = 'default';
     }
 });
 
+$('#med-btn').click(function () {
+    cursor = 'medicine';
+});
+
+$('#food-btn').click(function () {
+    cursor = 'food';
+});
+
+$('#water-btn').click(function () {
+    cursor = 'water';
+});
+
 function mapSize() {
-    var h = document.getElementById('map-img').height;
-    var w = document.getElementById('map-img').width;
+    console.log(map.height);
+    var h = document.getElementById('admin-map-container').height;
+    var w = document.getElementById('admin-map-container').width;
+    console.log(h, w);
     return {"h": h, "w": w};
 }
 
@@ -32,18 +54,6 @@ function denormalize(relLocation, mapSize) {
     return {"x": x, "y": y};
 }
 
-$('#med-btn').click(function () {
-    cursor = 'medicine';
-});
-
-$('#food-btn').click(function () {
-    cursor = 'food';
-});
-
-$('#water-btn').click(function () {
-    cursor = 'water';
-});
-
 function addMark(type, location) {
     alert(type + location.x + location.y);
     var username = $('#myname').val();
@@ -52,6 +62,6 @@ function addMark(type, location) {
 }
 
 socket.on("updateMap", function (locations) {
-    //TODO
+    //TODO implement it
     console.log(locations);
 });
