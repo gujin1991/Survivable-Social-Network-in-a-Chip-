@@ -14,6 +14,7 @@ socket.on('updatelocation', function(response){
 
 $(document).ready(function() {
     addMarker();
+
 });
 
 function addMarker() {
@@ -77,14 +78,19 @@ function addLabel(x, y, username, status, isOnline) {
     $('#map').append(div);
 }
 
-//function thirty_pc() {
-//    var height = $(window).height();
-//    var thirtypc = (80 * height) / 100;
-//    thirtypc = parseInt(thirtypc) + 'px';
-//    $(".jumbotron").css('height',thirtypc);
-//}
-//
-//$(document).ready(function() {
-//    thirty_pc();
-//    $(window).bind('resize', thirty_pc);
-//});
+function thirty_pc() {
+    var height = $(window).height();
+    var thirtypc = (85 * height) / 100;
+    thirtypc = parseInt(thirtypc) + 'px';
+    $(".jumbotron").css('height',thirtypc);
+    //
+    //var width = $("#map-container").outerWidth();
+    //var new_height = (2 * width)/3;
+    //$("#map-container").css('height', new_height);
+    //$("#map").css('height', new_height);
+}
+
+$(document).ready(function() {
+    thirty_pc();
+    $(window).bind('resize', thirty_pc);
+});

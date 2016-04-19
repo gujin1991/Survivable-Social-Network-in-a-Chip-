@@ -15,13 +15,14 @@ body {
 }
 .jumbotron {
     /*padding-top: 1px;*/
-    margin: 71px 0 20px;
+    margin: 61px 0 10px;
     height: 90%;
-    min-height: 400px;
+    min-height: 500px;
     background-color: rgba(191, 191, 191, 0.3);
 }
 #map-container {
-    height: 100%;
+    height: 90%;
+    min-height: 500px;
 }
 #admin-map-container {
     height: 100%;
@@ -35,12 +36,11 @@ body {
     background-color: rgba(191, 191, 191, 0.3);
 }
 #map {
-    height: auto;
-    min-height: 400px;
+    height: 85%;
+    min-height: 480px;
     width: 100%;
-    overflow: scroll;
-    padding: 10px;
-    background-color: rgba(191, 191, 191, 0.3);
+    /*overflow: scroll;*/
+    /*background-color: rgba(191, 191, 191, 0.3);*/
 }
 .my-btn-group {
     /*margin: 71px 0 0;*/
