@@ -46,14 +46,14 @@ suite('SSNoC Unit Test - User', function () {
             });
     });
 
-    test('Check Inactive User', function (done) {
+    /*test('Check Inactive User', function (done) {
         new User()
             .initialize("TesterYu", "admin", new Status().ok, "", new AccountStatus().inactive, "")
             .exist(function (code) {
                 expect(code).to.eql(407);
                 done();
             });
-    });
+    });*/
 
 
 
@@ -91,7 +91,7 @@ suite('SSNoC Unit Test - User', function () {
         });
     });
 
-    /*test('Test delete logged user', function(done) {
+    test('Test delete logged user', function(done) {
         var user = new User().initialize("TesterJin", "19911991", new Status().ok, "", "", "");
         directory.addLoggedInUsers(user);
         directory.deleteLoggedInUsers(user);
@@ -124,5 +124,5 @@ suite('SSNoC Unit Test - User', function () {
 
         });
 
-    });*/
+    });
 });
