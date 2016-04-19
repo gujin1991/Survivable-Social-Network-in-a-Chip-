@@ -13,6 +13,7 @@ suite('SSNoC Unit Test - User', function () {
             .initialize('T' + currentTime, "19911991", new Status().ok, "", "", "")
             .userAdd(function (err, user) {
                 expect(err).to.equal(null);
+                //console.log(user);
                 expect(user.userName).to.eql('T' + currentTime);
                 done();
             });
