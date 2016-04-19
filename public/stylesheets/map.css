@@ -16,13 +16,14 @@ body {
 .jumbotron {
     /*padding-top: 1px;*/
     margin: 61px 0 10px;
-    height: 90%;
+    height: 85%;
     min-height: 500px;
     background-color: rgba(191, 191, 191, 0.3);
 }
 #map-container {
     height: 90%;
     min-height: 500px;
+    margin-bottom: auto;
 }
 #admin-map-container {
     height: 100%;
