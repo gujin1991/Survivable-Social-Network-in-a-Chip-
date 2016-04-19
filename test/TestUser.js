@@ -46,14 +46,14 @@ suite('SSNoC Unit Test - User', function () {
             });
     });
 
-    /*test('Check Inactive User', function (done) {
+    test('Check Inactive User', function (done) {
         new User()
             .initialize("TesterYu", "admin", new Status().ok, "", new AccountStatus().inactive, "")
             .exist(function (code) {
                 expect(code).to.eql(407);
                 done();
             });
-    });*/
+    });
 
 
 
