@@ -142,4 +142,34 @@ suite('SSNoC Unit Test - User', function () {
         directory.deleteLoggedInUsers(user1);
         done();
     });
+
+    test('Test get user with wrong name', function(done) {
+        var user = new User().initialize("WrongName", "wrong", new Status().ok, "", "", "");
+        user.userAuth(function(code, data) {
+           expect(code).to.eql(401);
+           expect(data).to.eql(null);
+            done();
+        });
+    });
+
+    test('Test get user by wrong password', function(done) {
+        var user = new User().initialize("TesterJin", "wrong", new Status().ok, "", "", "");
+        user.userAuth(function(code, data) {
+            expect(code).to.eql(403);
+            expect(data).to.eql(null);
+            done();
+        });
+    });
+
+    test('Test get user by userAuth', function(done) {
+        var user = new User().initialize("TesterJin", "19911991", new Status().ok, "", "", "");
+        user.userAuth(function(code, userInfo) {
+            expect(code).to.eql(null);
+            expect(userInfo.userName).to.eql("TesterJin");
+            done();
+        });
+    });
+
+
+
 });
