@@ -3,6 +3,7 @@
  */
 
 var sqlite3 = require('sqlite3').verbose();
+var User = require('../module/User.js');
 
 function LocationDB() {
     this.db = new sqlite3.Database('./fse.db');
@@ -11,8 +12,8 @@ function LocationDB() {
 LocationDB.prototype.addLocation = function (name, longitude, latitude, type, time, callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function () {
-        var location = dbTemp.prepare("INSERT INTO LOCATIONS VALUES(?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE " +
-            "longitude = \'" + longitude + "\', latitude = \'" + latitude + "\', time = \'" + time + "\';");
+        var sql = "INSERT OR REPLACE INTO LOCATIONS (name, x, y, type, time) VALUES(?, ?, ?, ?, ?);";
+        var location = dbTemp.prepare(sql);
         location.run(name, longitude, latitude, type, time);
         callback(name, 200);
     });
@@ -33,23 +34,35 @@ LocationDB.prototype.deleteLocation = function (name, callback) {
 
 LocationDB.prototype.getLocation = function (callback) {
     var dbTemp = this.db;
+    var user = new User();
     dbTemp.all('select * from locations', function (err, rows) {
         if (err) {
             callback(err, null);
         } else {
+            var locations = [];
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                var location = {"name":row.name, "location": JSON.stringify({"x":row.x,"y":row.y}), "type": row.type}
+                var location = {
+                    "name": row.name,
+                    "location": JSON.stringify({"x": row.x, "y": row.y}),
+                    "type": row.type
+                };
                 if (row.type == 'user') {
-                    location['status'] = ""; //TODO call get status
+                    user.getUserInfo(name, function (err, info) {
+                        if (err) {
+                            location['status'] = 'OK'; // TODO call get status
+                        } else {
+                            location['status'] = info.status; // TODO call get status
+                        }
+                    })
                 } else {
                     location['status'] = null;
                 }
+                locations.push(location);
             }
-            callback(null, rows);
+            callback(null, locations);
         }
     });
 };
-
 
 module.exports = LocationDB;

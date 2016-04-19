@@ -27,14 +27,25 @@ suite('SSNoC Unit Test - Private Message', function () {
 
     test('Sending a private message unsuccessfully.', function (done) {
 
-                var currentTime = new Date().toLocaleTimeString();
+        var currentTime = new Date().toLocaleTimeString();
 
-                testMsgPri.addMessage(tester1, tester2, "Hello, Yu!", currentTime, "OK", "", "", function (code) {
-                    expect(code).to.eql(200);
-                    testMsgPri.getHistory(tester1, "TesterNotExists", function (code) {
-                        expect(code).to.eql(400);
-                        done();
-                    });
-                });
+        testMsgPri.addMessage(tester1, tester2, "Hello, Yu!", currentTime, "OK", "", "", function (code) {
+            expect(code).to.eql(200);
+            testMsgPri.getHistory(tester1, "TesterNotExists", function (code) {
+                expect(code).to.eql(400);
+                done();
+            });
+        });
     });
+
+    test('Test update private user name', function(done) {
+        testMsgPri.updateUserName(tester1, "Jin");
+        testMsgPri.updateUserName("Jin", tester1);
+        done();
+    });
+
+    test('Test delete private msg', function(done) {
+        testMsgPri.deleteByUsernamePrivate("Noexist");
+        done();
+    })
 });
