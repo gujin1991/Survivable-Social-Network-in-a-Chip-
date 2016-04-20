@@ -193,6 +193,7 @@ function clearMarkers() {
 }
 
 socket.on("updateMap", function (locations) {
+    console.log(locations);
     clearMarkers();
     for (item in locations) {
         var obj = locations[item];

@@ -3,8 +3,7 @@
  */
 
 var sqlite3 = require('sqlite3').verbose();
-var User = require('../module/User.js');
-var Dict = require('../module/Directory.js');
+var directory = require('../module/Directory.js');
 
 function LocationDB() {
     this.db = new sqlite3.Database('./fse.db');
@@ -36,26 +35,39 @@ LocationDB.prototype.deleteLocation = function (name, callback) {
 LocationDB.prototype.getLocation = function (callback) {
     var dbTemp = this.db;
     dbTemp.all('select * from locations', function (err, rows) {
-        if (err) {
-            callback(err, null);
-        } else {
-            var locations = [];
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                var location = {
-                    "name": row.name,
-                    "location": JSON.stringify({"x": row.x, "y": row.y}),
-                    "type": row.type,
-                    "status": row.status
-                };
-                locations.push(location);
+        directory.getOnlineUsers(function (onlines) {
+            var names = user2Name(onlines);
+            if (err) {
+                callback(err, null);
+            } else {
+                var locations = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    var online = false;
+                    if (names.indexOf(row.name)!=-1) {
+                        online = true;
+                    }
+                    var location = {
+                        "name": row.name,
+                        "location": JSON.stringify({"x": row.x, "y": row.y}),
+                        "type": row.type,
+                        "status": row.status,
+                        "online": online
+                    };
+                    locations.push(location);
+                }
+                callback(null, locations);
             }
-            console.log(locations.length);
-            console.log(rows.length);
-            // while(locations.length != rows.length);
-            callback(null, locations);
-        }
+        });
     });
 };
+
+function user2Name(users) {
+    var names = [];
+    for(var i in users) {
+        names.push(users[i].userName);
+    }
+    return names;
+}
 
 module.exports = LocationDB;
