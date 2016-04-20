@@ -4,6 +4,7 @@
 
 var sqlite3 = require('sqlite3').verbose();
 var User = require('../module/User.js');
+var Dict = require('../module/Directory.js');
 
 function LocationDB() {
     this.db = new sqlite3.Database('./fse.db');
@@ -34,7 +35,6 @@ LocationDB.prototype.deleteLocation = function (name, callback) {
 
 LocationDB.prototype.getLocation = function (callback) {
     var dbTemp = this.db;
-    var user = new User();
     dbTemp.all('select * from locations', function (err, rows) {
         if (err) {
             callback(err, null);
