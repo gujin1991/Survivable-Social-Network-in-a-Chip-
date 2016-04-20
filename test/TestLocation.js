@@ -56,8 +56,8 @@ suite('SSNoC Unit Test - Location ', function () {
             location.deleteLocation(malformatName, function (retName, code) {
                 expect(code).to.eql(400);
                 expect(retName).to.eql(malformatName);
-                done();
-            }); 
-        });
+                done(); 
+            });  
+        }); 
     });
 }); 
