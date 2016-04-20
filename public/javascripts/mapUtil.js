@@ -35,5 +35,3 @@ socket.on("updateMap", function (locations) {
     //TODO implement it
     console.log(locations);
 });
-
-sendLocation();
