@@ -44,6 +44,33 @@ Map.prototype.addMark = function (req, res, io) {
     });
 };
 
+Map.prototype.delete = function (req, res, io) {
+    var name = req.body.name;
+
+    loc.deleteLocation(name, function (name, code) {
+        // ignore return value
+        console.log(name + " " + code);
+        res.end();
+    });
+    loc.getLocation(function (err, newLocations) {
+        if (err) {
+            //TODO
+        } else {
+            io.emit("updateMap", newLocations)
+        }
+    });
+};
+
+Map.prototype.init = function (req, res, io) {
+    loc.getLocation(function (err, newLocations) {
+        if (err) {
+            //TODO
+        } else {
+            io.emit("updateMap", newLocations)
+        }
+    });
+};
+
 function now() {
     var date = new Date();
     var time = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()
