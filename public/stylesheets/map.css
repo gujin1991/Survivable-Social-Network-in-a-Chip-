@@ -22,31 +22,15 @@ body {
 }
 
 #admin-map-container {
-    /*height: 100%;*/
-    /*width: 90%;*/
     height: 90%;
-    min-height: 360px;
+    min-height: 500px;
     margin-bottom: auto;
-    /*float: left;*/
 }
 
 #admin-map {
     height: 85%;
-    min-height: 360px;
+    min-height: 480px;
     width: 100%;
-    /*overflow: scroll;*/
-    /*padding: 10px;*/
-    /*background-color: rgba(191, 191, 191, 0.3);*/
-}
-
-#map-panel {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.my-btn {
-    padding-left: 5px;
-    padding-right: 5px;
 }
 
 #map-container {
