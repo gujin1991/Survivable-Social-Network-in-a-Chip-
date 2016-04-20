@@ -50,7 +50,7 @@ suite('SSNoC Unit Test - Location ', function () {
                     done();
                 });
             });
-        });
+        }); 
 
         test('Test delete location err', function (done) {
             location.deleteLocation(malformatName, function (retName, code) {
