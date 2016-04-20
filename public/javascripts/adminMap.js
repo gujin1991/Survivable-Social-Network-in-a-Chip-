@@ -129,7 +129,7 @@ function addFacilityMarker(x, y, name, type) {
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: false
-            }, function (name) {
+            }, function () {
                 deleteMarker(name);
                 swal("Deleted!", "This medicine repository has been removed", "success");
             });
