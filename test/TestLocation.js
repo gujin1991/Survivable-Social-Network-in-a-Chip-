@@ -36,7 +36,7 @@ suite('SSNoC Unit Test - Location ', function () {
                 location.getLocation(function (err, locations) {
                     var length = locations.length;
                     expect(locations[length - 1].name).to.eql(testName)
-                });
+                });  
             });  
         });
 
