@@ -9,12 +9,12 @@ function LocationDB() {
     this.db = new sqlite3.Database('./fse.db');
 }
 
-LocationDB.prototype.addLocation = function (name, longitude, latitude, type, time, callback) {
+LocationDB.prototype.addLocation = function (name, status, longitude, latitude, type, time, callback) {
     var dbTemp = this.db;
     dbTemp.serialize(function () {
-        var sql = "INSERT OR REPLACE INTO LOCATIONS (name, x, y, type, time) VALUES(?, ?, ?, ?, ?);";
+        var sql = "INSERT OR REPLACE INTO LOCATIONS (name, status, x, y, type, time) VALUES(?, ?, ?, ?, ?, ?);";
         var location = dbTemp.prepare(sql);
-        location.run(name, longitude, latitude, type, time);
+        location.run(name, status, longitude, latitude, type, time);
         callback(name, 200);
     });
 };
@@ -45,21 +45,14 @@ LocationDB.prototype.getLocation = function (callback) {
                 var location = {
                     "name": row.name,
                     "location": JSON.stringify({"x": row.x, "y": row.y}),
-                    "type": row.type
+                    "type": row.type,
+                    "status": row.status
                 };
-                if (row.type == 'user') {
-                    user.getUserInfo(row.name, function (err, info) {
-                        if (err) {
-                            location['status'] = 'OK'; // TODO call get status
-                        } else {
-                            location['status'] = info.status; // TODO call get status
-                        }
-                    })
-                } else {
-                    location['status'] = null;
-                }
                 locations.push(location);
             }
+            console.log(locations.length);
+            console.log(rows.length);
+            // while(locations.length != rows.length);
             callback(null, locations);
         }
     });
