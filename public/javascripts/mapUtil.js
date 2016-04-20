@@ -25,7 +25,6 @@ function sendLocation() {
     }
 }
 
-
 function normalize(longitude, latitude) {
     var relX = Math.abs(longitude - topLeftX) / xLength;
     var relY = Math.abs(latitude - topLeftY) / yLength;

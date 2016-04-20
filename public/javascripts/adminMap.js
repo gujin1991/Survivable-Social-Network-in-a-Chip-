@@ -2,19 +2,7 @@
  * Created by guangyu on 4/17/16.
  */
 var cursor = 'default';
-
-// $("#admin-map-container").click(function (e) {
-//     // alert("You clicked the map at " + e.latlng);
-//     var parentOffset = $(this).parent().offset();
-//     var clickX = e.pageX - parentOffset.left;
-//     var clickY = e.pageY - parentOffset.top;
-//     var relLocation = normalize({"x": clickX, "y": clickY}, mapSize());
-//
-//     if (cursor !== 'default') {
-//         addMark(cursor, relLocation)
-//     }
-//     cursor = 'default';
-// });
+var socket = io.connect();
 
 $(document).keydown(function (event) {
     if (event.keyCode == 27) {
@@ -34,31 +22,22 @@ $('#water-btn').click(function () {
     cursor = 'water';
 });
 
-function mapSize() {
-    console.log(map.height);
-    var h = document.getElementById('admin-map-container').height;
-    var w = document.getElementById('admin-map-container').width;
-    console.log(h, w);
-    return {"h": h, "w": w};
-}
+var xLength = 318;
+var yLength = 212;
 
-function normalize(location, mapSize) {
-    var x = Math.abs(location.x / mapSize.w);
-    var y = Math.abs((mapSize.h - location.y) / mapSize.h);
+function specialNormalize(location) {
+    var x = Math.abs(location.x / xLength);
+    var y = Math.abs(location.y / yLength);
     return {"x": x, "y": y};
 }
 
-function denormalize(relLocation, mapSize) {
-    var x = relLocation.x * mapSize.w;
-    var y = (1 - relLocation.y) * mapSize.h;
-    return {"x": x, "y": y};
-}
-
-function addMark(type, location) {
-    alert(type + location.x + location.y);
-    var username = $('#myname').val();
-    var body = {"name": username, "type": cursor, "location": JSON.stringify(location)};
-    $.post('/map', body);
+function addMark(location) {
+    if (cursor !== 'default') {
+        alert(cursor + location.x + location.y);
+        var username = $('#myname').val();
+        var body = {"name": username, "status": null, "type": cursor, "location": JSON.stringify(location)};
+        $.post('/map', body);
+    }
 }
 
 socket.on("updateMap", function (locations) {

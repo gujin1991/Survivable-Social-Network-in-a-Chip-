@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/map.css">
     <link rel="stylesheet" href="stylesheets/navbar.css">
-    <link rel="stylesheet" href="stylesheets/leaflet.css" />
+    <link rel="stylesheet" href="stylesheets/leaflet.css"/>
 </head>
 <body>
 <!--Navigation bar -->
@@ -81,7 +81,7 @@
                 </div>
                 <div id="admin-map-container">
                     <div id="admin-map">
-                    
+
                     </div>
                 </div>
                 <div id="map-panel">
@@ -94,6 +94,9 @@
                         </button>
                         <button type="button" class="btn btn-primary" id="water-btn">
                             <i class="fa fa-coffee" aria-hidden="true"></i> Water
+                        </button>
+                        <button type="button" class="btn btn-primary" id="test-btn">
+                            <i class="fa fa-coffee" aria-hidden="true"></i> test
                         </button>
                     </div>
                     <div id="loc-list">
@@ -109,10 +112,11 @@
 <script src="javascripts/jquery.min.js"></script>
 <script src="javascripts/bootstrap.min.js"></script>
 <script src="javascripts/sweetalert.min.js"></script>
+<script src="javascripts/adminMap.js"></script>
 <script src="javascripts/sharestatus.js"></script>
 <script src="javascripts/leaflet.js"></script>
-<script type="text/javascript" src="leaflet/leafletembed.js"></script>
-<script src="javascripts/adminMap.js"></script>
+
+<!--TODO delete mapUtil for demo-->
 
 
 <script>
@@ -126,15 +130,19 @@
     var h = 1200;
     var url = '../images/CMUCampusMap.png';
 
-    var southWest = map.unproject([0, h], map.getMaxZoom()-0.5);
-    var northEast = map.unproject([w, 0], map.getMaxZoom()-0.5);
+    var southWest = map.unproject([0, h], map.getMaxZoom() - 0.5);
+    var northEast = map.unproject([w, 0], map.getMaxZoom() - 0.5);
     var bounds = new L.LatLngBounds(southWest, northEast);
 
     map.setMaxBounds(bounds);
     L.imageOverlay(url, bounds).addTo(map);
 
     map.on('click', function (e) {
-        alert("You clicked the map at " + e.latlng);
+        var x = e.latlng.lng;
+        var y = e.latlng.lat;
+        var relLocation = specialNormalize({"x": x, "y": y});
+        addMark(relLocation);
+//        alert(relLocation.x + " " + relLocation.y);
     });
 
 </script>
