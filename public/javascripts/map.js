@@ -2,6 +2,7 @@
  * Created by congshan on 4/15/16.
  */
 var socket = io.connect();
+var markers = new Array();
 
 socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
@@ -18,6 +19,7 @@ $(document).ready(function() {
     addMarker(0.39,0.15,"Taylor","Emergency",true);
     addMarker(0.59,0.6,"Ann","Undefined",true);
     addMarker(0.5,0.5,"Congshan","Help",false);
+    addMarker(0.18572801024789864, 0.6462580779653598, "Me", "OK", true);
 });
 
 function addMarker(x,y,username,status,isOnline) {
@@ -58,6 +60,7 @@ function addMarker(x,y,username,status,isOnline) {
     }
     marker.bindLabel(username, { noHide: true,direction: 'auto'});
     marker.addTo(map);
+    markers.push(marker);
 }
 
 /**
