@@ -25,7 +25,6 @@ function sendLocation() {
     }
 }
 
-
 function normalize(longitude, latitude) {
     var relX = Math.abs(longitude - topLeftX) / xLength;
     var relY = Math.abs(latitude - topLeftY) / yLength;
@@ -33,11 +32,8 @@ function normalize(longitude, latitude) {
 }
 
 socket.on("updateMap", function (locations) {
-    //TODO implement it
-    console.log(locations);
     clearMarkers();
     for (item in locations) {
-        console.log(locations[item]);
         var obj = locations[item];
         var location = JSON.parse(obj.location);
         var name = obj.name;
@@ -46,14 +42,13 @@ socket.on("updateMap", function (locations) {
         addMarker(parseFloat(location.x),parseFloat(location.y),name,status,isOnline);
     }
 });
-sendLocation();  // (*)
 
 function clearMarkers() {
     for(i=0;i<markers.length;i++) {
         map.removeLayer(markers[i]);
     }
 }
-
+sendLocation();
 //var timerId; // current timer if started
 //function clockStart() {
 //    if (timerId) return;
@@ -66,5 +61,5 @@ function clearMarkers() {
 //    clearInterval(timerId);
 //    timerId = null
 //}
-//
+
 //clockStart();
