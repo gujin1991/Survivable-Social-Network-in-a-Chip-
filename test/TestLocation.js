@@ -25,7 +25,7 @@ suite('SSNoC Unit Test - Location ', function () {
                 // });
             })
         });
-    });
+    });  
 
     suite('SSNoC Unit Test - Location - Delete ', function () {
         var testName = new Date().toLocaleDateString();
