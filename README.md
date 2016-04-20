@@ -3,5 +3,5 @@
 **Jiyu Shi**<p>
 **Guangyu Chen**<p>
 **Pan Li**<p>
-**JinGu**<p>
+**Jin Gu**<p>
 **Congshan lv**<p>
