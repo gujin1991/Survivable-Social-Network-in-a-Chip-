@@ -24,16 +24,19 @@ $(document).ready(function() {
 $("#status-ok").click(function(event) {
     event.preventDefault();
     updateStatus('OK');
+    sendLocation();
 });
 
 $("#status-help").click(function(event) {
     event.preventDefault();
     updateStatus('Help');
+    sendLocation();
 });
 
 $("#status-emergency").click(function(event) {
     event.preventDefault();
     updateStatus('Emergency');
+    sendLocation();
 });
 
 function updateStatus(newstatus) {

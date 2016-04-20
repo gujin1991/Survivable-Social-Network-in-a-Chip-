@@ -31,8 +31,8 @@ suite('SSNoC Unit Test - Administer', function () {
         });
 
     });
-    
-    test('Update Profile.', function (done) {
+
+    test('Update Profile Successfully', function (done) {
         var temp = new User();
         temp.initializeForAdmin("SSNAdmin","SSNAdminTest","1234","Citizen","inactive").updateProfileByAdmin(function(result) {
 
@@ -51,6 +51,15 @@ suite('SSNoC Unit Test - Administer', function () {
 
         });
         temp.initializeForAdmin("SSNAdminTest","SSNAdmin","admin","Administrator","active").updateProfileByAdmin(function(result) {
+            done();
+        });
+
+    });
+
+    test('Update Profile But username already exisits', function (done) {
+        var temp = new User();
+        temp.initializeForAdmin("SSNAdmin","TesterJin","1234","Citizen","inactive").updateProfileByAdmin(function(result) {
+            expect(result).to.equal(401);
             done();
         });
 

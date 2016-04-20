@@ -113,8 +113,6 @@ exports.updateProfile = function(req, res,sockets,io) {
             res.json({"statusCode":200, "message": "Info Saved."});
         }else if(result == 401){
             res.json({"statusCode":401, "message": "This Username is already existed"});
-        } else if(result == 400){
-            res.json({"statusCode":400, "message": "..."});
         }
     });
 }

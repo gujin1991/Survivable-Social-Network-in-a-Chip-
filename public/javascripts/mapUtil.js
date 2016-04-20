@@ -14,7 +14,7 @@ function sendLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             var relLocation = normalize(position.coords.longitude, position.coords.latitude);
-            alert("x " + relLocation.x + "\t" + "y " + relLocation.y);
+            //alert("x " + relLocation.x + "\t" + "y " + relLocation.y);
             var username = $('#myname').val();
             var status = $('#mystatus').val();
             var body = {"name": username, "status": status, "type": "user", "location": JSON.stringify(relLocation)};
@@ -32,6 +32,34 @@ function normalize(longitude, latitude) {
 }
 
 socket.on("updateMap", function (locations) {
-    //TODO implement it
-    console.log(locations);
+    clearMarkers();
+    for (item in locations) {
+        var obj = locations[item];
+        var location = JSON.parse(obj.location);
+        var name = obj.name;
+        var status = obj.status;
+        var isOnline = true;
+        addMarker(parseFloat(location.x),parseFloat(location.y),name,status,isOnline);
+    }
 });
+
+function clearMarkers() {
+    for(i=0;i<markers.length;i++) {
+        map.removeLayer(markers[i]);
+    }
+}
+sendLocation();
+//var timerId; // current timer if started
+//function clockStart() {
+//    if (timerId) return;
+//
+//    timerId = setInterval(sendLocation, 10000);
+//    sendLocation();  // (*)
+//}
+//
+//function clockStop() {
+//    clearInterval(timerId);
+//    timerId = null
+//}
+
+//clockStart();
