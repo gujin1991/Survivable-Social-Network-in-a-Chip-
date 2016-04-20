@@ -50,7 +50,12 @@ Map.prototype.delete = function (req, res, io) {
     loc.deleteLocation(name, function (name, code) {
         // ignore return value
         console.log(name + " " + code);
-        res.end();
+      
+        if (code == 400) {
+            res.json({"statusCode":400, "message": "No such location"});
+        } else {
+            res.end();
+        }
     });
     loc.getLocation(function (err, newLocations) {
         if (err) {
