@@ -37,17 +37,17 @@ socket.on("updateMap", function (locations) {
         var obj = locations[item];
         var location = JSON.parse(obj.location);
         var name = obj.name;
-        var status = obj.status;
-        var isOnline = true;
-        addUserMarker(parseFloat(location.x),parseFloat(location.y),name,status,isOnline);
+        var type = obj.type;
+        if (type == "user") {
+            var status = obj.status;
+            var isOnline = true;
+            addUserMarker(parseFloat(location.x),parseFloat(location.y),name,status,isOnline);
+        } else {
+            addFacilityMarker(parseFloat(location.x),parseFloat(location.y),name,type);
+        }
     }
 });
 
-function clearMarkers() {
-    for(i=0;i<markers.length;i++) {
-        map.removeLayer(markers[i]);
-    }
-}
 sendLocation();
 //var timerId; // current timer if started
 //function clockStart() {

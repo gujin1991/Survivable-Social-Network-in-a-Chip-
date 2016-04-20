@@ -8,11 +8,6 @@ socket.on('connect', function () {
     socket.emit('login',$("#myname").val());
 });
 
-// add location labels for users
-socket.on('updatelocation', function(response){
-
-});
-
 $(document).ready(function() {
     //addUserMarker(0.2,0.3,"Sarah","OK",true);
     //addUserMarker(0.25,0.35,"John","Help",true);
@@ -20,6 +15,9 @@ $(document).ready(function() {
     //addUserMarker(0.59,0.6,"Ann","Undefined",true);
     //addUserMarker(0.5,0.5,"Congshan","Help",false);
     //addUserMarker(0.18572801024789864, 0.6462580779653598, "Me", "OK", true);
+    //addFacilityMarker(0.2,0.3,"med1", "medicine");
+    //addFacilityMarker(0.39,0.15,"fd1", "food");
+    //addFacilityMarker(0.59,0.6,"wt1","water");
 });
 
 function addUserMarker(x,y,username,status,isOnline) {
@@ -62,59 +60,41 @@ function addUserMarker(x,y,username,status,isOnline) {
 }
 
 function addFacilityMarker(x,y,name,type) {
-    //medicine, food, water
-
+    var w = 1800*x;
+    var h = 1200*y;
+    var m = {
+        x: w,
+        y: h
+    };
+    var marker;
+    var markerStyle;
+    if (type == "medicine") {
+        markerStyle = L.AwesomeMarkers.icon({
+            icon: 'fa-medkit', markerColor: 'lightred', prefix: 'fa'
+        });
+    } else if (type == "food") {
+        markerStyle = L.AwesomeMarkers.icon({
+            icon: 'fa-cutlery', markerColor: 'lightgreen', prefix: 'fa'
+        });
+    } else if (type == "water") {
+        markerStyle = L.AwesomeMarkers.icon({
+            icon: 'fa-tint', markerColor: 'lightblue', prefix: 'fa'
+        });
+    } else {
+        markerStyle = L.AwesomeMarkers.icon({
+            icon: 'question-circle', markerColor: 'lightblue', prefix: 'fa'
+        });
+    }
+    marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom()-0.5), {icon: markerStyle});
+    marker.bindLabel(name, { noHide: true,direction: 'auto'});
+    marker.addTo(map);
+    markers.push(marker);
 }
 
-/**
- * x: [0,1]; y: [0,1];
- * [0,0] -- left btm, [0,1] -- right btm, [1,0] -- left top, [1,1] -- right top
- * */
-function addLabel(x, y, username, status, isOnline) {
-    var map = $('#map-img');
-    var position = map.position();
-
-    var top = position.top;
-    var left = position.left;
-
-    var div = $('<div>', {});
-    var element;
-    var element_top = top + (1 - y)*map.outerHeight();
-    var element_left = left + x*map.outerWidth();
-
-    if (isOnline) {
-        element = $('<img />',
-            {
-                src: '../images/icons/onlinepin.png',
-                alt: 'pin',
-                width: 20,
-                height: 20
-            });
-        element_top = element_top - element.height();
-        element_left = element_left - element.width()/2;
-        console.log(element.width(), element.height());
-        div.css({position: 'absolute', 'left': element_left, 'top': element_top});
-        element.css({'color': "red"});
-    } else {
-        element = $('<img />',
-            {
-                src: '../images/icons/offlinepin.png',
-                alt: 'pin',
-                width: 20,
-                height: 20
-            });
-        element_top = element_top - element.height();
-        element_left = element_left - element.width()/2;
-        console.log(element.width(), element.height());
-        div.css({position: 'absolute', 'left': element_left, 'top': element_top});
-        element.css({'color': "grey"});
+function clearMarkers() {
+    for(i=0;i<markers.length;i++) {
+        map.removeLayer(markers[i]);
     }
-    var userInfo = $('<span class="label label-info label-map">' + username + '</span>');
-    div.append(element);
-    div.append(userInfo);
-    //$("#map").append(element);
-    //$("#map").append(userInfo);
-    $('#map').append(div);
 }
 
 //function thirty_pc() {
