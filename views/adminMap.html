@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
     <link rel="stylesheet" href="stylesheets/map.css">
     <link rel="stylesheet" href="stylesheets/navbar.css">
+    <link rel="stylesheet" href="stylesheets/leaflet.css"/>
+    <link rel="stylesheet" href="stylesheets/leaflet.label.css" />
+    <link rel="stylesheet" href="stylesheets/leaflet.awesome-markers.css" />
 </head>
 <body>
 <!--Navigation bar -->
@@ -65,39 +68,20 @@
         <input type="hidden" id="mystatus" value="<%=status%>">
         <!-- main column -->
         <div id="leftcontent" class="col-md-10 col-md-offset-1 main">
-
             <div class="jumbotron">
-                <div class="input-group">
-                    <input id="focusedInput" type="text" class="form-control" placeholder="Enter your place here...">
-                 <span class="input-group-btn">
-                     <button id="cancel-btn" type="submit" class="btn btn-danger">
-                         <i class="fa fa-times"></i>
-                     </button>
-                     <button id="post-btn" type="submit" class="btn btn-info">
-                         <i class="fa fa-search" aria-hidden="true"></i>
-                     </button>
-                 </span>
-                </div>
-                <div id="admin-map-container">
-                    <div id="admin-map">
-                        <img id="map-img" src="../images/CMUCampusMap.png" class="img-responsive center-block"
-                             alt="Responsive image">
-                    </div>
-                </div>
-                <div id="map-panel">
-                    <div id="add-loc-button">
-                        <button type="button" class="btn btn-primary" id="med-btn">
-                            <i class="fa fa-plus-square" aria-hidden="true"></i> Medicine
+                <div id="admin-map-container" class="well well-sm">
+                    <div id="add-loc-button" class="btn-group pull-right" role="group">
+                        <button type="button" class="btn btn-danger" id="med-btn">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i> Med
                         </button>
-                        <button type="button" class="btn btn-primary" id="food-btn">
+                        <button type="button" class="btn btn-success" id="food-btn">
                             <i class="fa fa-ship" aria-hidden="true"></i> Food
                         </button>
-                        <button type="button" class="btn btn-primary" id="water-btn">
+                        <button type="button" class="btn btn-info" id="water-btn">
                             <i class="fa fa-coffee" aria-hidden="true"></i> Water
                         </button>
                     </div>
-                    <div id="loc-list">
-                        panel2
+                    <div id="admin-map" class="well well-sm">
                     </div>
                 </div>
             </div>
@@ -109,8 +93,42 @@
 <script src="javascripts/jquery.min.js"></script>
 <script src="javascripts/bootstrap.min.js"></script>
 <script src="javascripts/sweetalert.min.js"></script>
-<script src="javascripts/sharestatus.js"></script>
-<script src="javascripts/map.js"></script>
 <script src="javascripts/adminMap.js"></script>
+<script src="javascripts/sharestatus.js"></script>
+<script src="javascripts/leaflet.js"></script>
+<script src="javascripts/leaflet.label-src.js"></script>
+<script src="javascripts/leaflet.awesome-markers.js"></script>
+
+<!--TODO delete mapUtil for demo-->
+
+
+<script>
+    var map = L.map('admin-map', {
+        maxZoom: 3,
+        minZoom: 1,
+        crs: L.CRS.Simple
+    }).setView([900, 600], 1);
+
+    var w = 1800;
+    var h = 1200;
+    var url = '../images/CMUCampusMap.png';
+
+    var southWest = map.unproject([0, h], map.getMaxZoom() - 0.5);
+    var northEast = map.unproject([w, 0], map.getMaxZoom() - 0.5);
+    var bounds = new L.LatLngBounds(southWest, northEast);
+
+    map.setMaxBounds(bounds);
+    L.imageOverlay(url, bounds).addTo(map);
+
+    map.on('click', function (e) {
+        var x = e.latlng.lng;
+        var y = e.latlng.lat;
+        var relLocation = specialNormalize({"x": x, "y": y});
+        addMark(relLocation);
+//        alert(relLocation.x + " " + relLocation.y);
+    });
+
+</script>
+
 </body>
 </html>

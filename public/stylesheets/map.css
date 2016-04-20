@@ -15,36 +15,42 @@ body {
 }
 .jumbotron {
     /*padding-top: 1px;*/
-    margin: 71px 0 20px;
-    height: 90%;
-    min-height: 400px;
+    margin: 61px 0 10px;
+    height: 85%;
+    min-height: 500px;
     background-color: rgba(191, 191, 191, 0.3);
 }
-#map-container {
-    height: 100%;
-}
+
 #admin-map-container {
-    height: 100%;
-    width: 70%;
-    float: left;
+    height: 90%;
+    min-height: 500px;
+    margin-bottom: auto;
 }
+
 #admin-map {
-    height: 100%;
-    overflow: scroll;
-    padding: 10px;
-    background-color: rgba(191, 191, 191, 0.3);
-}
-#map {
-    height: auto;
-    min-height: 400px;
+    height: 85%;
+    min-height: 480px;
     width: 100%;
-    overflow: scroll;
-    padding: 10px;
-    background-color: rgba(191, 191, 191, 0.3);
 }
+
+#map-container {
+    height: 90%;
+    min-height: 500px;
+    margin-bottom: auto;
+}
+
+#map {
+    height: 85%;
+    min-height: 480px;
+    width: 100%;
+    /*overflow: scroll;*/
+    /*background-color: rgba(191, 191, 191, 0.3);*/
+}
+
 .my-btn-group {
     /*margin: 71px 0 0;*/
 }
+
 .label-map {
     background-color: rgba(0, 0, 0, 0.3);
 }

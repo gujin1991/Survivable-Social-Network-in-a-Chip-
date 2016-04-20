@@ -13,8 +13,8 @@ function Location(name, longitude, latitude, type, time) {
     this.locationDB = new LocationDB();
 }
 
-Location.prototype.addLocation = function(name, longitude, latitude, type, time, callback) {
-    this.locationDB.addLocation(name, longitude, latitude, type, time, callback);
+Location.prototype.addLocation = function(name, status, longitude, latitude, type, time, callback) {
+    this.locationDB.addLocation(name, status, longitude, latitude, type, time, callback);
 };
 
 Location.prototype.deleteLocation = function(name, callback) {

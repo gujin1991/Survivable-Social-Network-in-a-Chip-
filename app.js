@@ -288,6 +288,20 @@ app.post('/map', function (req,res) {
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
+app.post('/map/del', function (req,res) {
+    if(!testModeFlag) {
+        mapCtl.delete(req,res, io);
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
+app.post('/map/init', function (req,res) {
+    if(!testModeFlag) {
+        mapCtl.init(req,res, io);
+    }
+    else res.json({"statusCode": 410, "message": "In Test"});
+});
+
 io.on('connection', function(socket) {
     var myname;
     socket.on('login', function(username) {
