@@ -12,7 +12,7 @@ suite('SSNoC Unit Test - Location ', function () {
         location = new LocationDb();
         name = "testName";
     });
-
+  
     suite('SSNoC Unit Test - Location - Add ', function () {
 
         test('Test add location', function (done) {
