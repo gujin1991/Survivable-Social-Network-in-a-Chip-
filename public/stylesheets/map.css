@@ -20,23 +20,41 @@ body {
     min-height: 500px;
     background-color: rgba(191, 191, 191, 0.3);
 }
+
+#admin-map-container {
+    /*height: 100%;*/
+    /*width: 90%;*/
+    height: 90%;
+    min-height: 360px;
+    margin-bottom: auto;
+    /*float: left;*/
+}
+
+#admin-map {
+    height: 85%;
+    min-height: 360px;
+    width: 100%;
+    /*overflow: scroll;*/
+    /*padding: 10px;*/
+    /*background-color: rgba(191, 191, 191, 0.3);*/
+}
+
+#map-panel {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.my-btn {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 #map-container {
     height: 90%;
     min-height: 500px;
     margin-bottom: auto;
 }
-#admin-map-container {
-    height: 100%;
-    width: 70%;
-    float: left;
-}
-#admin-map {
-    height: auto;
-    min-height: 400px;
-    overflow: scroll;
-    padding: 10px;
-    background-color: rgba(191, 191, 191, 0.3);
-}
+
 #map {
     height: 85%;
     min-height: 480px;
@@ -44,9 +62,11 @@ body {
     /*overflow: scroll;*/
     /*background-color: rgba(191, 191, 191, 0.3);*/
 }
+
 .my-btn-group {
     /*margin: 71px 0 0;*/
 }
+
 .label-map {
     background-color: rgba(0, 0, 0, 0.3);
 }

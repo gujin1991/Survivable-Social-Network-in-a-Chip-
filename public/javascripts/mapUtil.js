@@ -40,7 +40,7 @@ socket.on("updateMap", function (locations) {
         var type = obj.type;
         if (type == "user") {
             var status = obj.status;
-            var isOnline = true;
+            var isOnline = obj.online;
             addUserMarker(parseFloat(location.x),parseFloat(location.y),name,status,isOnline);
         } else {
             addFacilityMarker(parseFloat(location.x),parseFloat(location.y),name,type);
