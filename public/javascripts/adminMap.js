@@ -59,11 +59,11 @@ function addMark(location) {
 
 function deleteMarker(name) {
     var body = {"name": name};
-    $.post('/mapdel', body);
+    $.post('/map/del', body);
 }
 
 function mapInit() {
-    $.post('/mapinit', {});
+    $.post('/map/init', {});
 }
 
 function addUserMarker(x, y, username, status, isOnline) {

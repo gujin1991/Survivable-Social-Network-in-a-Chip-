@@ -288,14 +288,14 @@ app.post('/map', function (req,res) {
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-app.post('/mapdel', function (req,res) {
+app.post('/map/del', function (req,res) {
     if(!testModeFlag) {
         mapCtl.delete(req,res, io);
     }
     else res.json({"statusCode": 410, "message": "In Test"});
 });
 
-app.post('/mapinit', function (req,res) {
+app.post('/map/init', function (req,res) {
     if(!testModeFlag) {
         mapCtl.init(req,res, io);
     }
