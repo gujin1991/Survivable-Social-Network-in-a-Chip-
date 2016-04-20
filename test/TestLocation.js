@@ -58,6 +58,6 @@ suite('SSNoC Unit Test - Location ', function () {
                 expect(retName).to.eql(malformatName);
                 done(); 
             }); 
-        });
+        }); 
     });
 }); 
