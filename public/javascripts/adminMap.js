@@ -7,6 +7,10 @@ socket.on('connect', function () {
 
 var markers = [];
 
+$(document).ready(function () {
+    mapInit();
+});
+
 $(document).keydown(function (event) {
     if (event.keyCode == 27) {
         cursor = 'default';
@@ -36,38 +40,31 @@ function specialNormalize(location) {
 
 function addMark(location) {
     if (cursor !== 'default') {
-        alert(cursor + location.x + location.y);
-        var username = $('#myname').val();
-        var body = {"name": username, "status": null, "type": cursor, "location": JSON.stringify(location)};
-        $.post('/map', body);
-        cursor = 'default';
+        swal({
+            title: "Sure to add " + cursor + "?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#33cc33",
+            confirmButtonText: "Yes, add it!",
+            closeOnConfirm: false
+        }, function () {
+            var username = $('#myname').val();
+            var body = {"name": username, "status": null, "type": cursor, "location": JSON.stringify(location)};
+            $.post('/map', body);
+            cursor = 'default';
+            swal("Added!", "Your " + cursor + " has been added.", "success");
+        });
     }
+}
+
+function deleteMarker(name) {
+    var body = {"name": name};
+    $.post('/mapdel', body);
 }
 
 function mapInit() {
     $.post('/mapinit', {});
 }
-
-$(document).ready(function () {
-    mapInit();
-});
-
-socket.on("updateMap", function (locations) {
-    clearMarkers();
-    for (item in locations) {
-        var obj = locations[item];
-        var location = JSON.parse(obj.location);
-        var name = obj.name;
-        var type = obj.type;
-        if (type == "user") {
-            var status = obj.status;
-            var isOnline = true;
-            addUserMarker(parseFloat(location.x), parseFloat(location.y), name, status, isOnline);
-        } else {
-            addFacilityMarker(parseFloat(location.x), parseFloat(location.y), name, type);
-        }
-    }
-});
 
 function addUserMarker(x, y, username, status, isOnline) {
     var w = 1800 * x;
@@ -123,7 +120,20 @@ function addFacilityMarker(x, y, name, type) {
         });
         marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom() - 0.5), {icon: markerStyle});
         marker.bindLabel(name, {noHide: true, direction: 'auto'});
-        marker.addEventListener('click', medicineClick);
+        marker.addEventListener('click', function () {
+            swal({
+                title: "Medicine",
+                text: "Are you sure you want to delete it?",
+                imageUrl: "images/icons/medicine.png",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function (name) {
+                deleteMarker(name);
+                swal("Deleted!", "This medicine repository has been removed", "success");
+            });
+        });
     } else if (type == "food") {
         markerStyle = L.AwesomeMarkers.icon({
             icon: 'fa-cutlery', markerColor: 'lightgreen', prefix: 'fa'
@@ -150,7 +160,20 @@ function addFacilityMarker(x, y, name, type) {
         });
         marker = L.marker(map.unproject([m.x, m.y], map.getMaxZoom() - 0.5), {icon: markerStyle});
         marker.bindLabel(name, {noHide: true, direction: 'auto'});
-        marker.addEventListener('click', waterClick);
+        marker.addEventListener('click', function () {
+            swal({
+                title: "Water",
+                text: "Are you sure you want to delete it?",
+                imageUrl: "images/icons/water.png",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                deleteMarker(name);
+                swal("Deleted!", "This water repository has been removed", "success");
+            });
+        });
     } else {
         markerStyle = L.AwesomeMarkers.icon({
             icon: 'question-circle', markerColor: 'lightblue', prefix: 'fa'
@@ -169,50 +192,19 @@ function clearMarkers() {
     }
 }
 
-function foodClick() {
-    swal({
-        title: "Food",
-        text: "Are you sure you want to delete it?",
-        imageUrl: "images/icons/food.png",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        closeOnConfirm: false
-    }, function () {
-        deleteMarker();
-        swal("Deleted!", "This food repository has been removed", "success");
-    });
-}
-
-function waterClick() {
-    swal({
-        title: "Water",
-        text: "Are you sure you want to delete it?",
-        imageUrl: "images/icons/water.png",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        closeOnConfirm: false
-    }, function () {
-        swal("Deleted!", "This water repository has been removed", "success");
-    });
-}
-
-function medicineClick() {
-    swal({
-        title: "Medicine",
-        text: "Are you sure you want to delete it?",
-        imageUrl: "images/icons/medicine.png",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        closeOnConfirm: false
-    }, function () {
-        swal("Deleted!", "This medicine repository has been removed", "success");
-    });
-}
-
-function deleteMarker(name) {
-    var body = {"name":name};
-    $.post('/mapdel', body);
-}
+socket.on("updateMap", function (locations) {
+    clearMarkers();
+    for (item in locations) {
+        var obj = locations[item];
+        var location = JSON.parse(obj.location);
+        var name = obj.name;
+        var type = obj.type;
+        if (type == "user") {
+            var status = obj.status;
+            var isOnline = true;
+            addUserMarker(parseFloat(location.x), parseFloat(location.y), name, status, isOnline);
+        } else {
+            addFacilityMarker(parseFloat(location.x), parseFloat(location.y), name, type);
+        }
+    }
+});
