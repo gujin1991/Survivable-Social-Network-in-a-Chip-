@@ -14,17 +14,15 @@ socket.on('updatelocation', function(response){
 });
 
 $(document).ready(function() {
-    //addMarker(0.2,0.3,"Sarah","OK",true);
-    //addMarker(0.25,0.35,"John","Help",true);
-    //addMarker(0.39,0.15,"Taylor","Emergency",true);
-    //addMarker(0.59,0.6,"Ann","Undefined",true);
-    //addMarker(0.5,0.5,"Congshan","Help",false);
-    //addMarker(0.18572801024789864, 0.6462580779653598, "Me", "OK", true);
+    //addUserMarker(0.2,0.3,"Sarah","OK",true);
+    //addUserMarker(0.25,0.35,"John","Help",true);
+    //addUserMarker(0.39,0.15,"Taylor","Emergency",true);
+    //addUserMarker(0.59,0.6,"Ann","Undefined",true);
+    //addUserMarker(0.5,0.5,"Congshan","Help",false);
+    //addUserMarker(0.18572801024789864, 0.6462580779653598, "Me", "OK", true);
 });
 
-function addMarker(x,y,username,status,isOnline) {
-    map.setMaxBounds(bounds);
-    L.imageOverlay(url, bounds).addTo(map);
+function addUserMarker(x,y,username,status,isOnline) {
     var w = 1800*x;
     var h = 1200*y;
     var m = {
@@ -61,6 +59,11 @@ function addMarker(x,y,username,status,isOnline) {
     marker.bindLabel(username, { noHide: true,direction: 'auto'});
     marker.addTo(map);
     markers.push(marker);
+}
+
+function addFacilityMarker(x,y,name,type) {
+    //medicine, food, water
+
 }
 
 /**
