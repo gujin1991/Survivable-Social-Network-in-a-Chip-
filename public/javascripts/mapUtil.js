@@ -16,7 +16,8 @@ function sendLocation() {
             var relLocation = normalize(position.coords.longitude, position.coords.latitude);
             //alert("x " + relLocation.x + "\t" + "y " + relLocation.y);
             var username = $('#myname').val();
-            var body = {"name": username, "type": "user", "location": JSON.stringify(relLocation)};
+            var status = $('#mystatus').val();
+            var body = {"name": username, "status": status, "type": "user", "location": JSON.stringify(relLocation)};
             $.post('/map', body);
         });
     } else {

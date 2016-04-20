@@ -23,6 +23,7 @@ Map.prototype.directMap = function (req, res) {
 Map.prototype.addMark = function (req, res, io) {
     var type = req.body.type;
     var name = req.body.name;
+    var status = req.body.status;
     if (type != 'user') {
         var count = parseInt(counter[type]) + 1;
         counter[type] = count;
@@ -31,7 +32,7 @@ Map.prototype.addMark = function (req, res, io) {
 
     var location = JSON.parse(req.body.location);
     var time = now();
-    loc.addLocation(name, location.x, location.y, type, time, function (name, code) {
+    loc.addLocation(name, status, location.x, location.y, type, time, function (name, code) {
         res.end();
     });
     loc.getLocation(function (err, newLocations) {
