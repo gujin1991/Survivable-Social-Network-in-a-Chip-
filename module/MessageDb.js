@@ -77,7 +77,7 @@ MessageDb.prototype.getHistoryByKey = function (keyword, callback) {
 
 
         dbTemp.all(q, function (err, rows) {
-            console.log(keyword + " keyword" + rows);
+            //console.log(keyword + " keyword" + rows);
             callback(rows);
         })
     });
