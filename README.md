@@ -1,7 +1,7 @@
 # Survivable Social Network on a Chip
 [![Circle CI](https://circleci.com/gh/cmusv-fse/S16-A1-SSNoC.svg?style=svg&circle-token=6ed87de446f9e2d41244cdf91fd8ef440d2cca61)](https://circleci.com/gh/cmusv-fse/S16-A1-SSNoC)
 ##Description
-A Survivable Social Network on deployed on a system­-on­-chip board.
+A Survivable Social Network deployed on a system­-on­-chip board.
 ##Contributors
 **Jiyu Shi,** **Guangyu Chen,** **Pan Li,** **Jin  Gu,** **Congshan Lv**
 ##How to run?
