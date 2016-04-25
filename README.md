@@ -7,13 +7,16 @@ A Survivable Social Network on deployed on a system­-on­-chip board.
 ##How to run?
 * Clone this repo to your local machine and enter its root folder
 * Make sure you have installed [Node.js](https://nodejs.org), [npm](https://www.npmjs.com) and [SQLite3](https://www.sqlite.org/).
-In project root folder, run:
-```bash
+* In project root folder, run:
+
+	``` bash
+./conf/FseDbInit.sh
 node app
 ```
-The server will run automatically in port 3001. <p>
-In browser, you can try to open the index page on:
+* The server will run automatically in port 3001.
+* In browser, you can try to open the index page on:
 [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
+
 ##Documents
 [Demo Slides](doc/TeamA1-FinalPresentation.pdf)<p>
 [Architecture Haiku](doc/ArchitectureHaiku_TeamA1.pdf)
