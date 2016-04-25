@@ -15,5 +15,5 @@ The server will run automatically in port 3001. <p>
 In browser, you can try to open the index page on:
 [http://127.0.0.1:3001/](http://127.0.0.1:3001/)
 ##Documents
-[Demo Slides](S16-A1-SSNoC/blob/master/doc/TeamA1-FinalPresentation.pdf)<p>
-[Architecture Haiku](S16-A1-SSNoC/blob/master/doc/ArchitectureHaiku_TeamA1.pdf)
+[Demo Slides](doc/TeamA1-FinalPresentation.pdf)<p>
+[Architecture Haiku](doc/ArchitectureHaiku_TeamA1.pdf)
